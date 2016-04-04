@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/one.style.css">
+	<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
+	 <script src="assets/plugins/jquery/jquery.min.js"></script>
+	<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
+	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/dist/dragula.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi?key=356376333244-3vlb9bt7qjilchlc0k2c8kbc64gblo45.apps.googleusercontent.com"></script>
+    <style type="text/css">
+    #calendar{
+    	height:700px
+    }
+    #sist{
+    	width:4500px;
+    	height: 700px;
+    	position: relative;	
+    }
+    #cardList{
+		/* position: relative; */
+    }
+    .cList{
+    	max-height : 700px;
+    	width:300px;
+    	margin: 5px;
+    	overFlow : auto;
+    	background-color:#d3d3d3;
+    	border-radius: 0.75em;
+		
+    }
+    .listHeader{
+    	margin: 2px;
+    	font: bold;
+    	font-size: 25px;
+    	
+    }
+    .cardInsert{
+    	margin: 2px;
+    }
+    .bloc{
+    	padding: 10px;
+    }
+    </style>
+   
+<script type="text/javascript">
+var i=0;
+
+$(document).ready(function(){
+	$(this).on("click","#listBtn",function(){
+		$('#cardList').append("<div class='col-md-1 cList'><div class='listHeader'>header</div>"+
+				"<div class='bloc'></div><input type='button' value='insert' class='cardInsert'/></div>");
+	});
+	$(this).on("click",".cardInsert",function(){
+		alert('click');
+		$(this).siblings(".bloc").append("<div class='bloc--inner'>I'll stay here.</div>");
+	});
+	
+	dragula(document.querySelector('.bloc--inner'), {
+	    moves: function(el, container, handle) {
+	    	alert('dragula');
+	      return !handle.classList.contains('.bloc');
+	    }
+	});
+  	dragula([].slice.apply(document.querySelectorAll('.bloc')), {
+    	direction: 'horizontal'
+ 	}); 
+
+
+});
+
+</script>
+<title>오늘 일을 내일로 미루자</title>
+</head>
+<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
+
+	<!--=== Header ===-->
+	<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="menu-container page-scroll">
+				<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				-->
+				<a class="navbar-brand" href="#intro">
+					<span>오</span>내미
+					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
+				</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<div class="menu-container">
+					<ul class="nav navbar-nav">
+						<li class="page-scroll home">
+							<a href="#body"><span class="glyphicon glyphicon-home"></span>집으로</a>
+						</li>
+						<li class="page-scroll home">
+							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>로그인</a>
+						</li>
+						<li class="page-scroll home">
+							<a href="#services"><span class="glyphicon glyphicon-user"></span>회원가입</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+	<!--=== End Header ===-->
+	 <div id="sist" class="row">
+	    <div class=" col-md-2 half" id='calendar'>
+    	<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=ko.south_korea%23holiday%40group.v.calendar.google.com&amp;color=%23125A12&amp;ctz=Asia%2FSeoul" style="border-width:0" width="600" height="600" frameborder="0" scrolling="no"></iframe>
+   		 </div>
+		 <div class="col-md-10 half" id ='cardList' >
+		 	<input type='button' value='list' id='listBtn'/>
+		 	<br>
+		    <div class="col-md-1 cList"  id="cList1"  >	
+		    	<div class="listHeader">header</div>
+		    	<div class="bloc" >
+				</div>
+				<input type="button" value="insert" class="cardInsert">	
+		    </div>
+		    <div class="col-md-1 cList"  id="cList2">		    	
+		    	<div class="listHeader">header</div>
+		    	<div class="bloc" >
+				</div>
+				<input type="button" value="insert" class="cardInsert">	
+		    </div>
+
+
+	    </div>
+    </div>
+ 
+    
+	
+	</body>
+		<!-- JS Global Compulsory -->
+
+</html>
