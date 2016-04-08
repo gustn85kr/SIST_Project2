@@ -1,111 +1,157 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html >
 <html>
 <head>
-<meta charset="EUC-KR">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/one.style.css">
-	<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
-	 <script src="assets/plugins/jquery/jquery.min.js"></script>
-	<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
-	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/dist/dragula.js"></script>
-    <script type="text/javascript" src="http://www.google.com/jsapi?key=356376333244-3vlb9bt7qjilchlc0k2c8kbc64gblo45.apps.googleusercontent.com"></script>
-    
-   
-<script type="text/javascript">
-$(document).ready(function(){
-		  dragula(document.querySelector('.bloc--inner'), {
-			    moves: function(el, container, handle) {
-			      return !handle.classList.contains('.bloc');
-			    }
-			  });
-
-		 
-		  dragula([].slice.apply(document.querySelectorAll('.bloc')), {
-		    direction: 'horizontal'
-		  });
-});
-
-</script>
-<title>Ïò§Îäò ÏùºÏùÑ ÎÇ¥ÏùºÎ°ú ÎØ∏Î£®Ïûê</title>
-</head>
-<body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
-
-	<!--=== Header ===-->
-	<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="menu-container page-scroll">
-				<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				-->
-				<a class="navbar-brand" href="#intro">
-					<span>Ïò§</span>ÎÇ¥ÎØ∏
-					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
-				</a>
-			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<div class="menu-container">
-					<ul class="nav navbar-nav">
-						<li class="page-scroll home">
-							<a href="#body"><span class="glyphicon glyphicon-home"></span>ÏßëÏúºÎ°ú</a>
-						</li>
-						<li class="page-scroll home">
-							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>Î°úÍ∑∏Ïù∏</a>
-						</li>
-						<li class="page-scroll home">
-							<a href="#services"><span class="glyphicon glyphicon-user"></span>ÌöåÏõêÍ∞ÄÏûÖ</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container -->
-	</nav>
-	<!--=== End Header ===-->
-	 <div id="sist">
-	    <div class="col-md-6 half">
-    	<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=ko.south_korea%23holiday%40group.v.calendar.google.com&amp;color=%23125A12&amp;ctz=Asia%2FSeoul" style="border-width:0" width="600" height="600" frameborder="0" scrolling="no"></iframe>
-    </div>
-	 <div class="col-md-6 half">
-	    <div class="col-md-4" style="background-color:yellow;" id="test1">
-	    	<input type="button" value="insert"/>
-	    	<div class="plz">header</div>
-	    	<div class="bloc">
-		      	<div class="bloc--inner">Move me, but you can only drop me in one of these containers.</div>
-				<div class="bloc--inner">If you try to drop me somewhere other than these containers, I'll just come back.</div>
-				<div class="bloc--inner">Item 3.</div>
-				<div class="bloc--inner">Item 6.</div>
-			</div>
-	    </div>
-	    <div class="col-md-4 bloc" style="background-color:pink;" id="test2">
-		    <div class="bloc">
-		    	<div class="bloc--inner">You can drop me in the left container, otherwise I'll stay here.</div>
-				<div class="bloc--inner">Item 4.</div>
-				<div class="bloc--inner">Item 5.</div>
-			</div>
-	    </div>
-	    <div class="col-md-4 bloc" style="background-color:red;" id="test3">
-		    <div class="bloc">
-		    	<div class="bloc--inner">test</div>
-		    	<div class="bloc--inner">test</div>
-		    	<div class="bloc--inner">test</div>
-		    	<div class="bloc--inner">test</div>
-		    </div>
-	    </div>
-    </div>
-    </div>
- 
-    
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+<style type="text/css">
+body{
+		font-family:'Malgun Gothic';
+		font-size: 15px;
+		padding : 20px;
+}
+#modalBody{
+	background-color: white;
+	padding:20px;
+}
+#modalTitle{
+	border : 1px solid;
+	margin:20px;
+	padding:20px;
+	border-radius : 3px;
+}
+#content{
+	height : 50px;
+	border: 2px;
 	
-	</body>
-		<!-- JS Global Compulsory -->
+}
+#glypTitle{
+	font-size: 25px;
+}
 
+#mytextarea{
+	
+}
+#modalTextarea{
+
+}
+#insertContent{
+	text-decoration: underline;
+}
+#insertContext:HOVER {
+	color : gray;
+	font-size: 150%;
+}
+#listName{
+	padding-left:20px;
+}
+#contentText{
+	font-size : 15px;
+}
+#sideBar{
+	
+	padding : 10px;
+
+}
+
+</style>
+</head>
+<body>
+	
+	<div class="modal-content" id="modalBody">
+		<div class="row">
+			 <p1></p1>     <%-- ∂Û∫ß ªˆ µÈæÓ∞°¥¬∞˜ --%>
+		     <p2></p2>
+		     <p3></p3>
+		     <p4></p4>
+		     <p5></p5>
+		     <p6></p6>   
+			<div id="content" >
+				
+			</div>
+			<div class="col-sm-9">
+				<div id="modalTitle">
+					<span class="glyphicon glyphicon-list-alt" id="glypTitle">¡¶∏Ò</span><span id="listName">list name</span>
+					<div id="modalTextarea">
+						<div id="contentText" style="font: bold;">ºº∫Œ ≥ªøÎ <span id="insertContent"> ºˆ¡§ </span></div>
+						<div id="newTA" style="display:none">
+						 	<textarea id="mytextarea" >
+	  					  	</textarea>
+		  					<button type="button" class="btn btn-default btn-sm" id="contentInsert">¿‘∑¬</button>
+		  					<button type="button" class="btn btn-default btn-sm" id="contentCancel" >√Îº“</button>
+  					  </div>
+  					  <div id="showContent" style="display:none">
+  					  
+  					  </div>
+				</div>
+				</div>
+				
+			</div>
+			<div class="col-sm-3" id="sideBar">
+				<div class="dropdown">
+				<button type="button" class="btn btn-default btn-sm">
+		          <span class="glyphicon glyphicon-time" ></span>  ±‚∞£ º≥¡§
+		        </button>
+		        <br/><br/>
+		        <button type="button" class="btn btn-default btn-sm">
+		          <span class="glyphicon glyphicon-user" ></span>  ¿Œø¯ √ﬂ∞°
+		        </button>
+		        <br/><br/>
+           			<button type="button" class="btn btn-default btn-sm" data-toggle="dropdown">
+              			<span class="glyphicon glyphicon-send"></span> SNS∞¯¿Ø
+              			<span class="caret"></span>
+            			<ul class="dropdown-menu">
+					          <li><a href="#">FaceBook</a></li>
+					          <li><a href="#">Twitter</a></li>
+          				</ul>
+      				</button>
+        		</div>
+        		<br>                          <%-- ∂ŸæÓ --%>        
+		        <button type="button" class="btn btn-default btn-sm">
+		          <span class="glyphicon glyphicon-paperclip" ></span>  ∆ƒ¿œ√∑∫Œ
+		        </button>
+		        <br><br>                       <%-- ∂ŸæÓ --%>
+		        
+		         <button type="button" class="btn btn-default btn-sm">
+		          <span class="glyphicon glyphicon-envelope"></span>  ∏ﬁ¿œ
+		        </button>          
+		         
+		         <br><br>                       <%-- ∂ŸæÓ --%>
+		         
+		         <button type="button" class="btn btn-default btn-sm">
+		          <span class="glyphicon glyphicon-ok"></span> √º≈©∏ÆΩ∫∆Æ
+		        </button>
+		        
+		         <br><br>                        <%-- ∂ŸæÓ --%>
+		        
+		        <button type="button" class="btn btn-default btn-sm">
+		          <span class="glyphicon glyphicon-map-marker"></span> ¿ßƒ°º≥¡§
+		        </button>
+		        
+		        <br><br>                          <%-- ∂ŸæÓ --%>
+		        
+		       <button type="button" class="btn btn-default btn-sm">
+		          <span class="glyphicon glyphicon-star"></span> øÏº±º¯¿ß º≥¡§
+		        </button>
+		       
+		       <br><br> 
+		       <div class="dropdown">
+       			    <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown">
+             			 <span class="glyphicon glyphicon-tags"></span> ∂Û∫ß
+       				     <span class="caret"></span></button>
+          			<ul class="dropdown-menu">
+				          <li><button class="w3-btn w3-red" id="btn1">ª°∞≠</button></li>              <%-- ∂Û∫ß ªˆ --%>
+				          <li><button class="w3-btn w3-yellow" id="btn3">≥Î∂˚</button></li>
+				          <li><button class="w3-btn w3-green" id="btn5">√ ∑œ</button></li>
+				          <li><button class="w3-btn w3-pink" id="btn7">∫–»´</button></li>
+				          <li><button class="w3-btn w3-black" id="btn9">∞À¡§</button></li>
+        		  </ul>
+     		   </div>     
+		    
+			</div>
+		</div>
+	
+	</div>
+</body>
 </html>

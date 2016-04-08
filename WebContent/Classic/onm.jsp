@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
@@ -8,120 +9,334 @@
 	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/one.style.css">
 	<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
-	 <script src="assets/plugins/jquery/jquery.min.js"></script>
+	
+	
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">    <%-- css --%>
+	
+	
+	<link rel='stylesheet' href='calendar/jquery-ui.min.css' />
+   	<link href="calendar/fullcalendar.css" rel="stylesheet" />
+   	<link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
+   	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+   	
+    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="calendar/moment.min.js"></script>
+	<script src="calendar/fullcalendar.min.js"></script>
+	
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
+	
 	<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
-	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/dist/dragula.js"></script>
-    <script type="text/javascript" src="http://www.google.com/jsapi?key=356376333244-3vlb9bt7qjilchlc0k2c8kbc64gblo45.apps.googleusercontent.com"></script>
-    <style type="text/css">
-    .listFoot{
-    	text-decoration : underline;
-    	text-align : center;
-    	margin : 5px;
-    	background-color : #d3d3c9;
+	<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+	
+ 	
+  
 
-		width :250px;	
-    }
-   .footText{
-    	width:250px;
-    }
-    .footInput{
-  		width : 250px; 
+    <style type="text/css">
+body{
+	font-family:'Malgun Gothic';
+}
+
+.bar {
+    width: 100px;
+    height: 20px;
+    margin: 2px;
+    border: 1px solid black;
+    background-color: lightgreen;
+    text-align: center;
+    float: left;
+    margin: 2px;
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+ 
+.list {
+    background-color: #FFFFFF; 
+    border: 1px solid;
+    border-radius: 2em;
+    margin: 5px;
+    padding : 5px;
+    font-size: 20px;
+    word-break:break-all;
+    
+
+}
+ 
+.items .ui-selected {
+    background: red;
+    color: white;
+    font-weight: bold;
+}
+ 
+.items {
+    list-style-type: none;
+ 	margin:0;
+ 	padding: 10px;
+ 
+    
+}
+ 
+.items li {
+    margin: 2px;
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+ 
+.weekday {
+
+    width: 300px;
+    padding: 5px;
+    border: 1px solid green;
+    border-radius: 0.75em;	
+    background-color: #65BD13;
+
+    margin: 5px;
+    
+    /* max-height : 700px; */   
+}
+ 
+.availablelist {
+    background-color: orange;
+    display: inline;
+}
+    
+    #draggablePanelList .panel-heading {
+        cursor: move;
     } 
-    #calendar{
-    	height:700px
-    }
+   #calendar_attr {
+  
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar_container {
+		position:relative;
+		top:700px;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
     #sist{
-    	width:4500px;
+    	/* width:4500px; */
     	height: 700px;
+    		
     }
     #cardList{
-		/* position: relative; */
     }
-    .cList{
-    	position:relative;
-    	max-height : 700px;
-    	width:300px;
-    	margin: 5px;
-    	overFlow : auto;
-    	background-color:#d3d3d3;
-    	border-radius: 0.75em;	
-    }
+
     .listHeader{
     	margin: 2px;
     	font: bold;
-    	font-size: 25px;    	
+    	font-size: 25px;
+    	
+    }
+
+   .footText{
+    	width:280px;
+    }
+    .footInput{
+  		width : 280px; 
+  		text-align : center;
+  		margin : 5px;
+  		height: 50px;
+    } 
+    .footInput textarea{
+    	width:280px;
     }
     .cardInsert{
-    	margin: 2px;
+    	margin-left: 100px;
     }
-    .bloc{
-    	padding: 5px;
+    .listHeader{
+    	margin:5px;
+    	height: 20px;
     }
+    .listHeader p{
+    	color :white;
+    	font-size:20px;
+    	margin: 5px;
+    }
+    #calendar{
+
+    }
+	#cardDetail .modal-dialog {
+		width:75%
+	}
+	
     </style>
    
 <script type="text/javascript">
-var i=0;
+
 
 $(document).ready(function(){
-	$(this).on("click",".footText",function(){
-		$(this).css('display', 'none');
-		$(this).siblings(".footInput").css('display', 'inline'); 
-	});
-	$(this).on("click",".cardCancel",function(){
-		$(this).parent(".footInput").css('display', 'none');
-		$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
-	});
-	$(this).on("click",".bloc--inner",function(){
-		$('#cardDetail').modal();
-	});
-	
-	dragula(document.querySelector('.bloc--inner'), {
-	    moves: function(el, container, handle) {
-	    	alert('dragula');
-	      return !handle.classList.contains('.bloc');
-	    }
-	});
-  	dragula([].slice.apply(document.querySelectorAll('.bloc')), {
-    	direction: 'horizontal'
- 	});
-  	
-  	
-	
-	$(this).on("click","#listBtn",function(){
-		$('#cardList').append("<div class='col-md-1 cList'><div class='listHeader'>header</div>"+
-				"<div class='bloc'></div><div class='listFoot'><div class='footText'>일정추가하기</div>"+
-				"<div class='footInput' style='display:none;'> <textarea cols='30' rows='3'></textarea>"+
-				"<input type='button' value='추가' class='cardInsert'/> <input type='button' value='취소' class='cardCancel'/>"+
-				"</div></div></div> ");
-		dragula(document.querySelector('.bloc--inner'), {
-		    moves: function(el, container, handle) {
-		    	alert('dragula');
-		      return !handle.classList.contains('.bloc');
-		    }
-		});
-	  	dragula([].slice.apply(document.querySelectorAll('.bloc')), {
-	    	direction: 'horizontal'
-	 	}); 
+		$('#calendar').fullCalendar({
+		theme: true,
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		defaultDate: '2016-04-02',
+		selectable: true,
+		selectHelper: true,
+		select: function(start, end) {
+			var title = prompt('내용을 입력해주세요');
+			var eventData;
+			if (title) {
+				eventData = {
+					title: title,
+					start: start,
+					end: end
+				};
+				$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+			}
+			$('#calendar').fullCalendar('unselect');
+		},
+		editable: true,
+		eventLimit: true, // allow "more" link when too many events
+		events: [
+			{
+				title: 'All Day Event',
+				start: '2014-11-01'
+			},
+			{
+				title: 'Long Event',
+				start: '2014-11-07',
+				end: '2014-11-10'
+			}
 		
+		]
 	});
-	$(this).on("click",".cardInsert",function(){
-		var text = $(this).siblings('textarea').val();
-		$(this).siblings('textarea').val("")
-		$(this).parents(".listFoot").siblings('.bloc').append("<div class='bloc--inner'>"+text+"</div>");
-		$(this).parent(".footInput").css('display', 'none');
-		$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
-	});
+		$(this).on("click",".list",function(){
+			$('#cardDetail').modal();
+		});
+  	    $("#timetable .items").sortable({
+  	            connectWith: "ul"        
+  	    });
+  	    $("ul[id^='available']").draggable({
+  	        helper: "clone",
+  	        connectToSortable: ".items"
+  	    });
+  	    $(this).on("click",".footText",function(){
+  			$(this).css('display', 'none');
+  			$(this).siblings(".footInput").css('display', 'inline'); 
+  		});
+  	    $(this).on("click",".cardInsert",function(){
+  	    	var text = $(this).siblings('textarea').val();
+  			$(this).siblings('textarea').val("")
+  			
+  			$(this).parents(".listFoot").siblings('.items').append("<li class='list'>"+text+"</li>");
+  			$(this).parent(".footInput").css('display', 'none');
+  			$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
+  		});
+  	    $(this).on("click","#listAddBtn",function(){
+  	    	var text = prompt("제목을 입력하세요.","새로운 일정");
+  	    	
+  			$('#timetable').append("<div class='weekday col-md-1'><div class='listHeader'><p>"+text+
+  					"<button type='button' class='btn btn-sm btn-default' style='float:right'> "+
+  					"<span class='glyphicon glyphicon-trash'></span></p>"+
+	    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
+  					"<button class='btn-primary footText'>일정 추가하기</button><div class='footInput' style='display:none;'> "+
+  					" <textarea cols='30' rows='3'></textarea><input type='button' value='추가' class='cardInsert btn-primary'/>  "+
+  	 				" <input type='button' value='취소' class='cardCancel btn-primary'/> </div></div></div> ");
+  			 $("#timetable .items").sortable({
+   	            connectWith: "ul"  
+   	    	});
+  		});
+  	    $(this).on("click","#insertContent",function(){
+  	    	
+  	    	$(this).parent("#contentText").siblings("#newTA").css('display','inline');
+  	    	$(this).parent("#contentText").siblings("#showContent").css('display','none');
+  	    	$(this).css('display','none');
+  	    	
+  	    	tinymce.init({
+  	    	  selector: '#mytextarea',
+  	    	  height: 200,
+  	    	  theme: 'modern',
+  	    	  plugins: [
+  	    	    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+  	    	    'searchreplace wordcount visualblocks visualchars code fullscreen',
+  	    	    'insertdatetime media nonbreaking save table contextmenu directionality',
+  	    	    'emoticons template paste textcolor colorpicker textpattern imagetools'
+  	    	  ],
+  	    	  toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  	    	  toolbar2: 'print preview media | forecolor backcolor emoticons',
+  	    	  image_advtab: true,
+  	    	  templates: [
+  	    	    { title: 'Test template 1', content: 'Test 1' }
 
-
+  	    	  ],
+  	    	  content_css: [
+  	    	    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+  	    	    '//www.tinymce.com/css/codepen.min.css'
+  	    	  ]
+  	    	   
+  	    	 });
+  	      	 
+  	    });
+  	    $(this).on("click","#contentInsert",function(){
+  	    	var tmp = tinyMCE.activeEditor.getContent();
+  	    	$(this).parent("#newTA").css('display',"none");
+  	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
+  	    	$(this).parent("#newTA").siblings("#showContent").empty();
+  	    	$(this).parent("#newTA").siblings("#showContent").append(tmp);
+  	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
+  	    });
+  	  $(this).on("click","#contentCancel",function(){
+	    	var tmp = tinyMCE.activeEditor.getContent();
+	    	$(this).parent("#newTA").css('display',"none");
+	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
+	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
+	    });
+  	$(this).on("click","#btn1",function(){
+        $("p1").append(" <button class='w3-btn w3-red' id='btn2'></button>");    
+    });
+   $(this).on("click","#btn2",function(){
+          $(this).remove();
+    });
+   
+   $(this).on("click","#btn3",function(){
+        $("p2").append(" <button class='w3-btn w3-yellow' id='btn4'></button>");    
+    });
+   $(this).on("click","#btn4",function(){
+          $(this).remove();
+    });
+   
+   $(this).on("click","#btn5",function(){
+        $("p3").append(" <button class='w3-btn w3-green' id='btn6'></button>");    
+    });
+   $(this).on("click","#btn6",function(){
+          $(this).remove();
+    });
+   
+   $(this).on("click","#btn7",function(){
+        $("p3").append(" <button class='w3-btn w3-pink' id='btn8'></button>");    
+    });
+   $(this).on("click","#btn8",function(){
+          $(this).remove();
+    });
+   
+   $(this).on("click","#btn9",function(){
+        $("p3").append(" <button class='w3-btn w3-black' id='btn10'></button>");    
+    });
+   $(this).on("click","#btn10",function(){
+          $(this).remove();
+    });
 
 });
 
+
+ //달력!!!!!!!!
 </script>
 <title>오늘 일을 내일로 미루자</title>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
-
 	<!--=== Header ===-->
 	<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container">
@@ -147,7 +362,10 @@ $(document).ready(function(){
 							<a href="#body"><span class="glyphicon glyphicon-home"></span>집으로</a>
 						</li>
 						<li class="page-scroll home">
-							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a>
+							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>로그인</a>
+						</li>
+						<li class="page-scroll home">
+							<a href="#services"><span class="glyphicon glyphicon-user"></span>회원가입</a>
 						</li>
 					</ul>
 				</div>
@@ -158,55 +376,60 @@ $(document).ready(function(){
 	</nav>
 	<!--=== End Header ===-->
 	 <div id="sist" class="row">
-	    <div class=" col-md-2 half" id='calendar'>
-    	<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=ko.south_korea%23holiday%40group.v.calendar.google.com&amp;color=%23125A12&amp;ctz=Asia%2FSeoul" style="border-width:0" width="600" height="600" frameborder="0" scrolling="no"></iframe>
-   		 </div>
-		 <div class="col-md-10 half" id ='cardList' >
-		 	<input type='button' value='list' id='listBtn'/>
-		 	<br>
-		    <div class="col-md-1 cList"  id="cList1"  >	
-		    	<div class="listHeader">header</div>
-		    	<div class="bloc" >
-		    	
+	    <div class=" col-md-6 half" id='calendar'>
+        	<div id="calendar_attr">
+				<div id='calendar_container'></div>
+				</div>    	
+			</div>
+   		 <div class="col-md-6 half" id ='cardList' >
+			<div style="clear:both"></div>
+			<div id="timetable" style="float:left;max-width:7000px;">
+				<input style="align:left" type="button" value="리스트 추가" id="listAddBtn">
+	    		<div style="text-align:center">
+	    		
+	    		</div>
+	    		
+	    		<div class="weekday col-md-1">
+	    			<div class='listHeader'>
+	    				<p> Title
+	    				<button type="button" class="btn btn-sm btn-default" style="float:right">
+         							 <span class="glyphicon glyphicon-trash"></span>
+     					   </button>
+     					</p>
+	    			</div>
+	        		<ul class="items">
+			            <li class="list">
+			            <p1></p1>     <%-- 라벨 색 들어가는곳 --%>
+		     <p2></p2>
+		     <p3></p3>
+		     <p4></p4>
+		     <p5></p5>
+		     <p6></p6>   
+			            류정현1</li>
+			            <li class="list">정현1</li>
+	      			</ul>
+	      			<div class = 'listFoot'>
+	      				<button class="btn-primary footText" type="button"> 일정 추가하기</button>
+						<div class='footInput' style='display:none;'>	
+							<textarea cols='31' rows='3' style="resize:none"></textarea>
+							<input type="button" value="추가" class="cardInsert btn-primary" />
+							<input type="button" value="취소" class="cardCancel btn-primary" />
+						</div>
 				</div>
-				<div class = 'listFoot'>
-					<div class='footText'>일정 추가하기</div>
-					<div class='footInput' style='display:none;'>	
-						<textarea cols='30' rows='3'></textarea>
-						<input type="button" value="추가" class="cardInsert" />
-						<input type="button" value="취소" class="cardCancel" />
-					</div>
-				</div>
-		    </div>
-		    
-		    <div class="col-md-1 cList"  id="cList2">		    	
-		    	<div class="listHeader">header</div>
-		    	<div class="bloc" >
-				</div>
-				<div class = 'listFoot'>
-					<div class='footText'>일정 추가하기</div>
-					<div class='footInput' style='display:none;'>			
-						<textarea cols='30' rows='3'></textarea>
-						<input type="button" value="추가" class="cardInsert" />
-						<input type="button" value="취소" class="cardCancel" />
-					</div>
-				</div>
-		    </div>
-		    
+	    		</div>
+			</div>
 	    </div>
     </div>
- 	<!--  detail Modal -->
-    <div class="modal fade" id="cardDetail" role="dialog">
+	  <div class="modal fade" id="cardDetail" role="dialog">
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-      	<jsp:include page="cardDetail.jsp" flush="false" />
-      </div>
-    </div>
-  </div> 
-	
-	</body>
-		<!-- JS Global Compulsory -->
+ 		<div>
+ 			 <jsp:include page="test.jsp" flush="false" />
+ 		</div>   
 
+      
+    </div>
+  </div>   	    
+</body>
+		<!-- JS Global Compulsory -->
+		
 </html>
