@@ -73,23 +73,23 @@
 <%
     // ../main/main.jsp?mode=1
     String email=(String)session.getAttribute("email");
+	String pwd=(String)session.getAttribute("pwd");
     String log_jsp="";
- 
     if(email!=null)
     	log_jsp="login.jsp";
-   
-   
     else 
-    	log_jsp="logout.jsp";
+    	log_jsp="index.jsp";
     
-    String req_jsp="";
-    String mode=request.getParameter("mode");
-    // main.jsp?mode=1
-    if(mode==null)
-    	mode="0";
-    req_jsp=JspChange.jspChange(Integer.parseInt(mode));
-    UserDAO dao = UserDAO.newInstance();
-    int check= dao.confirmEmail(email);
+	/*    
+		String req_jsp="";
+	    String mode=request.getParameter("mode");
+	    // main.jsp?mode=1
+	    if(mode==null)
+	    	mode="0";
+	    req_jsp=JspChange.jspChange(Integer.parseInt(mode));
+	    UserDAO dao = UserDAO.newInstance();
+	    int check= dao.confirmEmail(email); 
+   	*/
 %>
 
 <!--
@@ -119,12 +119,14 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-						<li class="page-scroll home"><a href="#body"><span
+						<li class="page-scroll home"><a href="login.jsp"><span
 								class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
-						<li class="page-scroll home" id="myBtn"><a href="#about"><span
-								class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
-						<li class="page-scroll home" id="myBtn3"><a href="#services"><span
-								class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
+						<!-- <li class="page-scroll home" id="myBtn"><a href="#about"><span
+								class="glyphicon glyphicon-log-in"></span>&nbsp;로그인</a></li> -->
+						<li class="page-scroll home"><a href="#detail"><span
+								class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;<%=email%>님</a></li>
+						<li class="page-scroll home" id="myBtn3"><a href="login/logoutOK.jsp"><span
+								class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
 					</ul>
 				</div>
 			</div>
@@ -364,8 +366,8 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 						<span class="glyphicon glyphicon-lock"></span> 로 그 인
 					</h4>
 				</div>
-				<div class="modal-body" style="padding: 30px 30px; height: 220px">
-					<form method="post" action="login/loginOK.jsp" id="logFrm">
+				<form class="form-horizontal" method="POST" action="login/loginOK.jsp" id="logfrm">
+					<div class="modal-body" style="padding: 30px 30px;">				
 						<div class="form-group">
 							<label for="usrname"><span class="glyphicon glyphicon-user"></span> 이메일</label> 
 								<input type="text" class="form-control" id="logEmail" name="logEmail" placeholder="이메일을 입력하세요">
@@ -375,16 +377,15 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 							<input type="password" class="form-control" id="logPwd" name="logPwd" placeholder="비밀번호를 입력하세요">
 						</div>
 						<div class="form-group">
-							<label><input type="checkbox" value="" id="logSave" name="logSave">아이디 저장</label>
-						</div>
-					</form>
-				</div>
+							<label><input type="checkbox" value="" checked id="logSave" name="logSave">아이디 저장</label>
+						</div>					
+					</div>
 				<div class="modal-footer">
-					<button type="button" id="logYes" name="logYes" form="logFrm"
+					<button type="button" id="logYes" name="logYes" form="login"
 						class="btn btn-success btn-default pull-left" data-dismiss="modal"
 						value="Send" style="margin: 10px; margin-left: 35px">
 						<span class="glyphicon glyphicon-plus"></span>완 료
-					</button>	
+					</button>					
 					<button type="button" class="btn btn-danger btn-default pull-left"
 						data-dismiss="modal" style="margin: 10px; margin-left: 15px">
 						<span class="glyphicon glyphicon-remove"></span>취 소
@@ -396,12 +397,12 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 						이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
 					</p>
 				</div>
+				</form>
 			</div>
 
 		</div>
 	</div>
 	<!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-
 	<!-- 회원가입  -->
 	<!-- Modal -->
 	<div class="modal fade" id="SignUpModal" role="dialog">
@@ -455,7 +456,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 							</button>
 						</div>
 						<div class="form-group"
-							style="float: right; width: 20%; margin-top: 25px; margin-right: 30px"
+							style="float: right; width: 20%; margin-top: 25px; margin-right: 10px"
 							id="divSendCheckNum">
 							<button type="button" class="btn btn-primary btn-block"
 								id="sendCheckNum">
@@ -485,169 +486,184 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 		</div>
 	</div>
 	<script>
-		$(function() {
-			$('#signYes').click(function() {
-				var email = $('#email').val();
-				if (email.trim() == "") {
-					$('#email').focus();
-					return;
-				}
-				var pwd = $('#pwd').val();
-				if (pwd.trim() == "") {
-					$('#pwd').focus();
-					return;
-				}
-				var pwd2 = $('#pwd2').val();
-				if (pwd2.trim() == "") {
-					$('#pwd2').focus();
-					return;
-				}
-				var inputCheckNum = $('#inputCheckNum').val();
-				if (pwd.trim() == "") {
-					$('#inputCheckNum').focus();
-					return;
-				}
-				$('#frm').submit();
-			});
-
-			//로그인 액션
-			$('#logYes').click(function() {
-				var logEmail = $('#logEmail').val();
-				if (logEmail.trim() == "") {
-					$('#logEmail').focus();
-					return;
-				}
-				var logPwd = $('#logPwd').val();
-				if (logPwd.trim() == "") {
-					$('#logPwd').focus();
-					return;
-				}
-				$('#logFrm').submit();
-			});
-
-			/* 로그인, 회원가입 창 띄우는 기능코딩 */
-			$(document).ready(function() {
-				$("#myBtn").click(function() {
-					$("#LoginModal").modal();
-				});
-				$("#myBtn2").click(function() {
-					$("#LoginModal").modal();
-				});
-				$("#myBtn3").click(function() {
-					$("#SignUpModal").modal();
-				});
-				$("#myBtn4").click(function() {
-					$("#SignUpModal").modal();
-				});
-			});
-
-			 /* 회원가입 포커스 처리 기능 */
-			/*
-			$('#email').keyup(function(event) {
-				var divEmail = $('#divEmail');
-
-				if ($('#email').val() == "") {
-					divEmail.removeClass("has-success");
-					divEmail.addClass("has-error");
-				} else {
-					divEmail.removeClass("has-error");
-					divEmail.addClass("has-success");
-				}
-			});
-
-			$('#pwd').keyup(function(event) {
-
-				var divPwd = $('#divPwd');
-
-				if ($('#pwd').val() == "") {
-					divPwd.removeClass("has-success");
-					divPwd.addClass("has-error");
-				} else {
-					divPwd.removeClass("has-error");
-					divPwd.addClass("has-success");
-				}
-			});
-
-			$('#pwd2').keyup(function(event) {
-
-				var pwd2 = $('#pwd2').val();
-				var pwd = $('#pwd').val();
-				var divPwd2 = $('#divPwd2');
-
-				if ((pwd2 == "") || (pwd != pwd2)) {
-					divPwd2.removeClass("has-success");
-					divPwd2.addClass("has-error");
-				} else {
-					divPwd2.removeClass("has-error");
-					divPwd2.addClass("has-success");
-				}
-			}); 
-
-			//------- validation 검사
-			$("form").submit(
-					function(event) {
-						var divEmail = $('#divEmail');
-						var divPwd = $('#divPwd');
-						var divPwd2 = $('#divPwd2');
-
-						//아이디 검사
-						if ($('#email').val() == "") {
-							modalContents.text("아이디를 입력하여 주시기 바랍니다.");
-							modal.modal('show');
-
-							divEmail.removeClass("has-success");
-							divEmail.addClass("has-error");
-							$('#id').focus();
-							return false;
-						} else {
-							divEmail.removeClass("has-error");
-							divEmail.addClass("has-success");
-						}
-
-						//패스워드 검사
-						if ($('#pwd').val() == "") {
-							modalContents.text("패스워드를 입력하여 주시기 바랍니다.");
-							modal.modal('show');
-
-							divPwd.removeClass("has-success");
-							divPwd.addClass("has-error");
-							$('#password').focus();
-							return false;
-						} else {
-							divPwd.removeClass("has-error");
-							divPwd.addClass("has-success");
-						}
-
-						//패스워드 확인
-						if ($('#pwd2').val() == "") {
-							modalContents.text("패스워드 확인을 입력하여 주시기 바랍니다.");
-							modal.modal('show');
-
-							divPwd2.removeClass("has-success");
-							divPwd2.addClass("has-error");
-							$('#passwordCheck').focus();
-							return false;
-						} else {
-							divPwd2.removeClass("has-error");
-							divPwd2.addClass("has-success");
-						}
-
-						//패스워드 비교
-						if ($('#pwd').val() != $('#pwd2').val()
-								|| $('#pwd2').val() == "") {
-							modalContents.text("패스워드가 일치하지 않습니다.");
-							modal.modal('show');
-
-							divPwd2.removeClass("has-success");
-							divPwd2.addClass("has-error");
-							$('#passwordCheck').focus();
-							return false;
-						} else {
-							divPwd2.removeClass("has-error");
-							divPwd2.addClass("has-success");
-						}
-					});*/
+	$(function(){
+		$('#signYes').click(function(){
+			var email=$('#email').val();
+			if(email.trim()=="")
+			{
+				$('#email').focus();
+				return;
+			}
+			var pwd=$('#pwd').val();
+		   if(pwd.trim()=="")
+		   {
+			   $('#pwd').focus();
+			   return;
+		   }
+		   var pwd2=$('#pwd2').val();
+			/* 
+			   $('#name').val() => get
+			   $('#name').val("aaa") => set
+			*/
+		   if(pwd2.trim()=="")
+			{
+			   $('#pwd2').focus();
+			   return;
+			}
+			var inputCheckNum=$('#inputCheckNum').val();
+			if(pwd.trim()=="")
+			{
+				$('#inputCheckNum').focus();
+				return;
+			}
+			$('#frm').submit();
 		});
+		
+		//로그인 액션
+		$('#logYes').click(function(){
+			var email=$('#email').val();
+			if(email.trim()==""){
+				$('#email').focus();
+				return;
+			}
+			var pwd=$('#pwd').val();
+		   	if(pwd.trim()==""){
+			   	$('#pwd').focus();
+			   	return;
+		   	}
+		   	var logSave=$('#logSave').val();
+		   	if(pwd2.trim()==""){
+			   	$('#logSave').focus();
+			   	return;
+			}
+			$('#logFrm').submit();
+		});
+	
+		/* 로그인, 회원가입 창 띄우는 기능코딩 */
+		$(document).ready(function() {
+			$("#myBtn").click(function() {
+				$("#LoginModal").modal();
+			});
+			$("#myBtn2").click(function() {
+				$("#LoginModal").modal();
+			});
+			$("#myBtn3").click(function() {
+				$("#SignUpModal").modal();
+			});
+			$("#myBtn4").click(function() {
+				$("#SignUpModal").modal();
+			});
+			
+			$('#signYes').click(function(){
+				  $('#contact').trigger('submit');  //works great
+				});
+		});
+		
+		/* 회원가입 포커스 처리 기능 */
+		$('#email').keyup(function(event){
+			var divEmail = $('#divEmail');
+			
+			if($('#email').val()==""){
+				divEmail.removeClass("has-success");
+				divEmail.addClass("has-error");
+			} else {
+				divEmail.removeClass("has-error");
+				divEmail.addClass("has-success");
+			}
+		});
+		
+		 $('#pwd').keyup(function(event){
+             
+             var divPwd = $('#divPwd');
+              
+             if($('#pwd').val()==""){
+            	 divPwd.removeClass("has-success");
+            	 divPwd.addClass("has-error");
+             }else{
+            	 divPwd.removeClass("has-error");
+            	 divPwd.addClass("has-success");
+             }
+         });
+		 
+		 $('#pwd2').keyup(function(event){
+             
+             var pwd2 = $('#pwd2').val();
+             var pwd = $('#pwd').val();
+             var divPwd2 = $('#divPwd2');
+              
+             if((pwd2=="") || (pwd!=pwd2)){
+            	 divPwd2.removeClass("has-success");
+            	 divPwd2.addClass("has-error");
+             }else{
+            	 divPwd2.removeClass("has-error");
+            	 divPwd2.addClass("has-success");
+             }
+         });
+		 
+		//------- validation 검사
+         $("form").submit(function( event ) {
+              
+             var divEmail = $('#divEmail');
+             var divPwd = $('#divPwd');
+             var divPwd2 = $('#divPwd2');
+    
+             //아이디 검사
+             if($('#email').val()==""){
+                 modalContents.text("아이디를 입력하여 주시기 바랍니다.");
+                 modal.modal('show');
+                  
+                 divEmail.removeClass("has-success");
+                 divEmail.addClass("has-error");
+                 $('#id').focus();
+                 return false;
+             }else{
+            	 divEmail.removeClass("has-error");
+            	 divEmail.addClass("has-success");
+             }
+              
+             //패스워드 검사
+             if($('#pwd').val()==""){
+                 modalContents.text("패스워드를 입력하여 주시기 바랍니다.");
+                 modal.modal('show');
+                  
+                 divPwd.removeClass("has-success");
+                 divPwd.addClass("has-error");
+                 $('#password').focus();
+                 return false;
+             }else{
+            	 divPwd.removeClass("has-error");
+            	 divPwd.addClass("has-success");
+             }
+              
+             //패스워드 확인
+             if($('#pwd2').val()==""){
+                 modalContents.text("패스워드 확인을 입력하여 주시기 바랍니다.");
+                 modal.modal('show');
+                  
+                 divPwd2.removeClass("has-success");
+                 divPwd2.addClass("has-error");
+                 $('#passwordCheck').focus();
+                 return false;
+             }else{
+            	 divPwd2.removeClass("has-error");
+            	 divPwd2.addClass("has-success");
+             }
+              
+             //패스워드 비교
+             if($('#pwd').val()!=$('#pwd2').val() || $('#pwd2').val()==""){
+                 modalContents.text("패스워드가 일치하지 않습니다.");
+                 modal.modal('show');
+                  
+                 divPwd2.removeClass("has-success");
+                 divPwd2.addClass("has-error");
+                 $('#passwordCheck').focus();
+                 return false;
+             }else{
+            	 divPwd2.removeClass("has-error");
+            	 divPwd2.addClass("has-success");
+             }
+         }); 
+    });
 	</script>
 </body>
 <style>
