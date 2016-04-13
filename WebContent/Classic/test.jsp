@@ -55,6 +55,13 @@ body{
 
 }
 
+#priorityDiv .btn span.glyphicon {    			
+	opacity: 0;				
+}
+#priorityDiv .btn.active span.glyphicon {				
+	opacity: 1;				
+}
+
 </style>
 </head>
 <body>
@@ -73,8 +80,10 @@ body{
 			<div class="col-sm-9">
 				<div id="modalTitle">
 					<span class="glyphicon glyphicon-list-alt" id="glypTitle">제목</span><span id="listName">list name</span>
+					<div id="modalDate">
+					</div>
 					<div id="modalTextarea">
-						<div id="contentText" style="font: bold;">세부 내용 <span id="insertContent"> 수정 </span></div>
+						<div id="contentText" style="font: bold;">세부 내용 <span id="insertContent" data-toggle="tooltip" title="일정 내용 수정"> 수정 </span></div>
 						<div id="newTA" style="display:none">
 						 	<textarea id="mytextarea" >
 	  					  	</textarea>
@@ -89,10 +98,22 @@ body{
 				
 			</div>
 			<div class="col-sm-3" id="sideBar">
+				<button type="button" class="btn btn-default btn-sm"  id="dateBtn">
+         			 <span class="glyphicon glyphicon-calendar"></span> 일정
+        		</button>
+        		<div id="dateDiv" style="display:none">
+        			<div>
+        			시작일<input type='text' id='sdate'>
+        			</div>
+        			<div>
+        			종료일<input type='text' id='edate'>
+        			</div>
+        			<div>
+        				<input type="button" id="dateInsert" class=btn-sm" value="저장"/>
+        				<input type="button" id="dateDelete" class=btn-sm" value="삭제"/>
+        			</div>
+        		</div>
 				<div class="dropdown">
-				<button type="button" class="btn btn-default btn-sm">
-		          <span class="glyphicon glyphicon-time" ></span>  기간 설정
-		        </button>
 		        <br/><br/>
 		        <button type="button" class="btn btn-default btn-sm">
 		          <span class="glyphicon glyphicon-user" ></span>  인원 추가
@@ -131,12 +152,72 @@ body{
 		        
 		        <br><br>                          <%-- 뛰어 --%>
 		        
-		       <button type="button" class="btn btn-default btn-sm">
+		        
+		        <button class="btn btn-default btn-sm" type="button" id="priorityBtn" >		        	
 		          <span class="glyphicon glyphicon-star"></span> 우선순위 설정
 		        </button>
-		       
-		       <br><br> 
+		        <div class="container">
+		       		<p>중요도</p>
+						<div class="btn-group" data-toggle="buttons"  id ="priorityDiv" style="display:none">			
+							<label class="btn" style="background-color: red">
+								<input type="radio" name="option1" id="option2" autocomplete="off" checked>
+								<span class="glyphicon glyphicon-ok" ></span>
+							</label>
+				
+							<label class="btn btn-primary">
+								<input type="radio" name="option1" id="option1" autocomplete="off">
+								<span class="glyphicon glyphicon-ok"></span>
+							</label>
+				
+							<label class="btn btn-info">
+								<input type="radio" name="option1" id="option2" autocomplete="off">
+								<span class="glyphicon glyphicon-ok"></span>
+							</label>
+				
+							<label class="btn btn-default">
+								<input type="radio" name="option1" id="option2" autocomplete="off">
+								<span class="glyphicon glyphicon-ok"></span>
+							</label>
+				
+							<label class="btn btn-warning">
+								<input type="radio" name="option1" id="option2" autocomplete="off">
+								<span class="glyphicon glyphicon-ok"></span>
+							</label>
+						</div> 
+						<br/><br/>
+							<p>중요도</p>
+						<div class="btn-group" data-toggle="buttons"  id ="priorityDiv" style="display:none">			
+							<label class="btn" style="background-color: red">
+								<input type="radio" name="option1" id="option2" autocomplete="off" checked>
+								<span class="glyphicon glyphicon-ok" ></span>
+							</label>
+				
+							<label class="btn btn-primary">
+								<input type="radio" name="option1" id="option1" autocomplete="off">
+								<span class="glyphicon glyphicon-ok"></span>
+							</label>
+				
+							<label class="btn btn-info">
+								<input type="radio" name="option1" id="option2" autocomplete="off">
+								<span class="glyphicon glyphicon-ok"></span>
+							</label>
+				
+							<label class="btn btn-default">
+								<input type="radio" name="option1" id="option2" autocomplete="off">
+								<span class="glyphicon glyphicon-ok"></span>
+							</label>
+				
+							<label class="btn btn-warning">
+								<input type="radio" name="option1" id="option2" autocomplete="off">
+								<span class="glyphicon glyphicon-ok"></span>
+							</label>
+						</div> 
+				</div>
+
+				
+		        
 		       <div class="dropdown">
+		       <br><br>		
        			    <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown">
              			 <span class="glyphicon glyphicon-tags"></span> 라벨
        				     <span class="caret"></span></button>

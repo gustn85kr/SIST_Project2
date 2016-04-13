@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	
 	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/one.style.css">
 	<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
@@ -168,14 +170,17 @@ body{
 	#cardDetail .modal-dialog {
 		width:75%
 	}
-	
+
+.fc-time{
+   display : none;
+}
     </style>
    
 <script type="text/javascript">
 
 
 $(document).ready(function(){
-		$('#calendar').fullCalendar({
+	$('#calendar').fullCalendar({
 		theme: true,
 		header: {
 			left: 'prev,next today',
@@ -216,12 +221,21 @@ $(document).ready(function(){
 		$(this).on("click",".list",function(){
 			$('#cardDetail').modal();
 		});
+		/* $("td").sortable({
+			connectWith:".fc-day"
+		}); */
+		/* $("td").draggable({
+			helper:"clone",
+			connectToSortable: ".items"
+		}); */
   	    $("#timetable .items").sortable({
   	            connectWith: "ul"        
   	    });
   	    $("ul[id^='available']").draggable({
-  	        helper: "clone",
-  	        connectToSortable: ".items"
+/*   	        helper: "clone",
+  	        connectToSortable: "td", */
+  	        	revert: true,      // immediately snap back to original position
+  	          revertDuration: 0
   	    });
   	    $(this).on("click",".footText",function(){
   			$(this).css('display', 'none');
@@ -249,6 +263,7 @@ $(document).ready(function(){
    	            connectWith: "ul"  
    	    	});
   		});
+  	    $("#insertContent").tooltip();
   	    $(this).on("click","#insertContent",function(){
   	    	
   	    	$(this).parent("#contentText").siblings("#newTA").css('display','inline');
@@ -294,40 +309,94 @@ $(document).ready(function(){
 	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
 	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
 	    });
-  	$(this).on("click","#btn1",function(){
-        $("p1").append(" <button class='w3-btn w3-red' id='btn2'></button>");    
-    });
-   $(this).on("click","#btn2",function(){
-          $(this).remove();
-    });
-   
-   $(this).on("click","#btn3",function(){
-        $("p2").append(" <button class='w3-btn w3-yellow' id='btn4'></button>");    
-    });
-   $(this).on("click","#btn4",function(){
-          $(this).remove();
-    });
-   
-   $(this).on("click","#btn5",function(){
-        $("p3").append(" <button class='w3-btn w3-green' id='btn6'></button>");    
-    });
-   $(this).on("click","#btn6",function(){
-          $(this).remove();
-    });
-   
-   $(this).on("click","#btn7",function(){
-        $("p3").append(" <button class='w3-btn w3-pink' id='btn8'></button>");    
-    });
-   $(this).on("click","#btn8",function(){
-          $(this).remove();
-    });
-   
-   $(this).on("click","#btn9",function(){
-        $("p3").append(" <button class='w3-btn w3-black' id='btn10'></button>");    
-    });
-   $(this).on("click","#btn10",function(){
-          $(this).remove();
-    });
+  	  $(this).on("click","#priorityBtn",function(){
+  		  alert("111");
+  		  $("#priorityDiv").css('display','inline');
+  	  });
+  	  $(this).on("click","#priorityInsert",function(){
+  		alert("시발");
+  		$("#priorityDiv").css('display','none');
+  	  });
+  	  $(this).on("click","#priorityCancel",function(){
+  		$("#priorityDiv").css('display','none');
+  	  });
+  	  
+ 	 	$(this).on("click","#btn1",function(){
+	        $("p1").append(" <button class='w3-btn w3-red' id='btn2'></button>");    
+	    });
+	    $(this).on("click","#btn2",function(){
+	          $(this).remove();
+	    });
+	   
+	    $(this).on("click","#btn3",function(){
+	        $("p2").append(" <button class='w3-btn w3-yellow' id='btn4'></button>");    
+	    });
+	    $(this).on("click","#btn4",function(){
+	          $(this).remove();
+	    });
+	   
+	    $(this).on("click","#btn5",function(){
+	         $("p3").append(" <button class='w3-btn w3-green' id='btn6'></button>");    
+	     });
+	    $(this).on("click","#btn6",function(){
+	          $(this).remove();
+	     });
+	   
+	    $(this).on("click","#btn7",function(){
+	        $("p3").append(" <button class='w3-btn w3-pink' id='btn8'></button>");    
+	    });
+	    $(this).on("click","#btn8",function(){
+	          $(this).remove();
+	    });
+	   
+	    $(this).on("click","#btn9",function(){
+	        $("p3").append(" <button class='w3-btn w3-black' id='btn10'></button>");    
+	    });
+	    $(this).on("click","#btn10",function(){
+	          $(this).remove();
+	    });
+	    $(this).on("click","#dateBtn",function(){
+	    	$("#dateDiv").css("display","inline");
+	    });
+	    
+	    $('#sdate').datepicker();
+	    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+	    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+	        $("#edate").datepicker( "option", "minDate", selectedDate );
+	    });
+	 
+	    $('#edate').datepicker();
+	    $('#edate').datepicker("option", "minDate", $("#sdate").val());
+	    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
+	        $("#sdate").datepicker( "option", "maxDate", selectedDate );
+	    });
+	    
+	    $(this).on("click","#dateInsert",function(){
+	    	$("#dateDiv").css("display","none");
+	    	var title = $('#glypTitle').text();
+	    	
+	    	var startDate= $('#sdate').val();
+	    	var endDate=$('#edate').val();
+	    	
+	    	var events=new Array();     
+	    	event = new Object();       
+	    	event.title = title; 
+	    	event.start = startDate;    // its a date string
+	    	event.end = endDate;        // its a date string.
+	    	event.color = "blue";
+	    	event.allDay = false;
+
+	    	events.push(event);
+	    	$('#calendar').fullCalendar('addEventSource',events);
+	    	
+	    	$('#modalDate').append("<p>일정 날짜</p><div id='sdateDiv'> <b>시작일 </b>: "+startDate+"</div>");
+	    	if(endDate!=""){
+	    		$('#modalDate').append("<div id='edateDiv'> <b>종료일 </b>: "+endDate+"</div>");
+	    	}
+	    	
+	    	
+	    	
+	    })
 
 });
 
@@ -397,17 +466,10 @@ $(document).ready(function(){
      					   </button>
      					</p>
 	    			</div>
-	        		<ul class="items">
-			            <li class="list">
-			            <p1></p1>     <%-- 라벨 색 들어가는곳 --%>
-		     <p2></p2>
-		     <p3></p3>
-		     <p4></p4>
-		     <p5></p5>
-		     <p6></p6>   
-			            류정현1</li>
-			            <li class="list">정현1</li>
-	      			</ul>
+	        		<div class="items">
+			            <div class="list">  류정현1</div>
+			            <div class="list">정현1</div>
+	      			</div>
 	      			<div class = 'listFoot'>
 	      				<button class="btn-primary footText" type="button"> 일정 추가하기</button>
 						<div class='footInput' style='display:none;'>	
@@ -420,10 +482,11 @@ $(document).ready(function(){
 			</div>
 	    </div>
     </div>
-	  <div class="modal fade" id="cardDetail" role="dialog">
+	  <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
  		<div>
- 			 <jsp:include page="test.jsp" flush="false" />
+ 	
+ 			  <jsp:include page="test.jsp" flush="false" /> 
  		</div>   
 
       
