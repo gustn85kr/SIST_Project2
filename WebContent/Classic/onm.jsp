@@ -191,8 +191,10 @@ $(document).ready(function(){
 		defaultDate: '2016-04-02',
 		selectable: true,
 		selectHelper: true,
-		select: function(start, end) {
-			var title = prompt('내용을 입력해주세요');
+		eventDurationEditable: false,   // 이벤트 resize disable
+
+/* 		select: function(start, end) {
+			
 			var eventData;
 			if (title) {
 				eventData = {
@@ -200,25 +202,34 @@ $(document).ready(function(){
 					start: start,
 					end: end
 				};
-				$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				
 			}
 			$('#calendar').fullCalendar('unselect');
-		},
+		}, */ //이벤트 추가함수
 		editable: true,
+		eventClick: function(event) {
+			$('#cardDetail').modal();
+		
+	  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
+	  	   
+	  	},
 		eventLimit: true, // allow "more" link when too many events
 		events: [
 			{
-				title: 'All Day Event',
-				start: '2014-11-01'
+				title: '델론즈 각성',
+				start: '2016-04-13'
 			},
 			{
-				title: 'Long Event',
-				start: '2014-11-07',
-				end: '2014-11-10'
+				title: '월급일',
+				start: '2016-04-24',
+				end: '2016-04-27'
 			}
 		
 		]
 	});
+	
+	
+	
 		$(this).on("click",".list",function(){
 			$('#cardDetail').modal();
 		});
