@@ -378,12 +378,12 @@ $(document).ready(function(){
 	   		else
 	   			$("#mapApp").css("display","none");
 	   		
-	   		obj = document.getElementById('map');
+	   		obj = document.getElementById('modalMap');
 	   		if(obj.style.display=="block")
-	   			$("#map").css("display","none");
+	   			$("#modalMap").css("display","none");
 	   	});
 	   $(this).on("click","#mapSearch",function(){
-	   		$("#map").css("display","block");
+	   		$("#modalMap").css("display","block");
 	   		map.relayout();
 	   	});
 		 
