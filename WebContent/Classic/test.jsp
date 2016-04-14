@@ -94,6 +94,11 @@ body{
   					  
   					  </div>
 				</div>
+				
+					<div id="modalMid">
+						<div id="map" style="width:400px;height:300px;display:none"></div>
+					</div>
+				
 				</div>
 				
 			</div>
@@ -146,9 +151,15 @@ body{
 		        
 		         <br><br>                        <%-- 뛰어 --%>
 		        
-		        <button type="button" class="btn btn-default btn-sm">
+		        <button type="button" class="btn btn-default btn-sm" id="btnMap">
 		          <span class="glyphicon glyphicon-map-marker"></span> 위치설정
 		        </button>
+		  		 <div id="mapApp" style="display:none"><br>
+        			 <label>주소검색 </label>
+        			 <input id = "txtAddress" type="text" style="width : 100px">
+        			 <button type="button" onclick="Search();" id="mapSearch">찾기</button>
+     			 </div>
+		        
 		        
 		        <br><br>                          <%-- 뛰어 --%>
 		        
