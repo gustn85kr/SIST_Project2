@@ -6,6 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <style type="text/css">
+label{
+	color : black;
+}
 body{
 		font-family:'Malgun Gothic';
 		font-size: 15px;
@@ -68,12 +71,6 @@ body{
 	
 	<div class="modal-content" id="modalBody">
 		<div class="row">
-			 <p1></p1>     <%-- 라벨 색 들어가는곳 --%>
-		     <p2></p2>
-		     <p3></p3>
-		     <p4></p4>
-		     <p5></p5>
-		     <p6></p6>   
 			<div id="content" >
 				
 			</div>
@@ -82,8 +79,10 @@ body{
 					<span class="glyphicon glyphicon-list-alt" id="glypTitle">제목</span><span id="listName">list name</span>
 					<div id="modalDate">
 					</div>
+					<div id="modalPriority">
+					</div>
 					<div id="modalTextarea">
-						<div id="contentText" style="font: bold;">세부 내용 <span id="insertContent" data-toggle="tooltip" title="일정 내용 수정"> 수정 </span></div>
+						<div id="contentText" style="font: bold;"><span class="glyphicon glyphicon-subscript">일정내용</span> <span id="insertContent" data-toggle="tooltip" title="일정 내용 수정"> 수정 </span></div>
 						<div id="newTA" style="display:none">
 						 	<textarea id="mytextarea" >
 	  					  	</textarea>
@@ -140,9 +139,19 @@ body{
 		         
 		         <br><br>                       <%-- 뛰어 --%>
 		         
-		         <button type="button" class="btn btn-default btn-sm">
+		         <button type="button" class="btn btn-default btn-sm" id="checkBtn">
 		          <span class="glyphicon glyphicon-ok"></span> 체크리스트
 		        </button>
+		        <div id="checkDiv" style="display:none">
+		        	<div>
+		        	제목 : <input type="text" />
+		        	</div>
+		        	<div>
+		        		<input type="button" id="checkInsert" value="생성"/>
+						<input type="button" id="checkCancel" value="취소"/>
+		        	</div>
+		        
+		        </div>
 		        
 		         <br><br>                        <%-- 뛰어 --%>
 		        
@@ -153,65 +162,69 @@ body{
 		        <br><br>                          <%-- 뛰어 --%>
 		        
 		        
+		        
 		        <button class="btn btn-default btn-sm" type="button" id="priorityBtn" >		        	
 		          <span class="glyphicon glyphicon-star"></span> 우선순위 설정
 		        </button>
-		        <div class="container">
+		        <div class="container" id ="priorityDiv" style="display:none">
 		       		<p>중요도</p>
-						<div class="btn-group" data-toggle="buttons"  id ="priorityDiv" style="display:none">			
-							<label class="btn" style="background-color: red">
-								<input type="radio" name="option1" id="option2" autocomplete="off" checked>
+						<div class="btn-group" data-toggle="buttons" >			
+							<label class="btn" style="background-color: #FDC6C6" >
+								<input type="radio" name="option1" class="option1" autocomplete="off" value="#FDC6C6">
 								<span class="glyphicon glyphicon-ok" ></span>
 							</label>
 				
-							<label class="btn btn-primary">
-								<input type="radio" name="option1" id="option1" autocomplete="off">
+							<label class="btn" style="background-color: #FFACAC">
+								<input type="radio" name="option1" class="option1" autocomplete="off" value="#FFACAC">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 				
-							<label class="btn btn-info">
-								<input type="radio" name="option1" id="option2" autocomplete="off">
+							<label class="btn btn-warning" style="background-color: #FC7474">
+								<input type="radio" name="option1" id="option1" autocomplete="off" value="#FC7474">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 				
-							<label class="btn btn-default">
-								<input type="radio" name="option1" id="option2" autocomplete="off">
+							<label class="btn btn-warning" style="background-color: #FC4B4B">
+								<input type="radio" name="option1" id="option1" autocomplete="off" value="#FC4B4B">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 				
-							<label class="btn btn-warning">
-								<input type="radio" name="option1" id="option2" autocomplete="off">
+							<label class="btn btn-warning" style="background-color: #FC0000">
+								<input type="radio" name="option1" id="option1" autocomplete="off" value="#FC0000">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 						</div> 
-						<br/><br/>
-							<p>중요도</p>
-						<div class="btn-group" data-toggle="buttons"  id ="priorityDiv" style="display:none">			
-							<label class="btn" style="background-color: red">
-								<input type="radio" name="option1" id="option2" autocomplete="off" checked>
+							<p>선호도</p>
+						<div class="btn-group" data-toggle="buttons">			
+							<label class="btn" style="background-color:#DFDFFD">
+								<input type="radio" name="option2" id="option2" autocomplete="off" value="#DFDFFD">
 								<span class="glyphicon glyphicon-ok" ></span>
 							</label>
 				
-							<label class="btn btn-primary">
-								<input type="radio" name="option1" id="option1" autocomplete="off">
+							<label class="btn" style="background-color:#C0C0FF">
+								<input type="radio" name="option2" id="option1" autocomplete="off" value="#C0C0FF">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 				
-							<label class="btn btn-info">
-								<input type="radio" name="option1" id="option2" autocomplete="off">
+							<label class="btn btn-warning" style="background-color:#8F8FFF ">
+								<input type="radio" name="option2" id="option2" autocomplete="off" value="#8F8FFF ">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 				
-							<label class="btn btn-default">
-								<input type="radio" name="option1" id="option2" autocomplete="off">
+							<label class="btn btn-warning" style="background-color:#4E4EFD">
+								<input type="radio" name="option2" id="option2" autocomplete="off" value="#4E4EFD">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 				
-							<label class="btn btn-warning">
-								<input type="radio" name="option1" id="option2" autocomplete="off">
+							<label class="btn btn-warning" style="background-color:#1414FC">
+								<input type="radio" name="option2" id="option2" autocomplete="off" value="#1414FC">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 						</div> 
+						<div>
+							<input type="button" id="priorityInsert" value="확인"/>
+							<input type="button" id="priorityCancel" value="삭제"/>
+						</div>
 				</div>
 
 				
@@ -228,7 +241,8 @@ body{
 				          <li><button class="w3-btn w3-pink" id="btn7">분홍</button></li>
 				          <li><button class="w3-btn w3-black" id="btn9">검정</button></li>
         		  </ul>
-     		   </div>     
+     		   </div>
+  
 		    
 			</div>
 		</div>

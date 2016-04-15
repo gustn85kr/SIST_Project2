@@ -41,7 +41,6 @@
 body{
 	font-family:'Malgun Gothic';
 }
-
 .bar {
     width: 100px;
     height: 20px;
@@ -253,7 +252,7 @@ $(document).ready(function(){
   	    	var text = prompt("제목을 입력하세요.","새로운 일정");
   	    	
   			$('#timetable').append("<div class='weekday col-md-1'><div class='listHeader'><p>"+text+
-  					"<button type='button' class='btn btn-sm btn-default' style='float:right'> "+
+  					"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
   					"<span class='glyphicon glyphicon-trash'></span></p>"+
 	    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
   					"<button class='btn-primary footText'>일정 추가하기</button><div class='footInput' style='display:none;'> "+
@@ -310,16 +309,48 @@ $(document).ready(function(){
 	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
 	    });
   	  $(this).on("click","#priorityBtn",function(){
-  		  alert("111");
-  		  $("#priorityDiv").css('display','inline');
+  		 obj = document.getElementById('priorityDiv');
+  		if(obj.style.display == "none"){
+  		  	$("#priorityDiv").css('display','inline');
+  		}else{
+  			$("#priorityDiv").css('display','none');
+  		}
+  		
   	  });
   	  $(this).on("click","#priorityInsert",function(){
-  		alert("시발");
-  		$("#priorityDiv").css('display','none');
+  			$("#priorityDiv").css('display','none');
+  			var op1 = $(':radio[name="option1"]:checked').val();
+  			
+		  	var op2 = $(':radio[name="option2"]:checked').val();
+		  	$('input').prop('checked', false);
+		  	$('#modalPriority').empty();
+	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
+	  		if(op1!=null){
+	  			$("#priorityIf").append("<span style='background-color:"+op1+"'> 중요도</span>");
+	  		}
+	  		if(op2!=null){
+	  			$("#priorityIf").append("<span style='background-color:"+op2+"'> 선호도</span>");
+	  		}
   	  });
   	  $(this).on("click","#priorityCancel",function(){
   		$("#priorityDiv").css('display','none');
+  		$('#modalPriority').empty();
   	  });
+  	  $(this).on("click","#checkBtn",function(){
+  		  obj = document.getElementById('checkDiv');
+  		  if(obj.style.display=="none"){
+  		  	$("#checkDiv").css("display","inline");
+  		  }else{
+  			$("#checkDiv").css("display","none");
+  		  }
+  		  
+  	  });
+  	  $(this).on("click","#checkInsert",function(){
+  		  $("#checkDiv").css("display",'none');
+  	  });
+  	$(this).on("click","#checkCancel",function(){
+		  $("#checkDiv").css("display",'none');
+	  });
   	  
  	 	$(this).on("click","#btn1",function(){
 	        $("p1").append(" <button class='w3-btn w3-red' id='btn2'></button>");    
@@ -356,7 +387,12 @@ $(document).ready(function(){
 	          $(this).remove();
 	    });
 	    $(this).on("click","#dateBtn",function(){
-	    	$("#dateDiv").css("display","inline");
+	    	 obj = document.getElementById('dateDiv');
+	    	 if(obj.style.display=="none"){
+	    		$("#dateDiv").css("display","inline");
+	    	 }else{
+	    		$("#dateDiv").css("display","none");
+	    	 }
 	    });
 	    
 	    $('#sdate').datepicker();
@@ -383,20 +419,28 @@ $(document).ready(function(){
 	    	event.title = title; 
 	    	event.start = startDate;    // its a date string
 	    	event.end = endDate;        // its a date string.
-	    	event.color = "blue";
+	    	event.color = "red";
 	    	event.allDay = false;
 
 	    	events.push(event);
 	    	$('#calendar').fullCalendar('addEventSource',events);
-	    	
-	    	$('#modalDate').append("<p>일정 날짜</p><div id='sdateDiv'> <b>시작일 </b>: "+startDate+"</div>");
+	    	$('#modalDate').empty();
+	    	$('#modalDate').append("<span class='glyphicon glyphicon-calendar'>일정날짜</span><div id='sdateDiv'> <b>시작일 </b>: "+startDate+"</div>");
 	    	if(endDate!=""){
 	    		$('#modalDate').append("<div id='edateDiv'> <b>종료일 </b>: "+endDate+"</div>");
 	    	}
 	    	
 	    	
 	    	
-	    })
+	    });
+	    $(this).on("click",".listDelete",function(){
+	    	if (confirm('해당 리스트를 삭제 하시겠습니까?')) {
+	    		$(this).parents(".weekday").remove();    
+	    	} else {
+	    	    // Do nothing!
+	    	}
+	    	
+	    });
 
 });
 
@@ -461,15 +505,15 @@ $(document).ready(function(){
 	    		<div class="weekday col-md-1">
 	    			<div class='listHeader'>
 	    				<p> Title
-	    				<button type="button" class="btn btn-sm btn-default" style="float:right">
+	    				<button type="button" class="btn btn-sm btn-default listDelete" style="float:right">
          							 <span class="glyphicon glyphicon-trash"></span>
      					   </button>
      					</p>
 	    			</div>
-	        		<div class="items">
-			            <div class="list">  류정현1</div>
-			            <div class="list">정현1</div>
-	      			</div>
+	        		<ul class="items">
+			            <li class="list">  류정현1</li>
+			            <li class="list">정현1</li>
+	      			</ul>
 	      			<div class = 'listFoot'>
 	      				<button class="btn-primary footText" type="button"> 일정 추가하기</button>
 						<div class='footInput' style='display:none;'>	

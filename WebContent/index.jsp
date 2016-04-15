@@ -2,5 +2,5 @@
     pageEncoding="EUC-KR"%>
 
 <%
-	
-%>    
+	response.sendRedirect("Classic/index.jsp");
+%>
