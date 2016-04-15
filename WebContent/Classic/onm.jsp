@@ -33,6 +33,7 @@
 	
 	<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 	<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+	<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- 다음지도 -->
 	
  	
   
@@ -189,8 +190,10 @@ $(document).ready(function(){
 		defaultDate: '2016-04-02',
 		selectable: true,
 		selectHelper: true,
-		select: function(start, end) {
-			var title = prompt('내용을 입력해주세요');
+		eventDurationEditable: false,   // 이벤트 resize disable
+
+/* 		select: function(start, end) {
+			
 			var eventData;
 			if (title) {
 				eventData = {
@@ -198,25 +201,34 @@ $(document).ready(function(){
 					start: start,
 					end: end
 				};
-				$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				
 			}
 			$('#calendar').fullCalendar('unselect');
-		},
+		}, */ //이벤트 추가함수
 		editable: true,
+		eventClick: function(event) {
+			$('#cardDetail').modal();
+		
+	  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
+	  	   
+	  	},
 		eventLimit: true, // allow "more" link when too many events
 		events: [
 			{
-				title: 'All Day Event',
-				start: '2014-11-01'
+				title: '델론즈 각성',
+				start: '2016-04-13'
 			},
 			{
-				title: 'Long Event',
-				start: '2014-11-07',
-				end: '2014-11-10'
+				title: '월급일',
+				start: '2016-04-24',
+				end: '2016-04-27'
 			}
 		
 		]
 	});
+	
+	
+	
 		$(this).on("click",".list",function(){
 			$('#cardDetail').modal();
 		});
@@ -394,6 +406,27 @@ $(document).ready(function(){
 	    		$("#dateDiv").css("display","none");
 	    	 }
 	    });
+
+	   	$(this).on("click","#btnMap",function(){
+	   		obj = document.getElementById('mapApp');
+	   		if(obj.style.display=="none")
+	   			$("#mapApp").css("display","inline");
+	   		else
+	   			$("#mapApp").css("display","none");
+	   		
+	   		obj = document.getElementById('modalMap');
+	   		if(obj.style.display=="block")
+	   			$("#modalMap").css("display","none");
+	   	});
+	   $(this).on("click","#mapSearch",function(){
+	   		$("#modalMap").css("display","block");
+	   		map.relayout();
+	   	});
+		 
+	    
+	    
+	    
+	    
 	    
 	    $('#sdate').datepicker();
 	    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
@@ -429,9 +462,6 @@ $(document).ready(function(){
 	    	if(endDate!=""){
 	    		$('#modalDate').append("<div id='edateDiv'> <b>종료일 </b>: "+endDate+"</div>");
 	    	}
-	    	
-	    	
-	    	
 	    });
 	    $(this).on("click",".listDelete",function(){
 	    	if (confirm('해당 리스트를 삭제 하시겠습니까?')) {
@@ -442,10 +472,95 @@ $(document).ready(function(){
 	    	
 	    });
 
+	    
 });
 
 
- //달력!!!!!!!!
+
+//지도
+var map;
+var marker = '';
+var position = new daum.maps.LatLng(37.572730, 126.970204);
+ 
+ $("#map").ready(function() {
+  //검색창에 엔터 입력시 좌표 검색
+              $("#txtAddress").keydown(function(e) {
+                  if (e.keyCode == 13) {
+                  	$("#map").css("display","block");
+                 		map.relayout();
+                      Search();
+                  }
+              });
+  
+  //지도 초기화
+              map = new daum.maps.Map(document.getElementById('map'), {
+                  center: position,
+                  level: 4,
+                  mapTypeId: daum.maps.MapTypeId.ROADMAP
+              });
+
+/*                marker = new daum.maps.Marker({
+                  position: position
+              });
+
+              marker.setMap(map)
+*/
+  //지도상의 위치 클릭시 클릭한 위치의 좌표 확인
+              daum.maps.event.addListener(map, "click", function(e) {
+   //기존에 설정된 마커 삭제
+                  if (marker != '') {
+                      marker.setMap(null);
+                  }
+                  //temp에 새로 클릭된 좌표 입력
+                  var lat = e.latLng.getLat();
+                  var lng = e.latLng.getLng();
+   var temp = new daum.maps.LatLng(lat, lng);
+   //좌표 출력
+                  $("#latlng").html("동경 " + lat.toString().substr(0, 10) + ", 북위 " + lng.toString().substr(0, 10));
+   //temp에 입력된 좌표값을 중심으로 지도 이동
+                  map.panTo(temp);
+   //temp에 입력된 좌표값에 마커 설정
+                  marker = new daum.maps.Marker({
+                      position: temp
+                  });
+                  marker.setMap(map);
+              });
+          });
+
+          function Search() {
+              var query = $("#txtAddress").val();
+              $("#txtAddress").val('');
+              getPoint(query);
+          }
+
+ //주소->좌표로 변환해주는 api 사용
+          function getPoint(query) {
+              var oScript = document.createElement("script");
+              oScript.type = "text/javascript";
+              oScript.charset = "utf-8";
+              oScript.src = "http://apis.daum.net/local/geo/addr2coord?apikey=d82c75b3a6b33cfad136796fbe876e68a518b478&output=json&callback=pongSearch&q=" + encodeURI(query);
+              document.getElementsByTagName("head")[0].appendChild(oScript);
+          }
+ 
+ //좌표 변환 후 해당 좌표를 이용해 콜백(클릭시와 동일한 동작)
+          function pongSearch(data) {
+              marker = '';
+              if (data.channel.item.length == 0) {
+                  alert("결과가 없습니다.");
+              } else {
+                  if (marker != '') {
+                      marker.setMap(null);
+                  }
+                  var temp = new daum.maps.LatLng(data.channel.item[0].lat, data.channel.item[0].lng);
+                  $("#latlng").html((data.channel.item[0].lat).toString().substring(0, 10) + ", " + (data.channel.item[0].lng).toString().substring(0, 10));
+                  map.panTo(temp);
+                  marker = new daum.maps.Marker({
+                      position: temp
+                  });
+                  marker.setMap(map);
+              }
+          }//지도!!!!!!!!
+
 </script>
 <title>오늘 일을 내일로 미루자</title>
 </head>

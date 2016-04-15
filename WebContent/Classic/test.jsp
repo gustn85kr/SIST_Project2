@@ -14,8 +14,12 @@ body{
 		font-size: 15px;
 		padding : 20px;
 }
+
 #modalBody{
 	background-color: white;
+	min-width:500px;
+	min-height:800px;
+	max-height:1800px;
 	padding:20px;
 }
 #modalTitle{
@@ -24,9 +28,22 @@ body{
 	padding:20px;
 	border-radius : 3px;
 }
+#modalMid{
+	border : 1px solid;
+	margin:20px;
+	padding:20px;
+	border-radius : 3px;
+}
 #content{
 	height : 50px;
 	border: 2px;
+	
+}
+.modal-content{
+	position: relative;
+	margin:0 auto;
+
+	width:900px;
 	
 }
 #glypTitle{
@@ -57,7 +74,10 @@ body{
 	padding : 10px;
 
 }
-
+#map{
+max-height:100%;
+max-width:100%;
+}
 #priorityDiv .btn span.glyphicon {    			
 	opacity: 0;				
 }
@@ -69,7 +89,7 @@ body{
 </head>
 <body>
 	
-	<div class="modal-content" id="modalBody">
+	<div class="modal-dialog" id="modalBody">
 		<div class="row">
 			<div id="content" >
 				
@@ -85,14 +105,21 @@ body{
 						<div id="contentText" style="font: bold;"><span class="glyphicon glyphicon-subscript">일정내용</span> <span id="insertContent" data-toggle="tooltip" title="일정 내용 수정"> 수정 </span></div>
 						<div id="newTA" style="display:none">
 						 	<textarea id="mytextarea" >
-	  					  	</textarea>
+				
+						 	</textarea>
 		  					<button type="button" class="btn btn-default btn-sm" id="contentInsert">입력</button>
 		  					<button type="button" class="btn btn-default btn-sm" id="contentCancel" >취소</button>
   					  </div>
-  					  <div id="showContent" style="display:none">
-  					  
-  					  </div>
+  					  <div id="showContent" style="display:none"> 					  
+  					  </div>				  
+					</div>				
 				</div>
+				<div id="modalMap" style="display:none">	
+					<div id="modalMid">
+						
+						<span class="glyphicon glyphicon-map-marker" id="glypTitle">위치정보</span>
+						<div id="map" style="width:400px;height:300px;"></div>
+					</div>
 				</div>
 				
 			</div>
@@ -108,11 +135,11 @@ body{
         			종료일<input type='text' id='edate'>
         			</div>
         			<div>
-        				<input type="button" id="dateInsert" class=btn-sm" value="저장"/>
-        				<input type="button" id="dateDelete" class=btn-sm" value="삭제"/>
+        				<input type="button" id="dateInsert" class="btn-sm" value="저장"/>
+        				<input type="button" id="dateDelete" class="btn-sm" value="삭제"/>
         			</div>
         		</div>
-				<div class="dropdown">
+		        
 		        <br/><br/>
 		        <button type="button" class="btn btn-default btn-sm">
 		          <span class="glyphicon glyphicon-user" ></span>  인원 추가
@@ -126,8 +153,8 @@ body{
 					          <li><a href="#">Twitter</a></li>
           				</ul>
       				</button>
-        		</div>
-        		<br>                          <%-- 뛰어 --%>        
+        		
+        		<br><br>                          <%-- 뛰어 --%>        
 		        <button type="button" class="btn btn-default btn-sm">
 		          <span class="glyphicon glyphicon-paperclip" ></span>  파일첨부
 		        </button>
@@ -155,16 +182,22 @@ body{
 		        
 		         <br><br>                        <%-- 뛰어 --%>
 		        
-		        <button type="button" class="btn btn-default btn-sm">
+		        <button type="button" class="btn btn-default btn-sm" id="btnMap">
 		          <span class="glyphicon glyphicon-map-marker"></span> 위치설정
-		        </button>
+		          </button>	          
+		        <!--  <div id="map" style="width:100%;height:350px; display:none;"></div>   -->
+		         <div id="mapApp" style="display:none"><br>
+        			 <label>주소검색 </label>
+      				  <input id = "txtAddress" type="text" style="width : 100px">
+        			 <button type="button" onclick="Search();" id="mapSearch">찾기</button>
+        		</div>
+
+
+
 		        
-		        <br><br>                          <%-- 뛰어 --%>
-		        
-		        
-		        
+		        <br><br>
 		        <button class="btn btn-default btn-sm" type="button" id="priorityBtn" >		        	
-		          <span class="glyphicon glyphicon-star"></span> 우선순위 설정
+		          <span class="glyphicon glyphicon-star"></span> 우선순위 설정	          	          
 		        </button>
 		        <div class="container" id ="priorityDiv" style="display:none">
 		       		<p>중요도</p>
@@ -226,11 +259,8 @@ body{
 							<input type="button" id="priorityCancel" value="삭제"/>
 						</div>
 				</div>
-
-				
-		        
+				<br><br>
 		       <div class="dropdown">
-		       <br><br>		
        			    <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown">
              			 <span class="glyphicon glyphicon-tags"></span> 라벨
        				     <span class="caret"></span></button>
@@ -248,5 +278,6 @@ body{
 		</div>
 	
 	</div>
+	
 </body>
 </html>
