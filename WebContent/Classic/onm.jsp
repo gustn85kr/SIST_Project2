@@ -174,6 +174,13 @@ body{
 .fc-time{
    display : none;
 }
+#fileUpButton {
+	margin-bottom: 10px;
+}
+#blah {
+	width:110px;
+	height:80px;
+	text-align: center;
     </style>
    
 <script type="text/javascript">
@@ -214,15 +221,7 @@ $(document).ready(function(){
 	  	},
 		eventLimit: true, // allow "more" link when too many events
 		events: [
-			{
-				title: '델론즈 각성',
-				start: '2016-04-13'
-			},
-			{
-				title: '월급일',
-				start: '2016-04-24',
-				end: '2016-04-27'
-			}
+	
 		
 		]
 	});
@@ -358,46 +357,16 @@ $(document).ready(function(){
   		  
   	  });
   	  $(this).on("click","#checkInsert",function(){
-  		  $("#checkDiv").css("display",'none');
+  		  $("#dateDiv").css("display","none");
+  		  $("#checklistadd").css("display",'inline');
+  		  var title = $('#checkTitle').val();
+  		  $('#checklisttitle').text(title);
+  		  alert(title);
   	  });
   	$(this).on("click","#checkCancel",function(){
-		  $("#checkDiv").css("display",'none');
+		  $("#checklistadd").empty();
 	  });
-  	  
- 	 	$(this).on("click","#btn1",function(){
-	        $("p1").append(" <button class='w3-btn w3-red' id='btn2'></button>");    
-	    });
-	    $(this).on("click","#btn2",function(){
-	          $(this).remove();
-	    });
-	   
-	    $(this).on("click","#btn3",function(){
-	        $("p2").append(" <button class='w3-btn w3-yellow' id='btn4'></button>");    
-	    });
-	    $(this).on("click","#btn4",function(){
-	          $(this).remove();
-	    });
-	   
-	    $(this).on("click","#btn5",function(){
-	         $("p3").append(" <button class='w3-btn w3-green' id='btn6'></button>");    
-	     });
-	    $(this).on("click","#btn6",function(){
-	          $(this).remove();
-	     });
-	   
-	    $(this).on("click","#btn7",function(){
-	        $("p3").append(" <button class='w3-btn w3-pink' id='btn8'></button>");    
-	    });
-	    $(this).on("click","#btn8",function(){
-	          $(this).remove();
-	    });
-	   
-	    $(this).on("click","#btn9",function(){
-	        $("p3").append(" <button class='w3-btn w3-black' id='btn10'></button>");    
-	    });
-	    $(this).on("click","#btn10",function(){
-	          $(this).remove();
-	    });
+
 	    $(this).on("click","#dateBtn",function(){
 	    	 obj = document.getElementById('dateDiv');
 	    	 if(obj.style.display=="none"){
@@ -418,16 +387,17 @@ $(document).ready(function(){
 	   		if(obj.style.display=="block")
 	   			$("#modalMap").css("display","none");
 	   	});
+	   	
 	   $(this).on("click","#mapSearch",function(){
 	   		$("#modalMap").css("display","block");
 	   		map.relayout();
 	   	});
-		 
-	    
-	    
-	    
-	    
-	    
+	   
+	   $(this).on("click","#mapCancel",function(){
+	   		$("#modalMap").css("display","none");
+	   		
+	   	});
+  
 	    $('#sdate').datepicker();
 	    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
 	    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
@@ -471,6 +441,75 @@ $(document).ready(function(){
 	    	}
 	    	
 	    });
+		$(this).on("click","#fileUpButton",function(){
+			obj = document.getElementById('fileUpDiv');
+	   		if(obj.style.display=="none")
+	   			$("#fileUpDiv").css("display","inline");
+	   		else
+	   			$("#fileUpDiv").css("display","none");
+		});
+		$(this).on("click","#fileDelete",function(){
+			$("#fileUpDiv").css('display','none');
+		});
+	    $(this).ready(function(){
+	        function readURL(input) {
+	            if (input.files && input.files[0]) {
+	                var reader = new FileReader();
+	                reader.onload = function (e) { 
+	                    $('#blah').attr('src', e.target.result);
+	                }                    
+	                reader.readAsDataURL(input.files[0]);
+	            }
+	        }
+	  	       $("#upload").change(function(){
+	  	    	   readURL(this);
+	        });
+	     });
+	    
+	    $(this).on("click","#addchecklist",function(){
+			$('#checkready').append("<textarea cols='30' rows='1' id='chetext'></textarea>");
+			$('#complecheck').css('display',"inline");
+			document.getElementById("complecheck").disabled=false;
+			document.getElementById("addchecklist").disabled=true;
+		}); 
+
+		$(this).on("click","#complecheck",function(){
+			var message = $('textarea#chetext').val();
+			$('#chetext').css('display',"none");
+			$('#checkready').append("<form id='checkboxform'><p><input type='checkbox' />"+message+"</p></form>");
+			document.getElementById("addchecklist").disabled=false;
+			document.getElementById("complecheck").disabled=true;
+			 $('#chetext').remove();
+			 
+			 $('#checkready').ready(function() {
+		      	  
+		      	  // get box count
+		      	  var count = 0;
+		      	  var checked = 0;
+		      	  function countBoxes() { 
+		      	    count = $("input[type='checkbox']").length;
+		      	    console.log(count);
+		      	  }
+		      	  
+		      	  countBoxes();
+		      	  $(":checkbox").click(countBoxes);
+		      	  
+		      	  // count checks
+		      	 function countChecked() {
+			      	    checked = $("input:checked").length;
+			      	    
+			      	    var percentage = parseInt(((checked / count) * 100),10);
+			      	    $(".progressbar-bar").progressbar({
+			      	            value: percentage
+			      	        });
+			      	    $(".progressbar-label").text(percentage + "%");
+			      	  }
+			      	  
+			      	  countChecked();
+			      	  $(":checkbox").click(countChecked);
+		      	 
+		      	});
+		});
 
 	    
 });
@@ -644,7 +683,6 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	  <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
  		<div>
- 	
  			  <jsp:include page="test.jsp" flush="false" /> 
  		</div>   
 

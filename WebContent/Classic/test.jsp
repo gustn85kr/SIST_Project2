@@ -49,7 +49,9 @@ body{
 #glypTitle{
 	font-size: 25px;
 }
-
+#glypMid{
+	font-size: 25px;
+}
 #mytextarea{
 	
 }
@@ -85,6 +87,32 @@ max-width:100%;
 	opacity: 1;				
 }
 
+input[type="checkbox"] { 
+  height: 20px; 
+  width: 20px; 
+  margin-right: 10px;
+}	
+
+.checkready { font-size: 1.5em; }
+.ui-progressbar-value { background: lightgreen; }
+.progressbar-container {
+  position: relative;
+  width: 350px; 
+}
+
+.progressbar-bar { 
+  height: 25px;
+margin: 10px 0;
+border-radius: 7px;
+}
+
+.progressbar-label {
+  position: absolute;
+  top: 2px;
+  left: 45%;
+  z-index: 2;
+}
+
 </style>
 </head>
 <body>
@@ -96,7 +124,7 @@ max-width:100%;
 			</div>
 			<div class="col-sm-9">
 				<div id="modalTitle">
-					<span class="glyphicon glyphicon-list-alt" id="glypTitle">제목</span><span id="listName">list name</span>
+					<span class="glyphicon glyphicon-list-alt" id="glypTitle"> 제목</span><span id="listName">list name</span>
 					<div id="modalDate">
 					</div>
 					<div id="modalPriority">
@@ -114,11 +142,42 @@ max-width:100%;
   					  </div>				  
 					</div>				
 				</div>
-				<div id="modalMap" style="display:none">	
-					<div id="modalMid">
-						
-						<span class="glyphicon glyphicon-map-marker" id="glypTitle">위치정보</span>
+				
+				<div id="modalMid"> 
+					<span class="glyphicon glyphicon-th-list" id="glypMid"> 추가기능</span><br>
+					<div id="modalMap" style="display:none">			
+						<span class="glyphicon glyphicon-map-marker" >위치정보</span>
 						<div id="map" style="width:400px;height:300px;"></div>
+					</div>
+					<div id="checklistadd" style="display:none">
+						<span class="glyphicon glyphicon-ok" > 체크리스트</span>
+						<p id="checklisttitle"></p>
+						<div class="progressbar-container" id="progressbar-container">
+				  			<div class="progressbar-bar" id="progressbar-bar"></div>
+				  			<div class="progressbar-label" id="progressbar-label"></div>	  
+	  		 			</div>
+	  		
+	  		  			<div class="checkready" id= "checkready" >
+	  		  	   
+			  			</div>
+			   			<div id="addcheck">
+						  <button type="button" class="addlistcheck" id="addchecklist">추가</button>
+						  <button type="button" class="checkcomplete" id="complecheck" style="display:none">완료</button>
+			   			</div>
+					</div>
+					<div id="modalFile" style="display:none">
+						<form class="fileUpload" action="download.jsp" method="post" enctype="multipart/form-data">
+							<div id="fileUpField" >
+								<span class="glyphicon glyphicon-paperclip" id="glypfile"></span> 파일첨부
+								<span id="listName"></span> 파일 이름
+								<br><br>
+								<img id="blah" scr="#">
+								<button type="submit" class="btn btn-default btn-sm" id="glydown">
+									<span class="glyphicon glyphicon-download-alt" ></span> 다운로드</button>
+								<button type="button" class="btn btn-default btn-sm" id="glyremove">
+									<span class="glyphicon glyphicon-remove-sign"></span> 삭제하기</button>
+							</div>
+						</form>
 					</div>
 				</div>
 				
@@ -155,10 +214,18 @@ max-width:100%;
       				</button>
         		
         		<br><br>                          <%-- 뛰어 --%>        
-		        <button type="button" class="btn btn-default btn-sm">
-		          <span class="glyphicon glyphicon-paperclip" ></span>  파일첨부
-		        </button>
-		        <br><br>                       <%-- 뛰어 --%>
+		        <form class="fileUpload" action="insert.jsp" method="post" enctype="multipart/form-data">
+					<button type="button" class="btn btn-default btn-sm" id="fileUpButton">
+						<span class="glyphicon glyphicon-paperclip"> 파일첨부</span>
+					</button>
+					<div id="fileUpDiv" style="display:none">
+						<input type="file" class="btn-default btn-sm" name="upload" id="upload" style="margin-bottom:10px">
+						<button type="submit" class="btn btn-default btn-sm" id="fileInsert"><span class="glyphicon glyphicon-ok"></span>확인</button>
+						<button type="reset" class="btn btn-default btn-sm" id="fileDelete"><span class="glyphicon glyphicon-remove"></span>취소</button>
+						<!-- fuc = File Upload Cancel -->
+					</div>
+				</form>
+		        <br>                       <%-- 뛰어 --%>
 		        
 		         <button type="button" class="btn btn-default btn-sm">
 		          <span class="glyphicon glyphicon-envelope"></span>  메일
@@ -171,7 +238,7 @@ max-width:100%;
 		        </button>
 		        <div id="checkDiv" style="display:none">
 		        	<div>
-		        	제목 : <input type="text" />
+		        	제목 : <input type="text" id="checkTitle"/>
 		        	</div>
 		        	<div>
 		        		<input type="button" id="checkInsert" value="생성"/>
@@ -189,7 +256,9 @@ max-width:100%;
 		         <div id="mapApp" style="display:none"><br>
         			 <label>주소검색 </label>
       				  <input id = "txtAddress" type="text" style="width : 100px">
+      				  <br>
         			 <button type="button" onclick="Search();" id="mapSearch">찾기</button>
+        			 	<button type="button"  id="mapCancel">삭제</button>
         		</div>
 
 
