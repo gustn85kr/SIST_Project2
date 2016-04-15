@@ -86,6 +86,12 @@ max-width:100%;
 #priorityDiv .btn.active span.glyphicon {				
 	opacity: 1;				
 }
+#labelDiv .btn span.glyphicon {    			
+	opacity: 0;				
+}
+#labelDiv .btn.active span.glyphicon {				
+	opacity: 1;				
+}
 
 input[type="checkbox"] { 
   height: 20px; 
@@ -128,6 +134,8 @@ border-radius: 7px;
 					<div id="modalDate">
 					</div>
 					<div id="modalPriority">
+					</div>
+					<div id="modalLabel">
 					</div>
 					<div id="modalTextarea">
 						<div id="contentText" style="font: bold;"><span class="glyphicon glyphicon-subscript">일정내용</span> <span id="insertContent" data-toggle="tooltip" title="일정 내용 수정"> 수정 </span></div>
@@ -329,23 +337,42 @@ border-radius: 7px;
 						</div>
 				</div>
 				<br><br>
-		       <div class="dropdown">
-       			    <button type="button" class="btn btn-default btn-sm" data-toggle="dropdown">
-             			 <span class="glyphicon glyphicon-tags"></span> 라벨
-       				     <span class="caret"></span></button>
-          			<ul class="dropdown-menu">
-				          <li><button class="w3-btn w3-red" id="btn1">빨강</button></li>              <%-- 라벨 색 --%>
-				          <li><button class="w3-btn w3-yellow" id="btn3">노랑</button></li>
-				          <li><button class="w3-btn w3-green" id="btn5">초록</button></li>
-				          <li><button class="w3-btn w3-pink" id="btn7">분홍</button></li>
-				          <li><button class="w3-btn w3-black" id="btn9">검정</button></li>
-        		  </ul>
-     		   </div>
+		 		<button class="btn btn-default btn-sm" type="button" id="labelBtn" >                 
+               		 <span class="glyphicon glyphicon-tags"></span> 라벨
+             	</button>
+             	<div class="container" id ="labelDiv" style="display:none">
+                  <div class="btn-group" data-toggle="buttons" >         
+                     <label class="btn" style="background-color: red" >
+                        <input type="radio" name="option10" id="option10" autocomplete="off" checked  value="red">
+                        <span class="glyphicon glyphicon-ok" ></span>
+                     </label>
+                     <label class="btn" style="background-color: yellow">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="yellow">
+                        <span class="glyphicon glyphicon-ok"></span>
+                     </label>
+            
+                     <label class="btn btn-warning" style="background-color: green">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="green">
+                        <span class="glyphicon glyphicon-ok"></span>
+                     </label>
+                     <label class="btn btn-warning" style="background-color: pink">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="pink">
+                        <span class="glyphicon glyphicon-ok"></span>
+                     </label>
+                     <label class="btn btn-warning" style="background-color: blue">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="blue">
+                        <span class="glyphicon glyphicon-ok"></span>
+                     </label>
+                  </div> 
+                  <div>
+                     <input type="button" id="labelInsert" value="확인"/>
+                     <input type="button" id="labelDelete" value="삭제"/>
+                  </div>
   
 		    
 			</div>
 		</div>
-	
+		</div>
 	</div>
 	
 </body>

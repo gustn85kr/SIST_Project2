@@ -1,118 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page import="java.io.*,java.util.*,javax.mail.*"%>
+<%@ page import="javax.mail.internet.*,javax.activation.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%
+   String result;
+   // Recipient's email ID needs to be mentioned.
+   String to = "abcd@gmail.com";
+
+   // Sender's email ID needs to be mentioned
+   String from = "mcmohd@gmail.com";
+
+   // Assuming you are sending email from localhost
+   String host = "localhost";
+
+   // Get system properties object
+   Properties properties = System.getProperties();
+
+   // Setup mail server
+   properties.setProperty("mail.smtp.host", host);
+
+   // Get the default Session object.
+   Session mailSession = Session.getDefaultInstance(properties);
+
+   try{
+      // Create a default MimeMessage object.
+      MimeMessage message = new MimeMessage(mailSession);
+      // Set From: header field of the header.
+      message.setFrom(new InternetAddress(from));
+      // Set To: header field of the header.
+      message.addRecipient(Message.RecipientType.TO,
+                               new InternetAddress(to));
+      // Set Subject: header field
+      message.setSubject("This is the Subject Line!");
+      // Now set the actual message
+      message.setText("This is actual message");
+      // Send message
+      Transport.send(message);
+      result = "Sent message successfully....";
+   }catch (MessagingException mex) {
+      mex.printStackTrace();
+      result = "Error: unable to send message....";
+   }
+%>
+<html>
 <head>
-    <meta charset="utf-8">
-    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
-    <title>Checkbox/Radio - CSS Only - Bootsnipp.com</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <style type="text/css">
-        .btn span.glyphicon {    			
-	opacity: 0;				
-}
-.btn.active span.glyphicon {				
-	opacity: 1;				
-}
-    </style>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<title>Send Email using JSP</title>
 </head>
 <body>
-<div class="container">
-	<h1 class="text-center">Checkbox/Radio - CSS Only</h1>
-</div>
-
-<div class="container">
-
-	<div class="well well-sm text-center">
-
-		<h3>Checkbox</h3>
-		
-		<div class="btn-group" data-toggle="buttons">
-			
-			<label class="btn btn-success active">
-				<input type="checkbox" autocomplete="off" checked>
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>
-
-			<label class="btn btn-primary">
-				<input type="checkbox" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>			
-		
-			<label class="btn btn-info">
-				<input type="checkbox" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>			
-		
-			<label class="btn btn-default">
-				<input type="checkbox" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>			
-
-			<label class="btn btn-warning">
-				<input type="checkbox" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>			
-		
-			<label class="btn btn-danger">
-				<input type="checkbox" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>			
-		
-		</div>
-
-	</div>
-
-</div>
-
-
-<div class="container">			
-
-	<div class="well well-sm text-center">
-
-		<h3>Radio</h3>
-		
-		<div class="btn-group" data-toggle="buttons">
-			
-			<label class="btn btn-success active">
-				<input type="radio" name="options" id="option2" autocomplete="off" chacked>
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>
-
-			<label class="btn btn-primary">
-				<input type="radio" name="options" id="option1" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>
-
-			<label class="btn btn-info">
-				<input type="radio" name="options" id="option2" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>
-
-			<label class="btn btn-default">
-				<input type="radio" name="options" id="option2" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>
-
-			<label class="btn btn-warning">
-				<input type="radio" name="options" id="option2" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>
-
-			<label class="btn btn-danger">
-				<input type="radio" name="options" id="option2" autocomplete="off">
-				<span class="glyphicon glyphicon-ok"></span>
-			</label>
-		
-		</div>
-
-
-	</div>
-
-</div>
-<script type="text/javascript">
-
-</script>
+<center>
+<h1>Send Email using JSP</h1>
+</center>
+<p align="center">
+<% 
+   out.println("Result: " + result + "\n");
+%>
+</p>
 </body>
 </html>

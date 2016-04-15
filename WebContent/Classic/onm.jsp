@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/one.style.css">
 	<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
+	<link rel="shortcut icon" href="favicon.ico">
 	
 	
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
@@ -187,6 +188,7 @@ body{
 
 
 $(document).ready(function(){
+	var labelColor=null;
 	$('#calendar').fullCalendar({
 		theme: true,
 		header: {
@@ -361,7 +363,6 @@ $(document).ready(function(){
   		  $("#checklistadd").css("display",'inline');
   		  var title = $('#checkTitle').val();
   		  $('#checklisttitle').text(title);
-  		  alert(title);
   	  });
   	$(this).on("click","#checkCancel",function(){
 		  $("#checklistadd").empty();
@@ -387,6 +388,24 @@ $(document).ready(function(){
 	   		if(obj.style.display=="block")
 	   			$("#modalMap").css("display","none");
 	   	});
+	   	$(this).on("click","#labelBtn",function(){
+	   		obj = document.getElementById('labelDiv');
+	   		if(obj.style.display=="none"){
+	   			$("#labelDiv").css("display","inline");
+	   		}
+	   		else{
+	   			$("#labelDiv").css("display","none");
+	   		}
+	   	});
+	   $(this).on("click","#labelDelete",function(){
+			$('#modalLabel').empty();
+	   });
+	   $(this).on("click","#labelInsert",function(){
+		    $('#modalLabel').empty();
+		    labelColor = $(':radio[name="option10"]:checked').val();
+			$('#modalLabel').append("<span class='glyphicon glyphicon-tags'>¶óº§</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
+	   });
+	   
 	   	
 	   $(this).on("click","#mapSearch",function(){
 	   		$("#modalMap").css("display","block");
@@ -421,8 +440,12 @@ $(document).ready(function(){
 	    	event = new Object();       
 	    	event.title = title; 
 	    	event.start = startDate;    // its a date string
-	    	event.end = endDate;        // its a date string.
-	    	event.color = "red";
+	    	event.end = endDate;
+	    	if(labelColor==null){
+	    	event.color = "green";
+	    	}else{
+	    		event.color = labelColor;
+	    	}
 	    	event.allDay = false;
 
 	    	events.push(event);
