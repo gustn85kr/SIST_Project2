@@ -793,7 +793,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	  <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
  		<div>
- 			  <jsp:include page="test.jsp" flush="false" /> 
+ 			  <jsp:include page="detail.jsp" flush="false" /> 
  		</div>   
 
       

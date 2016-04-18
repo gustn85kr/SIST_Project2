@@ -1,0 +1,15 @@
+
+CREATE TABLE userDTO(
+no number CONSTRAINT mem_no_pk primary key,
+email varchar2(50) CONSTRAINT mem_email_nn Not Null,
+pwd varchar2(20) CONSTRAINT mem_pw_nn Not Null,
+joindate DATE DEFAULT SYSDATE
+);
+
+CREATE SEQUENCE seq_no
+	START WITH 1
+	INCREMENT BY 1;
+
+/*
+INSERT INTO userdto (idno,email,pwd) VALUES(seq_no.nextval,'n1011@gmail.com','1234');
+*/

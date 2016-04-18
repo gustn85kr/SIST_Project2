@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans SYSTEM "app.dtd">
+<beans>
+    <bean class="com.model.IntroModel" id="intro"/>
+	<bean class="com.model.LoginOKModel" id="loginOK"/>
+	<bean class="com.model.JoinOKModel" id="joinOK"/>
+</beans>

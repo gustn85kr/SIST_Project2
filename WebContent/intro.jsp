@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
@@ -81,15 +83,27 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-						<li class="page-scroll home">
-							<a href="#body"><span class="glyphicon glyphicon-home"></span>&nbsp;집으로</a>
-						</li>
-						<li class="page-scroll home" id="myBtn">
-							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>&nbsp;로그인</a>
-						</li>
-						<li class="page-scroll home" id="myBtn3">
-							<a href="#services"><span class="glyphicon glyphicon-user"></span>&nbsp;회원가입</a>
-						</li>
+						<li class="page-scroll home"><a href="#body">
+						<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;집으로</a>${check}</li>
+						
+						<c:if test="${email eq null}">
+							<li class="page-scroll home" id="myBtn1"><a href="#about">
+							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
+							
+							<li class="page-scroll home" id="myBtn2"><a href="#services">
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
+						</c:if>
+						<c:if test="${email ne null}">
+							<li class="page-scroll home"><a href="onm.jsp">
+							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;오내미로</a></li>
+							
+							<li class="page-scroll home"><a href="#detail">
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${email}님</a></li>
+							
+							<li class="page-scroll home" id="myBtn3"><a href="login/logoutOK.jsp">
+							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
+						</c:if>
+						
 					</ul>
 				</div>
 			</div>
@@ -334,116 +348,232 @@ style="z-index: 6">
 		<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.placeholder.min.js"></script>
 		<![endif]-->
 
-<!-- 로그인 Modal  -->
-  <!-- Modal -->
-  <div class="modal fade" id="LoginModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="padding:30px 30px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-lock"></span> 로 그 인</h4>
-        </div>
-        <div class="modal-body" style="padding:30px 30px;">
-          <form role="form" action="onm.jsp" method="post">
-            <div class="form-group">
-              <label for="usrname"><span class="glyphicon glyphicon-user"></span>이메일</label>
-              <input type="text" class="form-control" id="usrname" placeholder="이메일을 입력하세요">
-            </div>
-            <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span>비밀번호</label>
-              <input type="text" class="form-control" id="psw" placeholder="비밀번호를 입력하세요">
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="" checked>아이디 저장</label>
-            </div>
-              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> 확 인</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="margin:10px; margin-left: 15px"><span class="glyphicon glyphicon-remove"></span>취 소</button>
-          <p style="float: right; margin: 10px; height: 30px">비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span></p>
-          <p style="float: right; margin: 10px; height: 30px;">이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span></p>
-        </div>
-      </div>
-      
-    </div>
-  </div> 
-  
-  <!-- 회원가입  -->
-  <!-- Modal -->
-  <div class="modal fade" id="SignUpModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="padding:30px 30px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-user"></span> 회 원 가 입</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;height: 355px;">
-          <form role="form">
-            <div class="form-group">
-              <label for="email"><span class="glyphicon glyphicon-user"></span> 이메일</label>
-              <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요">
-            </div>
-            <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> 1차 비밀번호</label>
-              <input type="text" class="form-control" id="pwd" placeholder="1차 비밀번호를 입력하세요">
-            </div>
-            <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> 2차 비밀번호</label>
-              <input type="text" class="form-control" id="pwd2" placeholder="2차 비밀번호를 입력하세요">
-            </div>
-            <div class="form-group" style="float: left; width:55%">
-              <label for="checknum"><span class="glyphicon glyphicon-envelope"></span> 인증번호</label>
-              <input type="text" class="form-control" id="inputCheckNum" placeholder="인증번호를 입력하세요">
-            </div>
-            <div class="form-group" style="float: right; width:20%; margin-top: 25px">
-    		  <button type="submit" class="btn btn-primary btn-block" id="confirm"><span class="glyphicon glyphicon-off"></span> 확 인</button>
-            </div>
-             <div class="form-group" style="float: right; width:20%; margin-top: 25px; margin-right: 10px">
-    		  <button type="submit" class="btn btn-primary btn-block" id="sendCheckNum"><span class="glyphicon glyphicon-off"></span> 인증번호</button>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success btn-default pull-left" data-dismiss="modal" style="margin:10px; margin-left: 35px"><span class="glyphicon glyphicon-plus"></span>완 료</button>
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="margin:10px"><span class="glyphicon glyphicon-remove"></span>취 소</button>
-          <p style="float: right; margin: 10px; height: 30px">비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span></p>
-          <p style="float: right; margin: 10px; height: 30px">이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span></p>
-        </div>
-      </div>
-    </div>
-  </div> 
-	<script>
+<!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+	<!-- 로그인 Modal  -->
+	<!-- Modal -->
+	<div class="modal fade" id="LoginModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+			<form class="form-horizontal" method="POST" id="logFrm" action="loginOK.do">
+				<div class="modal-header" style="padding: 30px 30px;">
+					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4>
+						<span class="glyphicon glyphicon-lock"></span> 로 그 인
+					</h4>
+				</div>
+				<div class="modal-body" style="padding: 30px 30px; height: 220px">
+						<div class="form-group">
+							<label for="usrname"><span class="glyphicon glyphicon-user"></span> 이메일</label> 
+							<input type="text" class="form-control" name="logEmail" placeholder="이메일을 입력하세요" id="logEmail">
+						</div>
+						<div class="form-group">
+							<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호</label> 
+							<input type="password" class="form-control" name="logPwd" placeholder="비밀번호를 입력하세요" id="logPwd">
+						</div>
+						<div class="form-group">
+							<label><input type="checkbox" value="1" id="logSave" name="logSave">아이디 저장</label>
+						</div>					
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="logYes" name="logYes" form="logFrm"
+						class="btn btn-success btn-default pull-left" value="Send" style="margin: 10px; margin-left: 35px">
+						<span class="glyphicon glyphicon-plus"></span>완 료
+					</button>	
+					<button type="button" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="margin: 10px; margin-left: 15px">
+						<span class="glyphicon glyphicon-remove"></span>취 소
+					</button>
+					<p style="float: right; margin: 10px; height: 30px">
+						비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
+					</p>
+					<p style="float: right; margin: 10px; height: 30px;">
+						이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
+					</p>					
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+
+	<!-- 회원가입  -->
+	<!-- Modal -->
+	<div class="modal fade" id="SignUpModal" role="dialog"  tabindex="-1" aria-labelledby="modal-login-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="padding: 30px 30px;">
+					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4>
+						<span class="glyphicon glyphicon-user"></span> 회 원 가 입
+					</h4>
+				</div>
+				<form class="form-horizontal" method="POST" id="Frm" name="Frm" action="joinOK.do">
+					<div class="modal-body" style="padding: 40px 50px; height: 360px;">
+						<div class="form-group" style="float: left; width: 83%" id="divEmail" >
+							<label for="email"><span class="glyphicon glyphicon-user"></span> 이메일</label>
+							<input type="text" class="email form-control" id="email" name="email" placeholder="이메일을 입력하세요">
+						</div>
+						<div class="form-group"	style="float: right; margin-top: 25px" id="divEmailCheck">
+							<button type="button" class="btn btn-primary btn-block" name="emailCheck" id="emailCheck">
+								<span class="glyphicon glyphicon-off"></span> 중복확인
+							</button>
+						</div>
+						<div class="form-group" id="divPwd">
+							<label for="psw">
+							<span class="glyphicon glyphicon-eye-open"></span> 1차 비밀번호</label>
+							<input type="password" class="pwd form-control" id="pwd" name="pwd"
+								placeholder="1차 비밀번호를 입력하세요">
+						</div>
+						<div class="form-group" id="divPwd2">
+							<label for="psw"><span
+								class="glyphicon glyphicon-eye-open"></span> 2차 비밀번호</label> <input
+								type="password" class="form-control" id="pwd2" name="pwd2"
+								placeholder="2차 비밀번호를 입력하세요">
+						</div>
+						<div class="form-group" style="float: left; width: 56%" id="divCheckNum">
+							<label for="checknum"><span	class="glyphicon glyphicon-envelope"></span> 인증번호</label> 
+							<input type="text" class="form-control" id="inputCheckNum" name="inputCheckNum" placeholder="인증번호를 입력하세요">
+						</div>
+						<div class="form-group" style="float: right; width: 20%; margin-top: 25px" id="divCheckConfirm">
+							<button type="button" class="btn btn-primary btn-block" id="checkconfirm" name="inputCheckNum">
+								<span class="glyphicon glyphicon-ok"></span> 확 인
+							</button>
+						</div>
+						<div class="form-group" style="float: right; width: 20%; margin-top: 25px; margin-right: 30px" id="divSendCheckNum">
+							<button type="button" class="btn btn-primary btn-block"	id="sendCheckNum">
+								<span class="glyphicon glyphicon-envelope"></span> 인증번호
+							</button>
+						</div>
+					</div>
+				<div class="modal-footer">
+					<button type="button" id="signYes" name="signYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px">
+						<span class="glyphicon glyphicon-plus"></span>완 료
+					</button>
+					<button type="button" class="btn btn-danger btn-default pull-left"
+						data-dismiss="modal" value="Input Button" style="margin: 10px">
+						<span class="glyphicon glyphicon-remove"></span>취 소
+					</button>
+					<p style="float: right; margin: 10px; height: 30px">
+						비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
+					</p>
+					<p style="float: right; margin: 10px; height: 30px">
+						이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
+					</p>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+		<script>	
 		$(document).ready(function() {
-			$("#myBtn").click(function() {
-				$("#LoginModal").modal();
+			//로그인 액션
+			$('#logYes').click(function() {
+				var logEmail = $('#logEmail').val();
+				var logPwd = $('#logPwd').val();
+				
+				if (logEmail.trim() == "" || logEmail.trim()==null) {
+					alert("Email을 입력해주세요.");
+					$('#logEmail').focus();
+					return;
+				} else if (logPwd.trim() == "") {
+					alert("비밀번호를 입력해주세요.");
+					$('#logPwd').focus();					
+					return;
+				} else {
+					$('#logFrm').submit();
+				}
 			});
-		});
-		$(document).ready(function() {
+					
+		 	//회원가입 액션
+			$('#signYes').click(function() {
+				
+				var email = $('#email').val();
+				var pwd = $('#pwd').val();
+				var pwd2 = $('#pwd2').val();
+				var inputCheckNum = $('#inputCheckNum').val();
+				//$("#Frm").attr("action", "joinOK.do");
+				
+				if (email.trim() == "") {
+					$('#email').focus();
+					return;
+				} else if (pwd.trim() == "") {
+					$('#pwd').focus();
+					return;
+				} else if (pwd2.trim() == "") {
+					$('#pwd2').focus();
+					return;
+				} else if (pwd.trim() == "") {
+					$('#inputCheckNum').focus();
+					return;
+				} else if(pwd!=pwd2){
+					alert("비밀번호가 다릅니다");
+					$('#pwd2').focus();
+					return;
+				} else{
+					$('#Frm').submit();
+				}
+			});
+			
+			//아이디 체크 액션
+			$('#emailCheck').click(function() {
+				var email = $('#email').val();
+				$("#Frm").attr("action", "signUp/emailCheckOK.jsp");
+				$('#Frm').submit();
+			}); 
+								
+			//이메일 보내기 액션(구현 중)
+			$(document).ready(function() {
+			    $('#inputCheckNum').click(function() {
+			        $('#Frm').attr('action',
+			                       'mailto:cunsangbi@naver.com?subject=' +
+			                       $('#email').val() + '&body=' + $('#pwd').val());
+			        $('#Frm').submit();
+			    });
+			});
+			//로그인 아이디 저장 액션
+			$('#logSave').click(function() {
+				var logSave = $('#logSave').val();
+				if($('#logSave').attr('checked')) {
+					alert("개인 컴퓨터가 아닐시 개인정보 유출에 위험이 있을 수 있습니다.");
+				} else {
+				    
+				}
+			});
+						
+			//로그인 Modal 실행 (아이디 저장까지)
+			$("#myBtn1").click(function() {
+				var logEmail = $('#logEmail').val("");
+				var logPwd = $('#logPwd').val("");
+				<%
+				Cookie[] cookies = request.getCookies();
+				if(cookies[1].getValue()==""){
+				%>
+					var logEmail = $('#logEmail').val("<%=cookies[1].getValue()%>");
+				<%
+				} else {
+				%>
+					$('#logSave').attr('checked',true);
+					var logEmail = $('#logEmail').val("<%=cookies[1].getValue()%>");
+					// 요청정보로부터 쿠키를 가져온다.	
+				<%
+				}
+				%>
+				$("#LoginModal").modal();
+			});			
+			
 			$("#myBtn2").click(function() {
-				$("#LoginModal").modal();
-			});
-		});
-		$(document).ready(function() {
-			$("#myBtn3").click(function() {
 				$("#SignUpModal").modal();
-			});
-		});
-		$(document).ready(function() {
-			$("#myBtn4").click(function() {
-				$("#SignUpModal").modal();
-			});
-		});
-		$(document).ready(function() {
-			$("#myBtn4").click(function() {
-				$("#SignUpModal").modal();
-			});
+			});		
+			
 		});
 	</script>
+
 	
 	
 </body>
