@@ -182,6 +182,31 @@ body{
 	width:110px;
 	height:80px;
 	text-align: center;
+	}
+.addListBtn {
+    background-color: transparent;
+    color: white;
+    display: block;
+    height: 100%;
+    line-height: 40px;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    cursor:pointer;
+}
+.addListTxt{
+	background-color: transparent;
+    color: white;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    border:inherit;
+}
+	
+	
     </style>
    
 <script type="text/javascript">
@@ -189,6 +214,7 @@ body{
 
 $(document).ready(function(){
 	var labelColor=null;
+	
 	$('#calendar').fullCalendar({
 		theme: true,
 		header: {
@@ -261,20 +287,62 @@ $(document).ready(function(){
   			$(this).parent(".footInput").css('display', 'none');
   			$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
   		});
-  	    $(this).on("click","#listAddBtn",function(){
-  	    	var text = prompt("제목을 입력하세요.","새로운 일정");
+  	    $(this).on("click",".addListBtn",function(){
+  	    	/*  var listTitle =""; */
+  	    	$(this).css('display','none');
+  	    	$(this).siblings('.addListPanel').show();
+  	    	$(this).siblings('.addListPanel').find('.addListTxt').focus();
   	    	
-  			$('#timetable').append("<div class='weekday col-md-1'><div class='listHeader'><p>"+text+
-  					"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
-  					"<span class='glyphicon glyphicon-trash'></span></p>"+
-	    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
-  					"<button class='btn-primary footText'>일정 추가하기</button><div class='footInput' style='display:none;'> "+
-  					" <textarea cols='30' rows='3'></textarea><input type='button' value='추가' class='cardInsert btn-primary'/>  "+
-  	 				" <input type='button' value='취소' class='cardCancel btn-primary'/> </div></div></div> ");
-  			 $("#timetable .items").sortable({
-   	            connectWith: "ul"  
-   	    	});
   		});
+  	    
+  	  /* addListPanelCreation addListPanelCancel */
+  	    $(this).on("click",".listTitleCancel",function(){
+  	    	$(this).parent('.addListPanel').hide();
+  	    	$(this).parent('.addListPanel').siblings('.addListBtn').show();
+  	    	$(this).siblings('.addListTxt').val("");
+  	    	
+  	    });
+  	  $(this).on("click",".listTitleBtn",function(){
+  		  
+  	    	var listTitle ="";
+  	    
+  	    	listTitle= $(this).siblings('.addListTxt').val();
+  	    	$(this).parent('.addListPanel').parent('.weekday').hide();
+  	  	$('#timetable').append("<div class='weekday col-md-1'><div class='listHeader'><p>"+listTitle+
+					"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
+					"<span class='glyphicon glyphicon-trash'></span></p>"+
+    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
+					"<button class='btn-primary footText'>일정 추가하기</button><div class='footInput' style='display:none;'> "+
+					" <textarea cols='30' rows='3'></textarea><input type='button' value='추가' class='cardInsert btn-primary'/>  "+
+	 				" <input type='button' value='취소' class='cardCancel btn-primary'/> </div></div></div> ");
+  	  	
+  	  	$('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span>리스트 추가하기..</span></div> "+
+  	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='리스트 추가하기..'/> "+
+  	  				"<input type='button' value='추가' class='listTitleBtn'/> "+
+  	  				"<input type='button' value='취소' class='listTitleCancel'/></div><div>");
+  	  	
+  	  	/*
+  	  			<div class="weekday col-md-1">
+	    		
+	    			
+	    			<div id="addListBtn">
+	    				<span>리스트 추가하기..</span>
+	    			</div>
+	    			
+	    			<div class="addListPanel" style="display:none;">
+	    				<input name="name" class="addListTxt" type="text" placeholder="리스트 추가하기.."/>
+	    				<input type="button" value="추가" class="listTitleBtn" />
+	    				<input type="button" value="취소" class="listTitleCancel" />
+	    			</div>
+	    		</div>
+  	  	*/
+  	  	
+			 $("#timetable .items").sortable({
+	            connectWith: "ul"  
+	    	});
+			 
+  	    });
+  	    
   	    $("#insertContent").tooltip();
   	    $(this).on("click","#insertContent",function(){
   	    	
@@ -679,7 +747,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	    		
 	    		</div>
 	    		
-	    		<div class="weekday col-md-1">
+	    	<!-- 	<div class="weekday col-md-1">
 	    			<div class='listHeader'>
 	    				<p> Title
 	    				<button type="button" class="btn btn-sm btn-default listDelete" style="float:right">
@@ -699,7 +767,26 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 							<input type="button" value="취소" class="cardCancel btn-primary" />
 						</div>
 				</div>
+	    		</div>      -->
+	    		
+	    		
+	    		<div class="weekday col-md-1">
+	    		
+	    			
+	    			<div class="addListBtn">
+	    				<span>리스트 추가하기..</span>
+	    			</div>
+	    			
+	    			<div class="addListPanel" style="display:none;">
+	    				<input name="name" class="addListTxt" type="text" placeholder="리스트 추가하기.."/>
+	    				<input type="button" value="추가" class="listTitleBtn" />
+	    				<input type="button" value="취소" class="listTitleCancel" />
+	    			</div>
 	    		</div>
+	    		
+	    		
+	    		
+	    		
 			</div>
 	    </div>
     </div>
