@@ -320,6 +320,7 @@ $(document).ready(function(){
   	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='리스트 추가하기..'/> "+
   	  				"<input type='button' value='추가' class='listTitleBtn'/> "+
   	  				"<input type='button' value='취소' class='listTitleCancel'/></div><div>");
+
   	  	
   	  	/*
   	  			<div class="weekday col-md-1">
@@ -340,6 +341,19 @@ $(document).ready(function(){
 			 $("#timetable .items").sortable({
 	            connectWith: "ul"  
 	    	});
+		  	var tmp = $(this).parents('.weekday').html();
+		  	var sendData = {'html':tmp};
+		  	alert(tmp);
+		  	$.ajax({
+		            url:'listAdd.do',
+		            type:'post',
+		            dataType:"json",
+		            data: sendData,
+		            /* dataType:'text', */ 
+		            success:function(data){
+		            	alert(data);
+		            }
+		    });
 			 
   	    });
   	    

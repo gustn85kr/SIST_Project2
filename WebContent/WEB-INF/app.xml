@@ -4,4 +4,6 @@
     <bean class="com.model.IntroModel" id="intro"/>
 	<bean class="com.model.LoginOKModel" id="loginOK"/>
 	<bean class="com.model.JoinOKModel" id="joinOK"/>
+	<bean class="com.model.CheckEmailModel" id="emailCheck"/>
+	<bean class="com.model.ListAddModel" id="listAdd"/>
 </beans>

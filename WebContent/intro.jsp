@@ -522,9 +522,24 @@ style="z-index: 6">
 			
 			//아이디 체크 액션
 			$('#emailCheck').click(function() {
-				var email = $('#email').val();
+				
+				/* var email = $('#email').val();
 				$("#Frm").attr("action", "signUp/emailCheckOK.jsp");
-				$('#Frm').submit();
+				$('#Frm').submit(); */
+				$.ajax({
+			            url:'emailCheck.do',
+			            type:'post',
+			            data:$('#Frm').serialize(),
+			            /* dataType:'text', */ 
+			            success:function(data){
+			            	alert(data);
+			                if(data=='0'){
+			                	alert("사용가능한 email입니다.");
+			                }else{
+			                	alert("이미 사용중인 email입니다.");
+			                }
+			            }
+			    });
 			}); 
 								
 			//이메일 보내기 액션(구현 중)
