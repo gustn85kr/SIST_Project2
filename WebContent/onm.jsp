@@ -1,10 +1,10 @@
 
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	
@@ -34,7 +34,7 @@
 	
 	<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 	<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-	<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- ´ÙÀ½Áöµµ -->
+	<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- ë‹¤ìŒì§€ë„ -->
 	
  	
   
@@ -225,7 +225,7 @@ $(document).ready(function(){
 		defaultDate: '2016-04-02',
 		selectable: true,
 		selectHelper: true,
-		eventDurationEditable: false,   // ÀÌº¥Æ® resize disable
+		eventDurationEditable: false,   // ì´ë²¤íŠ¸ resize disable
 
 /* 		select: function(start, end) {
 			
@@ -239,12 +239,12 @@ $(document).ready(function(){
 				
 			}
 			$('#calendar').fullCalendar('unselect');
-		}, */ //ÀÌº¥Æ® Ãß°¡ÇÔ¼ö
+		}, */ //ì´ë²¤íŠ¸ ì¶”ê°€í•¨ìˆ˜
 		editable: true,
 		eventClick: function(event) {
 			$('#cardDetail').modal();
 		
-	  	   /*ÀÌº¥Æ® Å¬¸¯½Ã ¹ß»ıÇÏ´Â ÇÔ¼ö  alert("ÀÌº¥Æ® Å¬¸¯½Ã ¹ß»ıÇÏ´Â ÇÔ¼ö");*/
+	  	   /*ì´ë²¤íŠ¸ í´ë¦­ì‹œ ë°œìƒí•˜ëŠ” í•¨ìˆ˜  alert("ì´ë²¤íŠ¸ í´ë¦­ì‹œ ë°œìƒí•˜ëŠ” í•¨ìˆ˜");*/
 	  	   
 	  	},
 		eventLimit: true, // allow "more" link when too many events
@@ -312,14 +312,14 @@ $(document).ready(function(){
 					"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
 					"<span class='glyphicon glyphicon-trash'></span></p>"+
     			"</div><ul class='items'></ul><div class = 'listFoot'> "+
-					"<button class='btn-primary footText'>ÀÏÁ¤ Ãß°¡ÇÏ±â</button><div class='footInput' style='display:none;'> "+
-					" <textarea cols='30' rows='3'></textarea><input type='button' value='Ãß°¡' class='cardInsert btn-primary'/>  "+
-	 				" <input type='button' value='Ãë¼Ò' class='cardCancel btn-primary'/> </div></div></div> ");
+					"<button class='btn-primary footText'>ì¼ì • ì¶”ê°€í•˜ê¸°</button><div class='footInput' style='display:none;'> "+
+					" <textarea cols='30' rows='3'></textarea><input type='button' value='ì¶”ê°€' class='cardInsert btn-primary'/>  "+
+	 				" <input type='button' value='ì·¨ì†Œ' class='cardCancel btn-primary'/> </div></div></div> ");
   	  	
-  	  	$('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span>¸®½ºÆ® Ãß°¡ÇÏ±â..</span></div> "+
-  	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='¸®½ºÆ® Ãß°¡ÇÏ±â..'/> "+
-  	  				"<input type='button' value='Ãß°¡' class='listTitleBtn'/> "+
-  	  				"<input type='button' value='Ãë¼Ò' class='listTitleCancel'/></div><div>");
+  	  	$('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span>ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°..</span></div> "+
+  	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°..'/> "+
+  	  				"<input type='button' value='ì¶”ê°€' class='listTitleBtn'/> "+
+  	  				"<input type='button' value='ì·¨ì†Œ' class='listTitleCancel'/></div><div>");
 
   	  	
   	  	/*
@@ -327,13 +327,13 @@ $(document).ready(function(){
 	    		
 	    			
 	    			<div id="addListBtn">
-	    				<span>¸®½ºÆ® Ãß°¡ÇÏ±â..</span>
+	    				<span>ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°..</span>
 	    			</div>
 	    			
 	    			<div class="addListPanel" style="display:none;">
-	    				<input name="name" class="addListTxt" type="text" placeholder="¸®½ºÆ® Ãß°¡ÇÏ±â.."/>
-	    				<input type="button" value="Ãß°¡" class="listTitleBtn" />
-	    				<input type="button" value="Ãë¼Ò" class="listTitleCancel" />
+	    				<input name="name" class="addListTxt" type="text" placeholder="ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°.."/>
+	    				<input type="button" value="ì¶”ê°€" class="listTitleBtn" />
+	    				<input type="button" value="ì·¨ì†Œ" class="listTitleCancel" />
 	    			</div>
 	    		</div>
   	  	*/
@@ -342,14 +342,13 @@ $(document).ready(function(){
 	            connectWith: "ul"  
 	    	});
 		  	var tmp = $(this).parents('.weekday').html();
-		  	var sendData = {'html':tmp};
-		  	alert(tmp);
+		  	var sendData = {html:tmp};
 		  	$.ajax({
-		            url:'listAdd.do',
+		            url:'listAdd.do?data='+tmp,
 		            type:'post',
-		            dataType:"json",
-		            data: sendData,
-		            /* dataType:'text', */ 
+		            
+
+		            /* dataType:"json", */
 		            success:function(data){
 		            	alert(data);
 		            }
@@ -419,12 +418,12 @@ $(document).ready(function(){
 		  	var op2 = $(':radio[name="option2"]:checked').val();
 		  	$('input').prop('checked', false);
 		  	$('#modalPriority').empty();
-	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>¿ì¼±¼øÀ§</span><br/><div id='priorityIf'></div> ");
+	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>ìš°ì„ ìˆœìœ„</span><br/><div id='priorityIf'></div> ");
 	  		if(op1!=null){
-	  			$("#priorityIf").append("<span style='background-color:"+op1+"'> Áß¿äµµ</span>");
+	  			$("#priorityIf").append("<span style='background-color:"+op1+"'> ì¤‘ìš”ë„</span>");
 	  		}
 	  		if(op2!=null){
-	  			$("#priorityIf").append("<span style='background-color:"+op2+"'> ¼±È£µµ</span>");
+	  			$("#priorityIf").append("<span style='background-color:"+op2+"'> ì„ í˜¸ë„</span>");
 	  		}
   	  });
   	  $(this).on("click","#priorityCancel",function(){
@@ -485,7 +484,7 @@ $(document).ready(function(){
 	   $(this).on("click","#labelInsert",function(){
 		    $('#modalLabel').empty();
 		    labelColor = $(':radio[name="option10"]:checked').val();
-			$('#modalLabel').append("<span class='glyphicon glyphicon-tags'>¶óº§</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
+			$('#modalLabel').append("<span class='glyphicon glyphicon-tags'>ë¼ë²¨</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
 	   });
 	   
 	   	
@@ -533,13 +532,13 @@ $(document).ready(function(){
 	    	events.push(event);
 	    	$('#calendar').fullCalendar('addEventSource',events);
 	    	$('#modalDate').empty();
-	    	$('#modalDate').append("<span class='glyphicon glyphicon-calendar'>ÀÏÁ¤³¯Â¥</span><div id='sdateDiv'> <b>½ÃÀÛÀÏ </b>: "+startDate+"</div>");
+	    	$('#modalDate').append("<span class='glyphicon glyphicon-calendar'>ì¼ì •ë‚ ì§œ</span><div id='sdateDiv'> <b>ì‹œì‘ì¼ </b>: "+startDate+"</div>");
 	    	if(endDate!=""){
-	    		$('#modalDate').append("<div id='edateDiv'> <b>Á¾·áÀÏ </b>: "+endDate+"</div>");
+	    		$('#modalDate').append("<div id='edateDiv'> <b>ì¢…ë£Œì¼ </b>: "+endDate+"</div>");
 	    	}
 	    });
 	    $(this).on("click",".listDelete",function(){
-	    	if (confirm('ÇØ´ç ¸®½ºÆ®¸¦ »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?')) {
+	    	if (confirm('í•´ë‹¹ ë¦¬ìŠ¤íŠ¸ë¥¼ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?')) {
 	    		$(this).parents(".weekday").remove();    
 	    	} else {
 	    	    // Do nothing!
@@ -621,13 +620,13 @@ $(document).ready(function(){
 
 
 
-//Áöµµ
+//ì§€ë„
 var map;
 var marker = '';
 var position = new daum.maps.LatLng(37.572730, 126.970204);
  
  $("#map").ready(function() {
-  //°Ë»öÃ¢¿¡ ¿£ÅÍ ÀÔ·Â½Ã ÁÂÇ¥ °Ë»ö
+  //ê²€ìƒ‰ì°½ì— ì—”í„° ì…ë ¥ì‹œ ì¢Œí‘œ ê²€ìƒ‰
               $("#txtAddress").keydown(function(e) {
                   if (e.keyCode == 13) {
                   	$("#map").css("display","block");
@@ -636,7 +635,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   }
               });
   
-  //Áöµµ ÃÊ±âÈ­
+  //ì§€ë„ ì´ˆê¸°í™”
               map = new daum.maps.Map(document.getElementById('map'), {
                   center: position,
                   level: 4,
@@ -649,21 +648,21 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 
               marker.setMap(map)
 */
-  //Áöµµ»óÀÇ À§Ä¡ Å¬¸¯½Ã Å¬¸¯ÇÑ À§Ä¡ÀÇ ÁÂÇ¥ È®ÀÎ
+  //ì§€ë„ìƒì˜ ìœ„ì¹˜ í´ë¦­ì‹œ í´ë¦­í•œ ìœ„ì¹˜ì˜ ì¢Œí‘œ í™•ì¸
               daum.maps.event.addListener(map, "click", function(e) {
-   //±âÁ¸¿¡ ¼³Á¤µÈ ¸¶Ä¿ »èÁ¦
+   //ê¸°ì¡´ì— ì„¤ì •ëœ ë§ˆì»¤ ì‚­ì œ
                   if (marker != '') {
                       marker.setMap(null);
                   }
-                  //temp¿¡ »õ·Î Å¬¸¯µÈ ÁÂÇ¥ ÀÔ·Â
+                  //tempì— ìƒˆë¡œ í´ë¦­ëœ ì¢Œí‘œ ì…ë ¥
                   var lat = e.latLng.getLat();
                   var lng = e.latLng.getLng();
    var temp = new daum.maps.LatLng(lat, lng);
-   //ÁÂÇ¥ Ãâ·Â
-                  $("#latlng").html("µ¿°æ " + lat.toString().substr(0, 10) + ", ºÏÀ§ " + lng.toString().substr(0, 10));
-   //temp¿¡ ÀÔ·ÂµÈ ÁÂÇ¥°ªÀ» Áß½ÉÀ¸·Î Áöµµ ÀÌµ¿
+   //ì¢Œí‘œ ì¶œë ¥
+                  $("#latlng").html("ë™ê²½ " + lat.toString().substr(0, 10) + ", ë¶ìœ„ " + lng.toString().substr(0, 10));
+   //tempì— ì…ë ¥ëœ ì¢Œí‘œê°’ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì§€ë„ ì´ë™
                   map.panTo(temp);
-   //temp¿¡ ÀÔ·ÂµÈ ÁÂÇ¥°ª¿¡ ¸¶Ä¿ ¼³Á¤
+   //tempì— ì…ë ¥ëœ ì¢Œí‘œê°’ì— ë§ˆì»¤ ì„¤ì •
                   marker = new daum.maps.Marker({
                       position: temp
                   });
@@ -677,7 +676,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
               getPoint(query);
           }
 
- //ÁÖ¼Ò->ÁÂÇ¥·Î º¯È¯ÇØÁÖ´Â api »ç¿ë
+ //ì£¼ì†Œ->ì¢Œí‘œë¡œ ë³€í™˜í•´ì£¼ëŠ” api ì‚¬ìš©
           function getPoint(query) {
               var oScript = document.createElement("script");
               oScript.type = "text/javascript";
@@ -686,11 +685,11 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
               document.getElementsByTagName("head")[0].appendChild(oScript);
           }
  
- //ÁÂÇ¥ º¯È¯ ÈÄ ÇØ´ç ÁÂÇ¥¸¦ ÀÌ¿ëÇØ Äİ¹é(Å¬¸¯½Ã¿Í µ¿ÀÏÇÑ µ¿ÀÛ)
+ //ì¢Œí‘œ ë³€í™˜ í›„ í•´ë‹¹ ì¢Œí‘œë¥¼ ì´ìš©í•´ ì½œë°±(í´ë¦­ì‹œì™€ ë™ì¼í•œ ë™ì‘)
           function pongSearch(data) {
               marker = '';
               if (data.channel.item.length == 0) {
-                  alert("°á°ú°¡ ¾ø½À´Ï´Ù.");
+                  alert("ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.");
               } else {
                   if (marker != '') {
                       marker.setMap(null);
@@ -703,10 +702,10 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   });
                   marker.setMap(map);
               }
-          }//Áöµµ!!!!!!!!
+          }//ì§€ë„!!!!!!!!
 
 </script>
-<title>¿À´Ã ÀÏÀ» ³»ÀÏ·Î ¹Ì·çÀÚ</title>
+<title>ì˜¤ëŠ˜ ì¼ì„ ë‚´ì¼ë¡œ ë¯¸ë£¨ì</title>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
 	<!--=== Header ===-->
@@ -721,7 +720,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 				</button>
 				-->
 				<a class="navbar-brand" href="#intro">
-					<span>¿À</span>³»¹Ì
+					<span>ì˜¤</span>ë‚´ë¯¸
 					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
 				</a>
 			</div>
@@ -731,13 +730,13 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
 						<li class="page-scroll home">
-							<a href="#body"><span class="glyphicon glyphicon-home"></span>ÁıÀ¸·Î</a>
+							<a href="#body"><span class="glyphicon glyphicon-home"></span>ì§‘ìœ¼ë¡œ</a>
 						</li>
 						<li class="page-scroll home">
-							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>·Î±×ÀÎ</a>
+							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>ë¡œê·¸ì¸</a>
 						</li>
 						<li class="page-scroll home">
-							<a href="#services"><span class="glyphicon glyphicon-user"></span>È¸¿ø°¡ÀÔ</a>
+							<a href="#services"><span class="glyphicon glyphicon-user"></span>íšŒì›ê°€ì…</a>
 						</li>
 					</ul>
 				</div>
@@ -756,7 +755,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
    		 <div class="col-md-6 half" id ='cardList' >
 			<div style="clear:both"></div>
 			<div id="timetable" style="float:left;max-width:7000px;">
-				<input style="align:left" type="button" value="¸®½ºÆ® Ãß°¡" id="listAddBtn">
+				<input style="align:left" type="button" value="ë¦¬ìŠ¤íŠ¸ ì¶”ê°€" id="listAddBtn">
 	    		<div style="text-align:center">
 	    		
 	    		</div>
@@ -770,15 +769,15 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
      					</p>
 	    			</div>
 	        		<ul class="items">
-			            <li class="list">  ·ùÁ¤Çö1</li>
-			            <li class="list">Á¤Çö1</li>
+			            <li class="list">  ë¥˜ì •í˜„1</li>
+			            <li class="list">ì •í˜„1</li>
 	      			</ul>
 	      			<div class = 'listFoot'>
-	      				<button class="btn-primary footText" type="button"> ÀÏÁ¤ Ãß°¡ÇÏ±â</button>
+	      				<button class="btn-primary footText" type="button"> ì¼ì • ì¶”ê°€í•˜ê¸°</button>
 						<div class='footInput' style='display:none;'>	
 							<textarea cols='31' rows='3' style="resize:none"></textarea>
-							<input type="button" value="Ãß°¡" class="cardInsert btn-primary" />
-							<input type="button" value="Ãë¼Ò" class="cardCancel btn-primary" />
+							<input type="button" value="ì¶”ê°€" class="cardInsert btn-primary" />
+							<input type="button" value="ì·¨ì†Œ" class="cardCancel btn-primary" />
 						</div>
 				</div>
 	    		</div>      -->
@@ -788,13 +787,13 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	    		
 	    			
 	    			<div class="addListBtn">
-	    				<span>¸®½ºÆ® Ãß°¡ÇÏ±â..</span>
+	    				<span>ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°..</span>
 	    			</div>
 	    			
 	    			<div class="addListPanel" style="display:none;">
-	    				<input name="name" class="addListTxt" type="text" placeholder="¸®½ºÆ® Ãß°¡ÇÏ±â.."/>
-	    				<input type="button" value="Ãß°¡" class="listTitleBtn" />
-	    				<input type="button" value="Ãë¼Ò" class="listTitleCancel" />
+	    				<input name="name" class="addListTxt" type="text" placeholder="ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°.."/>
+	    				<input type="button" value="ì¶”ê°€" class="listTitleBtn" />
+	    				<input type="button" value="ì·¨ì†Œ" class="listTitleCancel" />
 	    			</div>
 	    		</div>
 	    		

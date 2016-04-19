@@ -37,6 +37,7 @@ public class LoginOKModel implements Model {
 			res.addCookie(logEmailCookie);
 			// 클라이언트 응답에 쿠키를 추가한다.
 		}
+	    System.out.println(email);
 	    int result = UserDAO.emailCheck(email);
 	    String dbPwd = UserDAO.pwdCheck(email);
 	    if(result==0){

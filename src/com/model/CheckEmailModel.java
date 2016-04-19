@@ -15,6 +15,7 @@ public class CheckEmailModel implements Model {
 		String email = req.getParameter("email");
 		System.out.println(email);
 		int result = UserDAO.confirmEmail(email);
+		res.setCharacterEncoding("EUC-KR");
 		res.getWriter().write(String.valueOf(result));
 		return null;
 	}

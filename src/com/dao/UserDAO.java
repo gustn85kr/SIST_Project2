@@ -22,7 +22,7 @@ public class UserDAO{
 	
 	public static void insertUser(UserDTO d){
 		SqlSession session=ssf.openSession(true);
-		session.update("insertUser",d);
+		session.insert("insertUser",d);
 		session.close();
 	}
 	
@@ -45,5 +45,16 @@ public class UserDAO{
 		String dbPwd = session.selectOne("pwdCheck",email);
 		session.close();
 		return dbPwd;
+	}
+	public static void listInsert(ListVO vo){
+		SqlSession session=ssf.openSession(true);
+		session.insert("listInsert",vo);
+		session.close();
+	}
+	public static String listSearch(){
+		SqlSession session=ssf.openSession();
+		String html = session.selectOne("listSearch");
+		session.close();
+		return html;
 	}
 }
