@@ -40,11 +40,11 @@ public class UserDAO{
 		session.close();
 		return cnt;
 	}
-	public static String pwdCheck(String email){
+	public static UserDTO pwdCheck(String email){
 		SqlSession session=ssf.openSession();
-		String dbPwd = session.selectOne("pwdCheck",email);
+		UserDTO d = session.selectOne("pwdCheck",email);
 		session.close();
-		return dbPwd;
+		return d;
 	}
 	public static void listInsert(ListVO vo){
 		SqlSession session=ssf.openSession(true);

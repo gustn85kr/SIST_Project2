@@ -1,6 +1,5 @@
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,38 +7,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	
-	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/one.style.css">
-	<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
-	<link rel="shortcut icon" href="favicon.ico">
-	
+<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/one.style.css">
+<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
+<link rel="shortcut icon" href="favicon.ico">
 	
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-teal.css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">    <%-- css --%>
 	
-	
-	<link rel='stylesheet' href='calendar/jquery-ui.min.css' />
-   	<link href="calendar/fullcalendar.css" rel="stylesheet" />
-   	<link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
-   	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-   	
-    <script src="assets/plugins/jquery/jquery.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script src="calendar/moment.min.js"></script>
-	<script src="calendar/fullcalendar.min.js"></script>
-	
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-	<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
-	
-	<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
-	<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-	<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- 다음지도 -->
+
+<link rel='stylesheet' href='calendar/jquery-ui.min.css' />
+<link href="calendar/fullcalendar.css" rel="stylesheet" />
+<link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+  	
+<script src="assets/plugins/jquery/jquery.min.js"></script>
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="calendar/moment.min.js"></script>
+<script src="calendar/fullcalendar.min.js"></script>
+
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
+
+<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
+<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- 다음지도 -->
 	
  	
   
 
-    <style type="text/css">
+<style type="text/css">
 body{
 	font-family:'Malgun Gothic';
 }
