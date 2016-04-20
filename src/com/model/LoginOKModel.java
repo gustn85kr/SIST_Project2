@@ -46,6 +46,7 @@ public class LoginOKModel implements Model {
 	    else{
 	    	if(dbPwd.equals(pwd)){
 	    		chk="ok";
+	    		
 	    		return "onm.jsp";
 	    	}else{
 	    		chk="nopwd";

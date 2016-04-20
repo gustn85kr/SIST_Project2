@@ -14,8 +14,8 @@
 	<select id="emailCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM userDTO WHERE email=#{email}
 	</select>
-	<select id="pwdCheck" parameterType="String" resultType="String">
-		SELECT pwd FROM userdto WHERE email=#{email}
+	<select id="pwdCheck" parameterType="User" resultType="String">
+		SELECT pwd,no FROM userdto WHERE email=#{email}
 	</select>
 	<insert id="listInsert" parameterType="Olist">
 		INSERT INTO onmlist VALUES(seq_ol.nextval,2,#{title},#{html})
@@ -23,6 +23,7 @@
 	<select id="listSearch"  resultType="String">
 		SELECT html FROM onmlist WHERE no=2
 	</select>
+
 	
 </mapper>
 
