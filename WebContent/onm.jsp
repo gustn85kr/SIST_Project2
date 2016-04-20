@@ -278,6 +278,7 @@ $(document).ready(function(){
   	    $(this).on("click",".footText",function(){
   			$(this).css('display', 'none');
   			$(this).siblings(".footInput").css('display', 'inline'); 
+  			$(this).siblings('.footInput').find('textarea').focus();
   		});
   	    $(this).on("click",".cardInsert",function(){
   	    	var text = $(this).siblings('textarea').val();
@@ -294,6 +295,22 @@ $(document).ready(function(){
   	    	$(this).siblings('.addListPanel').find('.addListTxt').focus();
   	    	
   		});
+  	    $(this).on("click","#commentAddOk",function(){
+  	 
+  	    	var commenttext = $(this).siblings("#commentText").val();
+  	    	$(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div id='commentArea'>"+commenttext+"</div></div>");
+  	    	
+  	    	
+  	    	$(this).parents("#commentDialog").append("<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>추가</button>");
+  	    	
+  	    	$(this).siblings("#commentText").val("");
+  	    	$(this).parent("#commentAddArea").remove();
+  	    	
+  	    });
+  	    $(this).on("click","#commentDelete",function(){
+  	    	$(this).parent("#commentPanel").remove();
+  	    	
+  	    });
   	    
   	  /* addListPanelCreation addListPanelCancel */
   	    $(this).on("click",".listTitleCancel",function(){
@@ -617,6 +634,13 @@ $(document).ready(function(){
 
 	    
 });
+
+function resize(obj) {
+	  obj.style.height = "1px";
+	  obj.style.height = (50+obj.scrollHeight)+"px";
+}
+
+
 
 
 
