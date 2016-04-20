@@ -730,7 +730,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
 						<li class="page-scroll home">
-							<a href="#body"><span class="glyphicon glyphicon-home"></span>집으로</a>
+							<a href="intro.jsp"><span class="glyphicon glyphicon-home"></span>집으로</a>
 						</li>
 						<li class="page-scroll home">
 							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>로그인</a>
