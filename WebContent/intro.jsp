@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -53,7 +53,6 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
-
 </head>
 
 <!--
@@ -82,21 +81,19 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-						<li class="page-scroll home"><a href="#body">
-						<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
-						<c:if test="${logEmailOK eq null}">						
+						<c:if test="${logNickname eq null}">						
 							<li class="page-scroll home" id="myBtn1"><a href="#about">
 							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
 							
 							<li class="page-scroll home" id="myBtn2"><a href="#services">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
 						</c:if>
-						<c:if test="${logEmailOK ne null}">
+						<c:if test="${logNickname ne null}">
 							<li class="page-scroll home"><a href="onm.jsp">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;오내미로</a></li>
 							
 							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logEmailOK}님</a></li>
+							<span class="glyphicon glyphicon-user"></span>&nbsp;${logNo }번&nbsp;&nbsp;${logNickname}님</a></li>
 							
 							<li class="page-scroll home" id="myBtn3"><a href="login/logoutOK.jsp">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
@@ -148,9 +145,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 					style="z-index: 6">
 					일정관리! 어렵지 않아요~<br>
                     이제 쉽고 간편하게 즐기세요~
-				</div>
-
-			
+				</div>	
 		</li>
 
 		<!-- SLIDE 2 -->
@@ -184,7 +179,6 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 		style="z-index: 6">
 		일정을 보며 할일을 함께 계획하세요
 	</div>
-
 </li>
 
 <!-- SLIDE 3 -->
@@ -203,7 +197,6 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 	data-endspeed="300">
 	
 </div>
-
 <!-- LAYER -->
 <div class="tp-caption rs-caption-2 sfb"
 data-x="center"
@@ -221,7 +214,6 @@ style="z-index: 6">
 </div>
 
 </li>
-
 <!-- SLIDE 4 -->
 <li data-transition="curtain-4" data-slotamount="5" data-masterspeed="700"  data-title="Slide 4">
 	<!-- MAIN IMAGE -->
@@ -253,7 +245,6 @@ data-captionhidden="off"
 style="z-index: 6">
 당신의 일상과 계획을 <br>다른사람들과 함께 공유하세요
 </div>
-
 </li>
 
 <!-- SLIDE 5 -->
@@ -474,7 +465,6 @@ style="z-index: 6">
 			</div>
 		</div>
 	</div>
-
 		<script>	
 		$(document).ready(function() {
 			//로그인 Modal 실행 (아이디 저장까지)
@@ -487,11 +477,11 @@ style="z-index: 6">
                     type:'post',
                     data:$('#logFrm').serialize(),
                     success:function(data){
-                    	var logEmail = $('#logEmail').val(data);                    	
+                    	var logEmail = $('#logEmail').val(data);
+                    	if(logEmail !="")
+                    		$('#logSave').attr('checked');
                     }
 	         	});
-				if(logEmail !="")
-            		$('#logSave').attr('checked');
 				$("#LoginModal").modal();
 			});			
 			
@@ -600,7 +590,8 @@ style="z-index: 6">
 	                    	} else {
 	                    		$('#logEmail').val("");
 	                    		$('#logPwd').val("");
-	                    		$('#LoginModal').modal('toggle');	               
+	                    		$('#LoginModal').modal('toggle');
+	                    		location.href="onm.jsp";
 	                    	}
 	                    } 
 					});
@@ -614,16 +605,18 @@ style="z-index: 6">
 	            	alert("개인 컴퓨터가 아닐시 개인정보 유출에 위험이 있을 수 있습니다.");     
 				}
 			});
-	 		
-			//이메일 보내기 액션(구현 중)
-			$(document).ready(function() {
-			    $('#inputCheckNum').click(function() {
-			        $('#Frm').attr('action',
-			                       'mailto:cunsangbi@naver.com?subject=' +
-			                       $('#email').val() + '&body=' + $('#pwd').val());
-			        $('#Frm').submit();
-			    });
-			});			
+			
+	 		//로그아웃
+			$('#myBtn3').click(function() {
+				$.ajax({
+                    url:'logOut.do',
+                    type:'post',
+                    data:$('#logFrm').serialize(),
+                    success:function(data){
+                    	alert("성공적으로 로그아웃 되었습니다");
+                    }
+	        	});
+			});		
 		});
 	</script>
 </body>

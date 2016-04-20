@@ -11,7 +11,7 @@ public class EmailCheckModel implements Model {
 	@Override
 	public String handlerRequest(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// TODO Auto-generated method stub
-		req.setCharacterEncoding("EUC-KR");
+		req.setCharacterEncoding("UTF-8");
 		String email = req.getParameter("email");
 		int result = UserDAO.confirmEmail(email);
 		res.getWriter().write(String.valueOf(result));

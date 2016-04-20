@@ -1,6 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -716,15 +718,22 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-						<li class="page-scroll home">
-							<a href="intro.jsp"><span class="glyphicon glyphicon-home"></span>집으로</a>
-						</li>
-						<li class="page-scroll home">
-							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>로그인</a>
-						</li>
-						<li class="page-scroll home">
-							<a href="#services"><span class="glyphicon glyphicon-user"></span>회원가입</a>
-						</li>
+						<li class="page-scroll home"><a href="intro.jsp">
+						<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
+						<c:if test="${logNickname eq null}">						
+							<li class="page-scroll home" id="myBtn1"><a href="#about">
+							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
+							
+							<li class="page-scroll home" id="myBtn2"><a href="#services">
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
+						</c:if>
+						<c:if test="${logNickname ne null}">							
+							<li class="page-scroll home"><a href="#detail">
+							<span class="glyphicon glyphicon-user"></span>&nbsp;${logNo }번&nbsp;&nbsp;${logNickname}님</a></li>
+							
+							<li class="page-scroll home" id="myBtn3"><a href="login/logoutOK.jsp">
+							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
+						</c:if>
 					</ul>
 				</div>
 			</div>

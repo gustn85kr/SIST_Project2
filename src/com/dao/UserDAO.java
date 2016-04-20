@@ -40,10 +40,26 @@ public class UserDAO{
 		session.close();
 		return cnt;
 	}
+	
 	public static String pwdCheck(String email){
 		SqlSession session=ssf.openSession();
-		String dbPwd = session.selectOne("pwdCheck",email);
+		String dbPwd = (String)session.selectOne("pwdCheck",email);
 		session.close();
 		return dbPwd;
 	}
+	
+	public static String loginS(String email){
+		SqlSession session=ssf.openSession();
+		String list = (String) session.selectOne("loginS", email);
+		session.close();
+		return list;
+	}
+	
+	public static String loginS2(String email){
+		SqlSession session=ssf.openSession();
+		String list = (String) session.selectOne("loginS", email);
+		session.close();
+		return list;
+	}
+	
 }

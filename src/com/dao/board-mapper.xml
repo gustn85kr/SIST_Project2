@@ -16,12 +16,21 @@
 	
 	<!-- 로그인 Mapper (email,pwd Check) -->
 	<select id="emailCheck" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM userDTO WHERE email=#{email}
+		SELECT COUNT(*) FROM onmUser WHERE email=#{email}
 	</select>
 	
 	<select id="pwdCheck" parameterType="String" resultType="String">
-		SELECT pwd FROM userdto WHERE email=#{email}
+		SELECT pwd FROM onmUser WHERE email=#{email}
 	</select>
+	
+	<select id="loginS" parameterType="String" resultType="String">
+		SELECT no FROM onmUser WHERE email=#{email}
+	</select>
+	
+	<select id="loginS2" parameterType="String" resultType="String">
+		SELECT nickname FROM onmUser WHERE email=#{email}
+	</select>
+	
 </mapper>
 
 
