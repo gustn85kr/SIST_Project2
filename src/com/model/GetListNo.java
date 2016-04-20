@@ -1,16 +1,18 @@
 package com.model;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class EmailSaveGetModel implements Model {
+import com.dao.OnmDAO;
+
+public class GetListNo implements Model {
 
 	@Override
 	public String handlerRequest(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Cookie[] cookies = req.getCookies();
-	    String emailSave=cookies[1].getValue();
-	    res.getWriter().write(String.valueOf(emailSave));
+		int result = OnmDAO.getListNo();
+	    res.getWriter().write(String.valueOf(result));
+
 		return null;
 	}
+
 }

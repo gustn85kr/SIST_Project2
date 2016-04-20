@@ -6,12 +6,12 @@
 		WHERE no=#{no}
 	</sql>
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO UserDTO VALUES(seq_no.NEXTVAL,#{email},#{nickname},#{pwd},SYSDATE,1)
+		INSERT INTO onmuser VALUES(seq_no.NEXTVAL,#{email},#{nickname},#{pwd})
 	</insert>
 	
 	<!-- 회원가입 중복확인 -->
 	<select id="confirmEmail" parameterType="String" resultType="int">
-		SELECT COUNT(*) FROM UserDTO where email=#{email}
+		SELECT COUNT(*) FROM onmuser where email=#{email}
 	</select>
 	
 	<!-- 로그인 Mapper (email,pwd Check) -->
@@ -19,9 +19,25 @@
 		SELECT COUNT(*) FROM onmUser WHERE email=#{email}
 	</select>
 	
+	<select id="pwdCheck" parameterType="String" resultType="User">
+		SELECT no,nickname,pwd FROM onmuser WHERE email=#{email}
+	</select>
+	
+	<insert id="listInsert" parameterType="Olist">
+		INSERT INTO onmlist VALUES(seq_ol.nextval,2,#{title},#{html})
+	</insert>
+	
+	<select id="listSearch"  resultType="Olist" parameterType="int">
+		SELECT title,html FROM onmlist WHERE userno=#{userno}
+	</select>
+	
+	<select id="getListNo" resultType="int">
+		SELECT MAX(no)+1 FROM onmlist
+ 	</select>
+	
 	<select id="pwdCheck" parameterType="String" resultType="String">
 		SELECT pwd FROM onmUser WHERE email=#{email}
-	</select>
+	</select>	
 	
 	<select id="loginS" parameterType="String" resultType="String">
 		SELECT no FROM onmUser WHERE email=#{email}
@@ -30,7 +46,6 @@
 	<select id="loginS2" parameterType="String" resultType="String">
 		SELECT nickname FROM onmUser WHERE email=#{email}
 	</select>
-	
 </mapper>
 
 

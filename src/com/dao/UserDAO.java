@@ -19,12 +19,14 @@ public class UserDAO{
 			ex.printStackTrace();
 		}
 	}
+	
 	//회원가입 - 완료
 	public static void insertUser(UserDTO d){
 		SqlSession session=ssf.openSession(true);
-		session.update("insertUser",d);
+		session.insert("insertUser",d);
 		session.close();
 	}
+	
 	//회원가입 (이메일 중복확인)
 	public static int confirmEmail(String email){
 		SqlSession session=ssf.openSession();
@@ -40,21 +42,21 @@ public class UserDAO{
 		session.close();
 		return cnt;
 	}
-	
+	//로그인 비밀번호 비교
 	public static String pwdCheck(String email){
 		SqlSession session=ssf.openSession();
 		String dbPwd = (String)session.selectOne("pwdCheck",email);
 		session.close();
 		return dbPwd;
 	}
-	
+	//로그인 세션 저장용
 	public static String loginS(String email){
 		SqlSession session=ssf.openSession();
 		String list = (String) session.selectOne("loginS", email);
 		session.close();
 		return list;
 	}
-	
+	//로그인 세션 저장용
 	public static String loginS2(String email){
 		SqlSession session=ssf.openSession();
 		String list = (String) session.selectOne("loginS", email);
