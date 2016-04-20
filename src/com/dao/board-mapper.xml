@@ -24,10 +24,13 @@
 	<insert id="listInsert" parameterType="Olist">
 		INSERT INTO onmlist VALUES(seq_ol.nextval,2,#{title},#{html})
 	</insert>
-	<select id="listSearch"  resultType="String">
-		SELECT html FROM onmlist WHERE no=2
+	<select id="listSearch"  resultType="Olist" parameterType="int">
+		SELECT title,html FROM onmlist WHERE userno=#{userno}
 	</select>
-
+	<select id="getListNo" resultType="int">
+		SELECT MAX(no)+1 FROM onmlist
+ 	</select>
+	
 	
 </mapper>
 

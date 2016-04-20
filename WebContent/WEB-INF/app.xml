@@ -8,4 +8,6 @@
 	<bean class="com.model.EmailCheckModel" id="emailCheckOK"/>
 	<bean class="com.model.EmailSaveOK" id="emailSaveOK"/>
 	<bean class="com.model.EmailSaveGet" id="emailSaveGet"/>
+	<bean class="com.model.OnmModel" id="onm"/>
+	<bean class="com.model.GetListNo" id="getListNo"/>
 </beans>

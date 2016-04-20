@@ -1,35 +1,33 @@
 package com.model;
 
-import java.io.*;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import javax.servlet.http.HttpSession;
 
 import com.dao.ListVO;
-import com.dao.UserDAO;
+import com.dao.OnmDAO;
+
 public class ListAddModel implements Model {
 
 	@Override
 	public String handlerRequest(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		// TODO Auto-generated method stub
+		HttpSession session=req.getSession();
 		req.setCharacterEncoding("UTF-8");
-		String data =req.getParameter("data");
+		String title =req.getParameter("title");
+		String data = req.getParameter("html");
+		System.out.println(title);
+		System.out.println(data);
 		String aData = strTohtml(data);
 		ListVO vo = new ListVO();
 		vo.setHtml(aData);
-		vo.setTitle("hello");
-		UserDAO.listInsert(vo);
-		String result = UserDAO.listSearch();
-		String tot = htmlTostr(result);
-		System.out.println(tot);
-		res.setCharacterEncoding("UTF-8");
+		vo.setTitle(title);
+		vo.setUserno((int)session.getAttribute("userno"));
+		OnmDAO.listInsert(vo);
+		//res.setCharacterEncoding("UTF-8");
 
-		res.getWriter().write(tot);
+		//res.getWriter().write(tot);
 
 		return null;
 	}

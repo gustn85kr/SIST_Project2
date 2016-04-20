@@ -28,7 +28,6 @@ public class LoginOKModel implements Model {
              req.setAttribute("logEmailOK", email);
              session.setAttribute("nickname", d.getNickname());
              session.setAttribute("userno", d.getNo());
-             
           }else{
              LogCheck="nopwd";
           }

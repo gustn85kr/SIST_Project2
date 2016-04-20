@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.*;
 
-public class UserDAO{
+public class OnmDAO{
 	private static SqlSessionFactory ssf;
 	static{
 		try{
@@ -19,31 +19,22 @@ public class UserDAO{
 			ex.printStackTrace();
 		}
 	}
-	//회원가입 - 완료
-	public static void insertUser(UserDTO d){
+	public static void listInsert(ListVO vo){
 		SqlSession session=ssf.openSession(true);
-		session.insert("insertUser",d);
+		session.insert("listInsert",vo);
 		session.close();
 	}
-	//회원가입 (이메일 중복확인)
-	public static int confirmEmail(String email){
+	public static List<ListVO> listSearch(int userno){
 		SqlSession session=ssf.openSession();
-		 int cnt=session.selectOne("confirmEmail",email);
-		 session.close();
-		 return cnt;
-	}
-	
-	//로그인 부분 (emailCheck, pwdCheck)
-	public static int emailCheck(String email){
-		SqlSession session=ssf.openSession();
-		int cnt=session.selectOne("emailCheck",email);
+		List<ListVO> list = new ArrayList<ListVO>();
+		list = session.selectList("listSearch",userno);
 		session.close();
-		return cnt;
+		return list;
 	}
-	public static UserDTO pwdCheck(String email){
+	public static int getListNo(){
 		SqlSession session=ssf.openSession();
-		UserDTO d = session.selectOne("pwdCheck",email);
+		int res = session.selectOne("getListNo");
 		session.close();
-		return d;
+		return res;
 	}
 }

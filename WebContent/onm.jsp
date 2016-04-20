@@ -1,5 +1,5 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -318,57 +318,44 @@ $(document).ready(function(){
   	    	
   	    });
   	  $(this).on("click",".listTitleBtn",function(){
-  		  
-  	    	var listTitle ="";
-  	    
-  	    	listTitle= $(this).siblings('.addListTxt').val();
-  	    	$(this).parent('.addListPanel').parent('.weekday').hide();
-  	  	$('#timetable').append("<div class='weekday col-md-1'><div class='listHeader'><p>"+listTitle+
-					"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
-					"<span class='glyphicon glyphicon-trash'></span></p>"+
-    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
-					"<button class='btn-primary footText'>일정 추가하기</button><div class='footInput' style='display:none;'> "+
-					" <textarea cols='30' rows='3'></textarea><input type='button' value='추가' class='cardInsert btn-primary'/>  "+
-	 				" <input type='button' value='취소' class='cardCancel btn-primary'/> </div></div></div> ");
-  	  	
-  	  	$('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span>리스트 추가하기..</span></div> "+
-  	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='리스트 추가하기..'/> "+
-  	  				"<input type='button' value='추가' class='listTitleBtn'/> "+
-  	  				"<input type='button' value='취소' class='listTitleCancel'/></div><div>");
+  		  	var listno = "";
+  			var listTitle= $(this).siblings('.addListTxt').val();
+        	$(this).parent('.addListPanel').parent('.weekday').hide();
+	  		$.ajax({
+	            url:'getListNo.do',
+	            type:'post',
+	            success:function(data){
+	            	listno=data;
 
-  	  	
-  	  	/*
-  	  			<div class="weekday col-md-1">
-	    		
-	    			
-	    			<div id="addListBtn">
-	    				<span>리스트 추가하기..</span>
-	    			</div>
-	    			
-	    			<div class="addListPanel" style="display:none;">
-	    				<input name="name" class="addListTxt" type="text" placeholder="리스트 추가하기.."/>
-	    				<input type="button" value="추가" class="listTitleBtn" />
-	    				<input type="button" value="취소" class="listTitleCancel" />
-	    			</div>
-	    		</div>
-  	  	*/
-  	  	
-			 $("#timetable .items").sortable({
-	            connectWith: "ul"  
-	    	});
-		  	var tmp = $(this).parents('.weekday').html();
-		  	var sendData = {html:tmp};
-		  	$.ajax({
-		            url:'listAdd.do?data='+tmp,
-		            type:'post',
-		            
-
-		            /* dataType:"json", */
-		            success:function(data){
-		            	alert(data);
-		            }
-		    });
-			 
+	      	    	var tmpHtml = "<div class='weekday col-md-1' id=list"+listno+"><div class='listHeader'><p>"+listTitle+
+	    			"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
+	    			"<span class='glyphicon glyphicon-trash'></span></p>"+
+	    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
+	    			"<button class='btn-primary footText'>일정 추가하기</button><div class='footInput' style='display:none;'> "+
+	    			" <textarea cols='30' rows='3'></textarea><input type='button' value='추가' class='cardInsert btn-primary'/>  "+
+	    				" <input type='button' value='취소' class='cardCancel btn-primary'/> </div></div></div> ";
+	      	 	 	$('#timetable').append(tmpHtml);
+	      	  	
+	      	  		$('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span>리스트 추가하기..</span></div> "+
+	      	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='리스트 추가하기..'/> "+
+	      	  				"<input type='button' value='추가' class='listTitleBtn'/> "+
+	      	  				"<input type='button' value='취소' class='listTitleCancel'/></div><div>");
+	    			$("#timetable .items").sortable({
+	    	            connectWith: "ul"  
+	    	    	});
+	    		  	
+	    		  	alert(tmpHtml);
+	    		  	$.ajax({
+	    		            url:'listAdd.do',
+	    		            type:'post',
+	    		            dataType:"json",
+	    		            data:{"title":listTitle , "html":tmpHtml},
+	    		            success:function(data){
+	    		            	alert("Yes");
+	    		            }
+	    		    });
+	            }
+	   		 });		 
   	    });
   	    
   	    $("#insertContent").tooltip();
@@ -776,8 +763,8 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 			</div>
    		 <div class="col-md-6 half" id ='cardList' >
 			<div style="clear:both"></div>
-			<div id="timetable" style="float:left;max-width:7000px;">
-				<input style="align:left" type="button" value="리스트 추가" id="listAddBtn">
+			<div id="timetable" style="float:left;max-width:7000px; margin-top:50px;">
+				
 	    		<div style="text-align:center">
 	    		
 	    		</div>
@@ -804,7 +791,11 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 				</div>
 	    		</div>      -->
 	    		
-	    		
+	    		<c:forEach var="vo" items="${list}">
+
+	    			${vo.html}
+
+	    		</c:forEach>
 	    		<div class="weekday col-md-1">
 	    		
 	    			

@@ -488,155 +488,167 @@ style="z-index: 6">
 		<script>	
 		$(document).ready(function() {
 			//로그인 Modal 실행 (아이디 저장까지)
-			$("#myBtn1").click(function() {
-				//var logEmail = $('#logEmail').val("");
-				var logPwd = $('#logPwd').val("");
-				var logNickname = $('#logNickname').val("");
-				$.ajax({
-                    url:'emailSaveGet.do',
-                    type:'post',
-                    data:$('#logFrm').serialize(),
-                    success:function(data){
-                    	var logEmail = $('#logEmail').val(data);                    	
-                    }
-	         	});
-				if(logEmail !="")
-            		$('#logSave').attr('checked');
-				$("#LoginModal").modal();
-			});			
-			
-			$("#myBtn2").click(function() {
-				$("#SignUpModal").modal();
-			});	
-			
-			//아이디 체크 액션
-	         $('#emailCheck').click(function() {
+	         $("#myBtn1").click(function() {
+	            //var logEmail = $('#logEmail').val("");
+	            var logPwd = $('#logPwd').val("");
+	            var logNickname = $('#logNickname').val("");
 	            $.ajax({
-                    url:'emailCheckOK.do',
-                    type:'post',
-                    data:$('#Frm').serialize(),
-                    success:function(data){
-                        if(data=="0"){
-                           alert("사용가능한 email입니다.");
-                        }else{
-                           alert("이미 사용중인 email입니다.");
-                        }
-                    }
-	             });
-	         });
-			
-					
-		 	//회원가입 액션
-	 		$('#signYes').click(function() {
-	        	var email = $('#email').val();
-	        	var nickname = $('#nickname').val();
-				var pwd = $('#pwd').val();
-				var pwd2 = $('#pwd2').val();
-				var inputCheckNum = $('#inputCheckNum').val();
-				if (email.trim() == "") {
-					$('#email').focus();
-					return;
-				} else  if(nickname.trim() == ""){
-					$('#nickname').focus();
-					return;
-				} else if (pwd.trim() == "") {
-					$('#pwd').focus();
-					return;
-				} else if (pwd2.trim() == "") {
-					$('#pwd2').focus();
-					return;
-				} else if (pwd.trim() == "") {
-					$('#inputCheckNum').focus();
-					return;
-				} else if(pwd!=pwd2){
-					alert("비밀번호가 다릅니다");
-					$('#pwd2').val("");
-					$('#pwd2').focus();
-					return;
-				} else {
-					$.ajax({
-	                 	url:'joinOK.do',
+	                    url:'emailSaveGet.do',
+	                    type:'post',
+	                    data:$('#logFrm').serialize(),
+	                    success:function(data){
+	                       var logEmail = $('#logEmail').val(data);
+	                       if(logEmail !="")
+	                          $('#logSave').attr('checked');
+	                    }
+	               });
+	            $("#LoginModal").modal();
+	         });         
+	         
+	         $("#myBtn2").click(function() {
+	            $("#SignUpModal").modal();
+	         });   
+	         
+	         //아이디 체크 액션
+	            $('#emailCheck').click(function() {
+	               $.ajax({
+	                    url:'emailCheckOK.do',
 	                    type:'post',
 	                    data:$('#Frm').serialize(),
 	                    success:function(data){
-		                    alert("회원가입이 완료되었습니다.");
-		                    $('#SignUpModal').modal('toggle');
-		                    $('#email').val("");
-		                    $('#nickname').val("");
-		                    $('#pwd').val("");
-		                    $('#pwd2').val("");
-		                    $('#inputCheckNum').val("");
-	                    } 
-		        	});
-				}
-         	});
-		 	
-	 		//로그인 액션
-			$('#logYes').click(function() {
-				var logEmail = $('#logEmail').val();
-				var logPwd = $('#logPwd').val();
-				var logSave = $('#logSave').val();
-				if($('#logSave').attr('checked')) {
-					$.ajax({
-	                 	url:'emailSaveOK.do',
+	                        if(data=="0"){
+	                           alert("사용가능한 email입니다.");
+	                        }else{
+	                           alert("이미 사용중인 email입니다.");
+	                        }
+	                    }
+	                });
+	            });
+	         
+	               
+	          //회원가입 액션
+	          $('#signYes').click(function() {
+	              var email = $('#email').val();
+	              var nickname = $('#nickname').val();
+	            var pwd = $('#pwd').val();
+	            var pwd2 = $('#pwd2').val();
+	            var inputCheckNum = $('#inputCheckNum').val();
+	            if (email.trim() == "") {
+	               $('#email').focus();
+	               return;
+	            } else  if(nickname.trim() == ""){
+	               $('#nickname').focus();
+	               return;
+	            } else if (pwd.trim() == "") {
+	               $('#pwd').focus();
+	               return;
+	            } else if (pwd2.trim() == "") {
+	               $('#pwd2').focus();
+	               return;
+	            } else if (pwd.trim() == "") {
+	               $('#inputCheckNum').focus();
+	               return;
+	            } else if(pwd!=pwd2){
+	               alert("비밀번호가 다릅니다");
+	               $('#pwd2').val("");
+	               $('#pwd2').focus();
+	               return;
+	            } else {
+	               $.ajax({
+	                       url:'joinOK.do',
+	                       type:'post',
+	                       data:$('#Frm').serialize(),
+	                       success:function(data){
+	                          alert("회원가입이 완료되었습니다.");
+	                          $('#SignUpModal').modal('toggle');
+	                          $('#email').val("");
+	                          $('#nickname').val("");
+	                          $('#pwd').val("");
+	                          $('#pwd2').val("");
+	                          $('#inputCheckNum').val("");
+	                       } 
+	                 });
+	            }
+	            });
+	          
+	          //로그인 액션
+	         $('#logYes').click(function() {
+	            var logEmail = $('#logEmail').val();
+	            var logPwd = $('#logPwd').val();
+	            var logSave = $('#logSave').val();
+	            if($('#logSave').attr('checked')) {
+	               $.ajax({
+	                       url:'emailSaveOK.do',
+	                       type:'post',
+	                       data:$('#logFrm').serialize(),
+	                       success:function(data){
+	                       }     
+	               });
+	            }
+	            if (logEmail.trim() == "" || logEmail.trim()==null) {
+	               alert("Email을 입력해주세요.");
+	               $('#logEmail').focus();
+	               return;
+	            } else if (logPwd.trim() == "") {
+	               alert("비밀번호를 입력해주세요.");
+	               $('#logPwd').focus();               
+	               return;
+	            } else {
+	               $.ajax({
+	                       url:'loginOK.do',
+	                       type:'post',
+	                       data:$('#logFrm').serialize(),
+	                       success:function(data){                  
+	                          if(data=="noemail"){
+	                             alert("E-Mail이 존재하지 않습니다.");
+	                             $('#logEmail').val("");
+	                             return;
+	                          } else if(data=="nopwd"){
+	                             alert("비밀번호가 틀립니다.");
+	                             $('#logPwd').val("");
+	                             return;
+	                          } else {
+	                             $('#logEmail').val("");
+	                             $('#logPwd').val("");
+	                             $('#LoginModal').modal('toggle');
+	                             location.href="onm.jsp";
+	                          }
+	                       } 
+	               });
+	            }
+	         });
+	   
+	         //로그인 아이디 저장 액션
+	         $('#logSave').click(function() {
+	            var logSave = $('#logSave').val();
+	            if($('#logSave').attr('checked')) {
+	                  alert("개인 컴퓨터가 아닐시 개인정보 유출에 위험이 있을 수 있습니다.");     
+	            }
+	         });
+	         
+	          //로그아웃
+	         $('#myBtn3').click(function() {
+	            $.ajax({
+	                    url:'logOut.do',
 	                    type:'post',
 	                    data:$('#logFrm').serialize(),
 	                    success:function(data){
-	                    }	  
-					});
-				}
-				if (logEmail.trim() == "" || logEmail.trim()==null) {
-					alert("Email을 입력해주세요.");
-					$('#logEmail').focus();
-					return;
-				} else if (logPwd.trim() == "") {
-					alert("비밀번호를 입력해주세요.");
-					$('#logPwd').focus();					
-					return;
-				} else {
-					$.ajax({
-	                 	url:'loginOK.do',
-	                    type:'post',
-	                    data:$('#logFrm').serialize(),
-	                    success:function(data){	               
-	                    	if(data=="noemail"){
-	                    		alert("E-Mail이 존재하지 않습니다.");
-	                    		$('#logEmail').val("");
-	                    		return;
-	                    	} else if(data=="nopwd"){
-	                    		alert("비밀번호가 틀립니다.");
-	                    		$('#logPwd').val("");
-	                    		return;
-	                    	} else {
-	                    		$('#logEmail').val("");
-	                    		$('#logPwd').val("");
-	                    		$('#LoginModal').modal('toggle');	
-	                    		location.href="onm.jsp";
-	                    	}
-	                    } 
-					});
-				}
-			});
-	
-			//로그인 아이디 저장 액션
-			$('#logSave').click(function() {
-				var logSave = $('#logSave').val();
-				if($('#logSave').attr('checked')) {
-	            	alert("개인 컴퓨터가 아닐시 개인정보 유출에 위험이 있을 수 있습니다.");     
-				}
-			});
-	 		
-			//이메일 보내기 액션(구현 중)
-			$(document).ready(function() {
-			    $('#inputCheckNum').click(function() {
-			        $('#Frm').attr('action',
-			                       'mailto:cunsangbi@naver.com?subject=' +
-			                       $('#email').val() + '&body=' + $('#pwd').val());
-			        $('#Frm').submit();
-			    });
-			});			
-		});
-	</script>
+	                       alert("성공적으로 로그아웃 되었습니다");
+	                    }
+	              });
+	         });
+	         
+	         //이메일 보내기 액션(구현 중)
+	         $(document).ready(function() {
+	             $('#inputCheckNum').click(function() {
+	                 $('#Frm').attr('action',
+	                                'mailto:cunsangbi@naver.com?subject=' +
+	                                $('#email').val() + '&body=' + $('#pwd').val());
+	                 $('#Frm').submit();
+	             });
+	         });         
+	      });
+		</script>
 </body>
 
 </html>
