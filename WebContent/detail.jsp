@@ -34,6 +34,13 @@ body{
 	padding:20px;
 	border-radius : 3px;
 }
+
+#modalBottom{
+	border : 1px solid;
+	margin:20px;
+	padding:20px;
+	border-radius : 3px;
+}
 #content{
 	height : 50px;
 	border: 2px;
@@ -59,6 +66,7 @@ body{
 
 }
 #insertContent{
+	cursor:pointer;
 	text-decoration: underline;
 }
 #insertContext:HOVER {
@@ -117,6 +125,26 @@ border-radius: 7px;
   top: 2px;
   left: 45%;
   z-index: 2;
+}
+
+#commentText{
+	width:70%;
+	height:70px;
+	margin:10px;
+	margin-left:30px;
+}
+#commentAddOk{
+	margin-left:40px;
+}
+#commentDelete{
+float:right;
+}
+#commentArea{
+	border : 1px solid;
+	width:70%;
+	margin:20px;
+	padding:20px;
+	border-radius : 3px;
 }
 
 </style>
@@ -187,6 +215,18 @@ border-radius: 7px;
 							</div>
 						</form>
 					</div>
+				</div>
+				<div id="modalBottom">
+					<span class="glyphicon glyphicon-comment" id="glypBottom">´ñ±Û</span><br>
+					<div id="commentDialog"> 
+					  
+						<div id="commentAddArea">
+							<textarea id="commentText" onkeyup=resize(this)></textarea><br>
+							<button id="commentAddOk">Ãß°¡</button>
+						</div>
+					</div>
+					
+					
 				</div>
 				
 			</div>
