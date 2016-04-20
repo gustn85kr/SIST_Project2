@@ -5,6 +5,7 @@
 	<bean class="com.model.LoginOKModel" id="loginOK"/>
 	<bean class="com.model.JoinOKModel" id="joinOK"/>
 	<bean class="com.model.ListAddModel" id="listAdd"/>
+	<bean class="com.model.ListDeleteModel" id="listDelete"/>
 	<bean class="com.model.EmailCheckModel" id="emailCheckOK"/>
 	<bean class="com.model.EmailSaveOK" id="emailSaveOK"/>
 	<bean class="com.model.EmailSaveGet" id="emailSaveGet"/>

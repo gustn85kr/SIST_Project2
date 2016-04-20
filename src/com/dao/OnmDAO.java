@@ -37,4 +37,9 @@ public class OnmDAO{
 		session.close();
 		return res;
 	}
+	public static void listDelete(int no){
+		SqlSession session=ssf.openSession(true);
+		session.delete("listDelete",no);
+		session.close();
+	}
 }
