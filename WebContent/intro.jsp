@@ -611,7 +611,7 @@ style="z-index: 6">
 	                             $('#logEmail').val("");
 	                             $('#logPwd').val("");
 	                             $('#LoginModal').modal('toggle');
-	                             location.href="onm.jsp";
+	                             location.href="onm.do";
 	                          }
 	                       } 
 	               });
