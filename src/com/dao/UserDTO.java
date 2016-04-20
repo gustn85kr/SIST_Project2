@@ -5,8 +5,11 @@ import java.sql.Date;
 public class UserDTO {
 	private int no;
 	private String email;
+	private String nickname;
 	private String pwd;
 	private Date joindate;
+	private int karma;
+	
 	public int getNo() {
 		return no;
 	}
@@ -30,6 +33,18 @@ public class UserDTO {
 	}
 	public void setJoindate(Date joindate) {
 		this.joindate = joindate;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public int getKarma() {
+		return karma;
+	}
+	public void setKarma(int karma) {
+		this.karma = karma;
 	}
 	
 	

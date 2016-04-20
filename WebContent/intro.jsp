@@ -61,7 +61,6 @@ The #page-top ID is part of the scrolling feature.
 The data-spy and data-target are part of the built-in Bootstrap scrollspy function.
 -->
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
-
 	<!--=== Header ===-->
 	<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container">
@@ -84,26 +83,24 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
 						<li class="page-scroll home"><a href="#body">
-						<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;집으로</a>${check}</li>
-						
-						<c:if test="${email eq null}">
+						<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
+						<c:if test="${logEmailOK eq null}">						
 							<li class="page-scroll home" id="myBtn1"><a href="#about">
 							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
 							
 							<li class="page-scroll home" id="myBtn2"><a href="#services">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
 						</c:if>
-						<c:if test="${email ne null}">
+						<c:if test="${logEmailOK ne null}">
 							<li class="page-scroll home"><a href="onm.jsp">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;오내미로</a></li>
 							
 							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${email}님</a></li>
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logEmailOK}님</a></li>
 							
 							<li class="page-scroll home" id="myBtn3"><a href="login/logoutOK.jsp">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
 						</c:if>
-						
 					</ul>
 				</div>
 			</div>
@@ -355,7 +352,7 @@ style="z-index: 6">
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
-			<form class="form-horizontal" method="POST" id="logFrm" action="loginOK.do">
+			<form class="form-horizontal" method="POST" id="logFrm">
 				<div class="modal-header" style="padding: 30px 30px;">
 					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
@@ -367,7 +364,7 @@ style="z-index: 6">
 				<div class="modal-body" style="padding: 30px 30px; height: 220px">
 						<div class="form-group">
 							<label for="usrname"><span class="glyphicon glyphicon-user"></span> 이메일</label> 
-							<input type="text" class="form-control" name="logEmail" placeholder="이메일을 입력하세요" id="logEmail">
+							<input type="text" class="form-control" name="logEmail" placeholder="이메일을 입력하세요" id="logEmail" value="${emailSave }">
 						</div>
 						<div class="form-group">
 							<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호</label> 
@@ -411,8 +408,9 @@ style="z-index: 6">
 					<h4>
 						<span class="glyphicon glyphicon-user"></span> 회 원 가 입
 					</h4>
+					
 				</div>
-				<form class="form-horizontal" method="POST" id="Frm" name="Frm" action="joinOK.do">
+				<form class="form-horizontal" method="POST" id="Frm" name="Frm">
 					<div class="modal-body" style="padding: 40px 50px; height: 360px;">
 						<div class="form-group" style="float: left; width: 83%" id="divEmail" >
 							<label for="email"><span class="glyphicon glyphicon-user"></span> 이메일</label>
@@ -422,6 +420,13 @@ style="z-index: 6">
 							<button type="button" class="btn btn-primary btn-block" name="emailCheck" id="emailCheck">
 								<span class="glyphicon glyphicon-off"></span> 중복확인
 							</button>
+						</div>
+						
+						<div class="form-group" id="divNickname">
+							<label for="nickname">
+							<span class="glyphicon glyphicon-apple"></span> 닉네임</label>
+							<input type="text" class="pwd form-control" id="nickname" name="nickname"
+								placeholder="사용하실 대화명을 입력하세요.">
 						</div>
 						<div class="form-group" id="divPwd">
 							<label for="psw">
@@ -472,35 +477,57 @@ style="z-index: 6">
 
 		<script>	
 		$(document).ready(function() {
-			//로그인 액션
-			$('#logYes').click(function() {
-				var logEmail = $('#logEmail').val();
-				var logPwd = $('#logPwd').val();
-				
-				if (logEmail.trim() == "" || logEmail.trim()==null) {
-					alert("Email을 입력해주세요.");
-					$('#logEmail').focus();
-					return;
-				} else if (logPwd.trim() == "") {
-					alert("비밀번호를 입력해주세요.");
-					$('#logPwd').focus();					
-					return;
-				} else {
-					$('#logFrm').submit();
-				}
-			});
+			//로그인 Modal 실행 (아이디 저장까지)
+			$("#myBtn1").click(function() {
+				//var logEmail = $('#logEmail').val("");
+				var logPwd = $('#logPwd').val("");
+				var logNickname = $('#logNickname').val("");
+				$.ajax({
+                    url:'emailSaveGet.do',
+                    type:'post',
+                    data:$('#logFrm').serialize(),
+                    success:function(data){
+                    	var logEmail = $('#logEmail').val(data);                    	
+                    }
+	         	});
+				if(logEmail !="")
+            		$('#logSave').attr('checked');
+				$("#LoginModal").modal();
+			});			
+			
+			$("#myBtn2").click(function() {
+				$("#SignUpModal").modal();
+			});	
+			
+			//아이디 체크 액션
+	         $('#emailCheck').click(function() {
+	            $.ajax({
+                    url:'emailCheckOK.do',
+                    type:'post',
+                    data:$('#Frm').serialize(),
+                    success:function(data){
+                        if(data=="0"){
+                           alert("사용가능한 email입니다.");
+                        }else{
+                           alert("이미 사용중인 email입니다.");
+                        }
+                    }
+	             });
+	         });
+			
 					
 		 	//회원가입 액션
-			$('#signYes').click(function() {
-				
-				var email = $('#email').val();
+	 		$('#signYes').click(function() {
+	        	var email = $('#email').val();
+	        	var nickname = $('#nickname').val();
 				var pwd = $('#pwd').val();
 				var pwd2 = $('#pwd2').val();
 				var inputCheckNum = $('#inputCheckNum').val();
-				//$("#Frm").attr("action", "joinOK.do");
-				
 				if (email.trim() == "") {
 					$('#email').focus();
+					return;
+				} else  if(nickname.trim() == ""){
+					$('#nickname').focus();
 					return;
 				} else if (pwd.trim() == "") {
 					$('#pwd').focus();
@@ -513,20 +540,81 @@ style="z-index: 6">
 					return;
 				} else if(pwd!=pwd2){
 					alert("비밀번호가 다릅니다");
+					$('#pwd2').val("");
 					$('#pwd2').focus();
 					return;
-				} else{
-					$('#Frm').submit();
+				} else {
+					$.ajax({
+	                 	url:'joinOK.do',
+	                    type:'post',
+	                    data:$('#Frm').serialize(),
+	                    success:function(data){
+		                    alert("회원가입이 완료되었습니다.");
+		                    $('#SignUpModal').modal('toggle');
+		                    $('#email').val("");
+		                    $('#nickname').val("");
+		                    $('#pwd').val("");
+		                    $('#pwd2').val("");
+		                    $('#inputCheckNum').val("");
+	                    } 
+		        	});
+				}
+         	});
+		 	
+	 		//로그인 액션
+			$('#logYes').click(function() {
+				var logEmail = $('#logEmail').val();
+				var logPwd = $('#logPwd').val();
+				var logSave = $('#logSave').val();
+				if($('#logSave').attr('checked')) {
+					$.ajax({
+	                 	url:'emailSaveOK.do',
+	                    type:'post',
+	                    data:$('#logFrm').serialize(),
+	                    success:function(data){
+	                    }	  
+					});
+				}
+				if (logEmail.trim() == "" || logEmail.trim()==null) {
+					alert("Email을 입력해주세요.");
+					$('#logEmail').focus();
+					return;
+				} else if (logPwd.trim() == "") {
+					alert("비밀번호를 입력해주세요.");
+					$('#logPwd').focus();					
+					return;
+				} else {
+					$.ajax({
+	                 	url:'loginOK.do',
+	                    type:'post',
+	                    data:$('#logFrm').serialize(),
+	                    success:function(data){	               
+	                    	if(data=="noemail"){
+	                    		alert("E-Mail이 존재하지 않습니다.");
+	                    		$('#logEmail').val("");
+	                    		return;
+	                    	} else if(data=="nopwd"){
+	                    		alert("비밀번호가 틀립니다.");
+	                    		$('#logPwd').val("");
+	                    		return;
+	                    	} else {
+	                    		$('#logEmail').val("");
+	                    		$('#logPwd').val("");
+	                    		$('#LoginModal').modal('toggle');	               
+	                    	}
+	                    } 
+					});
 				}
 			});
-			
-			//아이디 체크 액션
-			$('#emailCheck').click(function() {
-				var email = $('#email').val();
-				$("#Frm").attr("action", "signUp/emailCheckOK.jsp");
-				$('#Frm').submit();
-			}); 
-								
+	
+			//로그인 아이디 저장 액션
+			$('#logSave').click(function() {
+				var logSave = $('#logSave').val();
+				if($('#logSave').attr('checked')) {
+	            	alert("개인 컴퓨터가 아닐시 개인정보 유출에 위험이 있을 수 있습니다.");     
+				}
+			});
+	 		
 			//이메일 보내기 액션(구현 중)
 			$(document).ready(function() {
 			    $('#inputCheckNum').click(function() {
@@ -535,47 +623,9 @@ style="z-index: 6">
 			                       $('#email').val() + '&body=' + $('#pwd').val());
 			        $('#Frm').submit();
 			    });
-			});
-			//로그인 아이디 저장 액션
-			$('#logSave').click(function() {
-				var logSave = $('#logSave').val();
-				if($('#logSave').attr('checked')) {
-					alert("개인 컴퓨터가 아닐시 개인정보 유출에 위험이 있을 수 있습니다.");
-				} else {
-				    
-				}
-			});
-						
-			//로그인 Modal 실행 (아이디 저장까지)
-			$("#myBtn1").click(function() {
-				var logEmail = $('#logEmail').val("");
-				var logPwd = $('#logPwd').val("");
-				<%
-				Cookie[] cookies = request.getCookies();
-				if(cookies[1].getValue()==""){
-				%>
-					var logEmail = $('#logEmail').val("<%=cookies[1].getValue()%>");
-				<%
-				} else {
-				%>
-					$('#logSave').attr('checked',true);
-					var logEmail = $('#logEmail').val("<%=cookies[1].getValue()%>");
-					// 요청정보로부터 쿠키를 가져온다.	
-				<%
-				}
-				%>
-				$("#LoginModal").modal();
 			});			
-			
-			$("#myBtn2").click(function() {
-				$("#SignUpModal").modal();
-			});		
-			
 		});
 	</script>
-
-	
-	
 </body>
 <style>
 	.modal-header, h4, .close {

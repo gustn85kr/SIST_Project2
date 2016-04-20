@@ -6,14 +6,19 @@
 		WHERE no=#{no}
 	</sql>
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO userdto VALUES(seq_no.NEXTVAL,#{email},#{pwd},SYSDATE)
+		INSERT INTO UserDTO VALUES(seq_no.NEXTVAL,#{email},#{nickname},#{pwd},SYSDATE,1)
 	</insert>
+	
+	<!-- 회원가입 중복확인 -->
 	<select id="confirmEmail" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM UserDTO where email=#{email}
 	</select>
+	
+	<!-- 로그인 Mapper (email,pwd Check) -->
 	<select id="emailCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM userDTO WHERE email=#{email}
 	</select>
+	
 	<select id="pwdCheck" parameterType="String" resultType="String">
 		SELECT pwd FROM userdto WHERE email=#{email}
 	</select>
