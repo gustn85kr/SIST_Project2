@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
@@ -64,7 +64,6 @@
 	    background-color: #f9f9f9;
 	}
 	</style>
-
 </head>
 
 <!--
@@ -93,23 +92,21 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-						<li class="page-scroll home"><a href="#body">
-						<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
-						<c:if test="${logEmailOK eq null}">						
+						<c:if test="${logNicknameOK eq null}">						
 							<li class="page-scroll home" id="myBtn1"><a href="#about">
 							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
 							
 							<li class="page-scroll home" id="myBtn2"><a href="#services">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
 						</c:if>
-						<c:if test="${logEmailOK ne null}">
+						<c:if test="${logNicknameOK ne null}">
 							<li class="page-scroll home"><a href="onm.jsp">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;오내미로</a></li>
 							
 							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logEmailOK}님</a></li>
+							<span class="glyphicon glyphicon-user"></span>&nbsp;${logUsernoOK }번&nbsp;&nbsp;${logNicknameOK}님</a></li>
 							
-							<li class="page-scroll home" id="myBtn3"><a href="login/logoutOK.jsp">
+							<li class="page-scroll home" id="myBtn3"><a href="index.do">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
 						</c:if>
 					</ul>
@@ -159,9 +156,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 					style="z-index: 6">
 					일정관리! 어렵지 않아요~<br>
                     이제 쉽고 간편하게 즐기세요~
-				</div>
-
-			
+				</div>	
 		</li>
 
 		<!-- SLIDE 2 -->
@@ -195,7 +190,6 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 		style="z-index: 6">
 		일정을 보며 할일을 함께 계획하세요
 	</div>
-
 </li>
 
 <!-- SLIDE 3 -->
@@ -214,7 +208,6 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 	data-endspeed="300">
 	
 </div>
-
 <!-- LAYER -->
 <div class="tp-caption rs-caption-2 sfb"
 data-x="center"
@@ -232,7 +225,6 @@ style="z-index: 6">
 </div>
 
 </li>
-
 <!-- SLIDE 4 -->
 <li data-transition="curtain-4" data-slotamount="5" data-masterspeed="700"  data-title="Slide 4">
 	<!-- MAIN IMAGE -->
@@ -264,7 +256,6 @@ data-captionhidden="off"
 style="z-index: 6">
 당신의 일상과 계획을 <br>다른사람들과 함께 공유하세요
 </div>
-
 </li>
 
 <!-- SLIDE 5 -->
@@ -466,7 +457,7 @@ style="z-index: 6">
 						</div>
 					</div>
 				<div class="modal-footer">
-					<button type="button" id="signYes" name="signYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px">
+					<button type="button" id="signYes" name="signYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
 						<span class="glyphicon glyphicon-plus"></span>완 료
 					</button>
 					<button type="button" class="btn btn-danger btn-default pull-left"
@@ -484,52 +475,52 @@ style="z-index: 6">
 			</div>
 		</div>
 	</div>
-
 		<script>	
 		$(document).ready(function() {
 			//로그인 Modal 실행 (아이디 저장까지)
-	         $("#myBtn1").click(function() {
-	            //var logEmail = $('#logEmail').val("");
-	            var logPwd = $('#logPwd').val("");
-	            var logNickname = $('#logNickname').val("");
-	            $.ajax({
-	                    url:'emailSaveGet.do',
-	                    type:'post',
-	                    data:$('#logFrm').serialize(),
-	                    success:function(data){
-	                       var logEmail = $('#logEmail').val(data);
-	                       if(logEmail !="")
-	                          $('#logSave').attr('checked');
-	                    }
-	               });
-	            $("#LoginModal").modal();
-	         });         
-	         
-	         $("#myBtn2").click(function() {
-	            $("#SignUpModal").modal();
-	         });   
-	         
-	         //아이디 체크 액션
-	            $('#emailCheck').click(function() {
-	               $.ajax({
-	                    url:'emailCheckOK.do',
-	                    type:'post',
-	                    data:$('#Frm').serialize(),
-	                    success:function(data){
-	                        if(data=="0"){
-	                           alert("사용가능한 email입니다.");
-	                        }else{
-	                           alert("이미 사용중인 email입니다.");
-	                        }
-	                    }
-	                });
-	            });
-	         
-	               
+			$("#myBtn1").click(function() {
+				//var logEmail = $('#logEmail').val("");
+				var logPwd = $('#logPwd').val("");
+				var logNickname = $('#logNickname').val("");
+				$.ajax({
+                    url:'emailSaveGet.do',
+                    type:'post',
+                    data:$('#logFrm').serialize(),
+                    success:function(data){
+                    	var logEmail = $('#logEmail').val(data);
+                    	if(logEmail !="")
+                    		$('#logSave').attr('checked');
+                    }
+	         	});
+				$("#LoginModal").modal();
+			});			
+			
+			//회원가입 창 액션
+			$("#myBtn2").click(function() {
+				$("#SignUpModal").modal();
+			});	
+			
+	         //아이디 중복확인 액션
+	        $('#emailCheck').click(function() {
+	        	$.ajax({
+	            	url:'emailCheckOK.do',
+		            type:'post',
+		            data:$('#Frm').serialize(),
+		            success:function(data){
+		                if(data=="0"){
+		                	$("#signYes").attr("disabled", false);
+		                    alert("사용가능한 email입니다.");
+		                }else{
+		                   alert("이미 사용중인 email입니다.");
+		                }
+	            }
+	        	});
+	   		});
+	        
 	          //회원가입 액션
 	          $('#signYes').click(function() {
-	              var email = $('#email').val();
-	              var nickname = $('#nickname').val();
+	            var email = $('#email').val();
+	            var nickname = $('#nickname').val();
 	            var pwd = $('#pwd').val();
 	            var pwd2 = $('#pwd2').val();
 	            var inputCheckNum = $('#inputCheckNum').val();
@@ -576,15 +567,6 @@ style="z-index: 6">
 	            var logEmail = $('#logEmail').val();
 	            var logPwd = $('#logPwd').val();
 	            var logSave = $('#logSave').val();
-	            if($('#logSave').attr('checked')) {
-	               $.ajax({
-	                       url:'emailSaveOK.do',
-	                       type:'post',
-	                       data:$('#logFrm').serialize(),
-	                       success:function(data){
-	                       }     
-	               });
-	            }
 	            if (logEmail.trim() == "" || logEmail.trim()==null) {
 	               alert("Email을 입력해주세요.");
 	               $('#logEmail').focus();
@@ -594,6 +576,15 @@ style="z-index: 6">
 	               $('#logPwd').focus();               
 	               return;
 	            } else {
+		            if($('#logSave').attr('checked')) {
+			               $.ajax({
+		                       url:'emailSaveOK.do',
+		                       type:'post',
+		                       data:$('#logFrm').serialize(),
+		                       success:function(data){
+		                       }
+			               });
+			       	}
 	               $.ajax({
 	                       url:'loginOK.do',
 	                       type:'post',
@@ -608,13 +599,14 @@ style="z-index: 6">
 	                             $('#logPwd').val("");
 	                             return;
 	                          } else {
+	                        	  alert("로그인 성공");
 	                             $('#logEmail').val("");
 	                             $('#logPwd').val("");
 	                             $('#LoginModal').modal('toggle');
-	                             location.href="onm.do";
+	                             location.href="onm.jsp";
 	                          }
-	                       } 
-	               });
+	              		  } 
+	               	});
 	            }
 	         });
 	   
@@ -626,29 +618,18 @@ style="z-index: 6">
 	            }
 	         });
 	         
-	          //로그아웃
-	         $('#myBtn3').click(function() {
-	            $.ajax({
-	                    url:'logOut.do',
-	                    type:'post',
-	                    data:$('#logFrm').serialize(),
-	                    success:function(data){
-	                       alert("성공적으로 로그아웃 되었습니다");
-	                    }
-	              });
-	         });
-	         
-	         //이메일 보내기 액션(구현 중)
-	         $(document).ready(function() {
-	             $('#inputCheckNum').click(function() {
-	                 $('#Frm').attr('action',
-	                                'mailto:cunsangbi@naver.com?subject=' +
-	                                $('#email').val() + '&body=' + $('#pwd').val());
-	                 $('#Frm').submit();
-	             });
-	         });         
-	      });
-		</script>
+	 		//로그아웃
+			$('#myBtn3').click(function() {
+				$.ajax({
+                    url:'logOutOK.do',
+                    type:'post',
+                    data:$('#logFrm').serialize(),
+                    success:function(data){
+                    	alert("성공적으로 로그아웃 되었습니다");
+                    }
+	        	});
+			});		
+		});
+	</script>
 </body>
-
 </html>
