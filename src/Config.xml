@@ -22,10 +22,10 @@
             UNPOOLED : 요청시마다 Connection을 열고 닫고를 반복 
             POOLED : DBCP (maxActive:8,maxIdle:8)
             JNDI : 미리 톰캣에 정의를 하고 사용 
-        -->     
+       -->
        <dataSource type="POOLED">        
 	      <property name="driver" value="${driver}"/>        
-	      <property name="url" value="${url}"/>        
+	      <property name="url" value="${url}"/>
 	      <property name="username" value="${username}"/>        
 	      <property name="password" value="${password}"/>      
       </dataSource>    

@@ -14,7 +14,10 @@ public class EmailCheckModel implements Model {
 		req.setCharacterEncoding("UTF-8");
 		String email = req.getParameter("email");
 		int result = UserDAO.confirmEmail(email);
+		System.out.println(result);
 		res.getWriter().write(String.valueOf(result));
 		return null;
 	}
+	
+	
 }

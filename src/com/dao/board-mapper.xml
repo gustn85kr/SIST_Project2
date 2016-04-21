@@ -5,8 +5,8 @@
 	<sql id="where-no">
 		WHERE no=#{no}
 	</sql>
-	<insert id="insertUser" parameterType="User">
-		INSERT INTO onmuser VALUES(seq_no.NEXTVAL,#{email},#{nickname},#{pwd})
+	<insert id="insertUser" parameterType="UserDTO">
+		INSERT INTO onmuser VALUES(seq_no.NEXTVAL,#{email},#{nickname},#{pwd},sysdate,1)
 	</insert>
 	
 	<!-- 회원가입 중복확인 -->

@@ -14,14 +14,14 @@ public class JoinOKModel implements Model {
 		String email = req.getParameter("email");
 		String pwd = req.getParameter("pwd");
 		String nickname = req.getParameter("nickname");	
-		UserDTO d = new UserDTO();
+		UserDTO dto = new UserDTO();
 				
 		//회원가입 데이터 넘기기
-		d.setEmail(email);
-		d.setPwd(pwd);
-		d.setNickname(nickname);	
+		dto.setEmail(email);
+		dto.setPwd(pwd);
+		dto.setNickname(nickname);	
 		// DB연동해서 insertUser 실행시키기 
-		UserDAO.insertUser(d);
+		UserDAO.insertUser(dto);
 		
 		return null;
 	}

@@ -457,7 +457,7 @@ style="z-index: 6">
 						</div>
 					</div>
 				<div class="modal-footer">
-					<button type="button" id="signYes" name="signYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px">
+					<button type="button" id="signYes" name="signYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
 						<span class="glyphicon glyphicon-plus"></span>완 료
 					</button>
 					<button type="button" class="btn btn-danger btn-default pull-left"
@@ -501,22 +501,22 @@ style="z-index: 6">
 			});	
 			
 	         //아이디 중복확인 액션
-	            $('#emailCheck').click(function() {
-	               $.ajax({
-	                    url:'emailCheckOK.do',
-	                    type:'post',
-	                    data:$('#Frm').serialize(),
-	                    success:function(data){
-	                        if(data=="0"){
-	                           alert("사용가능한 email입니다.");
-	                        }else{
-	                           alert("이미 사용중인 email입니다.");
-	                        }
-	                    }
-	                });
-	            });
-	         
-	               
+	        $('#emailCheck').click(function() {
+	        	$.ajax({
+	            	url:'emailCheckOK.do',
+		            type:'post',
+		            data:$('#Frm').serialize(),
+		            success:function(data){
+		                if(data=="0"){
+		                	$("#signYes").attr("disabled", false);
+		                   alert("사용가능한 email입니다.");
+		                }else{
+		                   alert("이미 사용중인 email입니다.");
+		                }
+	            }
+	        	});
+	   		});
+	        
 	          //회원가입 액션
 	          $('#signYes').click(function() {
 	            var email = $('#email').val();
@@ -569,11 +569,11 @@ style="z-index: 6">
 	            var logSave = $('#logSave').val();
 	            if($('#logSave').attr('checked')) {
 	               $.ajax({
-	                       url:'emailSaveOK.do',
-	                       type:'post',
-	                       data:$('#logFrm').serialize(),
-	                       success:function(data){
-	                       }     
+                       url:'emailSaveOK.do',
+                       type:'post',
+                       data:$('#logFrm').serialize(),
+                       success:function(data){
+                       }     
 	               });
 	            }
 	            if (logEmail.trim() == "" || logEmail.trim()==null) {
