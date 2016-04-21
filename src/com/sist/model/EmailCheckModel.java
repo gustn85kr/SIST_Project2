@@ -1,10 +1,10 @@
-package com.model;
+package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.UserDAO;
+import com.sist.dao.UserDAO;
 
 public class EmailCheckModel implements Model {
 

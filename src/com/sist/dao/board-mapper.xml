@@ -22,7 +22,7 @@
 		SELECT no,nickname,pwd FROM onmuser WHERE email=#{email}
 	</select>
 	<insert id="listInsert" parameterType="Olist">
-		INSERT INTO onmlist VALUES(seq_ol.nextval,2,#{title},#{html})
+		INSERT INTO onmlist VALUES(seq_ol.nextval,#{userno},#{title},#{html})
 	</insert>
 	<select id="listSearch"  resultType="Olist" parameterType="int">
 		SELECT title,html FROM onmlist WHERE userno=#{userno}
@@ -30,6 +30,9 @@
 	<select id="getListNo" resultType="int">
 		SELECT MAX(no)+1 FROM onmlist
  	</select>
+	<delete id="listDelete" parameterType="int">
+		DELETE FROM onmlist WHERE no=#{no}
+	</delete>
 	
 	
 </mapper>

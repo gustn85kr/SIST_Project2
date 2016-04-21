@@ -1,4 +1,4 @@
-package com.dao;
+package com.sist.dao;
 
 public class ListVO {
 	private int no;

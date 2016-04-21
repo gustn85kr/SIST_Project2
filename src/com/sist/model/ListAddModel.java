@@ -1,12 +1,12 @@
-package com.model;
+package com.sist.model;
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dao.ListVO;
-import com.dao.OnmDAO;
+import com.sist.dao.ListVO;
+import com.sist.dao.OnmDAO;
 
 public class ListAddModel implements Model {
 

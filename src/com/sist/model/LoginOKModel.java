@@ -1,11 +1,11 @@
-package com.model;
+package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.dao.UserDAO;
-import com.dao.UserDTO;
+import com.sist.dao.UserDAO;
+import com.sist.dao.UserDTO;
 
 public class LoginOKModel implements Model {
 

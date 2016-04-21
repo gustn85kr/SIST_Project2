@@ -6,8 +6,8 @@
    <properties resource="db.properties"/>
    <!-- VO,DTO 클래스 등록  -->
    <typeAliases>
-     <typeAlias type="com.dao.UserDTO" alias="User"/>
-     <typeAlias type="com.dao.ListVO" alias="Olist"/>
+     <typeAlias type="com.sist.dao.UserDTO" alias="User"/>
+     <typeAlias type="com.sist.dao.ListVO" alias="Olist"/>
      
    </typeAliases>
    <!-- 개발환경 설정 -->
@@ -33,6 +33,6 @@
     </environments>  
     <!-- SQL문장 위치 등록-->
     <mappers>   
-      <mapper resource="com/dao/board-mapper.xml"/>  
+      <mapper resource="com/sist/dao/board-mapper.xml"/>  
     </mappers> 
 </configuration>

@@ -1,4 +1,4 @@
-package com.model;
+package com.sist.model;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

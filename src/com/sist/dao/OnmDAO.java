@@ -1,4 +1,4 @@
-package com.dao;
+package com.sist.dao;
 
 import java.util.*;
 
@@ -36,5 +36,10 @@ public class OnmDAO{
 		int res = session.selectOne("getListNo");
 		session.close();
 		return res;
+	}
+	public static void listDelete(int no){
+		SqlSession session=ssf.openSession(true);
+		session.delete("listDelete",no);
+		session.close();
 	}
 }
