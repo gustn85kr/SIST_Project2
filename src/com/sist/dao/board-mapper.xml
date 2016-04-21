@@ -21,18 +21,25 @@
 	<select id="pwdCheck" parameterType="String" resultType="User">
 		SELECT no,nickname,pwd FROM onmuser WHERE email=#{email}
 	</select>
-	<insert id="listInsert" parameterType="Olist">
-		INSERT INTO onmlist VALUES(seq_ol.nextval,#{userno},#{title},#{html})
-	</insert>
 	<select id="listSearch"  resultType="Olist" parameterType="int">
-		SELECT title,html FROM onmlist WHERE userno=#{userno}
+		SELECT title,html FROM onmlist WHERE userno=#{userno} ORDER BY no
 	</select>
+		<insert id="listInsert" parameterType="int">
+		INSERT INTO onmlist VALUES(seq_ol.nextval,#{userno},'test','test')
+	</insert>
 	<select id="getListNo" resultType="int">
-		SELECT MAX(no)+1 FROM onmlist
+		SELECT MAX(no) FROM onmlist 
  	</select>
 	<delete id="listDelete" parameterType="int">
 		DELETE FROM onmlist WHERE no=#{no}
 	</delete>
+	<update id="listAdd" parameterType="Olist">
+		UPDATE onmlist SET
+		title=#{title},
+		html=#{html}
+		WHERE no=#{no}
+	</update>
+	
 	
 	
 </mapper>

@@ -19,9 +19,16 @@ public class OnmDAO{
 			ex.printStackTrace();
 		}
 	}
-	public static void listInsert(ListVO vo){
+	public static int listCreate(int userno){
 		SqlSession session=ssf.openSession(true);
-		session.insert("listInsert",vo);
+		session.insert("listInsert",userno);
+		int result = session.selectOne("getListNo");
+		session.close();
+		return result;
+	}
+	public static void listAdd(ListVO vo){
+		SqlSession session=ssf.openSession(true);
+		session.update("listAdd",vo);
 		session.close();
 	}
 	public static List<ListVO> listSearch(int userno){
@@ -30,12 +37,6 @@ public class OnmDAO{
 		list = session.selectList("listSearch",userno);
 		session.close();
 		return list;
-	}
-	public static int getListNo(){
-		SqlSession session=ssf.openSession();
-		int res = session.selectOne("getListNo");
-		session.close();
-		return res;
 	}
 	public static void listDelete(int no){
 		SqlSession session=ssf.openSession(true);

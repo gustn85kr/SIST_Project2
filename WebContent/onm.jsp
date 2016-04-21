@@ -322,9 +322,10 @@ $(document).ready(function(){
   			var listTitle= $(this).siblings('.addListTxt').val();
         	$(this).parent('.addListPanel').parent('.weekday').hide();
 	  		$.ajax({
-	            url:'getListNo.do',
+	            url:"getListNo.do",
 	            type:'post',
 	            success:function(data){
+	            	alert("data = "+data);
 	            	listno=data;
 
 	      	    	var tmpHtml = "<div class='weekday col-md-1' id=list"+listno+"><div class='listHeader'><p>"+listTitle+
@@ -343,13 +344,12 @@ $(document).ready(function(){
 	    			$("#timetable .items").sortable({
 	    	            connectWith: "ul"  
 	    	    	});
-	    		  	
 	    		  	alert(tmpHtml);
 	    		  	$.ajax({
 	    		            url:'listAdd.do',
 	    		            type:'post',
 	    		            dataType:"json",
-	    		            data:{"title":listTitle , "html":tmpHtml},
+	    		            data:{"title":listTitle , "html":tmpHtml , "no":listno},
 	    		            success:function(data){
 	    		            	alert("Yes");
 	    		            }
