@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
->>>>>>> refs/heads/master
 <!DOCTYPE html>
 <html>
 <head>
@@ -757,34 +749,23 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-<<<<<<< HEAD
-						<li class="page-scroll home"><a href="intro.jsp">
-						<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;ÁıÀ¸·Î</a></li>
-						<c:if test="${logNickname eq null}">						
+						<c:if test="${logNicknameOK eq null}">						
 							<li class="page-scroll home" id="myBtn1"><a href="#about">
-							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;·Î±×ÀÎ</a></li>
+							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;ë¡œê·¸ì¸</a></li>
 							
 							<li class="page-scroll home" id="myBtn2"><a href="#services">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;È¸¿ø°¡ÀÔ</a></li>
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;íšŒì›ê°€ì…</a></li>
 						</c:if>
-						<c:if test="${logNickname ne null}">							
-							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;${logNo }¹ø&nbsp;&nbsp;${logNickname}´Ô</a></li>
+						<c:if test="${logNicknameOK ne null}">
+							<li class="page-scroll home"><a href="intro.jsp">
+							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;ì§‘ìœ¼ë¡œ</a></li>
 							
-							<li class="page-scroll home" id="myBtn3"><a href="login/logoutOK.jsp">
-							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;·Î±×¾Æ¿ô</a></li>
+							<li class="page-scroll home"><a href="#detail">
+							<span class="glyphicon glyphicon-user"></span>&nbsp;${logUsernoOK }ë²ˆ&nbsp;&nbsp;${logNicknameOK}ë‹˜</a></li>
+							
+							<li class="page-scroll home" id="myBtn3"><a href="index.do">
+							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;ë¡œê·¸ì•„ì›ƒ</a></li>
 						</c:if>
-=======
-						<li class="page-scroll home">
-							<a href="intro.jsp"><span class="glyphicon glyphicon-home"></span>ì§‘ìœ¼ë¡œ</a>
-						</li>
-						<li class="page-scroll home">
-							<a href="#about"><span class="glyphicon glyphicon-log-in"></span>ë¡œê·¸ì¸</a>
-						</li>
-						<li class="page-scroll home">
-							<a href="#services"><span class="glyphicon glyphicon-user"></span>íšŒì›ê°€ì…</a>
-						</li>
->>>>>>> refs/heads/master
 					</ul>
 				</div>
 			</div>

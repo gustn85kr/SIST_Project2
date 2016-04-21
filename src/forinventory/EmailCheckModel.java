@@ -1,4 +1,4 @@
-package com.sist.model;
+package forinventory;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +15,6 @@ public class EmailCheckModel implements Model {
 		String email = req.getParameter("email");
 		int result = UserDAO.confirmEmail(email);
 		res.getWriter().write(String.valueOf(result));
-		return null;
+		return "ajax";
 	}
 }

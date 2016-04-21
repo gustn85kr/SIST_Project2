@@ -1,4 +1,4 @@
-package com.sist.model;
+package forinventory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +10,6 @@ public class JoinOKModel implements Model {
 
 	@Override
 	public String handlerRequest(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		// TODO Auto-generated method stub
 		req.setCharacterEncoding("UTF-8");
 		String email = req.getParameter("email");
 		String pwd = req.getParameter("pwd");

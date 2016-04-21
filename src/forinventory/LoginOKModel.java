@@ -1,4 +1,4 @@
-package com.sist.model;
+package forinventory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +17,7 @@ public class LoginOKModel implements Model {
        String pwd=req.getParameter("logPwd");
        String LogCheck="";
        int result = UserDAO.emailCheck(email);
-       UserDTO d = UserDAO.pwdCheck(email);
+       UserDTO d = UserDAO.logCheck(email);
        if(result==0){
           LogCheck="noemail";
        }

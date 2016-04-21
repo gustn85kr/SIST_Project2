@@ -92,21 +92,21 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-						<c:if test="${logNickname eq null}">						
+						<c:if test="${logNicknameOK eq null}">						
 							<li class="page-scroll home" id="myBtn1"><a href="#about">
 							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
 							
 							<li class="page-scroll home" id="myBtn2"><a href="#services">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
 						</c:if>
-						<c:if test="${logNickname ne null}">
+						<c:if test="${logNicknameOK ne null}">
 							<li class="page-scroll home"><a href="onm.jsp">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;오내미로</a></li>
 							
 							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;${logNo }번&nbsp;&nbsp;${logNickname}님</a></li>
+							<span class="glyphicon glyphicon-user"></span>&nbsp;${logUsernoOK }번&nbsp;&nbsp;${logNicknameOK}님</a></li>
 							
-							<li class="page-scroll home" id="myBtn3"><a href="login/logoutOK.jsp">
+							<li class="page-scroll home" id="myBtn3"><a href="index.do">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
 						</c:if>
 					</ul>
@@ -509,7 +509,7 @@ style="z-index: 6">
 		            success:function(data){
 		                if(data=="0"){
 		                	$("#signYes").attr("disabled", false);
-		                   alert("사용가능한 email입니다.");
+		                    alert("사용가능한 email입니다.");
 		                }else{
 		                   alert("이미 사용중인 email입니다.");
 		                }
@@ -567,15 +567,6 @@ style="z-index: 6">
 	            var logEmail = $('#logEmail').val();
 	            var logPwd = $('#logPwd').val();
 	            var logSave = $('#logSave').val();
-	            if($('#logSave').attr('checked')) {
-	               $.ajax({
-                       url:'emailSaveOK.do',
-                       type:'post',
-                       data:$('#logFrm').serialize(),
-                       success:function(data){
-                       }     
-	               });
-	            }
 	            if (logEmail.trim() == "" || logEmail.trim()==null) {
 	               alert("Email을 입력해주세요.");
 	               $('#logEmail').focus();
@@ -585,6 +576,15 @@ style="z-index: 6">
 	               $('#logPwd').focus();               
 	               return;
 	            } else {
+		            if($('#logSave').attr('checked')) {
+			               $.ajax({
+		                       url:'emailSaveOK.do',
+		                       type:'post',
+		                       data:$('#logFrm').serialize(),
+		                       success:function(data){
+		                       }
+			               });
+			       	}
 	               $.ajax({
 	                       url:'loginOK.do',
 	                       type:'post',
@@ -599,13 +599,14 @@ style="z-index: 6">
 	                             $('#logPwd').val("");
 	                             return;
 	                          } else {
+	                        	  alert("로그인 성공");
 	                             $('#logEmail').val("");
 	                             $('#logPwd').val("");
 	                             $('#LoginModal').modal('toggle');
-	                             location.href="onm.do";
+	                             location.href="onm.jsp";
 	                          }
-	              		} 
-	               });
+	              		  } 
+	               	});
 	            }
 	         });
 	   
@@ -620,7 +621,7 @@ style="z-index: 6">
 	 		//로그아웃
 			$('#myBtn3').click(function() {
 				$.ajax({
-                    url:'logOut.do',
+                    url:'logOutOK.do',
                     type:'post',
                     data:$('#logFrm').serialize(),
                     success:function(data){

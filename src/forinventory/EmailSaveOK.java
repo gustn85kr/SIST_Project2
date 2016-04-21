@@ -1,4 +1,4 @@
-package com.sist.model;
+package forinventory;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
