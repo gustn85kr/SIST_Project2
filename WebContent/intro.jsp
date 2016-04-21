@@ -82,7 +82,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 					<span class="icon-bar"></span>
 				</button>
 				-->
-				<a class="navbar-brand" href="#intro">
+				<a class="navbar-brand" href="intro.jsp">
 					<span>¿À</span>³»¹Ì
 					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
 				</a>
@@ -106,7 +106,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 							<li class="page-scroll home"><a href="#detail">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;${logUsernoOK }¹ø&nbsp;&nbsp;${logNicknameOK}´Ô</a></li>
 							
-							<li class="page-scroll home" id="myBtn3"><a href="index.do">
+							<li class="page-scroll home" id="myBtn3"><a href="index.jsp">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;·Î±×¾Æ¿ô</a></li>
 						</c:if>
 					</ul>
@@ -584,7 +584,7 @@ style="z-index: 6">
 		                       success:function(data){
 		                       }
 			               });
-			       	}
+			    	}
 	               $.ajax({
 	                       url:'loginOK.do',
 	                       type:'post',

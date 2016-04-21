@@ -11,7 +11,6 @@ import com.sist.dao.OnmDAO;
 
 @Controller("listController")
 public class ListController {
-
 	@RequestMapping("listAdd.do")
 	public String listAdd(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		HttpSession session = req.getSession();
@@ -27,11 +26,10 @@ public class ListController {
 		vo.setUserno((int) session.getAttribute("userno"));
 		OnmDAO.listInsert(vo);
 		// res.setCharacterEncoding("UTF-8");
-
 		// res.getWriter().write(tot);
-
 		return null;
 	}
+	
 	@RequestMapping("listDelete.do")
 	public String listDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String id = req.getParameter("id");
@@ -39,6 +37,7 @@ public class ListController {
 		OnmDAO.listDelete(Integer.parseInt(id));
 		return "ajax";
 	}
+	
 	@RequestMapping("getListNo.do")
 	public String getListNo(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		int result = OnmDAO.getListNo();

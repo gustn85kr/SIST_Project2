@@ -723,7 +723,21 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   marker.setMap(map);
               }
           }//지도!!!!!!!!
-
+          
+          //기능입히기
+          $(document).ready(function() {
+        	//로그아웃
+  			$('#myBtn3').click(function() {
+  				$.ajax({
+                      url:'logOutOK.do',
+                      type:'post',
+                      data:$('#logFrm').serialize(),
+                      success:function(data){
+                      	alert("성공적으로 로그아웃 되었습니다");
+                      }
+  	        	});
+  			});		
+          });
 </script>
 <title>오늘 일을 내일로 미루자</title>
 </head>
@@ -739,7 +753,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 					<span class="icon-bar"></span>
 				</button>
 				-->
-				<a class="navbar-brand" href="#intro">
+				<a class="navbar-brand" href="onm.jsp">
 					<span>오</span>내미
 					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
 				</a>
@@ -763,7 +777,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 							<li class="page-scroll home"><a href="#detail">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;${logUsernoOK }번&nbsp;&nbsp;${logNicknameOK}님</a></li>
 							
-							<li class="page-scroll home" id="myBtn3"><a href="index.do">
+							<li class="page-scroll home" id="myBtn3"><a href="index.jsp">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
 						</c:if>
 					</ul>
@@ -828,10 +842,6 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	    				<input type="button" value="취소" class="listTitleCancel" />
 	    			</div>
 	    		</div>
-	    		
-	    		
-	    		
-	    		
 			</div>
 	    </div>
     </div>
@@ -839,9 +849,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
     <div class="modal-dialog">
  		<div>
  			  <jsp:include page="detail.jsp" flush="false" /> 
- 		</div>   
-
-      
+ 		</div>
     </div>
   </div>   	    
 </body>
