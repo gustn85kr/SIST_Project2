@@ -1,10 +1,10 @@
-package com.model;
+package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.UserDAO;
+import com.sist.dao.UserDAO;
 
 public class EmailCheckModel implements Model {
 
@@ -14,10 +14,7 @@ public class EmailCheckModel implements Model {
 		req.setCharacterEncoding("UTF-8");
 		String email = req.getParameter("email");
 		int result = UserDAO.confirmEmail(email);
-		System.out.println(result);
 		res.getWriter().write(String.valueOf(result));
 		return null;
 	}
-	
-	
 }

@@ -1,10 +1,10 @@
-package com.model;
+package com.sist.model;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class EmailSaveGetModel implements Model {
+public class EmailSaveGet implements Model {
 
 	@Override
 	public String handlerRequest(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -13,4 +13,5 @@ public class EmailSaveGetModel implements Model {
 	    res.getWriter().write(String.valueOf(emailSave));
 		return null;
 	}
+
 }

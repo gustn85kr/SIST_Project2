@@ -1,10 +1,10 @@
-package com.model;
+package com.sist.model;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class EmailSaveOKModel implements Model {
+public class EmailSaveOK implements Model {
 
 	@Override
 	public String handlerRequest(HttpServletRequest req, HttpServletResponse res) throws Exception {

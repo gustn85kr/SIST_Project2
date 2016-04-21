@@ -1,4 +1,4 @@
-package com.dao;
+package com.sist.dao;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.*;
 
-public class OnmDAO{
+public class UserDAO{
 	private static SqlSessionFactory ssf;
 	static{
 		try{
@@ -19,22 +19,31 @@ public class OnmDAO{
 			ex.printStackTrace();
 		}
 	}
-	public static void listInsert(ListVO vo){
+	//회원가입 - 완료
+	public static void insertUser(UserDTO d){
 		SqlSession session=ssf.openSession(true);
-		session.insert("listInsert",vo);
+		session.insert("insertUser",d);
 		session.close();
 	}
-	public static List<ListVO> listSearch(int userno){
+	//회원가입 (이메일 중복확인)
+	public static int confirmEmail(String email){
 		SqlSession session=ssf.openSession();
-		List<ListVO> list = new ArrayList<ListVO>();
-		list = session.selectList("listSearch",userno);
-		session.close();
-		return list;
+		 int cnt=session.selectOne("confirmEmail",email);
+		 session.close();
+		 return cnt;
 	}
-	public static int getListNo(){
+	
+	//로그인 부분 (emailCheck, pwdCheck)
+	public static int emailCheck(String email){
 		SqlSession session=ssf.openSession();
-		int res = session.selectOne("getListNo");
+		int cnt=session.selectOne("emailCheck",email);
 		session.close();
-		return res;
+		return cnt;
+	}
+	public static UserDTO pwdCheck(String email){
+		SqlSession session=ssf.openSession();
+		UserDTO d = session.selectOne("pwdCheck",email);
+		session.close();
+		return d;
 	}
 }

@@ -1,17 +1,17 @@
-package com.model;
+package com.sist.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.OnmDAO;
+import com.sist.dao.OnmDAO;
 
-public class GetListNo implements Model {
+public class ListDeleteModel implements Model {
 
 	@Override
 	public String handlerRequest(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		int result = OnmDAO.getListNo();
-	    res.getWriter().write(String.valueOf(result));
-
+		String id = req.getParameter("id");
+		id = id.substring(4);
+		OnmDAO.listDelete(Integer.parseInt(id));
 		return null;
 	}
 

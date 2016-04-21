@@ -549,6 +549,17 @@ $(document).ready(function(){
 	    });
 	    $(this).on("click",".listDelete",function(){
 	    	if (confirm('해당 리스트를 삭제 하시겠습니까?')) {
+	    		var deleteid=$(this).parents(".weekday").attr("id");
+	    		$.ajax({
+		            url:'listDelete.do',
+		            type:'post',
+		            dataType:"json",
+		            data:{"id":deleteid},
+		            success:function(data){
+		            	alert("Yes");
+		            }
+		    });
+	    		alert(deleteid);
 	    		$(this).parents(".weekday").remove();    
 	    	} else {
 	    	    // Do nothing!

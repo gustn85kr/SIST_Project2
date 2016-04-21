@@ -1,4 +1,4 @@
-package com.dao;
+package com.sist.dao;
 
 import java.sql.Date;
 
@@ -22,12 +22,6 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
 	public String getPwd() {
 		return pwd;
 	}
@@ -40,6 +34,12 @@ public class UserDTO {
 	public void setJoindate(Date joindate) {
 		this.joindate = joindate;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public int getKarma() {
 		return karma;
 	}
@@ -47,6 +47,5 @@ public class UserDTO {
 		this.karma = karma;
 	}
 	
-
 	
 }
