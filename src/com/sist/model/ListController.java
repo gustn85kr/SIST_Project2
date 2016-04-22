@@ -50,4 +50,30 @@ public class ListController {
 
 		return "ajax";
 	}
+	
+	@RequestMapping("dragEvent.do")
+	public String dragEvent(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		HttpSession session=req.getSession();
+		req.setCharacterEncoding("UTF-8");
+		String data = req.getParameter("html");
+		String listno = req.getParameter("listno");
+		int no = Integer.parseInt(listno.substring(listno.length()-1, listno.length()));
+		System.out.println("dragevent userno : "+no);
+		String aData = HashingHTML.strTohtml(data);
+		System.out.println(aData);
+		
+		ListVO vo = new ListVO();
+		vo.setHtml(aData);
+		vo.setUserno((int)session.getAttribute("userno"));
+		vo.setNo(no);
+		OnmDAO.dragEvent(vo);
+		
+		/*OnmDAO.dragEvent(no);*/
+		//res.setCharacterEncoding("UTF-8");
+
+		//res.getWriter().write(tot);
+
+	
+		return "ajax";
+	}
 }

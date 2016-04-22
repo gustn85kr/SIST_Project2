@@ -106,67 +106,67 @@ body{
     display: inline;
 }
     
-    #draggablePanelList .panel-heading {
-        cursor: move;
-    } 
-   #calendar_attr {
-  
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
+#draggablePanelList .panel-heading {
+    cursor: move;
+} 
+#calendar_attr {
 
-	#calendar_container {
-		position:relative;
-		top:700px;
-		max-width: 700px;
-		margin: 0 auto;
-	}
-	
-    #sist{
-    	/* width:4500px; */
-    	height: 700px;
-    		
-    }
-    #cardList{
-    }
+margin: 40px 10px;
+padding: 0;
+font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+font-size: 14px;
+}
 
-    .listHeader{
-    	margin: 2px;
-    	font: bold;
-    	font-size: 25px;
-    	
-    }
+#calendar_container {
+	position:relative;
+	top:700px;
+	max-width: 700px;
+	margin: 0 auto;
+}
 
-   .footText{
-    	width:280px;
-    }
-    .footInput{
-  		width : 280px; 
-  		text-align : center;
-  		margin : 5px;
-  		height: 50px;
-    } 
-    .footInput textarea{
-    	width:280px;
-    }
-    .cardInsert{
-    	margin-left: 100px;
-    }
-    .listHeader{
-    	margin:5px;
-    	height: 20px;
-    }
-    .listHeader p{
-    	color :white;
-    	font-size:20px;
-    	margin: 5px;
-    }
-    #calendar{
+   #sist{
+   	/* width:4500px; */
+   	height: 700px;
+   		
+   }
+   #cardList{
+   }
 
-    }
-	#cardDetail .modal-dialog {
+   .listHeader{
+   	margin: 2px;
+   	font: bold;
+   	font-size: 25px;
+   	
+   }
+
+  .footText{
+   	width:280px;
+   }
+   .footInput{
+ 		width : 280px; 
+ 		text-align : center;
+ 		margin : 5px;
+ 		height: 50px;
+   } 
+   .footInput textarea{
+   	width:280px;
+   }
+   .cardInsert{
+   	margin-left: 100px;
+   }
+   .listHeader{
+   	margin:5px;
+   	height: 20px;
+   }
+   .listHeader p{
+   	color :white;
+   	font-size:20px;
+   	margin: 5px;
+   }
+   #calendar{
+
+   }
+#cardDetail .modal-dialog {
 		width:75%
 	}
 
@@ -213,63 +213,71 @@ body{
 $(document).ready(function(){
 	var labelColor=null;
 	
-	$('#calendar').fullCalendar({
-		theme: true,
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
-		},
-		defaultDate: '2016-04-02',
-		selectable: true,
-		selectHelper: true,
-		eventDurationEditable: false,   // 이벤트 resize disable
-
-/* 		select: function(start, end) {
-			
-			var eventData;
-			if (title) {
-				eventData = {
-					title: title,
-					start: start,
-					end: end
-				};
+		$('#calendar').fullCalendar({
+			theme: true,
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultDate: '2016-04-02',
+			selectable: true,
+			selectHelper: true,
+			eventDurationEditable: false,   // 이벤트 resize disable
+	
+	/* 		select: function(start, end) {
 				
-			}
-			$('#calendar').fullCalendar('unselect');
-		}, */ //이벤트 추가함수
-		editable: true,
-		eventClick: function(event) {
-			$('#cardDetail').modal();
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					
+				}
+				$('#calendar').fullCalendar('unselect');
+			}, */ //이벤트 추가함수
+			editable: true,
+			eventClick: function(event) {
+				$('#cardDetail').modal();
+			
+		  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
+		  	   
+		  	},
+			eventLimit: true, // allow "more" link when too many events
+			events: [
 		
-	  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
-	  	   
-	  	},
-		eventLimit: true, // allow "more" link when too many events
-		events: [
-	
-		
-		]
-	});
-	
-	
-	
+			
+			]
+		});
 		$(this).on("click",".list",function(){
 			$('#cardDetail').modal();
 		});
-		/* $("td").sortable({
-			connectWith:".fc-day"
-		}); */
-		/* $("td").draggable({
-			helper:"clone",
-			connectToSortable: ".items"
-		}); */
-  	    $("#timetable .items").sortable({
-  	            connectWith: "ul"        
-  	    });
+	
+	  	 $("#timetable .items").sortable({
+             connectWith: "ul",           
+             update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
+          /* 	 var test1= $(this).html();
+             alert(test1); */
+ 
+	       var listno= $(this).parents('.weekday').attr('id');
+           var draghtml = $(this).parents('.weekday').html();
+           var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+   
+	           	  $.ajax({
+		           	 url:'dragEvent.do',
+		           	 type:'post',
+		           	 dataType:"json",
+		           	 data:{"listno":listno , "html":ehtml},
+		           	 success:function(data){
+	
+		          	         }
+		    	   });
+             }
+         });  	 
   	    $("ul[id^='available']").draggable({
-/*   	        helper: "clone",
-  	        connectToSortable: "td", */
+
   	        	revert: true,      // immediately snap back to original position
   	          revertDuration: 0
   	    });
@@ -278,13 +286,27 @@ $(document).ready(function(){
   			$(this).siblings(".footInput").css('display', 'inline'); 
   			$(this).siblings('.footInput').find('textarea').focus();
   		});
-  	    $(this).on("click",".cardInsert",function(){
+  	    $(this).on("click",".cardInsert",function(){           	  
   	    	var text = $(this).siblings('textarea').val();
   			$(this).siblings('textarea').val("")
   			
   			$(this).parents(".listFoot").siblings('.items').append("<li class='list'>"+text+"</li>");
   			$(this).parent(".footInput").css('display', 'none');
   			$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
+  			
+  		     var listno= $(this).parents('.weekday').attr('id');
+  	          var draghtml = $(this).parents('.weekday').html();
+  	          var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+  	         
+  		           	  $.ajax({
+  			           	 url:'dragEvent.do',
+  			           	 type:'post',
+  			           	 dataType:"json",
+  			           	 data:{"listno":listno , "html":ehtml},
+  			           	 success:function(data){
+  			           	 	    
+  			          	         }
+  			    	   });
   		});
   	    $(this).on("click",".addListBtn",function(){
   	    	/*  var listTitle =""; */
@@ -308,8 +330,7 @@ $(document).ready(function(){
   	    $(this).on("click","#commentDelete",function(){
   	    	$(this).parent("#commentPanel").remove();
   	    	
-  	    });
-  	    
+  	    }); 	    
   	  /* addListPanelCreation addListPanelCancel */
   	    $(this).on("click",".listTitleCancel",function(){
   	    	$(this).parent('.addListPanel').hide();
@@ -317,15 +338,14 @@ $(document).ready(function(){
   	    	$(this).siblings('.addListTxt').val("");
   	    	
   	    });
-  	  $(this).on("click",".listTitleBtn",function(){
-  		  	var listno = "";
+  	    $(this).on("click",".listTitleBtn",function(){
+  		  	
   			var listTitle= $(this).siblings('.addListTxt').val();
         	$(this).parent('.addListPanel').parent('.weekday').hide();
 	  		$.ajax({
 	            url:"getListNo.do",
 	            type:'post',
 	            success:function(data){
-	            	alert("data = "+data);
 	            	listno=data;
 
 	      	    	var tmpHtml = "<div class='weekday col-md-1' id=list"+listno+"><div class='listHeader'><p>"+listTitle+
@@ -341,26 +361,49 @@ $(document).ready(function(){
 	      	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='리스트 추가하기..'/> "+
 	      	  				"<input type='button' value='추가' class='listTitleBtn'/> "+
 	      	  				"<input type='button' value='취소' class='listTitleCancel'/></div><div>");
+
 	    			$("#timetable .items").sortable({
 	    	            connectWith: "ul"  
 	    	    	});
-	    		  	alert(tmpHtml);
+
 	    		  	$.ajax({
 	    		            url:'listAdd.do',
 	    		            type:'post',
 	    		            dataType:"json",
 	    		            data:{"title":listTitle , "html":tmpHtml , "no":listno},
 	    		            success:function(data){
-	    		            	alert("Yes");
+	    		            	/* alert(tmpHtml); */
 	    		            }
 	    		    });
+	    		  	
+	    		  	
+	    		  	 $("#timetable .items").sortable({
+	    	             connectWith: "ul",           
+	    	             update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
+	    	          /* 	 var test1= $(this).html();
+	    	             alert(test1); */
+	    	          
+	    		       var listno= $(this).parents('.weekday').attr('id');
+	    	           var draghtml = $(this).parents('.weekday').html();
+	    	           var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+	    	          
+	    		           	  $.ajax({
+	    			           	 url:'dragEvent.do',
+	    			           	 type:'post',
+	    			           	 dataType:"json",
+	    			           	 data:{"listno":listno , "html":ehtml},
+	    			           	 success:function(data){
+	    			           	 	    
+	    			          	         }
+	    			    	   });
+	    	             }
+	    	         });
+	    		  	 
 	            }
 	   		 });		 
-  	    });
-  	    
+  	    }); 
   	    $("#insertContent").tooltip();
-  	    $(this).on("click","#insertContent",function(){
-  	    	
+  	    $(this).on("click","#insertContent",function(){  	    	
   	    	$(this).parent("#contentText").siblings("#newTA").css('display','inline');
   	    	$(this).parent("#contentText").siblings("#showContent").css('display','none');
   	    	$(this).css('display','none');
@@ -398,20 +441,19 @@ $(document).ready(function(){
   	    	$(this).parent("#newTA").siblings("#showContent").append(tmp);
   	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
   	    });
-  	  $(this).on("click","#contentCancel",function(){
+    	$(this).on("click","#contentCancel",function(){
 	    	var tmp = tinyMCE.activeEditor.getContent();
 	    	$(this).parent("#newTA").css('display',"none");
 	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
 	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
-	    });
-  	  $(this).on("click","#priorityBtn",function(){
-  		 obj = document.getElementById('priorityDiv');
-  		if(obj.style.display == "none"){
-  		  	$("#priorityDiv").css('display','inline');
-  		}else{
-  			$("#priorityDiv").css('display','none');
-  		}
-  		
+	   });
+  	   $(this).on("click","#priorityBtn",function(){
+  			obj = document.getElementById('priorityDiv');
+	  		if(obj.style.display == "none"){
+	  		  	$("#priorityDiv").css('display','inline');
+	  		}else{
+	  			$("#priorityDiv").css('display','none');
+	  		}	  		
   	  });
   	  $(this).on("click","#priorityInsert",function(){
   			$("#priorityDiv").css('display','none');
@@ -548,10 +590,10 @@ $(document).ready(function(){
 		            dataType:"json",
 		            data:{"id":deleteid},
 		            success:function(data){
-		            	alert("Yes");
+		            	/* alert("Yes"); */
 		            }
 		    });
-	    		alert(deleteid);
+	    		/* alert(deleteid); */
 	    		$(this).parents(".weekday").remove();    
 	    	} else {
 	    	    // Do nothing!
@@ -626,9 +668,7 @@ $(document).ready(function(){
 			      	  $(":checkbox").click(countChecked);
 		      	 
 		      	});
-		});
-
-	    
+		});    
 });
 
 function resize(obj) {
