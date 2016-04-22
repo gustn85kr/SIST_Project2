@@ -18,6 +18,14 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+		$(function(){
+			$('#sendCheckNum').click(function(){
+				$('#emailForm').submit();
+			});
+		});
+	</script>
 
 
 	<!-- Favicon -->
@@ -450,11 +458,13 @@ style="z-index: 6">
 								<span class="glyphicon glyphicon-ok"></span> 확 인
 							</button>
 						</div>
-						<div class="form-group" style="float: right; width: 20%; margin-top: 25px; margin-right: 30px" id="divSendCheckNum">
-							<button type="button" class="btn btn-primary btn-block"	id="sendCheckNum">
-								<span class="glyphicon glyphicon-envelope"></span> 인증번호
-							</button>
-						</div>
+						<form method="post" id="emailForm" action="emailSend.do">
+							<div class="form-group" style="float: right; width: 20%; margin-top: 25px; margin-right: 30px" id="divSendCheckNum">
+								<button type="button" class="btn btn-primary btn-block"	id="sendCheckNum">
+									<span class="glyphicon glyphicon-envelope"></span> 인증번호
+								</button>
+							</div>
+						</form>
 					</div>
 				<div class="modal-footer">
 					<button type="button" id="signYes" name="signYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
