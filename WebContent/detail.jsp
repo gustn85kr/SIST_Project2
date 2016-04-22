@@ -24,16 +24,15 @@ body{
 	border-radius: 10px;
 }
 #modalTitle{
-	border : 1px solid;
+	border : #eee;
 	margin:20px;
 	padding:20px;
-	border-radius : 3px;
+	
 }
 #modalMid{
-	border : 1px solid;
+	border-top: 2px solid #eee;
 	margin:20px;
 	padding:20px;
-	border-radius : 3px;
 }
 #content{
 	height : 50px;
@@ -47,6 +46,11 @@ body{
 	width:900px;
 	
 }
+
+#glypTitle,#listName{
+margin-bottom:10px;
+}
+
 #glypTitle{
 	font-size: 25px;
 }
@@ -56,11 +60,24 @@ body{
 #mytextarea{
 	
 }
+
+#contentInsert,#contentCancel{
+float:left;
+width:45px;
+height:25px;
+margin-left:5px;
+margin-right:5px;
+border-bottom: 2px solid #2694e8;
+padding:3px;
+text-align: center;
+}
+
+#contentInsert:hover, #contentInsert:active, #contentCancel:hover, #contentCancel:active{
+background: #fff;
+}
+
 #modalTextarea{
 
-}
-#insertContent{
-	text-decoration: underline;
 }
 #insertContext:HOVER {
 	color : gray;
@@ -70,7 +87,8 @@ body{
 	padding-left:20px;
 }
 #contentText{
-	font-size : 15px;
+	font-size : 17px;
+	margin:10px;
 }
 #sideBar{
 	
@@ -101,7 +119,7 @@ input[type="checkbox"] {
 }	
 
 .checkready { font-size: 1.5em; }
-.ui-progressbar-value { background: lightgreen; }
+.ui-progressbar-value { background: ##BCF12A; }
 .progressbar-container {
   position: relative;
   width: 350px; 
@@ -137,6 +155,7 @@ height: 24px;
 .textcss{
 border: 2px solid #FFE925;
 border-radius: 5px;
+margin:1px;
 }
 
 #fileInsert,#fileDelete{
@@ -148,20 +167,104 @@ height: 28px;
 background: #fff;
 border:2px solid #fff;
 float:center;
+border-bottom:2px solid #2694e8;
 }
 
 .btniconcss:hover, .btniconcss:active {
-   border-bottom:2px solid #2694e8;
-}
+background: #C8E1F1;
+} 
 
 #dateInsert, #dateDelete, #fileInsert, #fileDelete{
 background: #fff;
 border:2px solid #fff;
+border-bottom:2px solid #2694e8;
 float:center;
+color:black;
 }
 
 #dateInsert:hover, #dateInsert:active, #dateDelete:hover, #dateDelete:active, #fileInsert:hover, #fileInsert:active, #fileDelete:hover, #fileDelete:active{
+background: #C8E1F1;
+padding-radius:5px;
+} 
+
+#addsearch{
+margin:10px;
+}
+
+#insertContent{
+background: #fff;
+border-bottom: 2px solid #2694e8;
+border-radius: 0px;
+color: black;
+margin: 10px;
+text-align: center;
+}
+
+#insertContent:hover, #insertContent:active{
+background: #C8E1F1;
+}
+
+#checkunder{
+    margin: 5px;
+    background: #DCF1EF;
+    height: 30px;
+    width: 120px;
+}
+
+#checklisttitle{
+font-size:20px;
+font-weight: bold;
+}
+
+#addchecklist,#complecheck{
+background: #fff;
+border:#fff;
 border-bottom:2px solid #2694e8;
+}
+
+#chetext{
+border: 2px solid #FFE925;
+border-radius: 3px;
+width: 400px;
+height: 30px;
+font-size: 20px;
+}
+
+#checkboxform p{
+font-size:18px;
+margin:0px;
+}
+
+#mapunder{
+width:120px;
+height: 35px;
+margin:5px;
+margin-bottom:0px;
+background: #FFCF85;
+padding:10px;
+padding-top:0px;
+
+}
+
+#map{
+margin:5px;
+}
+
+.priorityunder{
+width:120px;
+height: 35px;
+background: #FFFDC1;
+padding:5px;
+margin-bottom: 5px;
+}
+
+#labelunder{
+margin:5px;
+width: 80px;
+height: 35px;
+background: #D0FFC0;
+margin-left:0px;
+padding:5px;
 }
 </style>
 </head>
@@ -182,7 +285,7 @@ border-bottom:2px solid #2694e8;
 					<div id="modalLabel">
 					</div>
 					<div id="modalTextarea">
-						<div id="contentText" style="font: bold;"><span class="glyphicon glyphicon-subscript">일정내용</span> <span id="insertContent" data-toggle="tooltip" title="일정 내용 수정"> 수정 </span></div>
+						<div id="contentText" style="font: bold;"><img src="calendar\images\text-icon.png" style="text-align:left;font-size:20px;">&nbsp;&nbsp;일정내용<span id="insertContent" data-toggle="tooltip" title="일정 내용 수정">  수정  </span></div>
 						<div id="newTA" style="display:none">
 						 	<textarea id="mytextarea" >
 				
@@ -198,15 +301,15 @@ border-bottom:2px solid #2694e8;
 				<div id="modalMid"> 
 					<span class="glyphicon glyphicon-th-list" id="glypMid"> 추가기능</span><br>
 					<div id="modalMap" style="display:none">			
-						<span class="glyphicon glyphicon-map-marker" >위치정보</span>
+						<div id="mapunder"><img src="calendar\images\map-icon.png" style="text-align:left;">&nbsp;&nbsp;위치정보</div>
 						<div id="map" style="width:400px;height:300px;"></div>
 					</div>
 					<div id="checklistadd" style="display:none">
-						<span class="glyphicon glyphicon-ok" > 체크리스트</span>
+						<div id="checkunder"><img src="calendar\images\checkbox-icon.png" style="text-align:left;">&nbsp;&nbsp;체크리스트</div>
 						<p id="checklisttitle"></p>
 						<div class="progressbar-container" id="progressbar-container">
 				  			<div class="progressbar-bar" id="progressbar-bar"></div>
-				  			<div class="progressbar-label" id="progressbar-label"></div>	  
+				  			<div class="progressbar-label" id="progressbar-label" ></div>	  
 	  		 			</div>
 	  		
 	  		  			<div class="checkready" id= "checkready" >
@@ -272,9 +375,9 @@ border-bottom:2px solid #2694e8;
 						<img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
 					</button>
 					<div id="fileUpDiv" style="display:none">
-						<input type="file" class="btn-default btn-sm" name="upload" id="upload" style="margin-bottom:10px">
-						<button type="submit" class="btn btn-default btn-sm" id="fileInsert"><span class="glyphicon glyphicon-ok"></span>확인</button>
-						<button type="reset" class="btn btn-default btn-sm" id="fileDelete"><span class="glyphicon glyphicon-remove"></span>취소</button>
+						<input type="file" class="btn-default btn-sm" name="upload" id="upload" style="margin-bottom:3px; margin-top:5px;">
+						<button type="submit" class="btn btn-default btn-sm" id="fileInsert">확인</button>
+						<button type="reset" class="btn btn-default btn-sm" id="fileDelete">취소</button>
 						<!-- fuc = File Upload Cancel -->
 					</div>
 				</form>
@@ -290,8 +393,8 @@ border-bottom:2px solid #2694e8;
 		          <img src="calendar\images\checkbox-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크리스트
 		        </button>
 		        <div id="checkDiv" style="display:none">
-		        	<div>
-		        	제목  <input type="text" id="checkTitle" class="textcss"/>
+		        	<div style="margin:10px;">
+		        	   제목  <input type="text" id="checkTitle" class="textcss"/>
 		        	</div>
 		        	<div>
 		        	    <input type="button" id="checkInsert"  class="btniconcss" value="생성"/>
@@ -307,8 +410,8 @@ border-bottom:2px solid #2694e8;
 		          </button>	          
 		        <!--  <div id="map" style="width:100%;height:350px; display:none;"></div>   -->
 		         <div id="mapApp" style="display:none"><br>
-        			 <label>주소검색 </label>
-      				  <input id = "txtAddress" class="textcss" type="text" style="width : 100px">
+        			 <label id="addsearch">주소검색 </label>
+      				  <input id = "txtAddress" class="textcss" type="text" style="width : 150px">
       				  <br>
       				   <button type="button" onclick="Search();" id="mapSearch"  class="btniconcss">찾기</button>
       				  <button type="button"  id="mapCancel" class="btniconcss">삭제</button>
@@ -396,7 +499,7 @@ border-bottom:2px solid #2694e8;
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
             
-                     <label class="btn btn-warning" style="background-color: green">
+                     <label class="btn btn-warning" style="background-color: #1D8947">
                         <input type="radio" name="option10" id="option10" autocomplete="off" value="green">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
@@ -404,7 +507,7 @@ border-bottom:2px solid #2694e8;
                         <input type="radio" name="option10" id="option10" autocomplete="off" value="pink">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
-                     <label class="btn btn-warning" style="background-color: blue">
+                     <label class="btn btn-warning" style="background-color: #019AE6">
                         <input type="radio" name="option10" id="option10" autocomplete="off" value="blue">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>

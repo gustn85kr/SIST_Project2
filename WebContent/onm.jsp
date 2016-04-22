@@ -36,8 +36,7 @@
 <script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- 다음지도 -->
 
 
-
-    <style type="text/css">
+   <style type="text/css">
 body{
 	font-family:'Malgun Gothic';
 }
@@ -96,16 +95,17 @@ body{
     cursor: pointer;
     border:#fff;
     border-bottom: 2px solid #FFE72C; 
-    border-radius: 3px;
-    width: 80%;
+    border-radius: 1px;
+    width: 85%;
+    margin-bottom: 15px;
 }
  
 .weekday {
 
     width: 300px;
     padding: 5px; 
-    border-bottom: 2px solid #D7CCD2;
-    border-top: 2px solid #D7CCD2;
+    border-bottom: 2px solid #EDE1E7;
+    border-top: 2px solid #EDE1E7;
     background-color: #fff;
     margin: 20px;
     
@@ -269,7 +269,21 @@ padding: 0px;
 #listtitleaddbtn{
 text-align: center;
 }
-    </style>	
+
+#calendarunder{
+    height: 30px;
+    background:#D3F1B9;
+    width: 100px;
+}
+
+#calendarunder img{
+margin-right:10px;
+}
+
+.ui-progressbar-value{
+background: #BCF12A;
+}
+    </style>
    
 <script type="text/javascript">
 $(document).ready(function(){

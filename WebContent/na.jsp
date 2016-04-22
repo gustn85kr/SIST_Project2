@@ -97,16 +97,17 @@ body{
     cursor: pointer;
     border:#fff;
     border-bottom: 2px solid #FFE72C; 
-    border-radius: 3px;
-    width: 80%;
+    border-radius: 1px;
+    width: 85%;
+    margin-bottom: 15px;
 }
  
 .weekday {
 
     width: 300px;
     padding: 5px; 
-    border-bottom: 2px solid #D7CCD2;
-    border-top: 2px solid #D7CCD2;
+    border-bottom: 2px solid #EDE1E7;
+    border-top: 2px solid #EDE1E7;
     background-color: #fff;
     margin: 20px;
     
@@ -269,6 +270,20 @@ padding: 0px;
 
 #listtitleaddbtn{
 text-align: center;
+}
+
+#calendarunder{
+    height: 30px;
+    background:#D3F1B9;
+    width: 100px;
+}
+
+#calendarunder img{
+margin-right:10px;
+}
+
+.ui-progressbar-value{
+background: #BCF12A;
 }
     </style>
    
@@ -469,12 +484,12 @@ $(document).ready(function(){
 		  	var op2 = $(':radio[name="option2"]:checked').val();
 		  	$('input').prop('checked', false);
 		  	$('#modalPriority').empty();
-	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
+	  		$('#modalPriority').append("<div class='priorityunder'><img src='calendar/images/star-icon.png'>&nbsp;&nbsp;우선순위</div><div id='priorityIf'></div> ");
 	  		if(op1!=null){
-	  			$("#priorityIf").append("<span style='background-color:"+op1+"'> 중요도</span>");
+	  			$("#priorityIf").append("<span style='color:#fff; background-color:"+op1+"'> 중요도</span>");
 	  		}
 	  		if(op2!=null){
-	  			$("#priorityIf").append("<span style='background-color:"+op2+"'> 선호도</span>");
+	  			$("#priorityIf").append("<span style='color:#fff; background-color:"+op2+"'> 선호도</span>");
 	  		}
   	  });
   	  $(this).on("click","#priorityCancel",function(){
@@ -535,7 +550,7 @@ $(document).ready(function(){
 	   $(this).on("click","#labelInsert",function(){
 		    $('#modalLabel').empty();
 		    labelColor = $(':radio[name="option10"]:checked').val();
-			$('#modalLabel').append("<span class='glyphicon glyphicon-tags'>라벨</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
+			$('#modalLabel').append("<div id='labelunder'><img src='calendar/images/label-icon.png'>&nbsp;&nbsp;라벨</div><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
 	   });
 	   
 	   	
@@ -583,7 +598,7 @@ $(document).ready(function(){
 	    	events.push(event);
 	    	$('#calendar').fullCalendar('addEventSource',events);
 	    	$('#modalDate').empty();
-	    	$('#modalDate').append("<span class='glyphicon glyphicon-calendar'>일정날짜</span><div id='sdateDiv'> <b>시작일 </b>: "+startDate+"</div>");
+	    	$('#modalDate').append("<div id='calendarunder'><img src='calendar/images/calendar-icon.png' >일정날짜</div><div id='sdateDiv'> <b>시작일 </b>: "+startDate+"</div>");
 	    	if(endDate!=""){
 	    		$('#modalDate').append("<div id='edateDiv'> <b>종료일 </b>: "+endDate+"</div>");
 	    	}
@@ -651,7 +666,7 @@ $(document).ready(function(){
 		      	  
 		      	  // count checks
 		      	 function countChecked() {
-			      	    checked = $("input:checked").length;
+			      	    checked = $("input:checked").length-1;
 			      	    
 			      	    var percentage = parseInt(((checked / count) * 100),10);
 			      	    $(".progressbar-bar").progressbar({
