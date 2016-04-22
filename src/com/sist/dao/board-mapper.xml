@@ -58,4 +58,9 @@
 		html=#{html} WHERE no=#{no}
 	</update>
 
+	<!-- 카드생성   -->
+	<insert id="addCard" parameterType="Ocard">
+		INSERT INTO onmcard VALUE(no,userno,title,regdate) VALUES((seq_oc.nextval),#{userno},#{title},SYSDATE)
+	</insert>
+	
 </mapper>

@@ -1,0 +1,19 @@
+CREATE TABLE onmcard(
+no NUMBER CONSTRAINT oc_no_pk primary key,
+userno NUMBER,
+title VARCHAR2(50) CONSTRAINT oc_title_nn not null,
+content CLOB,
+regdate DATE DEFAULT SYSDATE CONSTRAINT oc_regdate_nn not null,
+startdate DATE,
+enddate DATE,
+priority1 NUMBER,
+priority2 NUMBER,
+done VARCHAR2(10),
+label VARCHAR2(30),
+CONSTRAINT oc_userno_fk FOREIGN KEY (userno) REFERENCES onmuser(no)
+);
+
+CREATE SEQUENCE seq_oc
+	START WITH 1
+	INCREMENT BY 1;
+

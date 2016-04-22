@@ -48,4 +48,9 @@ public class OnmDAO{
 		session.update("dragEvent",vo);
 		session.close();
 	}
+	public static void addCard(CardVO vo){
+		SqlSession session=ssf.openSession(true);
+		session.insert("addCard",vo);
+		session.close();
+	}
 }
