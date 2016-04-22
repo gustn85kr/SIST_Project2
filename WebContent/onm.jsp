@@ -1,44 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	
-	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/one.style.css">
-	<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
-	<link rel="shortcut icon" href="favicon.ico">
-	
+<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/one.style.css">
+<link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
+<link rel="shortcut icon" href="favicon.ico">
 	
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-teal.css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">    <%-- css --%>
 	
-	
-	<link rel='stylesheet' href='calendar/jquery-ui.min.css' />
-   	<link href="calendar/fullcalendar.css" rel="stylesheet" />
-   	<link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
-   	<link rel="stylesheet" href="WebContent\assets\css\jquery-ui.css" />
-   	
-    <script src="assets/plugins/jquery/jquery.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script src="calendar/moment.min.js"></script>
-	<script src="calendar/fullcalendar.min.js"></script>
-	
-	<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-	<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
-	
-	<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
-	<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-	<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- ´ÙÀ½Áöµµ -->
+
+<link rel='stylesheet' href='calendar/jquery-ui.min.css' />
+<link href="calendar/fullcalendar.css" rel="stylesheet" />
+<link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+  	
+<script src="assets/plugins/jquery/jquery.min.js"></script>
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="calendar/moment.min.js"></script>
+<script src="calendar/fullcalendar.min.js"></script>
+
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
+
+<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
+<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- ë‹¤ìŒì§€ë„ -->
 	
  	
   
 
-    <style type="text/css">
+<style type="text/css">
 body{
 	font-family:'Malgun Gothic';
 }
@@ -65,17 +64,7 @@ body{
     font-size: 20px;
     word-break:break-all;
     
-
 }
- 
- #timetable{
- 	 height: 800px;
-    border: 2px solid;
-    border-bottom-color: #fff;
-    border-top-color: #fff;
-    border-right-color: #fff;
-    border-left-color: #D7CECC;
- }
  
 .items .ui-selected {
     background: red;
@@ -95,128 +84,88 @@ body{
     margin: 2px;
     padding: 2px;
     cursor: pointer;
-    border:#fff;
-    border-bottom: 2px solid #FFE72C; 
     border-radius: 3px;
-    width: 80%;
 }
  
 .weekday {
-
     width: 300px;
-    padding: 5px; 
-    border-bottom: 2px solid #D7CCD2;
-    border-top: 2px solid #D7CCD2;
-    background-color: #fff;
-    margin: 20px;
+    padding: 5px;
+    border: 1px solid green;
+    border-radius: 0.75em;	
+    background-color: #65BD13;
+    margin: 5px;
     
     /* max-height : 700px; */   
 }
  
- .listTitleBtn, .listTitleCancel{
-       float:right;
-       background: #fff;
-   	   border: #fff;
- }
- 
- 
- .listTitleBtn:hover, .listTitleBtn:active {
-   border-bottom: 2px solid #2694e8;
-}
-
- .listTitleCancel:hover, .listTitleCancel:active {
-   border-bottom: 2px solid #2694e8;
-}
-
- .cardInsert.btn-primary:hover, .cardInsert.btn-primary:active {
-   border-bottom: 2px solid #2694e8;
-}
-
- .cardCancel.btn-primary:hover, .cardCancel.btn-primary:active {
-   border-bottom: 2px solid #2694e8;
-}
-
- .cardInsert.btn-primary, .cardCancel.btn-primary{
-    float: right;
-    background: #fff;
-    color: black;
-    border: #fff;
- }
-
-
 .availablelist {
     background-color: orange;
     display: inline;
 }
     
-    #draggablePanelList .panel-heading {
-        cursor: move;
-    } 
-   #calendar_attr {
-  
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
-
-	#calendar_container {
-		position:relative;
-		top:700px;
-		max-width: 700px;
-		margin: 0 auto;
-	}
-	
-    #sist{
-    	/* width:4500px; */
-    	height: 700px;
-    		
-    }
-    #cardList{
-    }
-
-    .listHeader{
-    	margin: 2px;
-    	font: bold;
-    	font-size: 25px;
-    	
-    }
-
-   .footText{
-    	width:280px;
-    }
-    .footInput{
-  		width : 280px; 
-  		text-align : center;
-  		margin : 5px;
-  		height: 50px;
-    } 
-    .footInput textarea{
-    	width:280px;
-    }
-    .cardInsert{
-    	margin-left: 100px;
-    }
-    .listHeader{
-    	margin:5px;
-    	height: 20px;
-    }
-    .listHeader p{
-    	color :black;
-    	font-size:20px;
-    	margin: 5px;
-    }
-    #calendar{
-
-    }
-	#cardDetail .modal-dialog {
+#draggablePanelList .panel-heading {
+    cursor: move;
+} 
+#calendar_attr {
+margin: 40px 10px;
+padding: 0;
+font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+font-size: 14px;
+}
+#calendar_container {
+	position:relative;
+	top:700px;
+	max-width: 700px;
+	margin: 0 auto;
+}
+   #sist{
+   	/* width:4500px; */
+   	height: 700px;
+   		
+   }
+   #cardList{
+   }
+   .listHeader{
+   	margin: 2px;
+   	font: bold;
+   	font-size: 25px;
+   	
+   }
+  .footText{
+   	width:280px;
+   }
+   .footInput{
+ 		width : 280px; 
+ 		text-align : center;
+ 		margin : 5px;
+ 		height: 50px;
+   } 
+   .footInput textarea{
+   	width:280px;
+   }
+   .cardInsert{
+   	margin-left: 100px;
+   }
+   .listHeader{
+   	margin:5px;
+   	height: 20px;
+   }
+   .listHeader p{
+   	color :white;
+   	font-size:20px;
+   	margin: 5px;
+   }
+   #calendar{
+   }
+#cardDetail .modal-dialog {
 		width:75%
 	}
-
 .fc-time{
    display : none;
 }
-
+#fileUpButton {
+	margin-bottom: 10px;
+}
 #blah {
 	width:110px;
 	height:80px;
@@ -224,20 +173,18 @@ body{
 	}
 .addListBtn {
     background-color: transparent;
-    color: black;
+    color: white;
     display: block;
     height: 100%;
-   /*  line-height: 40px; */
+    line-height: 40px;
     text-decoration: none;
-    /* width: 100%; */
-    /* text-align: left; */
+    width: 100%;
+    text-align: center;
     cursor:pointer;
 }
-
-
 .addListTxt{
 	background-color: transparent;
-    color: black;
+    color: white;
     display: block;
     height: 40px;
     line-height: 40px;
@@ -245,110 +192,108 @@ body{
     width: 100%;
     text-align: center;
     border:inherit;
-    margin:10px;
 }
-
-.btn-primary.footText{
-    color: #fff;
-    background-color: #fff;
-    border-color: #fff;
-    border: #fff;
-    margin-bottom: 5px;
-}
-
-.btn.btn-sm.btn-default.listDelete{
-float:right;
-text-align: center;
-width: 30px;
-height: 30px;
-background: #fff;
-border: #fff;
-margin:0px;
-padding: 0px;
-}
-
-#listtitleaddbtn{
-text-align: center;
-}
+	
+	
     </style>
    
 <script type="text/javascript">
-
-
 $(document).ready(function(){
 	var labelColor=null;
 	
-	$('#calendar').fullCalendar({
-		theme: true,
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
-		},
-		defaultDate: '2016-04-02',
-		selectable: true,
-		selectHelper: true,
-		eventDurationEditable: false,   // ÀÌº¥Æ® resize disable
-
-/* 		select: function(start, end) {
-			
-			var eventData;
-			if (title) {
-				eventData = {
-					title: title,
-					start: start,
-					end: end
-				};
+		$('#calendar').fullCalendar({
+			theme: true,
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultDate: '2016-04-02',
+			selectable: true,
+			selectHelper: true,
+			eventDurationEditable: false,   // ì´ë²¤íŠ¸ resize disable
+	
+	/* 		select: function(start, end) {
 				
-			}
-			$('#calendar').fullCalendar('unselect');
-		}, */ //ÀÌº¥Æ® Ãß°¡ÇÔ¼ö
-		editable: true,
-		eventClick: function(event) {
-			$('#cardDetail').modal();
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					
+				}
+				$('#calendar').fullCalendar('unselect');
+			}, */ //ì´ë²¤íŠ¸ ì¶”ê°€í•¨ìˆ˜
+			editable: true,
+			eventClick: function(event) {
+				$('#cardDetail').modal();
+			
+		  	   /*ì´ë²¤íŠ¸ í´ë¦­ì‹œ ë°œìƒí•˜ëŠ” í•¨ìˆ˜  alert("ì´ë²¤íŠ¸ í´ë¦­ì‹œ ë°œìƒí•˜ëŠ” í•¨ìˆ˜");*/
+		  	   
+		  	},
+			eventLimit: true, // allow "more" link when too many events
+			events: [
 		
-	  	   /*ÀÌº¥Æ® Å¬¸¯½Ã ¹ß»ıÇÏ´Â ÇÔ¼ö  alert("ÀÌº¥Æ® Å¬¸¯½Ã ¹ß»ıÇÏ´Â ÇÔ¼ö");*/
-	  	   
-	  	},
-		eventLimit: true, // allow "more" link when too many events
-		events: [
-	
-		
-		]
-	});
-	
-	
-	
+			
+			]
+		});
 		$(this).on("click",".list",function(){
 			$('#cardDetail').modal();
 		});
-		/* $("td").sortable({
-			connectWith:".fc-day"
-		}); */
-		/* $("td").draggable({
-			helper:"clone",
-			connectToSortable: ".items"
-		}); */
-  	    $("#timetable .items").sortable({
-  	            connectWith: "ul"        
-  	    });
+	
+	  	 $("#timetable .items").sortable({
+             connectWith: "ul",           
+             update:function(e,ui){    //ë“œë¡­ì´ ì‹œì‘í•œê³³ì—ì„œ í•œë²ˆ ì‹¤í–‰ëœí›„ ë°œìƒí•œê³³ì—ì„œ ë˜í•œë²ˆì‹¤í–‰
+          /* 	 var test1= $(this).html();
+             alert(test1); */
+ 
+	       var listno= $(this).parents('.weekday').attr('id');
+           var draghtml = $(this).parents('.weekday').html();
+           var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+   
+	           	  $.ajax({
+		           	 url:'dragEvent.do',
+		           	 type:'post',
+		           	 dataType:"json",
+		           	 data:{"listno":listno , "html":ehtml},
+		           	 success:function(data){
+	
+		          	         }
+		    	   });
+             }
+         });  	 
   	    $("ul[id^='available']").draggable({
-/*   	        helper: "clone",
-  	        connectToSortable: "td", */
   	        	revert: true,      // immediately snap back to original position
   	          revertDuration: 0
   	    });
   	    $(this).on("click",".footText",function(){
   			$(this).css('display', 'none');
   			$(this).siblings(".footInput").css('display', 'inline'); 
+  			$(this).siblings('.footInput').find('textarea').focus();
   		});
-  	    $(this).on("click",".cardInsert",function(){
+  	    $(this).on("click",".cardInsert",function(){           	  
   	    	var text = $(this).siblings('textarea').val();
   			$(this).siblings('textarea').val("")
   			
   			$(this).parents(".listFoot").siblings('.items').append("<li class='list'>"+text+"</li>");
   			$(this).parent(".footInput").css('display', 'none');
   			$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
+  			
+  		     var listno= $(this).parents('.weekday').attr('id');
+  	         var draghtml = $(this).parents('.weekday').html();
+  	         var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+  	         
+           	  $.ajax({
+	           	 url:'dragEvent.do',
+	           	 type:'post',
+	           	 dataType:"json",
+	           	 data:{"listno":listno , "html":ehtml},
+	           	 success:function(data){
+	           	 	    
+	          	         }
+	    	   });
   		});
   	    $(this).on("click",".addListBtn",function(){
   	    	/*  var listTitle =""; */
@@ -357,7 +302,22 @@ $(document).ready(function(){
   	    	$(this).siblings('.addListPanel').find('.addListTxt').focus();
   	    	
   		});
-  	    
+  	    $(this).on("click","#commentAddOk",function(){
+  	 
+  	    	var commenttext = $(this).siblings("#commentText").val();
+  	    	$(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div id='commentArea'>"+commenttext+"</div></div>");
+  	    	
+  	    	
+  	    	$(this).parents("#commentDialog").append("<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>ì¶”ê°€</button>");
+  	    	
+  	    	$(this).siblings("#commentText").val("");
+  	    	$(this).parent("#commentAddArea").remove();
+  	    	
+  	    });
+  	    $(this).on("click","#commentDelete",function(){
+  	    	$(this).parent("#commentPanel").remove();
+  	    	
+  	    }); 	    
   	  /* addListPanelCreation addListPanelCancel */
   	    $(this).on("click",".listTitleCancel",function(){
   	    	$(this).parent('.addListPanel').hide();
@@ -365,51 +325,69 @@ $(document).ready(function(){
   	    	$(this).siblings('.addListTxt').val("");
   	    	
   	    });
-  	  $(this).on("click",".listTitleBtn",function(){
-  		  
-  	    	var listTitle ="";
-  	    
-  	    	listTitle= $(this).siblings('.addListTxt').val();
-  	    	$(this).parent('.addListPanel').parent('.weekday').hide();
-  	  	$('#timetable').append("<div class='weekday col-md-1'><div class='listHeader'><p>"+listTitle+
-					"<button type='button' class='btn btn-sm btn-default listDelete'> "+
-					"<img src='calendar/images/deletelist.png'></button></p>"+
-    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
-					"<button class='btn-primary footText' id='listtitleaddbtn'><img src='calendar/images/plus-hover.png'></button><div class='footInput' style='display:none;'> "+
-					" <textarea cols='30' rows='3'></textarea><input type='button' value='Ãë¼Ò' class='cardCancel btn-primary'/>"+
-					" <input type='button' value='Ãß°¡' class='cardInsert btn-primary'/>  "+
-	 				"</div></div></div> ");
-  	  	
-  	  	$('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span><img src='calendar/images/createlist.png' ></span></div> "+
-  	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='List Title'/> "+
-  	  			    "<input type='button' value='Ãë¼Ò' class='listTitleCancel' /><input type='button' value='Ãß°¡' class='listTitleBtn' />"+
-    				"</div><div>");
-  	  	
-  	  	/*
-  	  			<div class="weekday col-md-1">
-	    		
-	    			
-	    			<div id="addListBtn">
-	    				<span>¸®½ºÆ® Ãß°¡ÇÏ±â..</span>
-	    			</div>
-	    			
-	    			<div class="addListPanel" style="display:none;">
-	    				<input name="name" class="addListTxt" type="text" placeholder="¸®½ºÆ® Ãß°¡ÇÏ±â.."/>
-	    				<input type="button" value="Ãß°¡" class="listTitleBtn" />
-	    				<input type="button" value="Ãë¼Ò" class="listTitleCancel" />
-	    			</div>
-	    		</div>
-  	  	*/
-  	  	
-			 $("#timetable .items").sortable({
-	            connectWith: "ul"  
-	    	});
-			 
-  	    });
-  	    
+  	    $(this).on("click",".listTitleBtn",function(){
+  		  	
+  			var listTitle= $(this).siblings('.addListTxt').val();
+        	$(this).parent('.addListPanel').parent('.weekday').hide();
+	  		$.ajax({
+	            url:"getListNo.do",
+	            type:'post',
+	            success:function(data){
+	            	listno=data;
+	      	    	var tmpHtml = "<div class='weekday col-md-1' id=list"+listno+"><div class='listHeader'><p>"+listTitle+
+	    			"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
+	    			"<span class='glyphicon glyphicon-trash'></span></p>"+
+	    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
+	    			"<button class='btn-primary footText'>ì¼ì • ì¶”ê°€í•˜ê¸°</button><div class='footInput' style='display:none;'> "+
+	    			" <textarea cols='30' rows='3'></textarea><input type='button' value='ì¶”ê°€' class='cardInsert btn-primary'/>  "+
+	    				" <input type='button' value='ì·¨ì†Œ' class='cardCancel btn-primary'/> </div></div></div> ";
+	      	 	 	$('#timetable').append(tmpHtml);
+	      	  	
+	      	  		$('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span>ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°..</span></div> "+
+	      	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°..'/> "+
+	      	  				"<input type='button' value='ì¶”ê°€' class='listTitleBtn'/> "+
+	      	  				"<input type='button' value='ì·¨ì†Œ' class='listTitleCancel'/></div><div>");
+	    			$("#timetable .items").sortable({
+	    	            connectWith: "ul"  
+	    	    	});
+	    		  	$.ajax({
+	    		            url:'listAdd.do',
+	    		            type:'post',
+	    		            dataType:"json",
+	    		            data:{"title":listTitle , "html":tmpHtml , "no":listno},
+	    		            success:function(data){
+	    		            	/* alert(tmpHtml); */
+	    		            }
+	    		    });
+	    		  	
+	    		  	
+	    		  	 $("#timetable .items").sortable({
+	    	             connectWith: "ul",           
+	    	             update:function(e,ui){    //ë“œë¡­ì´ ì‹œì‘í•œê³³ì—ì„œ í•œë²ˆ ì‹¤í–‰ëœí›„ ë°œìƒí•œê³³ì—ì„œ ë˜í•œë²ˆì‹¤í–‰
+	    	          /* 	 var test1= $(this).html();
+	    	             alert(test1); */
+	    	          
+	    		       var listno= $(this).parents('.weekday').attr('id');
+	    	           var draghtml = $(this).parents('.weekday').html();
+	    	           var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+	    	          
+	    		           	  $.ajax({
+	    			           	 url:'dragEvent.do',
+	    			           	 type:'post',
+	    			           	 dataType:"json",
+	    			           	 data:{"listno":listno , "html":ehtml},
+	    			           	 success:function(data){
+	    			           	 	    
+	    			          	         }
+	    			    	   });
+	    	             }
+	    	         });
+	    		  	 
+	            }
+	   		 });		 
+  	    }); 
   	    $("#insertContent").tooltip();
-  	    $(this).on("click","#insertContent",function(){
-  	    	
+  	    $(this).on("click","#insertContent",function(){  	    	
   	    	$(this).parent("#contentText").siblings("#newTA").css('display','inline');
   	    	$(this).parent("#contentText").siblings("#showContent").css('display','none');
   	    	$(this).css('display','none');
@@ -429,7 +407,6 @@ $(document).ready(function(){
   	    	  image_advtab: true,
   	    	  templates: [
   	    	    { title: 'Test template 1', content: 'Test 1' }
-
   	    	  ],
   	    	  content_css: [
   	    	    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
@@ -447,20 +424,19 @@ $(document).ready(function(){
   	    	$(this).parent("#newTA").siblings("#showContent").append(tmp);
   	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
   	    });
-  	  $(this).on("click","#contentCancel",function(){
+    	$(this).on("click","#contentCancel",function(){
 	    	var tmp = tinyMCE.activeEditor.getContent();
 	    	$(this).parent("#newTA").css('display',"none");
 	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
 	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
-	    });
-  	  $(this).on("click","#priorityBtn",function(){
-  		 obj = document.getElementById('priorityDiv');
-  		if(obj.style.display == "none"){
-  		  	$("#priorityDiv").css('display','inline');
-  		}else{
-  			$("#priorityDiv").css('display','none');
-  		}
-  		
+	   });
+  	   $(this).on("click","#priorityBtn",function(){
+  			obj = document.getElementById('priorityDiv');
+	  		if(obj.style.display == "none"){
+	  		  	$("#priorityDiv").css('display','inline');
+	  		}else{
+	  			$("#priorityDiv").css('display','none');
+	  		}	  		
   	  });
   	  $(this).on("click","#priorityInsert",function(){
   			$("#priorityDiv").css('display','none');
@@ -469,12 +445,12 @@ $(document).ready(function(){
 		  	var op2 = $(':radio[name="option2"]:checked').val();
 		  	$('input').prop('checked', false);
 		  	$('#modalPriority').empty();
-	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>¿ì¼±¼øÀ§</span><br/><div id='priorityIf'></div> ");
+	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>ìš°ì„ ìˆœìœ„</span><br/><div id='priorityIf'></div> ");
 	  		if(op1!=null){
-	  			$("#priorityIf").append("<span style='background-color:"+op1+"'> Áß¿äµµ</span>");
+	  			$("#priorityIf").append("<span style='background-color:"+op1+"'> ì¤‘ìš”ë„</span>");
 	  		}
 	  		if(op2!=null){
-	  			$("#priorityIf").append("<span style='background-color:"+op2+"'> ¼±È£µµ</span>");
+	  			$("#priorityIf").append("<span style='background-color:"+op2+"'> ì„ í˜¸ë„</span>");
 	  		}
   	  });
   	  $(this).on("click","#priorityCancel",function(){
@@ -499,7 +475,6 @@ $(document).ready(function(){
   	$(this).on("click","#checkCancel",function(){
 		  $("#checklistadd").empty();
 	  });
-
 	    $(this).on("click","#dateBtn",function(){
 	    	 obj = document.getElementById('dateDiv');
 	    	 if(obj.style.display=="none"){
@@ -508,7 +483,6 @@ $(document).ready(function(){
 	    		$("#dateDiv").css("display","none");
 	    	 }
 	    });
-
 	   	$(this).on("click","#btnMap",function(){
 	   		obj = document.getElementById('mapApp');
 	   		if(obj.style.display=="none")
@@ -535,7 +509,7 @@ $(document).ready(function(){
 	   $(this).on("click","#labelInsert",function(){
 		    $('#modalLabel').empty();
 		    labelColor = $(':radio[name="option10"]:checked').val();
-			$('#modalLabel').append("<span class='glyphicon glyphicon-tags'>¶óº§</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
+			$('#modalLabel').append("<span class='glyphicon glyphicon-tags'>ë¼ë²¨</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
 	   });
 	   
 	   	
@@ -579,17 +553,27 @@ $(document).ready(function(){
 	    		event.color = labelColor;
 	    	}
 	    	event.allDay = false;
-
 	    	events.push(event);
 	    	$('#calendar').fullCalendar('addEventSource',events);
 	    	$('#modalDate').empty();
-	    	$('#modalDate').append("<span class='glyphicon glyphicon-calendar'>ÀÏÁ¤³¯Â¥</span><div id='sdateDiv'> <b>½ÃÀÛÀÏ </b>: "+startDate+"</div>");
+	    	$('#modalDate').append("<span class='glyphicon glyphicon-calendar'>ì¼ì •ë‚ ì§œ</span><div id='sdateDiv'> <b>ì‹œì‘ì¼ </b>: "+startDate+"</div>");
 	    	if(endDate!=""){
-	    		$('#modalDate').append("<div id='edateDiv'> <b>Á¾·áÀÏ </b>: "+endDate+"</div>");
+	    		$('#modalDate').append("<div id='edateDiv'> <b>ì¢…ë£Œì¼ </b>: "+endDate+"</div>");
 	    	}
 	    });
 	    $(this).on("click",".listDelete",function(){
-	    	if (confirm('ÇØ´ç ¸®½ºÆ®¸¦ »èÁ¦ ÇÏ½Ã°Ú½À´Ï±î?')) {
+	    	if (confirm('í•´ë‹¹ ë¦¬ìŠ¤íŠ¸ë¥¼ ì‚­ì œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?')) {
+	    		var deleteid=$(this).parents(".weekday").attr("id");
+	    		$.ajax({
+		            url:'listDelete.do',
+		            type:'post',
+		            dataType:"json",
+		            data:{"id":deleteid},
+		            success:function(data){
+		            	/* alert("Yes"); */
+		            }
+		    });
+	    		/* alert(deleteid); */
 	    		$(this).parents(".weekday").remove();    
 	    	} else {
 	    	    // Do nothing!
@@ -627,7 +611,6 @@ $(document).ready(function(){
 			document.getElementById("complecheck").disabled=false;
 			document.getElementById("addchecklist").disabled=true;
 		}); 
-
 		$(this).on("click","#complecheck",function(){
 			var message = $('textarea#chetext').val();
 			$('#chetext').css('display',"none");
@@ -664,20 +647,19 @@ $(document).ready(function(){
 			      	  $(":checkbox").click(countChecked);
 		      	 
 		      	});
-		});
-
-	    
+		});    
 });
-
-
-
-//Áöµµ
+function resize(obj) {
+	  obj.style.height = "1px";
+	  obj.style.height = (50+obj.scrollHeight)+"px";
+}
+//ì§€ë„
 var map;
 var marker = '';
 var position = new daum.maps.LatLng(37.572730, 126.970204);
  
  $("#map").ready(function() {
-  //°Ë»öÃ¢¿¡ ¿£ÅÍ ÀÔ·Â½Ã ÁÂÇ¥ °Ë»ö
+  //ê²€ìƒ‰ì°½ì— ì—”í„° ì…ë ¥ì‹œ ì¢Œí‘œ ê²€ìƒ‰
               $("#txtAddress").keydown(function(e) {
                   if (e.keyCode == 13) {
                   	$("#map").css("display","block");
@@ -686,48 +668,44 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   }
               });
   
-  //Áöµµ ÃÊ±âÈ­
+  //ì§€ë„ ì´ˆê¸°í™”
               map = new daum.maps.Map(document.getElementById('map'), {
                   center: position,
                   level: 4,
                   mapTypeId: daum.maps.MapTypeId.ROADMAP
               });
-
 /*                marker = new daum.maps.Marker({
                   position: position
               });
-
               marker.setMap(map)
 */
-  //Áöµµ»óÀÇ À§Ä¡ Å¬¸¯½Ã Å¬¸¯ÇÑ À§Ä¡ÀÇ ÁÂÇ¥ È®ÀÎ
+  //ì§€ë„ìƒì˜ ìœ„ì¹˜ í´ë¦­ì‹œ í´ë¦­í•œ ìœ„ì¹˜ì˜ ì¢Œí‘œ í™•ì¸
               daum.maps.event.addListener(map, "click", function(e) {
-   //±âÁ¸¿¡ ¼³Á¤µÈ ¸¶Ä¿ »èÁ¦
+   //ê¸°ì¡´ì— ì„¤ì •ëœ ë§ˆì»¤ ì‚­ì œ
                   if (marker != '') {
                       marker.setMap(null);
                   }
-                  //temp¿¡ »õ·Î Å¬¸¯µÈ ÁÂÇ¥ ÀÔ·Â
+                  //tempì— ìƒˆë¡œ í´ë¦­ëœ ì¢Œí‘œ ì…ë ¥
                   var lat = e.latLng.getLat();
                   var lng = e.latLng.getLng();
    var temp = new daum.maps.LatLng(lat, lng);
-   //ÁÂÇ¥ Ãâ·Â
-                  $("#latlng").html("µ¿°æ " + lat.toString().substr(0, 10) + ", ºÏÀ§ " + lng.toString().substr(0, 10));
-   //temp¿¡ ÀÔ·ÂµÈ ÁÂÇ¥°ªÀ» Áß½ÉÀ¸·Î Áöµµ ÀÌµ¿
+   //ì¢Œí‘œ ì¶œë ¥
+                  $("#latlng").html("ë™ê²½ " + lat.toString().substr(0, 10) + ", ë¶ìœ„ " + lng.toString().substr(0, 10));
+   //tempì— ì…ë ¥ëœ ì¢Œí‘œê°’ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì§€ë„ ì´ë™
                   map.panTo(temp);
-   //temp¿¡ ÀÔ·ÂµÈ ÁÂÇ¥°ª¿¡ ¸¶Ä¿ ¼³Á¤
+   //tempì— ì…ë ¥ëœ ì¢Œí‘œê°’ì— ë§ˆì»¤ ì„¤ì •
                   marker = new daum.maps.Marker({
                       position: temp
                   });
                   marker.setMap(map);
               });
           });
-
           function Search() {
               var query = $("#txtAddress").val();
               $("#txtAddress").val('');
               getPoint(query);
           }
-
- //ÁÖ¼Ò->ÁÂÇ¥·Î º¯È¯ÇØÁÖ´Â api »ç¿ë
+ //ì£¼ì†Œ->ì¢Œí‘œë¡œ ë³€í™˜í•´ì£¼ëŠ” api ì‚¬ìš©
           function getPoint(query) {
               var oScript = document.createElement("script");
               oScript.type = "text/javascript";
@@ -736,11 +714,11 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
               document.getElementsByTagName("head")[0].appendChild(oScript);
           }
  
- //ÁÂÇ¥ º¯È¯ ÈÄ ÇØ´ç ÁÂÇ¥¸¦ ÀÌ¿ëÇØ Äİ¹é(Å¬¸¯½Ã¿Í µ¿ÀÏÇÑ µ¿ÀÛ)
+ //ì¢Œí‘œ ë³€í™˜ í›„ í•´ë‹¹ ì¢Œí‘œë¥¼ ì´ìš©í•´ ì½œë°±(í´ë¦­ì‹œì™€ ë™ì¼í•œ ë™ì‘)
           function pongSearch(data) {
               marker = '';
               if (data.channel.item.length == 0) {
-                  alert("°á°ú°¡ ¾ø½À´Ï´Ù.");
+                  alert("ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.");
               } else {
                   if (marker != '') {
                       marker.setMap(null);
@@ -753,10 +731,9 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   });
                   marker.setMap(map);
               }
-          }//Áöµµ!!!!!!!!
-
+          }//ì§€ë„!!!!!!!!
 </script>
-<title>¿À´Ã ÀÏÀ» ³»ÀÏ·Î ¹Ì·çÀÚ</title>
+<title>ì˜¤ëŠ˜ ì¼ì„ ë‚´ì¼ë¡œ ë¯¸ë£¨ì</title>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
 	<!--=== Header ===-->
@@ -771,23 +748,22 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 				</button>
 				-->
 				<a class="navbar-brand" href="#intro">
-					<span>¿À</span>³»¹Ì
+					<span>ì˜¤</span>ë‚´ë¯¸
 					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
 				</a>
 			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
+		<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
 						<li class="page-scroll home"><a href="intro.do">
-							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;È¨À¸·Î</a></li>
+							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;í™ˆìœ¼ë¡œ</a></li>
 							
 							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}´Ô</a></li>
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}ë‹˜</a></li>
 							
 							<li class="page-scroll home" id="myBtn3"><a href="logOutOK.do">
-							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;·Î±×¾Æ¿ô</a></li>
+							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;ë¡œê·¸ì•„ì›ƒ</a></li>
 					</ul>
 				</div>
 			</div>
@@ -796,6 +772,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 		<!-- /.container -->
 	</nav>
 	<!--=== End Header ===-->
+
 	 <div id="sist" class="row">
 	    <div class=" col-md-6 half" id='calendar'>
         	<div id="calendar_attr">
@@ -804,8 +781,8 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 			</div>
    		 <div class="col-md-6 half" id ='cardList' >
 			<div style="clear:both"></div>
-			<div id="timetable" style="float:left;max-width:7000px;">
-				<!--  <input style="align:left" type="button" value="¸®½ºÆ® Ãß°¡" id="listAddBtn"> -->
+			<div id="timetable" style="float:left;max-width:7000px; margin-top:50px;">
+				
 	    		<div style="text-align:center">
 	    		
 	    		</div>
@@ -819,32 +796,35 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
      					</p>
 	    			</div>
 	        		<ul class="items">
-			            <li class="list">  ·ùÁ¤Çö1</li>
-			            <li class="list">Á¤Çö1</li>
+			            <li class="list">  ë¥˜ì •í˜„1</li>
+			            <li class="list">ì •í˜„1</li>
 	      			</ul>
 	      			<div class = 'listFoot'>
-	      				<button class="btn-primary footText" type="button"> ÀÏÁ¤ Ãß°¡ÇÏ±â</button>
+	      				<button class="btn-primary footText" type="button"> ì¼ì • ì¶”ê°€í•˜ê¸°</button>
 						<div class='footInput' style='display:none;'>	
 							<textarea cols='31' rows='3' style="resize:none"></textarea>
-							<input type="button" value="Ãß°¡" class="cardInsert btn-primary" />
-							<input type="button" value="Ãë¼Ò" class="cardCancel btn-primary" />
+							<input type="button" value="ì¶”ê°€" class="cardInsert btn-primary" />
+							<input type="button" value="ì·¨ì†Œ" class="cardCancel btn-primary" />
 						</div>
 				</div>
 	    		</div>      -->
 	    		
-	    		
+	    		<c:forEach var="vo" items="${list}">
+
+	    			${vo.html}
+
+	    		</c:forEach>
 	    		<div class="weekday col-md-1">
 	    		
 	    			
 	    			<div class="addListBtn">
-	    				<span><img src="calendar/images/createlist.png" ></span>
+	    				<span>ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°..</span>
 	    			</div>
-	    		
 	    			
 	    			<div class="addListPanel" style="display:none;">
-	    				<input name="name" class="addListTxt" type="text" placeholder="List Title"/>
-	    				<input type="button" value="Ãë¼Ò" class="listTitleCancel" />
-	    				<input type="button" value="Ãß°¡" class="listTitleBtn" /> 
+	    				<input name="name" class="addListTxt" type="text" placeholder="ë¦¬ìŠ¤íŠ¸ ì¶”ê°€í•˜ê¸°.."/>
+	    				<input type="button" value="ì¶”ê°€" class="listTitleBtn" />
+	    				<input type="button" value="ì·¨ì†Œ" class="listTitleCancel" />
 	    			</div>
 	    		</div>
 	    		
