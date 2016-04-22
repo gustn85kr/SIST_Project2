@@ -21,14 +21,6 @@ public class JoinController {
 		return "ajax";
 
 	}
-
-	@RequestMapping("emailSaveGet.do")
-	public String emailSaveGet(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Cookie[] cookies = req.getCookies();
-	    String emailSave=cookies[1].getValue();
-	    res.getWriter().write(String.valueOf(emailSave));
-		return "ajax";
-	}
 	
 	// 회원가입 메소드
 	@RequestMapping("joinOK.do")

@@ -488,8 +488,10 @@ style="z-index: 6">
                     data:$('#logFrm').serialize(),
                     success:function(data){
                     	var logEmail = $('#logEmail').val(data);
-                    	if(logEmail !="")
-                    		$('#logSave').attr('checked');
+        				if(data !="")
+                    		$('#logSave').attr('checked',true);
+        				else
+        					$('#logSave').attr('checked',false);
                     }
 	         	});
 				$("#LoginModal").modal();
@@ -576,15 +578,6 @@ style="z-index: 6">
 	               $('#logPwd').focus();               
 	               return;
 	            } else {
-		            if($('#logSave').attr('checked')) {
-			               $.ajax({
-		                       url:'emailSaveOK.do',
-		                       type:'post',
-		                       data:$('#logFrm').serialize(),
-		                       success:function(data){
-		                       }
-			               });
-			    	}
 	               $.ajax({
 	                       url:'loginOK.do',
 	                       type:'post',
@@ -599,7 +592,7 @@ style="z-index: 6">
 	                             $('#logPwd').val("");
 	                             return;
 	                          } else {
-	                        	  alert("로그인 성공");
+	                        	 alert("로그인 성공");
 	                             $('#logEmail').val("");
 	                             $('#logPwd').val("");
 	                             $('#LoginModal').modal('toggle');
@@ -608,6 +601,26 @@ style="z-index: 6">
 	              		  } 
 	               	});
 	            }
+	         });
+	          
+	         $('#logYes').click(function() {
+        	   	if($('#logSave').attr('checked')) {
+		      		$.ajax({
+	                       url:'emailSaveOK.do',
+	                       type:'post',
+	                       data:$('#logFrm').serialize(),
+	                       success:function(data){
+	                       }
+		            });
+		    	} else{
+		    		$.ajax({
+	                       url:'emailSaveOK.do',
+	                       type:'post',
+	                       data:$('#logFrm').serialize(),
+	                       success:function(data){
+	                       }
+		            });
+		    	}
 	         });
 	   
 	         //로그인 아이디 저장 액션

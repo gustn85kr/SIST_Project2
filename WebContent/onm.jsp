@@ -753,7 +753,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 					<span class="icon-bar"></span>
 				</button>
 				-->
-				<a class="navbar-brand" href="onm.jsp">
+				<a class="navbar-brand" href="index.jsp">
 					<span>오</span>내미
 					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
 				</a>
