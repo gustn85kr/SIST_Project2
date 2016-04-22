@@ -75,13 +75,13 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 	<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="menu-container page-scroll">
-				<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				-->
+				
 				<a class="navbar-brand" href="intro.jsp">
 					<span>오</span>내미
 					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
@@ -92,19 +92,19 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-						<c:if test="${logNicknameOK eq null}">						
+						<c:if test="${nickname eq null}">						
 							<li class="page-scroll home" id="myBtn1"><a href="#about">
 							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
 							
 							<li class="page-scroll home" id="myBtn2"><a href="#services">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
 						</c:if>
-						<c:if test="${logNicknameOK ne null}">
+						<c:if test="${nickname ne null}">
 							<li class="page-scroll home"><a href="onm.jsp">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;오내미로</a></li>
 							
 							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;${logUsernoOK }번&nbsp;&nbsp;${logNicknameOK}님</a></li>
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${nickname}님</a></li>
 							
 							<li class="page-scroll home" id="myBtn3"><a href="index.jsp">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
@@ -441,18 +441,18 @@ style="z-index: 6">
 								type="password" class="form-control" id="pwd2" name="pwd2"
 								placeholder="2차 비밀번호를 입력하세요">
 						</div>
-						<div class="form-group" style="float: left; width: 56%" id="divCheckNum">
+						<div class="form-group" style="float:left; width : 75%" id="divCheckNum">
 							<label for="checknum"><span	class="glyphicon glyphicon-envelope"></span> 인증번호</label> 
 							<input type="text" class="form-control" id="inputCheckNum" name="inputCheckNum" placeholder="인증번호를 입력하세요">
 						</div>
-						<div class="form-group" style="float: right; width: 20%; margin-top: 25px" id="divCheckConfirm">
+						<div class="form-group" style="float: right; margin-top: 25px" id="divCheckConfirm">
 							<button type="button" class="btn btn-primary btn-block" id="checkconfirm" name="inputCheckNum">
-								<span class="glyphicon glyphicon-ok"></span> 확 인
+								<span class="glyphicon glyphicon-ok"></span>확인
 							</button>
 						</div>
-						<div class="form-group" style="float: right; width: 20%; margin-top: 25px; margin-right: 30px" id="divSendCheckNum">
+						<div class="form-group" style="float: right; margin-top: 25px; margin-right: 20px" id="divSendCheckNum">
 							<button type="button" class="btn btn-primary btn-block"	id="sendCheckNum">
-								<span class="glyphicon glyphicon-envelope"></span> 인증번호
+								<span class="glyphicon glyphicon-envelope"></span>인증
 							</button>
 						</div>
 					</div>
@@ -464,7 +464,7 @@ style="z-index: 6">
 						data-dismiss="modal" value="Input Button" style="margin: 10px">
 						<span class="glyphicon glyphicon-remove"></span>취 소
 					</button>
-					<p style="float: right; margin: 10px; height: 30px">
+					<p style="float: right; margin: 10px; height: 30px" id="pwdSearch">
 						비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
 					</p>
 					<p style="float: right; margin: 10px; height: 30px">
@@ -475,6 +475,52 @@ style="z-index: 6">
 			</div>
 		</div>
 	</div>
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+	<!-- 이메일,비밀번호 찾기 Modal  -->
+	<!-- Modal -->
+	<div class="modal fade" id="searchModal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+			<form class="form-horizontal" method="POST" id="searchFrm">
+				<div class="modal-header" style="padding: 30px 30px;">
+					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4>
+						<span class="glyphicon glyphicon-lock"></span> 비밀번호 찾기
+					</h4>
+				</div>
+				<div class="modal-body" style="padding: 30px 30px; height: 220px">
+						<div class="form-group">
+							<label for="usrname"><span class="glyphicon glyphicon-user"></span> 이메일</label> 
+							<input type="text" class="form-control" name="searchEmail" placeholder="이메일을 입력하세요" id="searchEmail" value="${emailSave }">
+						</div>
+						<div class="form-group">
+							<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> 닉네임</label> 
+							<input type="password" class="form-control" name="searchNickname" placeholder="비밀번호를 입력하세요" id="searchNickname">
+						</div>				
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="searchYes" name="searchYes" form="searchFrm"
+						class="btn btn-success btn-default pull-left" value="Send" style="margin: 10px; margin-left: 35px">
+						<span class="glyphicon glyphicon-plus"></span>완 료
+					</button>	
+					<button type="button" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="margin: 10px; margin-left: 15px">
+						<span class="glyphicon glyphicon-remove"></span>취 소
+					</button>
+					<p style="float: right; margin: 10px; height: 30px">
+						비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
+					</p>
+					<p style="float: right; margin: 10px; height: 30px;">
+						이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
+					</p>					
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 		<script>	
 		$(document).ready(function() {
 			//로그인 Modal 실행 (아이디 저장까지)
@@ -500,6 +546,13 @@ style="z-index: 6">
 			//회원가입 창 액션
 			$("#myBtn2").click(function() {
 				$("#SignUpModal").modal();
+			});	
+			//비밀번호 찾기 창 액션
+			$("#pwdSearch").click(function() {
+				$('#SignUpModal').modal('toggle');
+				var searchEmail = $('#searchEmail').val("");
+				var searchNickname = $('#searchNickname').val("");
+				$("#searchModal").modal();
 			});	
 			
 	         //아이디 중복확인 액션

@@ -28,9 +28,8 @@ public class LoginController {
 			if (d.getPwd().equals(pwd)) {
 				LogCheck = "ok";
 				// 로그인 성공시 로그인을 세션으로 보낸다.
-				session.setAttribute("logEmailOK", d.getEmail());
-				session.setAttribute("logNicknameOK", d.getNickname());
-				session.setAttribute("logUsernoOK", d.getNo());
+				session.setAttribute("nickname", d.getNickname());
+				session.setAttribute("userno", d.getNo());
 			} else {
 				LogCheck = "nopwd";
 			}
@@ -59,9 +58,8 @@ public class LoginController {
 	public String logOutOK(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		 req.setCharacterEncoding("UTF-8");
 		 HttpSession session=req.getSession();
-		 session.removeAttribute("logEmailOK");
-		 session.removeAttribute("logNicknameOK");
-		 session.removeAttribute("logUsernoOK");
+		 session.removeAttribute("nickname");
+		 session.removeAttribute("userno");
 		 
 		 //username 으로 들어온 session을 제거
 		 res.sendRedirect("intro.jsp");
