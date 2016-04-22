@@ -8,6 +8,6 @@ public class ViewResolver {
 	   suffix=".jsp";
    }
    public String jspFind(String jspName){
-	   return /*prefix+*/jspName+suffix;
+	   return jspName+suffix;
    }
 }

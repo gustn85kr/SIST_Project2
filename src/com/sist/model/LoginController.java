@@ -39,7 +39,7 @@ public class LoginController {
 		
 		//로그인 성공시 쿠키값을 넘긴다.
 		Cookie[] cookies = req.getCookies();
-		emailSave = cookies[2].getValue();
+		emailSave = cookies[((int)cookies.length-1)].getValue();
 		res.getWriter().write(String.valueOf(emailSave));
 		return "ajax";
 	}
@@ -48,7 +48,7 @@ public class LoginController {
 	@RequestMapping("emailSaveGet.do")
 	public String emailSaveGet(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Cookie[] cookies = req.getCookies();
-	    String emailSave=cookies[2].getValue();
+	    String emailSave=cookies[((int)cookies.length-1)].getValue();
 	    res.getWriter().write(String.valueOf(emailSave));
 		return "ajax";
 	}
@@ -97,7 +97,9 @@ public class LoginController {
 			// 클라이언트 응답에 쿠키를 추가한다.
 		}
 		Cookie[] cookies = req.getCookies();
-		emailSave = cookies[2].getValue();
+		System.out.println("Cookies 마지막번호 : "+((int)cookies.length-1));
+		
+		emailSave = cookies[((int)cookies.length-1)].getValue();
 		res.getWriter().write(String.valueOf(emailSave));
 
 		return "ajax";

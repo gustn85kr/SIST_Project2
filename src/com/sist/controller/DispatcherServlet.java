@@ -43,12 +43,12 @@ public class DispatcherServlet extends HttpServlet {
 						String jsp = vr.jspFind(jspName); 
 						RequestDispatcher rd = request.getRequestDispatcher(jsp);
 						rd.forward(request, response);
-						
 						return;
 					}
 				}
 			}
 		}catch(Exception ex){
+			System.out.println("DispatcherServlet Null : ");
 			ex.printStackTrace();
 		}
 		
