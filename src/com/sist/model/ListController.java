@@ -17,14 +17,14 @@ public class ListController {
 		req.setCharacterEncoding("UTF-8");
 		String title = req.getParameter("title");
 		String data = req.getParameter("html");
-		System.out.println(title);
-		System.out.println(data);
+		String no = req.getParameter("no");
 		String aData = HashingHTML.strTohtml(data);
 		ListVO vo = new ListVO();
+		vo.setNo(Integer.parseInt(no));
 		vo.setHtml(aData);
 		vo.setTitle(title);
-		vo.setUserno((int) session.getAttribute("userno"));
-		OnmDAO.listInsert(vo);
+		vo.setUserno((int) session.getAttribute("logUserno"));
+		OnmDAO.listAdd(vo);
 		// res.setCharacterEncoding("UTF-8");
 		// res.getWriter().write(tot);
 
@@ -35,13 +35,17 @@ public class ListController {
 	public String listDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String id = req.getParameter("id");
 		id = id.substring(4);
+		System.out.println("id : "+id);
 		OnmDAO.listDelete(Integer.parseInt(id));
 		return "ajax";
 	}
 	
 	@RequestMapping("getListNo.do")
 	public String getListNo(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		int result = OnmDAO.getListNo();
+		HttpSession session = req.getSession();
+		System.out.println("¾¾¹ß:"+(int) session.getAttribute("logUserno"));
+		int result = OnmDAO.listCreate((int) session.getAttribute("logUserno"));
+		System.out.println(result);
 	    res.getWriter().write(String.valueOf(result));
 
 		return "ajax";
@@ -53,14 +57,15 @@ public class ListController {
 		req.setCharacterEncoding("UTF-8");
 		String data = req.getParameter("html");
 		String listno = req.getParameter("listno");
-		int no = Integer.parseInt(listno.substring(listno.length()-1, listno.length()));
+		int no = Integer.parseInt(listno.substring(4));
 		System.out.println("dragevent userno : "+no);
+		System.out.println(data);
 		String aData = HashingHTML.strTohtml(data);
-		System.out.println(aData);
+		//System.out.println(aData);
 		
 		ListVO vo = new ListVO();
 		vo.setHtml(aData);
-		vo.setUserno((int)session.getAttribute("userno"));
+		vo.setUserno((int)session.getAttribute("logUserno"));
 		vo.setNo(no);
 		OnmDAO.dragEvent(vo);
 		

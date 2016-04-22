@@ -9,7 +9,6 @@ public class PackageScan {
 	   try
 	   {
 		   String path="C:\\Users\\sist\\git\\SIST_Project2\\src\\";
-
 		   String real_path=path+pack.replace(".", "\\");
 		   // java//com//sist//movie
 		   // com.sist.movie.BoardController

@@ -28,8 +28,8 @@ public class LoginController {
 			if (d.getPwd().equals(pwd)) {
 				LogCheck = "ok";
 				// 로그인 성공시 로그인을 세션으로 보낸다.
-				session.setAttribute("nickname", d.getNickname());
-				session.setAttribute("userno", d.getNo());
+				session.setAttribute("logNickname", d.getNickname());
+				session.setAttribute("logUserno", d.getNo());
 			} else {
 				LogCheck = "nopwd";
 			}
@@ -39,7 +39,7 @@ public class LoginController {
 		
 		//로그인 성공시 쿠키값을 넘긴다.
 		Cookie[] cookies = req.getCookies();
-		emailSave = cookies[2].getValue();
+		emailSave = cookies[((int)cookies.length-1)].getValue();
 		res.getWriter().write(String.valueOf(emailSave));
 		return "ajax";
 	}
@@ -48,7 +48,7 @@ public class LoginController {
 	@RequestMapping("emailSaveGet.do")
 	public String emailSaveGet(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Cookie[] cookies = req.getCookies();
-	    String emailSave=cookies[2].getValue();
+	    String emailSave=cookies[((int)cookies.length-1)].getValue();
 	    res.getWriter().write(String.valueOf(emailSave));
 		return "ajax";
 	}
@@ -58,12 +58,12 @@ public class LoginController {
 	public String logOutOK(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		 req.setCharacterEncoding("UTF-8");
 		 HttpSession session=req.getSession();
-		 session.removeAttribute("nickname");
-		 session.removeAttribute("userno");
+		 session.removeAttribute("logNickname");
+		 session.removeAttribute("logUserno");
 		 
 		 //username 으로 들어온 session을 제거
-		 res.sendRedirect("intro.jsp");
-		 return "ajax";
+		// res.sendRedirect("intro.jsp");
+		 return "intro";
 	}
 	
 	// 아이디 저장 쿠키 만들기
@@ -97,7 +97,9 @@ public class LoginController {
 			// 클라이언트 응답에 쿠키를 추가한다.
 		}
 		Cookie[] cookies = req.getCookies();
-		emailSave = cookies[2].getValue();
+		System.out.println("Cookies 마지막번호 : "+((int)cookies.length-1));
+		
+		emailSave = cookies[((int)cookies.length-1)].getValue();
 		res.getWriter().write(String.valueOf(emailSave));
 
 		return "ajax";

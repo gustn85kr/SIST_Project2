@@ -64,7 +64,6 @@ body{
     font-size: 20px;
     word-break:break-all;
     
-
 }
  
 .items .ui-selected {
@@ -89,13 +88,11 @@ body{
 }
  
 .weekday {
-
     width: 300px;
     padding: 5px;
     border: 1px solid green;
     border-radius: 0.75em;	
     background-color: #65BD13;
-
     margin: 5px;
     
     /* max-height : 700px; */   
@@ -106,70 +103,63 @@ body{
     display: inline;
 }
     
-    #draggablePanelList .panel-heading {
-        cursor: move;
-    } 
-   #calendar_attr {
-  
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
-
-	#calendar_container {
-		position:relative;
-		top:700px;
-		max-width: 700px;
-		margin: 0 auto;
-	}
-	
-    #sist{
-    	/* width:4500px; */
-    	height: 700px;
-    		
-    }
-    #cardList{
-    }
-
-    .listHeader{
-    	margin: 2px;
-    	font: bold;
-    	font-size: 25px;
-    	
-    }
-
-   .footText{
-    	width:280px;
-    }
-    .footInput{
-  		width : 280px; 
-  		text-align : center;
-  		margin : 5px;
-  		height: 50px;
-    } 
-    .footInput textarea{
-    	width:280px;
-    }
-    .cardInsert{
-    	margin-left: 100px;
-    }
-    .listHeader{
-    	margin:5px;
-    	height: 20px;
-    }
-    .listHeader p{
-    	color :white;
-    	font-size:20px;
-    	margin: 5px;
-    }
-    #calendar{
-
-    }
-	#cardDetail .modal-dialog {
+#draggablePanelList .panel-heading {
+    cursor: move;
+} 
+#calendar_attr {
+margin: 40px 10px;
+padding: 0;
+font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+font-size: 14px;
+}
+#calendar_container {
+	position:relative;
+	top:700px;
+	max-width: 700px;
+	margin: 0 auto;
+}
+   #sist{
+   	/* width:4500px; */
+   	height: 700px;
+   		
+   }
+   #cardList{
+   }
+   .listHeader{
+   	margin: 2px;
+   	font: bold;
+   	font-size: 25px;
+   	
+   }
+  .footText{
+   	width:280px;
+   }
+   .footInput{
+ 		width : 280px; 
+ 		text-align : center;
+ 		margin : 5px;
+ 		height: 50px;
+   } 
+   .footInput textarea{
+   	width:280px;
+   }
+   .cardInsert{
+   	margin-left: 100px;
+   }
+   .listHeader{
+   	margin:5px;
+   	height: 20px;
+   }
+   .listHeader p{
+   	color :white;
+   	font-size:20px;
+   	margin: 5px;
+   }
+   #calendar{
+   }
+#cardDetail .modal-dialog {
 		width:75%
 	}
-
 .fc-time{
    display : none;
 }
@@ -208,52 +198,47 @@ body{
     </style>
    
 <script type="text/javascript">
-
-
 $(document).ready(function(){
 	var labelColor=null;
 	
-	$('#calendar').fullCalendar({
-		theme: true,
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
-		},
-		defaultDate: '2016-04-02',
-		selectable: true,
-		selectHelper: true,
-		eventDurationEditable: false,   // 이벤트 resize disable
-
-/* 		select: function(start, end) {
-			
-			var eventData;
-			if (title) {
-				eventData = {
-					title: title,
-					start: start,
-					end: end
-				};
+		$('#calendar').fullCalendar({
+			theme: true,
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			defaultDate: '2016-04-02',
+			selectable: true,
+			selectHelper: true,
+			eventDurationEditable: false,   // 이벤트 resize disable
+	
+	/* 		select: function(start, end) {
 				
-			}
-			$('#calendar').fullCalendar('unselect');
-		}, */ //이벤트 추가함수
-		editable: true,
-		eventClick: function(event) {
-			$('#cardDetail').modal();
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					
+				}
+				$('#calendar').fullCalendar('unselect');
+			}, */ //이벤트 추가함수
+			editable: true,
+			eventClick: function(event) {
+				$('#cardDetail').modal();
+			
+		  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
+		  	   
+		  	},
+			eventLimit: true, // allow "more" link when too many events
+			events: [
 		
-	  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
-	  	   
-	  	},
-		eventLimit: true, // allow "more" link when too many events
-		events: [
-	
-		
-		]
-	});
-	
-	
-	
+			
+			]
+		});
 		$(this).on("click",".list",function(){
 			$('#cardDetail').modal();
 		});
@@ -278,11 +263,8 @@ $(document).ready(function(){
 		          	         }
 		    	   });
              }
-         });
-	  	 
-	  	 
+         });  	 
   	    $("ul[id^='available']").draggable({
-
   	        	revert: true,      // immediately snap back to original position
   	          revertDuration: 0
   	    });
@@ -291,11 +273,7 @@ $(document).ready(function(){
   			$(this).siblings(".footInput").css('display', 'inline'); 
   			$(this).siblings('.footInput').find('textarea').focus();
   		});
-  	    $(this).on("click",".cardInsert",function(){
-  	    	
-  	 
-	           	  
-	           	  
+  	    $(this).on("click",".cardInsert",function(){           	  
   	    	var text = $(this).siblings('textarea').val();
   			$(this).siblings('textarea').val("")
   			
@@ -304,18 +282,18 @@ $(document).ready(function(){
   			$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
   			
   		     var listno= $(this).parents('.weekday').attr('id');
-  	          var draghtml = $(this).parents('.weekday').html();
-  	          var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+  	         var draghtml = $(this).parents('.weekday').html();
+  	         var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
   	         
-  		           	  $.ajax({
-  			           	 url:'dragEvent.do',
-  			           	 type:'post',
-  			           	 dataType:"json",
-  			           	 data:{"listno":listno , "html":ehtml},
-  			           	 success:function(data){
-  			           	 	    
-  			          	         }
-  			    	   });
+           	  $.ajax({
+	           	 url:'dragEvent.do',
+	           	 type:'post',
+	           	 dataType:"json",
+	           	 data:{"listno":listno , "html":ehtml},
+	           	 success:function(data){
+	           	 	    
+	          	         }
+	    	   });
   		});
   	    $(this).on("click",".addListBtn",function(){
   	    	/*  var listTitle =""; */
@@ -339,8 +317,7 @@ $(document).ready(function(){
   	    $(this).on("click","#commentDelete",function(){
   	    	$(this).parent("#commentPanel").remove();
   	    	
-  	    });
-  	    
+  	    }); 	    
   	  /* addListPanelCreation addListPanelCancel */
   	    $(this).on("click",".listTitleCancel",function(){
   	    	$(this).parent('.addListPanel').hide();
@@ -348,16 +325,15 @@ $(document).ready(function(){
   	    	$(this).siblings('.addListTxt').val("");
   	    	
   	    });
-  	  $(this).on("click",".listTitleBtn",function(){
+  	    $(this).on("click",".listTitleBtn",function(){
   		  	
   			var listTitle= $(this).siblings('.addListTxt').val();
         	$(this).parent('.addListPanel').parent('.weekday').hide();
 	  		$.ajax({
-	            url:'getListNo.do',
+	            url:"getListNo.do",
 	            type:'post',
 	            success:function(data){
-	            	var listno=Number(data)+1;
-
+	            	listno=data;
 	      	    	var tmpHtml = "<div class='weekday col-md-1' id=list"+listno+"><div class='listHeader'><p>"+listTitle+
 	    			"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
 	    			"<span class='glyphicon glyphicon-trash'></span></p>"+
@@ -371,13 +347,14 @@ $(document).ready(function(){
 	      	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='리스트 추가하기..'/> "+
 	      	  				"<input type='button' value='추가' class='listTitleBtn'/> "+
 	      	  				"<input type='button' value='취소' class='listTitleCancel'/></div><div>");
-	      	  		
-	   
+	    			$("#timetable .items").sortable({
+	    	            connectWith: "ul"  
+	    	    	});
 	    		  	$.ajax({
 	    		            url:'listAdd.do',
 	    		            type:'post',
 	    		            dataType:"json",
-	    		            data:{"title":listTitle , "html":tmpHtml},
+	    		            data:{"title":listTitle , "html":tmpHtml , "no":listno},
 	    		            success:function(data){
 	    		            	/* alert(tmpHtml); */
 	    		            }
@@ -408,11 +385,9 @@ $(document).ready(function(){
 	    		  	 
 	            }
 	   		 });		 
-  	    });
-  	    
+  	    }); 
   	    $("#insertContent").tooltip();
-  	    $(this).on("click","#insertContent",function(){
-  	    	
+  	    $(this).on("click","#insertContent",function(){  	    	
   	    	$(this).parent("#contentText").siblings("#newTA").css('display','inline');
   	    	$(this).parent("#contentText").siblings("#showContent").css('display','none');
   	    	$(this).css('display','none');
@@ -432,7 +407,6 @@ $(document).ready(function(){
   	    	  image_advtab: true,
   	    	  templates: [
   	    	    { title: 'Test template 1', content: 'Test 1' }
-
   	    	  ],
   	    	  content_css: [
   	    	    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
@@ -450,20 +424,19 @@ $(document).ready(function(){
   	    	$(this).parent("#newTA").siblings("#showContent").append(tmp);
   	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
   	    });
-  	  $(this).on("click","#contentCancel",function(){
+    	$(this).on("click","#contentCancel",function(){
 	    	var tmp = tinyMCE.activeEditor.getContent();
 	    	$(this).parent("#newTA").css('display',"none");
 	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
 	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
-	    });
-  	  $(this).on("click","#priorityBtn",function(){
-  		 obj = document.getElementById('priorityDiv');
-  		if(obj.style.display == "none"){
-  		  	$("#priorityDiv").css('display','inline');
-  		}else{
-  			$("#priorityDiv").css('display','none');
-  		}
-  		
+	   });
+  	   $(this).on("click","#priorityBtn",function(){
+  			obj = document.getElementById('priorityDiv');
+	  		if(obj.style.display == "none"){
+	  		  	$("#priorityDiv").css('display','inline');
+	  		}else{
+	  			$("#priorityDiv").css('display','none');
+	  		}	  		
   	  });
   	  $(this).on("click","#priorityInsert",function(){
   			$("#priorityDiv").css('display','none');
@@ -502,7 +475,6 @@ $(document).ready(function(){
   	$(this).on("click","#checkCancel",function(){
 		  $("#checklistadd").empty();
 	  });
-
 	    $(this).on("click","#dateBtn",function(){
 	    	 obj = document.getElementById('dateDiv');
 	    	 if(obj.style.display=="none"){
@@ -511,7 +483,6 @@ $(document).ready(function(){
 	    		$("#dateDiv").css("display","none");
 	    	 }
 	    });
-
 	   	$(this).on("click","#btnMap",function(){
 	   		obj = document.getElementById('mapApp');
 	   		if(obj.style.display=="none")
@@ -582,7 +553,6 @@ $(document).ready(function(){
 	    		event.color = labelColor;
 	    	}
 	    	event.allDay = false;
-
 	    	events.push(event);
 	    	$('#calendar').fullCalendar('addEventSource',events);
 	    	$('#modalDate').empty();
@@ -641,7 +611,6 @@ $(document).ready(function(){
 			document.getElementById("complecheck").disabled=false;
 			document.getElementById("addchecklist").disabled=true;
 		}); 
-
 		$(this).on("click","#complecheck",function(){
 			var message = $('textarea#chetext').val();
 			$('#chetext').css('display',"none");
@@ -678,20 +647,12 @@ $(document).ready(function(){
 			      	  $(":checkbox").click(countChecked);
 		      	 
 		      	});
-		});
-
-	    
+		});    
 });
-
 function resize(obj) {
 	  obj.style.height = "1px";
 	  obj.style.height = (50+obj.scrollHeight)+"px";
 }
-
-
-
-
-
 //지도
 var map;
 var marker = '';
@@ -713,11 +674,9 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   level: 4,
                   mapTypeId: daum.maps.MapTypeId.ROADMAP
               });
-
 /*                marker = new daum.maps.Marker({
                   position: position
               });
-
               marker.setMap(map)
 */
   //지도상의 위치 클릭시 클릭한 위치의 좌표 확인
@@ -741,13 +700,11 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   marker.setMap(map);
               });
           });
-
           function Search() {
               var query = $("#txtAddress").val();
               $("#txtAddress").val('');
               getPoint(query);
           }
-
  //주소->좌표로 변환해주는 api 사용
           function getPoint(query) {
               var oScript = document.createElement("script");
@@ -775,21 +732,6 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   marker.setMap(map);
               }
           }//지도!!!!!!!!
-          
-          //기능입히기
-          $(document).ready(function() {
-        	//로그아웃
-  			$('#myBtn3').click(function() {
-  				$.ajax({
-                      url:'logOutOK.do',
-                      type:'post',
-                      data:$('#logFrm').serialize(),
-                      success:function(data){
-                      	alert("성공적으로 로그아웃 되었습니다");
-                      }
-  	        	});
-  			});		
-          });
 </script>
 <title>오늘 일을 내일로 미루자</title>
 </head>
@@ -805,31 +747,30 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 					<span class="icon-bar"></span>
 				</button>
 				-->
-				<a class="navbar-brand" href="index.jsp">
+				<a class="navbar-brand" href="#intro">
 					<span>오</span>내미
 					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
 				</a>
 			</div>
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
+		<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<div class="menu-container">
 					<ul class="nav navbar-nav">
-						<c:if test="${nickname eq null}">						
+						<c:if test="${logNickname eq null}">						
 							<li class="page-scroll home" id="myBtn1"><a href="#about">
 							<span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;로그인</a></li>
 							
 							<li class="page-scroll home" id="myBtn2"><a href="#services">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;회원가입</a></li>
 						</c:if>
-						<c:if test="${nickname ne null}">
-							<li class="page-scroll home"><a href="intro.jsp">
+						<c:if test="${logNickname ne null}">
+							<li class="page-scroll home"><a href="intro.do">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
 							
 							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${nickname}님</a></li>
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}님</a></li>
 							
-							<li class="page-scroll home" id="myBtn3"><a href="index.jsp">
+							<li class="page-scroll home" id="myBtn3"><a href="logOutOK.do">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
 						</c:if>
 					</ul>
@@ -840,6 +781,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 		<!-- /.container -->
 	</nav>
 	<!--=== End Header ===-->
+
 	 <div id="sist" class="row">
 	    <div class=" col-md-6 half" id='calendar'>
         	<div id="calendar_attr">
@@ -894,6 +836,10 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	    				<input type="button" value="취소" class="listTitleCancel" />
 	    			</div>
 	    		</div>
+	    		
+	    		
+	    		
+	    		
 			</div>
 	    </div>
     </div>
@@ -901,7 +847,9 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
     <div class="modal-dialog">
  		<div>
  			  <jsp:include page="detail.jsp" flush="false" /> 
- 		</div>
+ 		</div>   
+
+      
     </div>
   </div>   	    
 </body>
