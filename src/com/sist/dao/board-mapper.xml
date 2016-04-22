@@ -14,9 +14,9 @@
 	<select id="emailCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM onmuser WHERE email=#{email}
 	</select>
-	<!-- 비밀번호 확인 -->
-	<select id="pwdCheck" parameterType="String" resultType="User">
-		SELECT no,nickname,pwd FROM onmuser WHERE email=#{email}
+	<!-- 로그인 시 Session에 저장할 값들을 가져오는 SQL -->
+	<select id="logCheck" parameterType="User" resultType="User">
+		SELECT no,nickname,pwd FROM ONMUSER WHERE email=#{email}
 	</select>
 	<!-- onm.jsp 호출시 list 출력 -->
 	<select id="listSearch"  resultType="Olist" parameterType="int">

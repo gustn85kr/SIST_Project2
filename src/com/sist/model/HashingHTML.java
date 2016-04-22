@@ -1,9 +1,7 @@
 package com.sist.model;
 
 public class HashingHTML {
-
 	public static String strTohtml(String sText) {
-
 		sText = sText.trim();
 		sText = sText.replace("&", "&amp;");
 		sText = sText.replace("#", "&#35;");

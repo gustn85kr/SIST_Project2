@@ -1,7 +1,5 @@
 package com.sist.dao;
 
-import java.util.*;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -19,12 +17,14 @@ public class UserDAO{
 			ex.printStackTrace();
 		}
 	}
+	
 	//회원가입 - 완료
 	public static void insertUser(UserDTO d){
 		SqlSession session=ssf.openSession(true);
 		session.insert("insertUser",d);
 		session.close();
 	}
+	
 	//회원가입 (이메일 중복확인)
 	public static int confirmEmail(String email){
 		SqlSession session=ssf.openSession();
@@ -40,9 +40,10 @@ public class UserDAO{
 		session.close();
 		return cnt;
 	}
-	public static UserDTO pwdCheck(String email){
+	
+	public static UserDTO logCheck(String email){
 		SqlSession session=ssf.openSession();
-		UserDTO d = session.selectOne("pwdCheck",email);
+		UserDTO d = session.selectOne("logCheck",email);
 		session.close();
 		return d;
 	}
