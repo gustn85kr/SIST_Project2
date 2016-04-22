@@ -23,7 +23,7 @@ public class ListController {
 		vo.setNo(Integer.parseInt(no));
 		vo.setHtml(aData);
 		vo.setTitle(title);
-		vo.setUserno((int) session.getAttribute("userno"));
+		vo.setUserno((int) session.getAttribute("logUserno"));
 		OnmDAO.listAdd(vo);
 		// res.setCharacterEncoding("UTF-8");
 		// res.getWriter().write(tot);
@@ -43,8 +43,8 @@ public class ListController {
 	@RequestMapping("getListNo.do")
 	public String getListNo(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		HttpSession session = req.getSession();
-		System.out.println("¾¾¹ß:"+(int) session.getAttribute("userno"));
-		int result = OnmDAO.listCreate((int) session.getAttribute("userno"));
+		System.out.println("¾¾¹ß:"+(int) session.getAttribute("logUserno"));
+		int result = OnmDAO.listCreate((int) session.getAttribute("logUserno"));
 		System.out.println(result);
 	    res.getWriter().write(String.valueOf(result));
 
@@ -65,7 +65,7 @@ public class ListController {
 		
 		ListVO vo = new ListVO();
 		vo.setHtml(aData);
-		vo.setUserno((int)session.getAttribute("userno"));
+		vo.setUserno((int)session.getAttribute("logUserno"));
 		vo.setNo(no);
 		OnmDAO.dragEvent(vo);
 		

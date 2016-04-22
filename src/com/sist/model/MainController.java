@@ -26,8 +26,8 @@ public class MainController {
 	public String onm(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		HttpSession session = req.getSession();
 		List<ListVO> list = new ArrayList<ListVO>();
-		System.out.println("userno" + (int) session.getAttribute("userno"));
-		list = OnmDAO.listSearch((int) session.getAttribute("userno"));
+		System.out.println("userno" + (int) session.getAttribute("logUserno"));
+		list = OnmDAO.listSearch((int) session.getAttribute("logUserno"));
 		for (ListVO vo : list) {
 			String tmp = vo.getHtml();
 			vo.setHtml(HashingHTML.htmlTostr(tmp));

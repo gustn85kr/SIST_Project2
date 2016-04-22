@@ -39,7 +39,7 @@
 	<delete id="listDelete" parameterType="int">
 		DELETE FROM onmlist WHERE no=#{no}
 	</delete>
-	<!-- drag and drop 이벤트시 list 업데이트 -->
+	<!--  list 업데이트 -->
 	<update id="dragEvent" parameterType="Olist">
 		UPDATE onmlist SET	html=#{html} WHERE no=#{no}
 	</update>
