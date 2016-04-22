@@ -358,6 +358,17 @@ $(document).ready(function(){
   		     var listno= $(this).parents('.weekday').attr('id');
   	         var draghtml = $(this).parents('.weekday').html();
   	         var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+  	  	  
+	      	  $.ajax({
+	           	 url:'addCard.do',
+	           	 type:'post',
+	           	 dataType:"json",
+	           	 data:{"title":text},
+	           	 success:function(data){
+	           	 	   alert("data")
+	          	         }
+	    	   });
+		         
   	         
            	  $.ajax({
 	           	 url:'dragEvent.do',
