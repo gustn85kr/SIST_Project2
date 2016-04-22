@@ -295,18 +295,18 @@ $(document).ready(function(){
   			$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
   			
   		     var listno= $(this).parents('.weekday').attr('id');
-  	          var draghtml = $(this).parents('.weekday').html();
-  	          var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+  	         var draghtml = $(this).parents('.weekday').html();
+  	         var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
   	         
-  		           	  $.ajax({
-  			           	 url:'dragEvent.do',
-  			           	 type:'post',
-  			           	 dataType:"json",
-  			           	 data:{"listno":listno , "html":ehtml},
-  			           	 success:function(data){
-  			           	 	    
-  			          	         }
-  			    	   });
+           	  $.ajax({
+	           	 url:'dragEvent.do',
+	           	 type:'post',
+	           	 dataType:"json",
+	           	 data:{"listno":listno , "html":ehtml},
+	           	 success:function(data){
+	           	 	    
+	          	         }
+	    	   });
   		});
   	    $(this).on("click",".addListBtn",function(){
   	    	/*  var listTitle =""; */

@@ -57,10 +57,11 @@ public class ListController {
 		req.setCharacterEncoding("UTF-8");
 		String data = req.getParameter("html");
 		String listno = req.getParameter("listno");
-		int no = Integer.parseInt(listno.substring(listno.length()-1, listno.length()));
+		int no = Integer.parseInt(listno.substring(4));
 		System.out.println("dragevent userno : "+no);
+		System.out.println(data);
 		String aData = HashingHTML.strTohtml(data);
-		System.out.println(aData);
+		//System.out.println(aData);
 		
 		ListVO vo = new ListVO();
 		vo.setHtml(aData);
