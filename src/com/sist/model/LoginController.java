@@ -106,7 +106,7 @@ public class LoginController {
 	}
 	
 	//ПЉКа
-	@RequestMapping("loginOK.do")
+	@RequestMapping("loginOK2.do")
 	public String loginOK2(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		return "ajax";
 	}

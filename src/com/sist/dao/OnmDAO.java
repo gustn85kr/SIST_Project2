@@ -42,4 +42,9 @@ public class OnmDAO{
 		session.delete("listDelete",no);
 		session.close();
 	}
+	public static void dragEvent(ListVO vo){
+		SqlSession session=ssf.openSession(true);
+		session.update("dragEvent",vo);
+		session.close();
+	}
 }

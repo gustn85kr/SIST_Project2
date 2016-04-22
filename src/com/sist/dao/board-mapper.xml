@@ -5,6 +5,7 @@
 	<sql id="where-no">
 		WHERE no=#{no}
 	</sql>
+	<!-- 회원가입 데이터 넣기 -->
 	<insert id="insertUser" parameterType="User">
 		INSERT INTO ONMUSER VALUES(seq_no.NEXTVAL,#{email},#{nickname},#{pwd},SYSDATE,1)
 	</insert>
@@ -25,7 +26,7 @@
 	</select>
 
 	<insert id="listInsert" parameterType="Olist">
-		INSERT INTO onmlist VALUES(seq_ol.nextval,#{userno},#{title},#{html})
+		INSERT INTO onmlist VALUES((seq_ol.nextval)-1,#{userno},#{title},#{html})
 	</insert>
 	
 	<select id="listSearch"  resultType="Olist" parameterType="int">
@@ -33,20 +34,17 @@
 	</select>
 	
 	<select id="getListNo" resultType="int">
-		SELECT MAX(no)+1 FROM onmlist
+		SELECT MAX(no) FROM onmlist
  	</select>
  	
 	<delete id="listDelete" parameterType="int">
 		DELETE FROM onmlist WHERE no=#{no}
 	</delete>
 	
-	
+	<update id="dragEvent" parameterType="Olist">
+		UPDATE onmlist SET
+		html=#{html}
+		WHERE no=#{no}
+	</update>
+
 </mapper>
-
-
-
-
-
-
-
-
