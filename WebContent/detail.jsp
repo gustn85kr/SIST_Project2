@@ -199,6 +199,7 @@ border-radius: 0px;
 color: black;
 margin: 10px;
 text-align: center;
+cursor : pointer;
 }
 
 #insertContent:hover, #insertContent:active{
