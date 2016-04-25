@@ -21,7 +21,7 @@
 <link href="calendar/fullcalendar.css" rel="stylesheet" />
 <link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" /> -->
-<link rel="stylesheet" href="WebContent\assets\css\jquery-ui.css" />
+<link rel="stylesheet" href="assets/css/jquery-ui.css" />
   	
 <script src="assets/plugins/jquery/jquery.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -288,6 +288,8 @@ background: #BCF12A;
 <script type="text/javascript">
 $(document).ready(function(){
 	var labelColor=null;
+
+	
 	
 		$('#calendar').fullCalendar({
 			theme: true,
@@ -327,8 +329,42 @@ $(document).ready(function(){
 			
 			]
 		});
+		function calInit(){
+		     
+		     <c:forEach var="vo" items="${clist}">
+		        var events=new Array();   
+		        event = new Object();       
+		        event.title = "${vo.title}"; 
+		  
+		        event.start = "${vo.startdate}";
+		        event.end = "${vo.enddate}";
+		        
+		        event.className='alery'; 
+		        if(labelColor==null){
+		        event.color = "green";
+		        }else{
+		           event.color = labelColor;
+		        }
+		        event.allDay = false;
+		        events.push(event);
+		        $('#calendar').fullCalendar('addEventSource',events);
+		        
+		     
+		     </c:forEach>
+		  }
+
+		calInit();
 		$(this).on("click",".list",function(){
-			$('#cardDetail').modal();
+			//ev.preventDefault();
+		    var target = "detail.do?no=";
+		    target= target+$(this).attr("id");
+		    alert(target);
+			$("#cardDetail .modal-dialog").load(target, function() { 
+		         $("#cardDetail").modal("show"); 
+		    });
+			/* $('#cardDetail').modal({
+				remote : 'detail.do'
+			}); */
 		});
 	
 	  	 $("#timetable .items").sortable({
@@ -361,38 +397,45 @@ $(document).ready(function(){
   			$(this).siblings(".footInput").css('display', 'inline'); 
   			$(this).siblings('.footInput').find('textarea').focus();
   		});
-  	    $(this).on("click",".cardInsert",function(){           	  
+  	    $(this).on("click",".cardInsert",function(){
   	    	var text = $(this).siblings('textarea').val();
-  			$(this).siblings('textarea').val("")
-  			
-  			$(this).parents(".listFoot").siblings('.items').append("<li class='list'>"+text+"</li>");
-  			$(this).parent(".footInput").css('display', 'none');
-  			$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
-  			
-  		     var listno= $(this).parents('.weekday').attr('id');
-  	         var draghtml = $(this).parents('.weekday').html();
-  	         var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
-  	  	  
-	      	  $.ajax({
-	           	 url:'addCard.do',
+  	    	var cardno = "tmpcard";
+  	    	$(this).siblings('textarea').val("");
+	  	  	  
+  	    	$(this).parents(".listFoot").siblings('.items').append("<li class='list' id="+cardno+">"+text+"</li>");
+		    $(this).parent(".footInput").css('display', 'none');
+    		$(this).parent(".footInput").siblings('.footText').css('display', 'inline');
+    		
+    		
+  	    	$.ajax({
+	           	 url:'createCard.do',
 	           	 type:'post',
 	           	 dataType:"json",
 	           	 data:{"title":text},
 	           	 success:function(data){
-	           	 	   alert("data")
-	          	         }
-	    	   });
-		         
-  	         
-           	  $.ajax({
-	           	 url:'dragEvent.do',
-	           	 type:'post',
-	           	 dataType:"json",
-	           	 data:{"listno":listno , "html":ehtml},
-	           	 success:function(data){
-	           	 	    
-	          	         }
-	    	   });
+	           	 	 cardno = data;
+	           	 	 alert(cardno);
+	           	 	$('#tmpcard').attr('id', "card"+cardno);
+	           	 	var listno= $("#card"+cardno).parents('.weekday').attr('id');
+		    	    var draghtml = $("#card"+cardno).parents('.weekday').html();
+		        	var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>";
+		  	    	$.ajax({
+		  	           	 url:'dragEvent.do',
+		  	           	 type:'post',
+		  	           	 dataType:"json",
+		  	           	 data:{"listno":listno , "html":ehtml},
+		  	           	 success:function(data){
+		  	           	 	    
+		           	   	 }
+		     	  	 });  
+	           	 	 
+						           	
+	          	 }
+	        });
+  	    	
+
+	      
+ 			
   		});
   	    $(this).on("click",".addListBtn",function(){
   	    	/*  var listTitle =""; */
@@ -749,6 +792,8 @@ $(document).ready(function(){
 		      	});
 		});    
 });
+
+
 function resize(obj) {
 	  obj.style.height = "1px";
 	  obj.style.height = (50+obj.scrollHeight)+"px";
@@ -832,6 +877,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   marker.setMap(map);
               }
           }//지도!!!!!!!!
+          
 </script>
 <title>오늘 일을 내일로 미루자</title>
 </head>
@@ -946,7 +992,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	  <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
  		<div>
- 			  <jsp:include page="detail.jsp" flush="false" /> 
+ 			  <%-- <jsp:include page="detail.do" flush="false" /> --%> 
  		</div>   
 
       

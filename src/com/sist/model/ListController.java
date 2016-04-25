@@ -35,7 +35,6 @@ public class ListController {
 	public String listDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String id = req.getParameter("id");
 		id = id.substring(4);
-		System.out.println("id : "+id);
 		OnmDAO.listDelete(Integer.parseInt(id));
 		return "ajax";
 	}
@@ -43,9 +42,7 @@ public class ListController {
 	@RequestMapping("getListNo.do")
 	public String getListNo(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		HttpSession session = req.getSession();
-		System.out.println("¾¾¹ß:"+(int) session.getAttribute("logUserno"));
 		int result = OnmDAO.listCreate((int) session.getAttribute("logUserno"));
-		System.out.println(result);
 	    res.getWriter().write(String.valueOf(result));
 
 		return "ajax";

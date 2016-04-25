@@ -37,7 +37,8 @@
 	</insert>
 	
 	<!-- 리스트 성성시 생성된 no 가져가기 -->
-	<select id="getListNo" resultType="int"> SELECT MAX(no) FROM onmlist
+	<select id="getListNo" resultType="int"> 
+		SELECT MAX(no) FROM onmlist
 	</select>
 	
 	<!-- 리스트 성생시 정보 업데이트 -->
@@ -59,8 +60,19 @@
 	</update>
 
 	<!-- 카드생성   -->
-	<insert id="addCard" parameterType="Ocard">
+	<insert id="createCard" parameterType="Ocard">
 		INSERT INTO onmcard VALUE(no,userno,title,regdate) VALUES((seq_oc.nextval),#{userno},#{title},SYSDATE)
 	</insert>
-	
+	<!--  카드 생성시 no  -->
+	<select id="getCardNo" resultType="int">
+		SELECT MAX(no) FROM onmcard
+	</select>
+	 <!-- 카드 정보 출력 -->
+	<select id="getCardInfo" resultType="Ocard" parameterType="int">
+		SELECT no,userno,title,regdate FROM onmcard WHERE no=#{no}
+	</select>
+	<!-- onm.jsp 호출시 card date 출력 -->
+    <select id="loadCard" resultType="Ocard" parameterType="int">
+       SELECT startdate,enddate,title FROM onmcard WHERE userno=#{userno}
+    </select>
 </mapper>

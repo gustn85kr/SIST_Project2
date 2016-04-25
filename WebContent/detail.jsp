@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -277,7 +278,7 @@ padding:5px;
 			</div>
 			<div class="col-sm-9">
 				<div id="modalTitle">
-					<span class="glyphicon glyphicon-list-alt" id="glypTitle"> Á¦¸ñ</span><span id="listName">list name</span>
+					<span class="glyphicon glyphicon-list-alt" id="glypTitle"> ${card.title}</span><span id="listName">${card.regdate}</span>
 					<div id="modalDate">
 					</div>
 					<div id="modalPriority">
