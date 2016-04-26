@@ -287,11 +287,12 @@ background: #BCF12A;
    
 <script type="text/javascript">
 $(document).ready(function(){
+	
 	var labelColor=null;
 
 	
-	
-		$('#calendar').fullCalendar({
+
+		$('#calendar').fullCalendar({ 
 			theme: true,
 			header: {
 				left: 'prev,next today',
@@ -317,6 +318,21 @@ $(document).ready(function(){
 				$('#calendar').fullCalendar('unselect');
 			}, */ //이벤트 추가함수
 			editable: true,
+			eventDrop: function(event, delta, revertFunc) {
+				var startdate=event.start.format('YYYY/MM/DD');
+				var enddate=event.end.format('YYYY/MM/DD');
+				
+				 $.ajax({
+		           	 url:'dateDrag.do',
+		           	 type:'post',
+		           	 dataType:"json",
+		           	 data:{"startdate":startdate , "enddate":enddate},
+		           	 success:function(data){
+						alert("성공2")
+		          	         }
+		    	   });
+				
+			},
 			eventClick: function(event) {
 				$('#cardDetail').modal();
 			
@@ -329,17 +345,17 @@ $(document).ready(function(){
 			
 			]
 		});
+		
 		function calInit(){
-		     
+			
 		     <c:forEach var="vo" items="${clist}">
 		        var events=new Array();   
 		        event = new Object();       
 		        event.title = "${vo.title}"; 
-		  
 		        event.start = "${vo.startdate}";
 		        event.end = "${vo.enddate}";
-		        
-		        event.className='alery'; 
+		
+		
 		        if(labelColor==null){
 		        event.color = "green";
 		        }else{
@@ -347,26 +363,95 @@ $(document).ready(function(){
 		        }
 		        event.allDay = false;
 		        events.push(event);
+		       
 		        $('#calendar').fullCalendar('addEventSource',events);
-		        
-		     
 		     </c:forEach>
+		    
 		  }
-
-		calInit();
+		  
+		
+		
 		$(this).on("click",".list",function(){
 			//ev.preventDefault();
 		    var target = "detail.do?no=";
 		    target= target+$(this).attr("id");
 		    alert(target);
-			$("#cardDetail .modal-dialog").load(target, function() { 
-		         $("#cardDetail").modal("show"); 
+			$("#cardDetail .modal-dialog").load(target, function() {
+				
+			
+			    var map;
+			    var marker = '';
+			    var position = new daum.maps.LatLng(37.572730, 126.970204);
+			     
+			     $("#map").ready(function() {
+			      //검색창에 엔터 입력시 좌표 검색
+			                  $("#txtAddress").keydown(function(e) {
+			                      if (e.keyCode == 13) {
+			                    	  $("#modalMap").css("display","block");
+			                     		map.relayout();
+			                          Search();
+			                      }
+			                  });
+			      
+			      //지도 초기화
+			                  map = new daum.maps.Map(document.getElementById('map'), {
+			                      center: position,
+			                      level: 4,
+			                      mapTypeId: daum.maps.MapTypeId.ROADMAP
+			                  });
+			    /*                marker = new daum.maps.Marker({
+			                      position: position
+			                  });
+			                  marker.setMap(map)
+			    */
+			      //지도상의 위치 클릭시 클릭한 위치의 좌표 확인
+			                  daum.maps.event.addListener(map, "click", function(e) {
+			       //기존에 설정된 마커 삭제
+			                      if (marker != '') {
+			                          marker.setMap(null);
+			                      }
+			                      //temp에 새로 클릭된 좌표 입력
+			                      var lat = e.latLng.getLat();
+			                      var lng = e.latLng.getLng();
+			       var temp = new daum.maps.LatLng(lat, lng);
+			       //좌표 출력
+			                      $("#latlng").html("동경 " + lat.toString().substr(0, 10) + ", 북위 " + lng.toString().substr(0, 10));
+			       //temp에 입력된 좌표값을 중심으로 지도 이동
+			                      map.panTo(temp);
+			       //temp에 입력된 좌표값에 마커 설정
+			                      marker = new daum.maps.Marker({
+			                          position: temp
+			                      });
+			                      marker.setMap(map);
+			                  });
+			                  
+			              });
+				
+				
+				
+				  $('#sdate').datepicker();
+				    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+				    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+				        $("#edate").datepicker( "option", "minDate", selectedDate );
+				    });
+				    $('#edate').datepicker();
+				    $('#edate').datepicker("option", "minDate", $("#sdate").val());
+				    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
+				        $("#sdate").datepicker( "option", "maxDate", selectedDate );
+				    });
+				    
+				    
+				    
+			
+				    
+				    
 		    });
+			$("#cardDetail").modal("show"); 
 			/* $('#cardDetail').modal({
 				remote : 'detail.do'
 			}); */
 		});
-	
+		
 	  	 $("#timetable .items").sortable({
              connectWith: "ul",           
              update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
@@ -388,6 +473,7 @@ $(document).ready(function(){
 		    	   });
              }
          });  	 
+
   	    $("ul[id^='available']").draggable({
   	        	revert: true,      // immediately snap back to original position
   	          revertDuration: 0
@@ -561,6 +647,7 @@ $(document).ready(function(){
   	    });
   	    $(this).on("click","#contentInsert",function(){
   	    	var tmp = tinyMCE.activeEditor.getContent();
+  	    	alert(tmp);
   	    	$(this).parent("#newTA").css('display',"none");
   	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
   	    	$(this).parent("#newTA").siblings("#showContent").empty();
@@ -584,8 +671,9 @@ $(document).ready(function(){
   	  $(this).on("click","#priorityInsert",function(){
   			$("#priorityDiv").css('display','none');
   			var op1 = $(':radio[name="option1"]:checked').val();
-  			
+  			alert(op1);
 		  	var op2 = $(':radio[name="option2"]:checked').val();
+		  	alert(op2);
 		  	$('input').prop('checked', false);
 		  	$('#modalPriority').empty();
 	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
@@ -652,13 +740,14 @@ $(document).ready(function(){
 	   $(this).on("click","#labelInsert",function(){
 		    $('#modalLabel').empty();
 		    labelColor = $(':radio[name="option10"]:checked').val();
+		    alert(labelColor);
 			$('#modalLabel').append("<span class='glyphicon glyphicon-tags'>라벨</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
 	   });
 	   
 	   	
 	   $(this).on("click","#mapSearch",function(){
 	   		$("#modalMap").css("display","block");
-	   		map.relayout();
+	   		
 	   	});
 	   
 	   $(this).on("click","#mapCancel",function(){
@@ -666,17 +755,7 @@ $(document).ready(function(){
 	   		
 	   	});
   
-	    $('#sdate').datepicker();
-	    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
-	    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
-	        $("#edate").datepicker( "option", "minDate", selectedDate );
-	    });
-	 
-	    $('#edate').datepicker();
-	    $('#edate').datepicker("option", "minDate", $("#sdate").val());
-	    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
-	        $("#sdate").datepicker( "option", "maxDate", selectedDate );
-	    });
+	  
 	    
 	    $(this).on("click","#dateInsert",function(){
 	    	$("#dateDiv").css("display","none");
@@ -684,6 +763,7 @@ $(document).ready(function(){
 	    	
 	    	var startDate= $('#sdate').val();
 	    	var endDate=$('#edate').val();
+	    
 	    	
 	    	var events=new Array();     
 	    	event = new Object();       
@@ -798,66 +878,8 @@ function resize(obj) {
 	  obj.style.height = "1px";
 	  obj.style.height = (50+obj.scrollHeight)+"px";
 }
-//지도
-var map;
-var marker = '';
-var position = new daum.maps.LatLng(37.572730, 126.970204);
- 
- $("#map").ready(function() {
-  //검색창에 엔터 입력시 좌표 검색
-              $("#txtAddress").keydown(function(e) {
-                  if (e.keyCode == 13) {
-                  	$("#map").css("display","block");
-                 		map.relayout();
-                      Search();
-                  }
-              });
-  
-  //지도 초기화
-              map = new daum.maps.Map(document.getElementById('map'), {
-                  center: position,
-                  level: 4,
-                  mapTypeId: daum.maps.MapTypeId.ROADMAP
-              });
-/*                marker = new daum.maps.Marker({
-                  position: position
-              });
-              marker.setMap(map)
-*/
-  //지도상의 위치 클릭시 클릭한 위치의 좌표 확인
-              daum.maps.event.addListener(map, "click", function(e) {
-   //기존에 설정된 마커 삭제
-                  if (marker != '') {
-                      marker.setMap(null);
-                  }
-                  //temp에 새로 클릭된 좌표 입력
-                  var lat = e.latLng.getLat();
-                  var lng = e.latLng.getLng();
-   var temp = new daum.maps.LatLng(lat, lng);
-   //좌표 출력
-                  $("#latlng").html("동경 " + lat.toString().substr(0, 10) + ", 북위 " + lng.toString().substr(0, 10));
-   //temp에 입력된 좌표값을 중심으로 지도 이동
-                  map.panTo(temp);
-   //temp에 입력된 좌표값에 마커 설정
-                  marker = new daum.maps.Marker({
-                      position: temp
-                  });
-                  marker.setMap(map);
-              });
-          });
-          function Search() {
-              var query = $("#txtAddress").val();
-              $("#txtAddress").val('');
-              getPoint(query);
-          }
- //주소->좌표로 변환해주는 api 사용
-          function getPoint(query) {
-              var oScript = document.createElement("script");
-              oScript.type = "text/javascript";
-              oScript.charset = "utf-8";
-              oScript.src = "http://apis.daum.net/local/geo/addr2coord?apikey=d82c75b3a6b33cfad136796fbe876e68a518b478&output=json&callback=pongSearch&q=" + encodeURI(query);
-              document.getElementsByTagName("head")[0].appendChild(oScript);
-          }
+
+          
  
  //좌표 변환 후 해당 좌표를 이용해 콜백(클릭시와 동일한 동작)
           function pongSearch(data) {
@@ -877,6 +899,21 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
                   marker.setMap(map);
               }
           }//지도!!!!!!!!
+      	function Search() {
+            var query = $("#txtAddress").val();
+            $("#txtAddress").val('');
+            getPoint(query);
+        }
+//주소->좌표로 변환해주는 api 사용
+        function getPoint(query) {
+            var oScript = document.createElement("script");
+            oScript.type = "text/javascript";
+            oScript.charset = "utf-8";
+            oScript.src = "http://apis.daum.net/local/geo/addr2coord?apikey=d82c75b3a6b33cfad136796fbe876e68a518b478&output=json&callback=pongSearch&q=" + encodeURI(query);
+            document.getElementsByTagName("head")[0].appendChild(oScript);
+            alert("성공");
+        }
+		  //지도
           
 </script>
 <title>오늘 일을 내일로 미루자</title>

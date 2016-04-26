@@ -37,10 +37,9 @@ public class MainController {
 
 		List<CardVO> clist = new ArrayList<CardVO>();
 		clist = OnmDAO.loadCard((int) session.getAttribute("logUserno"));
-
+		
 		req.setAttribute("clist", clist);
 		req.setAttribute("list", list);
-
 		return "onm";
 	}
 
@@ -48,8 +47,8 @@ public class MainController {
 	public String detail(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String strno = req.getParameter("no");
 		int no = Integer.parseInt(strno.substring(4));
-
 		CardVO vo = OnmDAO.cardInfo(no);
+		
 		req.setAttribute("card", vo);
 		return "detail";
 	}

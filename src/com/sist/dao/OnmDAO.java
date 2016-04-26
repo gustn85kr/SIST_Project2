@@ -63,8 +63,7 @@ public class OnmDAO {
 	}
 
 	public static CardVO cardInfo(int no) {
-		SqlSession session = ssf.openSession(true);
-
+		SqlSession session = ssf.openSession();
 		CardVO vo = session.selectOne("getCardInfo", no);
 		session.close();
 		return vo;
@@ -72,10 +71,16 @@ public class OnmDAO {
 
 	public static List<CardVO> loadCard(int userno) {
 		SqlSession session = ssf.openSession();
-		System.out.println("dao userno:" + userno);
 		List<CardVO> list = new ArrayList<CardVO>();
 		list = session.selectList("loadCard", userno);
 		session.close();
 		return list;
+	}
+	
+	public static void dateDrag(CardVO vo) {
+		SqlSession session = ssf.openSession(true);
+		session.update("dateDrag", vo);
+		System.out.println("데이트드래그");
+		session.close();
 	}
 }

@@ -67,12 +67,15 @@
 	<select id="getCardNo" resultType="int">
 		SELECT MAX(no) FROM onmcard
 	</select>
-	 <!-- 카드 정보 출력 -->
+	 <!-- 카드 정보 출력  -->
 	<select id="getCardInfo" resultType="Ocard" parameterType="int">
-		SELECT no,userno,title,regdate FROM onmcard WHERE no=#{no}
+		SELECT no,userno,title,content,regdate,startdate,enddate,priority1,priority2,done,label FROM onmcard WHERE no=#{no}
 	</select>
 	<!-- onm.jsp 호출시 card date 출력 -->
     <select id="loadCard" resultType="Ocard" parameterType="int">
        SELECT startdate,enddate,title FROM onmcard WHERE userno=#{userno}
     </select>
+    <update id="dateDrag" parameterType="Ocard">
+      UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE userno=#{userno} <!-- where절에 cardid가와야됨  -->
+    </update>
 </mapper>
