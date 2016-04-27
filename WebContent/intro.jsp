@@ -641,7 +641,7 @@ style="z-index: 6">
 						alert("이메일 전송");	
 					}
 					$.ajax({
-						url : 'emailSend.do',
+						url : 'emailCheckNumSend.do',
 						type : 'post',
 						data : $('#Frm').serialize(),
 						success : function(data) {
@@ -739,9 +739,6 @@ style="z-index: 6">
 									alert("비밀번호가 틀립니다.");
 									$('#logPwd').val("");
 									return;
-								} else if (data == "already") {
-									alert("이미 로그인 되어있습니다.")
-									$('#logPwd').val("");
 								} else {
 									alert("로그인 성공");
 									$('#logEmail').val("");
@@ -838,6 +835,7 @@ style="z-index: 6">
 							success : function(data) {
 								if(data.length>0){
 									alert("기존 비밀번호가 틀립니다.");
+									var pwdChange = $('#pwdChange').val("");
 								} else {
 									alert("회원정보 변경완료");
 									$('#UserInfoChangeModal').modal('toggle');

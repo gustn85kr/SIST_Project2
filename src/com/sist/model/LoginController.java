@@ -31,21 +31,18 @@ public class LoginController {
 				session.setAttribute("logNickname", d.getNickname());
 				session.setAttribute("logEmail", d.getEmail());
 				session.setAttribute("logUserno", d.getNo());
+				
 				//로그인 성공시 쿠키값을 넘긴다.
 				Cookie[] cookies = req.getCookies();
 				emailSave = cookies[((int)cookies.length-1)].getValue();
-				if(email!=session.getAttribute("logEmail")){
-					LogCheck="already";
-					res.getWriter().write(String.valueOf(LogCheck));
-					return "ajax";
-				} else {
-					res.getWriter().write(String.valueOf(emailSave));
-					res.getWriter().write(String.valueOf(LogCheck));
-					return "ajax";
-				}
 				
+				res.getWriter().write(String.valueOf(emailSave));
+				res.getWriter().write(String.valueOf(LogCheck));
+				return "ajax";
 			} else {
 				LogCheck = "nopwd";
+				res.getWriter().write(String.valueOf(LogCheck));
+				return "ajax";
 			}
 		}
 		// 로그인 시 로그인 종류를 보낸다

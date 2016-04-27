@@ -1036,7 +1036,7 @@ function resize(obj) {
 					<span class="icon-bar"></span>
 				</button>
 				-->
-				<a class="navbar-brand" href="#intro">
+				<a class="navbar-brand" href="intro.do">
 					<span>오</span>내미
 					<!-- <img src="assets/img/logo1.png" alt="Logo"> -->
 				</a>
@@ -1056,13 +1056,8 @@ function resize(obj) {
 							<li class="page-scroll home"><a href="intro.do">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
 							
-<<<<<<< HEAD
 							<li class="page-scroll home" id="userDetail2"><a href="#detail">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}님</a></li>
-=======
-							<li class="page-scroll home"><a href="#detail">
-							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}님</a></li>
->>>>>>> refs/remotes/origin/master
 							
 							<li class="page-scroll home" id="myBtn3"><a href="logOutOK.do">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
