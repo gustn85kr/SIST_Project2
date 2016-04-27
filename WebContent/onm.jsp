@@ -20,8 +20,8 @@
 <link rel='stylesheet' href='calendar/jquery-ui.min.css' />
 <link href="calendar/fullcalendar.css" rel="stylesheet" />
 <link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  	
+<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" /> -->
+<link rel="stylesheet" href="assets/css/jquery-ui.css" />
 <script src="assets/plugins/jquery/jquery.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="calendar/moment.min.js"></script>
@@ -32,12 +32,10 @@
 
 <script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-<script type="text/javascript" src="http://apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f"></script>  <!-- 다음지도 -->
-	
- 	
-  
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
 
-<style type="text/css">
+
+   <style type="text/css">
 body{
 	font-family:'Malgun Gothic';
 }
@@ -64,7 +62,17 @@ body{
     font-size: 20px;
     word-break:break-all;
     
+
 }
+ 
+ #timetable{
+ 	 height: 800px;
+    border: 2px solid;
+    border-bottom-color: #fff;
+    border-top-color: #fff;
+    border-right-color: #fff;
+    border-left-color: #D7CECC;
+ }
  
 .items .ui-selected {
     background: red;
@@ -84,25 +92,62 @@ body{
     margin: 2px;
     padding: 2px;
     cursor: pointer;
-    border-radius: 3px;
+    border:#fff;
+    border-bottom: 2px solid #FFE72C; 
+    border-radius: 1px;
+    width: 85%;
+    margin-bottom: 15px;
 }
  
 .weekday {
+
     width: 300px;
-    padding: 5px;
-    border: 1px solid green;
-    border-radius: 0.75em;	
-    background-color: #65BD13;
-    margin: 5px;
+    padding: 5px; 
+    border-bottom: 2px solid #EDE1E7;
+    border-top: 2px solid #EDE1E7;
+    background-color: #fff;
+    margin: 20px;
     
     /* max-height : 700px; */   
 }
  
+ .listTitleBtn, .listTitleCancel{
+       float:right;
+       background: #fff;
+   	   border: #fff;
+ }
+ 
+ 
+ .listTitleBtn:hover, .listTitleBtn:active {
+   border-bottom: 2px solid #2694e8;
+}
+
+ .listTitleCancel:hover, .listTitleCancel:active {
+   border-bottom: 2px solid #2694e8;
+}
+
+ .cardInsert.btn-primary:hover, .cardInsert.btn-primary:active {
+   border-bottom: 2px solid #2694e8;
+}
+
+ .cardCancel.btn-primary:hover, .cardCancel.btn-primary:active {
+   border-bottom: 2px solid #2694e8;
+}
+
+ .cardInsert.btn-primary, .cardCancel.btn-primary{
+    float: right;
+    background: #fff;
+    color: black;
+    border: #fff;
+ }
+
+
 .availablelist {
     background-color: orange;
     display: inline;
 }
     
+<<<<<<< HEAD
 #draggablePanelList .panel-heading {
     cursor: move;
 } 
@@ -158,14 +203,80 @@ font-size: 14px;
    #calendar{
    }
 /* #cardDetail .modal-dialog {
+=======
+    #draggablePanelList .panel-heading {
+        cursor: move;
+    } 
+   #calendar_attr {
+  
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar_container {
+		position:relative;
+		top:700px;
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
+    #sist{
+    	/* width:4500px; */
+    	height: 700px;
+    		
+    }
+    #cardList{
+    }
+
+    .listHeader{
+    	margin: 2px;
+    	font: bold;
+    	font-size: 25px;
+    	
+    }
+
+   .footText{
+    	width:280px;
+    }
+    .footInput{
+  		width : 280px; 
+  		text-align : center;
+  		margin : 5px;
+  		height: 50px;
+    } 
+    .footInput textarea{
+    	width:280px;
+    }
+    .cardInsert{
+    	margin-left: 100px;
+    }
+    .listHeader{
+    	margin:5px;
+    	height: 20px;
+    }
+    .listHeader p{
+    	color :black;
+    	font-size:20px;
+    	margin: 5px;
+    }
+    #calendar{
+
+    }
+	#cardDetail .modal-dialog {
+>>>>>>> refs/remotes/origin/master
 		width:75%
+<<<<<<< HEAD
 	} */
+=======
+	}
+
+>>>>>>> refs/remotes/origin/master
 .fc-time{
    display : none;
 }
-#fileUpButton {
-	margin-bottom: 10px;
-}
+
 #blah {
 	width:110px;
 	height:80px;
@@ -173,18 +284,20 @@ font-size: 14px;
 	}
 .addListBtn {
     background-color: transparent;
-    color: white;
+    color: black;
     display: block;
     height: 100%;
-    line-height: 40px;
+   /*  line-height: 40px; */
     text-decoration: none;
-    width: 100%;
-    text-align: center;
+    /* width: 100%; */
+    /* text-align: left; */
     cursor:pointer;
 }
+
+
 .addListTxt{
 	background-color: transparent;
-    color: white;
+    color: black;
     display: block;
     height: 40px;
     line-height: 40px;
@@ -192,25 +305,62 @@ font-size: 14px;
     width: 100%;
     text-align: center;
     border:inherit;
+    margin:10px;
 }
-	
-	
+
+.btn-primary.footText{
+    color: #fff;
+    background-color: #fff;
+    border-color: #fff;
+    border: #fff;
+    margin-bottom: 5px;
+}
+
+.btn.btn-sm.btn-default.listDelete{
+float:right;
+text-align: center;
+width: 30px;
+height: 30px;
+background: #fff;
+border: #fff;
+margin:0px;
+padding: 0px;
+}
+
+#listtitleaddbtn{
+text-align: center;
+}
+
+#calendarunder{
+    height: 30px;
+    background:#D3F1B9;
+    width: 100px;
+}
+
+#calendarunder img{
+margin-right:10px;
+}
+
+.ui-progressbar-value{
+background: #BCF12A;
+}
     </style>
    
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#userDetail2").click(function() {
-		var emailChage = $('#emailChage').val("");
-		var nicknameChange = $('#nicknameChange').val("");
-		var pwdChange = $('#pwdChange').val("");
-		var newPwdChange = $('#newPwdChange').val("");
-		var newPwdChange2 = $('#newPwdChange2').val("");
-		$("#PwdChageModal").modal();
-	});
-	
-	var labelColor=null;
-	
-		$('#calendar').fullCalendar({
+	$(document).ready(function(){
+		$("#userDetail2").click(function() {
+			var emailChage = $('#emailChage').val("");
+			var nicknameChange = $('#nicknameChange').val("");
+			var pwdChange = $('#pwdChange').val("");
+			var newPwdChange = $('#newPwdChange').val("");
+			var newPwdChange2 = $('#newPwdChange2').val("");
+			$("#PwdChageModal").modal();
+		});
+		
+		
+		var labelColor=null;
+
+		$('#calendar').fullCalendar({ 
 			theme: true,
 			header: {
 				left: 'prev,next today',
@@ -236,6 +386,21 @@ $(document).ready(function(){
 				$('#calendar').fullCalendar('unselect');
 			}, */ //이벤트 추가함수
 			editable: true,
+			eventDrop: function(event, delta, revertFunc) {
+				var startdate=event.start.format('YYYY/MM/DD');
+				var enddate=event.end.format('YYYY/MM/DD');
+				
+				 $.ajax({
+		           	 url:'dateDrag.do',
+		           	 type:'post',
+		           	 dataType:"json",
+		           	 data:{"startdate":startdate , "enddate":enddate},
+		           	 success:function(data){
+						alert("성공2")
+		          	         }
+		    	   });
+				
+			},
 			eventClick: function(event) {
 				$('#cardDetail').modal();
 			
@@ -248,10 +413,124 @@ $(document).ready(function(){
 			
 			]
 		});
+		
+		function calInit(){
+			
+		     <c:forEach var="vo" items="${clist}">
+		        var events=new Array();   
+		        event = new Object();       
+		        event.title = "${vo.title}"; 
+		        event.start = "${vo.startdate}";
+		        event.end = "${vo.enddate}";
+		
+		
+		        if(labelColor==null){
+		        event.color = "green";
+		        }else{
+		           event.color = labelColor;
+		        }
+		        event.allDay = false;
+		        events.push(event);
+		       
+		        $('#calendar').fullCalendar('addEventSource',events);
+		     </c:forEach>
+		    
+		  }
+		  
+		
+		
 		$(this).on("click",".list",function(){
-			$('#cardDetail').modal();
+			//ev.preventDefault();
+		    var target = "detail.do?no=";
+		    target= target+$(this).attr("id");
+		    alert(target);
+			$("#cardDetail .modal-dialog").load(target, function() {
+		
+				  $('#sdate').datepicker();
+				    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+				    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+				        $("#edate").datepicker( "option", "minDate", selectedDate );
+				    });
+				    $('#edate').datepicker();
+				    $('#edate').datepicker("option", "minDate", $("#sdate").val());
+				    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
+				        $("#sdate").datepicker( "option", "maxDate", selectedDate );
+				    });
+				    
+				    //여기부터 지도
+				    $("#txtAddress").keydown(function(e) {
+	                      if (e.keyCode == 13) {
+	                    	  $("#modalMap").css("display","block");
+	                     		/* map.relayout(); */
+	                       var searchPlace = $(this).val();   
+	                    	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+	                    	
+	                    	  var infowindow = new daum.maps.InfoWindow({zIndex:1});
+
+	                    	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	                    	      mapOption = {
+	                    	          center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+	                    	          level: 3 // 지도의 확대 레벨
+	                    	      };  
+
+	                    	  // 지도를 생성합니다    
+	                    	  var map = new daum.maps.Map(mapContainer, mapOption); 
+
+	                    	  // 장소 검색 객체를 생성합니다
+	                    	  var ps = new daum.maps.services.Places(); 
+
+	                    	  // 키워드로 장소를 검색합니다
+	                    	  ps.keywordSearch(searchPlace, placesSearchCB); 
+
+	                    	  // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+	                    	  function placesSearchCB (status, data, pagination) {
+	                    	      if (status === daum.maps.services.Status.OK) {
+
+	                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+	                    	          // LatLngBounds 객체에 좌표를 추가합니다
+	                    	          var bounds = new daum.maps.LatLngBounds();
+
+	                    	          for (var i=0; i<data.places.length; i++) {
+	                    	              displayMarker(data.places[i]);    
+	                    	              bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
+	                    	          }       
+
+	                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+	                    	          map.setBounds(bounds);
+	                    	      } 
+	                    	  }
+
+	                    	  // 지도에 마커를 표시하는 함수입니다
+	                    	  function displayMarker(place) {
+	                    	      
+	                    	      // 마커를 생성하고 지도에 표시합니다
+	                    	      var marker = new daum.maps.Marker({
+	                    	          map: map,
+	                    	          position: new daum.maps.LatLng(place.latitude, place.longitude) 
+	                    	      });
+
+	                    	      // 마커에 클릭이벤트를 등록합니다
+	                    	      daum.maps.event.addListener(marker, 'click', function() {
+	                    	          // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+	                    	          infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
+	                    	          infowindow.open(map, marker);
+	                    	      });
+	                    	  }
+
+	                     		
+	                      }
+	                  });  //지도 끝
+				    
+			
+				    
+				    
+		    });
+			$("#cardDetail").modal("show"); 
+			/* $('#cardDetail').modal({
+				remote : 'detail.do'
+			}); */
 		});
-	
+		
 	  	 $("#timetable .items").sortable({
              connectWith: "ul",           
              update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
@@ -273,6 +552,7 @@ $(document).ready(function(){
 		    	   });
              }
          });  	 
+
   	    $("ul[id^='available']").draggable({
   	        	revert: true,      // immediately snap back to original position
   	          revertDuration: 0
@@ -282,27 +562,45 @@ $(document).ready(function(){
   			$(this).siblings(".footInput").css('display', 'inline'); 
   			$(this).siblings('.footInput').find('textarea').focus();
   		});
-  	    $(this).on("click",".cardInsert",function(){           	  
+  	    $(this).on("click",".cardInsert",function(){
   	    	var text = $(this).siblings('textarea').val();
-  			$(this).siblings('textarea').val("")
-  			
-  			$(this).parents(".listFoot").siblings('.items').append("<li class='list'>"+text+"</li>");
-  			$(this).parent(".footInput").css('display', 'none');
-  			$(this).parent(".footInput").siblings('.footText').css('display', 'inline'); 
-  			
-  		     var listno= $(this).parents('.weekday').attr('id');
-  	         var draghtml = $(this).parents('.weekday').html();
-  	         var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
-  	         
-           	  $.ajax({
-	           	 url:'dragEvent.do',
+  	    	var cardno = "tmpcard";
+  	    	$(this).siblings('textarea').val("");
+	  	  	  
+  	    	$(this).parents(".listFoot").siblings('.items').append("<li class='list' id="+cardno+">"+text+"</li>");
+		    $(this).parent(".footInput").css('display', 'none');
+    		$(this).parent(".footInput").siblings('.footText').css('display', 'inline');
+    		
+    		
+  	    	$.ajax({
+	           	 url:'createCard.do',
 	           	 type:'post',
 	           	 dataType:"json",
-	           	 data:{"listno":listno , "html":ehtml},
+	           	 data:{"title":text},
 	           	 success:function(data){
-	           	 	    
-	          	         }
-	    	   });
+	           	 	 cardno = data;
+	           	 	 alert(cardno);
+	           	 	$('#tmpcard').attr('id', "card"+cardno);
+	           	 	var listno= $("#card"+cardno).parents('.weekday').attr('id');
+		    	    var draghtml = $("#card"+cardno).parents('.weekday').html();
+		        	var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>";
+		  	    	$.ajax({
+		  	           	 url:'dragEvent.do',
+		  	           	 type:'post',
+		  	           	 dataType:"json",
+		  	           	 data:{"listno":listno , "html":ehtml},
+		  	           	 success:function(data){
+		  	           	 	    
+		           	   	 }
+		     	  	 });  
+	           	 	 
+						           	
+	          	 }
+	        });
+  	    	
+
+	      
+ 			
   		});
   	    $(this).on("click",".addListBtn",function(){
   	    	/*  var listTitle =""; */
@@ -344,18 +642,19 @@ $(document).ready(function(){
 	            success:function(data){
 	            	listno=data;
 	      	    	var tmpHtml = "<div class='weekday col-md-1' id=list"+listno+"><div class='listHeader'><p>"+listTitle+
-	    			"<button type='button' class='btn btn-sm btn-default listDelete' style='float:right'> "+
-	    			"<span class='glyphicon glyphicon-trash'></span></p>"+
+	    			"<button type='button' class='btn btn-sm btn-default listDelete'> "+
+	    			"<img src='calendar/images/deletelist.png'></button></p>"+
 	    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
-	    			"<button class='btn-primary footText'>일정 추가하기</button><div class='footInput' style='display:none;'> "+
-	    			" <textarea cols='30' rows='3'></textarea><input type='button' value='추가' class='cardInsert btn-primary'/>  "+
-	    				" <input type='button' value='취소' class='cardCancel btn-primary'/> </div></div></div> ";
+	    			"<button class='btn-primary footText' id='listtitleaddbtn'><img src='calendar/images/plus-hover.png'></button><div class='footInput' style='display:none;'> "+
+					" <textarea cols='30' rows='3'></textarea><input type='button' value='취소' class='cardCancel btn-primary'/>"+
+					" <input type='button' value='추가' class='cardInsert btn-primary'/>  "+
+	 				"</div></div></div> ";
 	      	 	 	$('#timetable').append(tmpHtml);
 	      	  	
-	      	  		$('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span>리스트 추가하기..</span></div> "+
-	      	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='리스트 추가하기..'/> "+
-	      	  				"<input type='button' value='추가' class='listTitleBtn'/> "+
-	      	  				"<input type='button' value='취소' class='listTitleCancel'/></div><div>");
+	      	 	 $('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span><img src='calendar/images/createlist.png' ></span></div> "+
+	   	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='List Title'/> "+
+	   	  			    "<input type='button' value='취소' class='listTitleCancel' /><input type='button' value='추가' class='listTitleBtn' />"+
+	     				"</div><div>");
 	    			$("#timetable .items").sortable({
 	    	            connectWith: "ul"  
 	    	    	});
@@ -427,6 +726,7 @@ $(document).ready(function(){
   	    });
   	    $(this).on("click","#contentInsert",function(){
   	    	var tmp = tinyMCE.activeEditor.getContent();
+  	    	alert(tmp);
   	    	$(this).parent("#newTA").css('display',"none");
   	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
   	    	$(this).parent("#newTA").siblings("#showContent").empty();
@@ -450,8 +750,9 @@ $(document).ready(function(){
   	  $(this).on("click","#priorityInsert",function(){
   			$("#priorityDiv").css('display','none');
   			var op1 = $(':radio[name="option1"]:checked').val();
-  			
+  			alert(op1);
 		  	var op2 = $(':radio[name="option2"]:checked').val();
+		  	alert(op2);
 		  	$('input').prop('checked', false);
 		  	$('#modalPriority').empty();
 	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
@@ -518,13 +819,14 @@ $(document).ready(function(){
 	   $(this).on("click","#labelInsert",function(){
 		    $('#modalLabel').empty();
 		    labelColor = $(':radio[name="option10"]:checked').val();
+		    alert(labelColor);
 			$('#modalLabel').append("<span class='glyphicon glyphicon-tags'>라벨</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
 	   });
 	   
 	   	
 	   $(this).on("click","#mapSearch",function(){
 	   		$("#modalMap").css("display","block");
-	   		map.relayout();
+	   		
 	   	});
 	   
 	   $(this).on("click","#mapCancel",function(){
@@ -532,17 +834,7 @@ $(document).ready(function(){
 	   		
 	   	});
   
-	    $('#sdate').datepicker();
-	    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
-	    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
-	        $("#edate").datepicker( "option", "minDate", selectedDate );
-	    });
-	 
-	    $('#edate').datepicker();
-	    $('#edate').datepicker("option", "minDate", $("#sdate").val());
-	    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
-	        $("#sdate").datepicker( "option", "maxDate", selectedDate );
-	    });
+	  
 	    
 	    $(this).on("click","#dateInsert",function(){
 	    	$("#dateDiv").css("display","none");
@@ -550,6 +842,7 @@ $(document).ready(function(){
 	    	
 	    	var startDate= $('#sdate').val();
 	    	var endDate=$('#edate').val();
+	    
 	    	
 	    	var events=new Array();     
 	    	event = new Object();       
@@ -658,89 +951,14 @@ $(document).ready(function(){
 		      	});
 		});    
 });
+
+
 function resize(obj) {
 	  obj.style.height = "1px";
 	  obj.style.height = (50+obj.scrollHeight)+"px";
 }
-//지도
-var map;
-var marker = '';
-var position = new daum.maps.LatLng(37.572730, 126.970204);
- 
- $("#map").ready(function() {
-  //검색창에 엔터 입력시 좌표 검색
-              $("#txtAddress").keydown(function(e) {
-                  if (e.keyCode == 13) {
-                  	$("#map").css("display","block");
-                 		map.relayout();
-                      Search();
-                  }
-              });
-  
-  //지도 초기화
-              map = new daum.maps.Map(document.getElementById('map'), {
-                  center: position,
-                  level: 4,
-                  mapTypeId: daum.maps.MapTypeId.ROADMAP
-              });
-/*                marker = new daum.maps.Marker({
-                  position: position
-              });
-              marker.setMap(map)
-*/
-  //지도상의 위치 클릭시 클릭한 위치의 좌표 확인
-              daum.maps.event.addListener(map, "click", function(e) {
-   //기존에 설정된 마커 삭제
-                  if (marker != '') {
-                      marker.setMap(null);
-                  }
-                  //temp에 새로 클릭된 좌표 입력
-                  var lat = e.latLng.getLat();
-                  var lng = e.latLng.getLng();
-   var temp = new daum.maps.LatLng(lat, lng);
-   //좌표 출력
-                  $("#latlng").html("동경 " + lat.toString().substr(0, 10) + ", 북위 " + lng.toString().substr(0, 10));
-   //temp에 입력된 좌표값을 중심으로 지도 이동
-                  map.panTo(temp);
-   //temp에 입력된 좌표값에 마커 설정
-                  marker = new daum.maps.Marker({
-                      position: temp
-                  });
-                  marker.setMap(map);
-              });
-          });
-          function Search() {
-              var query = $("#txtAddress").val();
-              $("#txtAddress").val('');
-              getPoint(query);
-          }
- //주소->좌표로 변환해주는 api 사용
-          function getPoint(query) {
-              var oScript = document.createElement("script");
-              oScript.type = "text/javascript";
-              oScript.charset = "utf-8";
-              oScript.src = "http://apis.daum.net/local/geo/addr2coord?apikey=d82c75b3a6b33cfad136796fbe876e68a518b478&output=json&callback=pongSearch&q=" + encodeURI(query);
-              document.getElementsByTagName("head")[0].appendChild(oScript);
-          }
- 
- //좌표 변환 후 해당 좌표를 이용해 콜백(클릭시와 동일한 동작)
-          function pongSearch(data) {
-              marker = '';
-              if (data.channel.item.length == 0) {
-                  alert("결과가 없습니다.");
-              } else {
-                  if (marker != '') {
-                      marker.setMap(null);
-                  }
-                  var temp = new daum.maps.LatLng(data.channel.item[0].lat, data.channel.item[0].lng);
-                  $("#latlng").html((data.channel.item[0].lat).toString().substring(0, 10) + ", " + (data.channel.item[0].lng).toString().substring(0, 10));
-                  map.panTo(temp);
-                  marker = new daum.maps.Marker({
-                      position: temp
-                  });
-                  marker.setMap(map);
-              }
-          }//지도!!!!!!!!
+
+          
 </script>
 <title>오늘 일을 내일로 미루자</title>
 </head>
@@ -838,8 +1056,13 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 							<li class="page-scroll home"><a href="intro.do">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
 							
+<<<<<<< HEAD
 							<li class="page-scroll home" id="userDetail2"><a href="#detail">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}님</a></li>
+=======
+							<li class="page-scroll home"><a href="#detail">
+							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}님</a></li>
+>>>>>>> refs/remotes/origin/master
 							
 							<li class="page-scroll home" id="myBtn3"><a href="logOutOK.do">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
@@ -897,7 +1120,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	    		
 	    			
 	    			<div class="addListBtn">
-	    				<span>리스트 추가하기..</span>
+	    				<span><img src="calendar/images/createlist.png" ></span>
 	    			</div>
 	    			
 	    			<div class="addListPanel" style="display:none;">
@@ -912,8 +1135,15 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	  <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
  		<div>
+<<<<<<< HEAD
  			  <jsp:include page="detail.jsp" flush="false" /> 
  		</div>
+=======
+ 			  <%-- <jsp:include page="detail.do" flush="false" /> --%> 
+ 		</div>   
+
+      
+>>>>>>> refs/remotes/origin/master
     </div>
   </div>   	    
 </body>

@@ -105,15 +105,11 @@ body .fc { /* extra precedence to overcome jqui */
 --------------------------------------------------------------------------------------------------*/
 
 .fc button {
-	/* force height to include the border and padding */
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-
+	/* force height to include the border 
 	/* dimensions */
 	margin: 0;
 	height: 2.1em;
-	padding: 0 .6em;
+	padding: 0px 20px;
 
 	/* text & cursor */
 	font-size: 1em; /* normalize */
@@ -213,7 +209,7 @@ previous button's border...
 */
 
 .fc .fc-button-group > * { /* extra precedence b/c buttons have margin set to zero */
-	float: left;
+	float: center;
 	margin: 0 0 0 -1px;
 }
 
@@ -323,10 +319,10 @@ previous button's border...
 
 .fc th,
 .fc td {
-	border-style: solid;
 	border-width: 1px;
 	padding: 0;
 	vertical-align: top;
+    color: #333;
 }
 
 .fc td.fc-today {
@@ -580,15 +576,16 @@ a.fc-more:hover {
 
 .fc-toolbar {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 2px;
 }
 
 .fc-toolbar .fc-left {
-	float: left;
+	float: right;
+    
 }
 
 .fc-toolbar .fc-right {
-	float: right;
+	float: left;
 }
 
 .fc-toolbar .fc-center {
@@ -694,7 +691,8 @@ a.fc-more:hover {
 
 .fc-basic-view td.fc-week-number span,
 .fc-basic-view td.fc-day-number {
-	padding-top: 2px;
+	padding-top: 10px;
+    padding-left: 10px;
 	padding-bottom: 2px;
 }
 
@@ -709,7 +707,7 @@ a.fc-more:hover {
 }
 
 .fc-ltr .fc-basic-view .fc-day-number {
-	text-align: right;
+	text-align: left;
 }
 
 .fc-rtl .fc-basic-view .fc-day-number {
