@@ -34,9 +34,6 @@ public class MainController {
 
 		List<CardVO> clist = new ArrayList<CardVO>();
 		clist = OnmDAO.loadCard((int) session.getAttribute("logUserno"));
-		for(CardVO vo : clist){
-			System.out.println(vo.getTitle()+","+vo.getStartdate());
-		}
 		req.setAttribute("clist", clist);
 		req.setAttribute("list", list);
 		return "onm";
@@ -47,7 +44,10 @@ public class MainController {
 		String strno = req.getParameter("no");
 		int no = Integer.parseInt(strno.substring(4));
 		CardVO vo = OnmDAO.cardInfo(no);
-		
+		if(vo.getContent()!=null){
+			String data = vo.getContent();
+			vo.setContent(HashingHTML.htmlTostr(data));
+		}
 		req.setAttribute("card", vo);
 		return "detail";
 	}

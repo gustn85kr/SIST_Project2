@@ -92,7 +92,7 @@
 	
 	<!-- onm.jsp 호출시 card date 출력 -->
     <select id="loadCard" resultType="Ocard" parameterType="int">
-       SELECT startdate,enddate,title FROM onmcard WHERE userno=#{userno} AND startdate is not null
+       SELECT startdate,enddate,title,label,no FROM onmcard WHERE userno=#{userno} AND startdate is not null
     </select>
     <!-- card date Update -->
     <update id="cardDateUpdate" parameterType="Ocard">
@@ -102,7 +102,20 @@
     <update id="cardLabelUpdate" parameterType="Ocard">
     	UPDATE onmcard SET label=#{label} WHERE no=#{no}
 	</update>
+	<!-- card content update -->
+	<update id="cardContentUpdate" parameterType="Ocard">
+    	UPDATE onmcard SET content=#{content} WHERE no=#{no}
+	</update>
+	<!-- card priority update -->
+	<update id="cardPriorityUpdate" parameterType="Ocard">
+    	UPDATE onmcard SET priority1=#{priority1},priority2=#{priority2} WHERE no=#{no}
+	</update>
+	<!-- card open update -->
+	<update id="cardOpenUpdate" parameterType="Ocard">
+    	UPDATE onmcard SET done=#{done} WHERE no=#{no}
+	</update>
+	<!-- 캘린더 드래그 드롭 업데이트 -->
     <update id="dateDrag" parameterType="Ocard">
-      UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE userno=#{userno} <!-- where절에 cardid가와야됨  -->
+      UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE no=#{no} <!-- where절에 cardid가와야됨  -->
     </update>
 </mapper>

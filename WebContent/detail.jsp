@@ -8,44 +8,47 @@
 <title>Insert title here</title>
 <style type="text/css">
 label{
-	color : black;
+   color : black;
 }
 body{
-		font-family:'Malgun Gothic';
-		font-size: 15px;
-		padding : 20px;
+      font-family:'Malgun Gothic';
+      font-size: 15px;
+      padding : 20px;
 }
 
 #modalBody{
-	background-color: #fff;
-	min-width:500px;
-	min-height:800px;
-	max-height:1800px;
-	padding:20px;
-	border-radius: 10px;
+   background-color: #fff;
+   width:1000px;
+   min-height:800px;
+   max-height:1800px;
+   padding:20px;
+   border-radius: 10px;
+   margin:5px;
 }
 #modalTitle{
-	border : #eee;
-	margin:20px;
-	padding:20px;
-	
+   border : #eee;
+   margin:20px;
+   padding:20px;
+   
 }
 #modalMid{
-	border-top: 2px solid #eee;
-	margin:20px;
-	padding:20px;
+   border-top: 2px solid #eee;
+   margin:20px;
+   padding:20px;
 }
 #content{
-	height : 50px;
-	border: 2px;
-	
+   height : 50px;
+   border: 2px;
+   text-align: right;
+    padding-right: 30px;
+   
 }
 .modal-content{
-	position: relative;
-	margin:0 auto;
+   position: relative;
+   margin:0 auto;
 
-	width:900px;
-	
+   width:900px;
+   
 }
 
 #glypTitle,#listName{
@@ -53,13 +56,13 @@ margin-bottom:10px;
 }
 
 #glypTitle{
-	font-size: 25px;
+   font-size: 25px;
 }
 #glypMid{
-	font-size: 25px;
+   font-size: 25px;
 }
 #mytextarea{
-	
+   
 }
 
 #contentInsert,#contentCancel{
@@ -81,43 +84,43 @@ background: #fff;
 
 }
 #insertContext:HOVER {
-	color : gray;
-	font-size: 150%;
+   color : gray;
+   font-size: 150%;
 }
 #listName{
-	padding-left:20px;
+   padding-left:20px;
 }
 #contentText{
-	font-size : 17px;
-	margin:10px;
+   font-size : 17px;
+   margin:10px;
 }
 #sideBar{
-	
-	padding : 10px;
+   
+   padding : 10px;
 
 }
 #map{
 max-height:100%;
 max-width:100%;
 }
-#priorityDiv .btn span.glyphicon {    			
-	opacity: 0;				
+#priorityDiv .btn span.glyphicon {             
+   opacity: 0;            
 }
-#priorityDiv .btn.active span.glyphicon {				
-	opacity: 1;				
+#priorityDiv .btn.active span.glyphicon {            
+   opacity: 1;            
 }
-#labelDiv .btn span.glyphicon {    			
-	opacity: 0;				
+#labelDiv .btn span.glyphicon {             
+   opacity: 0;            
 }
-#labelDiv .btn.active span.glyphicon {				
-	opacity: 1;				
+#labelDiv .btn.active span.glyphicon {            
+   opacity: 1;            
 }
 
 input[type="checkbox"] { 
   height: 20px; 
   width: 20px; 
   margin-right: 10px;
-}	
+}   
 
 .checkready { font-size: 1.5em; }
 .ui-progressbar-value { background: ##BCF12A; }
@@ -139,7 +142,7 @@ border-radius: 7px;
   z-index: 2;
 }
 
-#dateBtn,#manaddBtn,#snsaddBtn,#mailaddBtn,#checkBtn,#btnMap,#priorityBtn,#labelBtn,#fileaddiBtn{
+#dateBtn,#manaddBtn,#lockaddBtn,#mailaddBtn,#checkBtn,#btnMap,#priorityBtn,#labelBtn,#fileaddiBtn{
 border: 2px;
 margin: 8px;
 }
@@ -268,6 +271,13 @@ background: #D0FFC0;
 margin-left:0px;
 padding:5px;
 }
+
+#modalBdClose{
+background: #fff;
+border: #fff;
+width: 48px;
+height: 48px;
+}
 </style>
 </head>
 <body>
@@ -275,7 +285,7 @@ padding:5px;
 	<div class="modal-dialog" id="modalBody">
 		<div class="row">
 			<div id="content" >
-				
+				<button type="button" id="modalBdClose"><img src="calendar\images\closeBig-icon.png" ></button>
 			</div>
 			<div class="col-sm-9">
 				<div id="modalTitle">
@@ -284,10 +294,10 @@ padding:5px;
 					<div id="modalDate">
 						<c:if test="${card.startdate!=null}">
 							<span class='glyphicon glyphicon-calendar'>일정날짜</span>
-							<div id='sdateDiv'> <b>시작일 </b>: ${card.startdate}</div>
+							<div id='sdateDiv'> <b id="startD">시작일 </b>: ${card.startdate}</div>
 						</c:if>
 						<c:if test="${card.enddate!=null}">
-							<div id='edateDiv'> <b>종료일 </b>: ${card.enddate}</div>
+							<div id='edateDiv'> <b id="endD">종료일 </b>: ${card.enddate}</div>
 						</c:if>
 					</div>
 					<div id="modalPriority">
@@ -302,7 +312,7 @@ padding:5px;
 					</div>
 					<div id="modalLabel">
 					<c:if test="${card.label!=null}">
-						<span class='glyphicon glyphicon-tags'>라벨</span><br/><div style='width:50px; background-color:${card.label} '>&nbsp;</div>
+						<span class='glyphicon glyphicon-tags'>라벨</span><br/><div id="labelColor" style='width:50px; background-color:${card.label} '>&nbsp;</div>
 					</c:if>
 					</div>
 					<div id="modalTextarea">
@@ -314,8 +324,15 @@ padding:5px;
 		  					<button type="button" class="btn btn-default btn-sm" id="contentInsert">입력</button>
 		  					<button type="button" class="btn btn-default btn-sm" id="contentCancel" >취소</button>
   					  </div>
-  					  <div id="showContent" style="display:none"> 					  
-  					  </div>				  
+  					  <c:if test="${card.content!=null}">
+	  					  <div id="showContent">
+	  					  	${card.content} 					  
+	  					  </div>				  
+  					  </c:if>
+  					  <c:if test="${card.content==null}">
+	  					  <div id="showContent" style="display:none"> 					  
+	  					  </div>				  
+  					  </c:if>
 					</div>				
 				</div>
 				
@@ -359,6 +376,17 @@ padding:5px;
 				
 			</div>
 			<div class="col-sm-3" id="sideBar">
+	             <button type="button" class="btn btn-default btn-sm" id="lockaddBtn">
+	             <c:if test="${card.done==1}">
+                    <div id="lockchange" style="display: inline"><img src="calendar\images\openlock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;공개</div>
+                    <div id="lockchacom" style="display: none"><img src="calendar\images\closelock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;비공개</div>
+                 </c:if>
+                 <c:if test="${card.done==2}">
+                    <div id="lockchange" style="display: none"><img src="calendar\images\openlock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;공개</div>
+                    <div id="lockchacom" style="display: inline"><img src="calendar\images\closelock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;비공개</div>
+                 </c:if>
+            	</button>      
+         		<br/>
 				<button type="button" class="btn btn-default btn-sm"  id="dateBtn">
          			 <img src="calendar\images\calendar-icon.png" style="text-align:left;">
          			 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일정
@@ -380,19 +408,11 @@ padding:5px;
 		        <button type="button" class="btn btn-default btn-sm" id="manaddBtn">
 		          <img src="calendar\images\man-icon.png" class="addicon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인원 추가
 		        </button>
-		        <br/>
-           			<button type="button" class="btn btn-default btn-sm" data-toggle="dropdown" id="snsaddBtn">
-              			<img src="calendar\images\sns-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SNS공유
-              			<span class="caret"></span>
-            			<ul class="dropdown-menu">
-					          <li><a href="#">FaceBook</a></li>
-					          <li><a href="#">Twitter</a></li>
-          				</ul>
-      				</button>
+		
         		
         		<br>                          <%-- 뛰어 --%>        
 		        <form class="fileUpload" action="insert.jsp" method="post" enctype="multipart/form-data" id="fileaddiBtn">
-					<button type="button" class="btn btn-default btn-sm" id="fileUpButton">
+					<button type="button" class="btn btn-default btn-sm" id="fileUpButton" style="border:0">
 						<img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
 					</button>
 					<div id="fileUpDiv" style="display:none">

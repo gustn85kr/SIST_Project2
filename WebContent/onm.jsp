@@ -36,7 +36,7 @@
 
    <style type="text/css">
 body{
-	font-family:'Malgun Gothic';
+   font-family:'Malgun Gothic';
 }
 .bar {
     width: 100px;
@@ -65,7 +65,7 @@ body{
 }
  
  #timetable{
- 	 height: 800px;
+     height: 800px;
     border: 2px solid;
     border-bottom-color: #fff;
     border-top-color: #fff;
@@ -81,8 +81,8 @@ body{
  
 .items {
     list-style-type: none;
- 	margin:0;
- 	padding: 10px;
+    margin:0;
+    padding: 10px;
  
     
 }
@@ -113,7 +113,7 @@ body{
  .listTitleBtn, .listTitleCancel{
        float:right;
        background: #fff;
-   	   border: #fff;
+         border: #fff;
  }
  
  
@@ -146,135 +146,82 @@ body{
     display: inline;
 }
     
-<<<<<<< HEAD
-#draggablePanelList .panel-heading {
-    cursor: move;
-} 
-#calendar_attr {
-margin: 40px 10px;
-padding: 0;
-font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-font-size: 14px;
-}
-#calendar_container {
-	position:relative;
-	top:700px;
-	max-width: 700px;
-	margin: 0 auto;
-}
-   #sist{
-   	/* width:4500px; */
-   	height: 700px;
-   		
-   }
-   #cardList{
-   }
-   .listHeader{
-   	margin: 2px;
-   	font: bold;
-   	font-size: 25px;
-   	
-   }
-  .footText{
-   	width:280px;
-   }
-   .footInput{
- 		width : 280px; 
- 		text-align : center;
- 		margin : 5px;
- 		height: 50px;
-   } 
-   .footInput textarea{
-   	width:280px;
-   }
-   .cardInsert{
-   	margin-left: 100px;
-   }
-   .listHeader{
-   	margin:5px;
-   	height: 20px;
-   }
-   .listHeader p{
-   	color :white;
-   	font-size:20px;
-   	margin: 5px;
-   }
-   #calendar{
-   }
-/* #cardDetail .modal-dialog {
-=======
     #draggablePanelList .panel-heading {
         cursor: move;
     } 
    #calendar_attr {
   
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
+      margin: 40px 10px;
+      padding: 0;
+      font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+      font-size: 14px;
+   }
 
-	#calendar_container {
-		position:relative;
-		top:700px;
-		max-width: 700px;
-		margin: 0 auto;
-	}
-	
+   #calendar_container {
+      position:relative;
+      top:700px;
+      max-width: 700px;
+      margin: 0 auto;
+   }
+   
     #sist{
-    	/* width:4500px; */
-    	height: 700px;
-    		
+       /* width:4500px; */
+       height: 700px;
+          
     }
     #cardList{
     }
 
     .listHeader{
-    	margin: 2px;
-    	font: bold;
-    	font-size: 25px;
-    	
+       margin: 2px;
+       font: bold;
+       font-size: 25px;
+       
     }
 
    .footText{
-    	width:280px;
+       width:280px;
     }
     .footInput{
-  		width : 280px; 
-  		text-align : center;
-  		margin : 5px;
-  		height: 50px;
+        width : 280px; 
+        text-align : center;
+        margin : 5px;
+        height: 50px;
     } 
     .footInput textarea{
-    	width:280px;
+       width:280px;
     }
     .cardInsert{
-    	margin-left: 100px;
+       margin-left: 100px;
     }
     .listHeader{
-    	margin:5px;
-    	height: 20px;
+       margin:5px;
+       height: 20px;
     }
     .listHeader p{
-    	color :black;
-    	font-size:20px;
-    	margin: 5px;
+       color :black;
+       font-size:20px;
+       margin: 5px;
     }
     #calendar{
 
     }
-	#cardDetail .modal-dialog {
-		width:75%
-	}
+   #cardDetail {
+      padding-right:460px;
+   }
+.modal-dialog 
+{
+
+}
 .fc-time{
    display : none;
 }
 
 #blah {
-	width:110px;
-	height:80px;
-	text-align: center;
-	}
+   width:110px;
+   height:80px;
+   text-align: center;
+   }
 .addListBtn {
     background-color: transparent;
     color: black;
@@ -289,7 +236,7 @@ font-size: 14px;
 
 
 .addListTxt{
-	background-color: transparent;
+   background-color: transparent;
     color: black;
     display: block;
     height: 40px;
@@ -351,7 +298,7 @@ background: #BCF12A;
 		});
 		
 		
-		var labelColor=null;
+		
 
 		$('#calendar').fullCalendar({ 
 			theme: true,
@@ -382,12 +329,13 @@ background: #BCF12A;
 			eventDrop: function(event, delta, revertFunc) {
 				var startdate=event.start.format('YYYY/MM/DD');
 				var enddate=event.end.format('YYYY/MM/DD');
-				
+				var cardno=event.id;
+				alert(cardno);
 				 $.ajax({
 		           	 url:'dateDrag.do',
 		           	 type:'post',
 		           	 dataType:"json",
-		           	 data:{"startdate":startdate , "enddate":enddate},
+		           	 data:{"startdate":startdate , "enddate":enddate ,"no":cardno},
 		           	 success:function(data){
 						alert("성공2")
 		          	         }
@@ -414,18 +362,21 @@ background: #BCF12A;
 		        event.title = "${vo.title}"; 
 		        event.start = "${vo.startdate}";
 		        event.end = "${vo.enddate}";
-
-		        if(labelColor==null){
-		        event.color = "green";
+				event.id ="${vo.no}";
+		        var labelC =  "${vo.label}";
+				
+		        if(labelC==""){
+		        event.color =  "green";
 		        }else{
-		           event.color = labelColor;
+		           event.color = labelC;
 		        }
 		        event.allDay = false;
 		        events.push(event);
 		       
 		        $('#calendar').fullCalendar('addEventSource',events);
-
+				
 		     </c:forEach>
+		     
 		}
 		$(this).on("click",".list",function(){
 			//ev.preventDefault();
@@ -714,8 +665,19 @@ background: #BCF12A;
   	      	 
   	    });
   	    $(this).on("click","#contentInsert",function(){
+  	    	var cardno = $('#cardNo').val();
   	    	var tmp = tinyMCE.activeEditor.getContent();
-  	    	alert(tmp);
+  	    	$.ajax({
+                url:'contentUpdate.do',
+                type:'post',
+                dataType:"json",
+                data:{
+                		"content" : tmp,
+              	  		"no":cardno},
+                success:function(data){
+                   /* alert("Yes"); */
+                }
+          });
   	    	$(this).parent("#newTA").css('display',"none");
   	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
   	    	$(this).parent("#newTA").siblings("#showContent").empty();
@@ -742,6 +704,19 @@ background: #BCF12A;
   			alert(op1);
 		  	var op2 = $(':radio[name="option2"]:checked').val();
 		  	alert(op2);
+  	    	var cardno = $('#cardNo').val();
+  	    	$.ajax({
+                url:'priorityUpdate.do',
+                type:'post',
+                dataType:"json",
+                data:{
+                		"op1":op1,
+                		"op2":op2,
+              	  		"no":cardno},
+                success:function(data){
+                   /* alert("Yes"); */
+                }
+          });
 		  	$('input').prop('checked', false);
 		  	$('#modalPriority').empty();
 	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
@@ -806,9 +781,10 @@ background: #BCF12A;
 			$('#modalLabel').empty();
 	   });
 	   $(this).on("click","#labelInsert",function(){
-	    	  var cardno = $('#cardNo').val();
+	    	  
+		   	var cardno = $('#cardNo').val();
 	    	  $('#modalLabel').empty();
-	          labelColor = $(':radio[name="option10"]:checked').val();
+	          var labelColor = $(':radio[name="option10"]:checked').val();
 	    	  $.ajax({
 	                url:'labelUpdate.do',
 	                type:'post',
@@ -821,7 +797,26 @@ background: #BCF12A;
 	                }
 	          });
 	    	  
-	         $('#modalLabel').append("<span class='glyphicon glyphicon-tags'>라벨</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
+	    	  var title = $('#glypTitle').text();
+	    	  var startDate= $('#sdateDiv').text().substring(5);
+	    	  alert(startDate);
+	          var endDate=$('#edateDiv').text().substring(5);
+	          if(startDate!=""){
+	        	  $('#calendar').fullCalendar( 'removeEvents', cardno);
+	        	  var events=new Array();     
+		          event = new Object();       
+		          event.title = title; 
+		          event.start = startDate;    // its a date string
+		          event.end = endDate;
+		          event.id =  cardno;
+	              event.color = labelColor;
+		          
+		          event.allDay = false;
+		          events.push(event);
+		          
+		          $('#calendar').fullCalendar('addEventSource',events); 
+	          }
+	          $('#modalLabel').append("<span class='glyphicon glyphicon-tags'>라벨</span><br/><div id='labelColor' style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
 	      });
 	   
 	   	
@@ -829,24 +824,54 @@ background: #BCF12A;
 	   		$("#modalMap").css("display","block");
 	   		
 	   	});
-	   
+	      $(this).on("click","#lockaddBtn",function(){
+				 var op;
+				 var cardno = $('#cardNo').val(); 
+				 obj = document.getElementById('lockchange');
+	             if(obj.style.display=="inline"){
+	                 $("#lockchange").css("display","none");
+	                 $("#lockchacom").css("display",'inline');
+	                 op = 2;
+	            }
+	             else{
+	                 $("#lockchange").css("display","inline");
+	                 $("#lockchacom").css("display",'none');
+	                 op = 1;
+	            }
+	             $.ajax({
+		              url:'openUpdate.do',
+		              type:'post',
+		              dataType:"json",
+		              data:{"open":op,
+		            	  		"no":cardno},
+		              success:function(data){
+		                 /* alert("Yes"); */
+		              }
+		     	  });   
+	          });
 	   $(this).on("click","#mapCancel",function(){
 	   		$("#modalMap").css("display","none");
 	   		
 	   	});
+	   $(this).on("click","#modalBdClose",function(){
+	         $('#cardDetail').modal('hide');
+	      });
 	   $(this).on("click","#dateInsert",function(){
 	          $("#dateDiv").css("display","none");
 	          var title = $('#glypTitle').text();
-	          
+	          var id = $('#cardNo').val();
 	          var startDate= $('#sdate').val();
 	          var endDate=$('#edate').val();
-	       
-	          
+	       	  var labelColor = $('#labelColor').css("background-color");
+	       	  alert(labelColor);
+	       	  var cardno = $('#cardNo').val();
+	       	  $('#calendar').fullCalendar( 'removeEvents', cardno);
 	          var events=new Array();     
 	          event = new Object();       
 	          event.title = title; 
 	          event.start = startDate;    // its a date string
 	          event.end = endDate;
+	          event.id =  id;
 	          if(labelColor==null){
 	          event.color = "green";
 	          }else{
@@ -854,13 +879,14 @@ background: #BCF12A;
 	          }
 	          event.allDay = false;
 	          events.push(event);
+	          
 	          $('#calendar').fullCalendar('addEventSource',events);
 	          $('#modalDate').empty();
-	          $('#modalDate').append("<span class='glyphicon glyphicon-calendar'>일정날짜</span><div id='sdateDiv'> <b>시작일 </b>: "+startDate+"</div>");
+	          $('#modalDate').append("<span class='glyphicon glyphicon-calendar'>일정날짜</span><div id='sdateDiv'> <b id='startD'>시작일 </b>: "+startDate+"</div>");
 	          if(endDate!=""){
-	             $('#modalDate').append("<div id='edateDiv'> <b>종료일 </b>: "+endDate+"</div>");
+	             $('#modalDate').append("<div id='edateDiv'> <b id='endD'>종료일 </b>: "+endDate+"</div>");
 	          }
-	          var cardno = $('#cardNo').val();
+	          
 	          
 	          $.ajax({
 	              url:'dateUpdate.do',

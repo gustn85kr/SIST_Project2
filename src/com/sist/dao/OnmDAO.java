@@ -85,6 +85,22 @@ public class OnmDAO {
 	public static void cardLabelUpdate(CardVO vo){
 		SqlSession session = ssf.openSession(true);
 		session.update("cardLabelUpdate",vo);
+		session.close();
+	}
+	public static void cardContentUpdate(CardVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.update("cardContentUpdate",vo);
+		session.close();
+	}
+	public static void cardPriorityUpdate(CardVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.update("cardPriorityUpdate",vo);
+		session.close();
+	}
+	public static void cardOpenUpdate(CardVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.update("cardOpenUpdate",vo);
+		session.close();
 	}
 	
 	public static void dateDrag(CardVO vo) {

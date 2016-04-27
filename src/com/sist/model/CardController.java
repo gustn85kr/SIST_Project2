@@ -33,7 +33,6 @@ public class CardController {
 		vo.setNo(Integer.parseInt(no));
 		vo.setStartdate(start);
 		vo.setEnddate(end);
-		System.out.println(start+"####"+end);
 		OnmDAO.cardDateUpdate(vo);
 		return "ajax";
 	}
@@ -52,19 +51,55 @@ public class CardController {
 	
 	@RequestMapping("dateDrag.do")
 	public String dateDrag(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		HttpSession session = req.getSession();
 		String startdate = req.getParameter("startdate");
 		String enddate = req.getParameter("enddate"); 
-
-
+		String no = req.getParameter("no");
+		System.out.println("yes:"+no);
 		CardVO vo = new CardVO();
 		vo.setStartdate(startdate);
 		vo.setEnddate(enddate);
-		vo.setUserno((int) session.getAttribute("logUserno"));
+		vo.setNo(Integer.parseInt(no));
 		OnmDAO.dateDrag(vo);
-
 
 		return "ajax";
 	}
-
+	@RequestMapping("contentUpdate.do")
+	public String contentUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CardVO vo = new CardVO();
+		String no = req.getParameter("no");
+		String content = req.getParameter("content");
+		vo.setNo(Integer.parseInt(no));
+		String aData = HashingHTML.strTohtml(content);
+		vo.setContent(aData);
+		OnmDAO.cardContentUpdate(vo);
+		
+		return "ajax";
+	}
+	@RequestMapping("priorityUpdate.do")
+	public String priorityUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CardVO vo = new CardVO();
+		String no = req.getParameter("no");
+		String op1 = req.getParameter("op1");
+		String op2 = req.getParameter("op2");
+		vo.setNo(Integer.parseInt(no));
+		vo.setPriority1(op1);
+		vo.setPriority2(op2);
+		OnmDAO.cardPriorityUpdate(vo);
+		
+		return "ajax";
+	}
+	@RequestMapping("openUpdate.do")
+	public String openUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CardVO vo = new CardVO();
+		String no = req.getParameter("no");
+		String open = req.getParameter("open");
+		
+		vo.setNo(Integer.parseInt(no));
+		vo.setDone(open);
+		
+		OnmDAO.cardOpenUpdate(vo);
+		
+		return "ajax";
+		
+	}
 }
