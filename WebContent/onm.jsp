@@ -357,8 +357,8 @@ background: #BCF12A;
 			theme: true,
 			header: {
 				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
+				center: 'title'
+				,right: 'month'
 			},
 			defaultDate: '2016-04-02',
 			selectable: true,
@@ -920,7 +920,7 @@ background: #BCF12A;
 		$(this).on("click","#fileDelete",function(){
 			$("#fileUpDiv").css('display','none');
 		});
-	    $(this).ready(function(){
+/* 	    $(this).ready(function(){
 	        function readURL(input) {
 	            if (input.files && input.files[0]) {
 	                var reader = new FileReader();
@@ -933,7 +933,7 @@ background: #BCF12A;
 	  	       $("#upload").change(function(){
 	  	    	   readURL(this);
 	        });
-	     });
+	     }); */
 	    
 	    $(this).on("click","#addchecklist",function(){
 			$('#checkready').append("<textarea cols='30' rows='1' id='chetext'></textarea>");

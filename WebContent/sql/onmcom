@@ -1,0 +1,16 @@
+DROP table onmmcom;
+DROP SEQUENCE seq_ocm;
+
+CREATE TABLE onmcomm(
+no NUMBER CONSTRAINT ocm_no_pk primary key,
+cardno NUMBER,
+function NUMBER,
+commreg DATE DEFAULT SYSDATE,
+cardcomm CLOB,
+CONSTRAINT ocm_cardno_fk FOREIGN KEY (cardno) REFERENCES onmcard(no)
+);
+
+CREATE SEQUENCE seq_ocm
+	START WITH 1
+	INCREMENT BY 1;
+commit;
