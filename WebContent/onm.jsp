@@ -111,7 +111,7 @@ body{
 }
  
  .listTitleBtn, .listTitleCancel{
-       float:right;
+       float:left;
        background: #fff;
    	   border: #fff;
  }
@@ -546,7 +546,9 @@ background: #BCF12A;
   	          revertDuration: 0
   	    });
   	    $(this).on("click",".footText",function(){
+  			$('.footText').show();
   			$(this).css('display', 'none');
+  			$('.footInput').hide();
   			$(this).siblings(".footInput").css('display', 'inline'); 
   			$(this).siblings('.footInput').find('textarea').focus();
   		});
@@ -591,6 +593,12 @@ background: #BCF12A;
 	      
  			
   		});
+  	  $(this).on("click",".cardCancel",function(){ 
+  		  
+  		  $('.footText').show();
+  		  $(this).parents('.footInput').hide();
+  		  
+  	  });
   	    $(this).on("click",".addListBtn",function(){
   	    	/*  var listTitle =""; */
   	    	$(this).css('display','none');
@@ -642,7 +650,7 @@ background: #BCF12A;
 	      	  	
 	      	 	 $('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span><img src='calendar/images/createlist.png' ></span></div> "+
 	   	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='List Title'/> "+
-	   	  			    "<input type='button' value='취소' class='listTitleCancel' /><input type='button' value='추가' class='listTitleBtn' />"+
+	   	  			    "<input type='button' value='추가' class='listTitleBtn' /> <input type='button' value='취소' class='listTitleCancel' />"+
 	     				"</div><div>");
 	    			$("#timetable .items").sortable({
 	    	            connectWith: "ul"  
