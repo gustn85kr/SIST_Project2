@@ -438,12 +438,12 @@ $(document).ready(function(){
             
             
             
-              $('#sdate').datepicker();
+              $('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
                 $('#sdate').datepicker("option", "maxDate", $("#edate").val());
                 $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
                     $("#edate").datepicker( "option", "minDate", selectedDate );
                 });
-                $('#edate').datepicker();
+                $('#edate').datepicker({ dateFormat: 'yy/mm/dd'});
                 $('#edate').datepicker("option", "minDate", $("#sdate").val());
                 $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
                     $("#sdate").datepicker( "option", "maxDate", selectedDate );
@@ -745,8 +745,21 @@ $(document).ready(function(){
          $('#modalLabel').empty();
       });
       $(this).on("click","#labelInsert",function(){
-          $('#modalLabel').empty();
+    	  var cardno = $('#cardNo').val();
+    	  $('#modalLabel').empty();
           labelColor = $(':radio[name="option10"]:checked').val();
+    	  $.ajax({
+                url:'labelUpdate.do',
+                type:'post',
+                dataType:"json",
+                data:{
+                		"label" : labelColor,
+              	  		"no":cardno},
+                success:function(data){
+                   /* alert("Yes"); */
+                }
+          });
+    	  
          $('#modalLabel').append("<span class='glyphicon glyphicon-tags'>라벨</span><br/><div style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
       });
       
@@ -792,6 +805,19 @@ $(document).ready(function(){
           if(endDate!=""){
              $('#modalDate').append("<div id='edateDiv'> <b>종료일 </b>: "+endDate+"</div>");
           }
+          var cardno = $('#cardNo').val();
+          
+          $.ajax({
+              url:'dateUpdate.do',
+              type:'post',
+              dataType:"json",
+              data:{"start":startDate,
+            	  		"end":endDate,
+            	  		"no":cardno},
+              success:function(data){
+                 /* alert("Yes"); */
+              }
+      });
        });
        $(this).on("click",".listDelete",function(){
           if (confirm('해당 리스트를 삭제 하시겠습니까?')) {
@@ -981,7 +1007,6 @@ function resize(obj) {
             </div>       
          </div>
           <div class="col-md-6 half" id ='cardList' >
-         <div style="clear:both"><button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button></div>
          <div id="timetable" style="float:left;max-width:7000px; margin-top:50px;">
             
              <div style="text-align:center">
@@ -1048,41 +1073,7 @@ function resize(obj) {
 
  
   </div>  
-    <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
-          <form role="form">
-            <div class="form-group">
-              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" id="usrname" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="text" class="form-control" id="psw" placeholder="Enter password">
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="" checked>Remember me</label>
-            </div>
-              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-          <p>Not a member? <a href="#">Sign Up</a></p>
-          <p>Forgot <a href="#">Password?</a></p>
-        </div>
-      </div>
-      
-    </div>
-  </div>        
+        
 </body>
       <!-- JS Global Compulsory -->
       

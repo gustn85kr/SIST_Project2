@@ -25,5 +25,29 @@ public class CardController {
 		res.getWriter().write(String.valueOf(cnt));
 		return "ajax";
 	}
+	@RequestMapping("dateUpdate.do")
+	public String dateUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CardVO vo = new CardVO();
+		String no = req.getParameter("no");
+		String start = req.getParameter("start");
+		String end = req.getParameter("end");
+		vo.setNo(Integer.parseInt(no));
+		vo.setStartdate(start);
+		vo.setEnddate(end);
+		System.out.println(start+"####"+end);
+		OnmDAO.cardDateUpdate(vo);
+		return "ajax";
+	}
+	@RequestMapping("labelUpdate.do")
+	public String labelUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CardVO vo = new CardVO();
+		String no = req.getParameter("no");
+		String label = req.getParameter("label");
+		
+		vo.setNo(Integer.parseInt(no));
+		vo.setLabel(label);
+		OnmDAO.cardLabelUpdate(vo);
+		return "ajax";
+	}
 
 }

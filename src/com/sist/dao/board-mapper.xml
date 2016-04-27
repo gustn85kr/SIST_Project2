@@ -69,10 +69,18 @@
 	</select>
 	 <!-- 카드 정보 출력 -->
 	<select id="getCardInfo" resultType="Ocard" parameterType="int">
-		SELECT no,userno,title,regdate FROM onmcard WHERE no=#{no}
+		SELECT no,userno,title,startdate,enddate,regdate,label FROM onmcard WHERE no=#{no}
 	</select>
 	<!-- onm.jsp 호출시 card date 출력 -->
     <select id="loadCard" resultType="Ocard" parameterType="int">
        SELECT startdate,enddate,title FROM onmcard WHERE userno=#{userno}
     </select>
+    <!-- card date Update -->
+    <update id="cardDateUpdate" parameterType="Ocard">
+    	UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE no=#{no}
+    </update>
+    <!-- card label update -->
+    <update id="cardLabelUpdate" parameterType="Ocard">
+    	UPDATE onmcard SET label=#{label} WHERE no=#{no}
+    </update>
 </mapper>

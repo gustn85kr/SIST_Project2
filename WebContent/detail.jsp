@@ -279,12 +279,23 @@ padding:5px;
 			</div>
 			<div class="col-sm-9">
 				<div id="modalTitle">
+					<input type="hidden" id="cardNo" value="${card.no}"/>
 					<span class="glyphicon glyphicon-list-alt" id="glypTitle"> ${card.title}</span><span id="listName">${card.regdate}</span>
 					<div id="modalDate">
+					<c:if test="${card.startdate!=null}">
+						<span class='glyphicon glyphicon-calendar'>일정날짜</span>
+						<div id='sdateDiv'> <b>시작일 </b>: ${card.startdate}</div>
+					</c:if>
+					<c:if test="${card.enddate!=null}">
+						<div id='edateDiv'> <b>종료일 </b>: ${card.enddate}</div>
+					</c:if>
 					</div>
 					<div id="modalPriority">
 					</div>
 					<div id="modalLabel">
+					<c:if test="${card.label!=null}">
+						<span class='glyphicon glyphicon-tags'>라벨</span><br/><div style='width:50px; background-color:${card.label} '>&nbsp;</div>
+					</c:if>
 					</div>
 					<div id="modalTextarea">
 						<div id="contentText" style="font: bold;"><img src="calendar\images\text-icon.png" style="text-align:left;font-size:20px;">&nbsp;&nbsp;일정내용<span id="insertContent" data-toggle="tooltip" title="일정 내용 수정">  수정  </span></div>
@@ -502,7 +513,7 @@ padding:5px;
                      </label>
             
                      <label class="btn btn-warning" style="background-color: #1D8947">
-                        <input type="radio" name="option10" id="option10" autocomplete="off" value="green">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="#1D8947">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
                      <label class="btn btn-warning" style="background-color: pink">
@@ -510,7 +521,7 @@ padding:5px;
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
                      <label class="btn btn-warning" style="background-color: #019AE6">
-                        <input type="radio" name="option10" id="option10" autocomplete="off" value="blue">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="#019AE6">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
                   </div> 

@@ -72,10 +72,19 @@ public class OnmDAO {
 
 	public static List<CardVO> loadCard(int userno) {
 		SqlSession session = ssf.openSession();
-		System.out.println("dao userno:" + userno);
 		List<CardVO> list = new ArrayList<CardVO>();
 		list = session.selectList("loadCard", userno);
 		session.close();
 		return list;
+	}
+	public static void cardDateUpdate(CardVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.update("cardDateUpdate",vo);
+		session.close();
+	}
+	public static void cardLabelUpdate(CardVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.update("cardLabelUpdate",vo);
+		session.close();
 	}
 }
