@@ -101,7 +101,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 						<c:if test="${logNickname ne null}">
 							<li class="page-scroll home"><a href="onm.do">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;오내미로</a></li>
-							<li class="page-scroll home"><a href="#detail">
+							<li class="page-scroll home" id="userDetail"><a href="#detail">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}님</a></li>							
 							<li class="page-scroll home" id="myBtn3"><a href="logOutOK.do">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
@@ -363,7 +363,7 @@ style="z-index: 6">
 				<div class="modal-body" style="padding: 30px 30px; height: 220px">
 						<div class="form-group">
 							<label for="usrname"><span class="glyphicon glyphicon-user"></span> 이메일</label> 
-							<input type="text" class="form-control" name="logEmail" placeholder="이메일을 입력하세요" id="logEmail" value="${emailSave }">
+							<input type="text" class="form-control" name="logEmail" placeholder="이메일을 입력하세요" id="logEmail" value="${emailSave }" width="200px">
 						</div>
 						<div class="form-group">
 							<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> 비밀번호</label> 
@@ -381,12 +381,9 @@ style="z-index: 6">
 					<button type="button" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="margin: 10px; margin-left: 15px">
 						<span class="glyphicon glyphicon-remove"></span>취 소
 					</button>
-					<p style="float: right; margin: 10px; height: 30px">
+					<p style="float: right; margin: 10px; height: 30px" id="pwdSearch2">
 						비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
-					</p>
-					<p style="float: right; margin: 10px; height: 30px;">
-						이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
-					</p>					
+					</p>			
 				</div>
 				</form>
 			</div>
@@ -424,30 +421,30 @@ style="z-index: 6">
 							<label for="nickname">
 							<span class="glyphicon glyphicon-apple"></span> 닉네임</label>
 							<input type="text" class="pwd form-control" id="nickname" name="nickname"
-								placeholder="사용하실 대화명을 입력하세요.">
+								placeholder="사용하실 대화명을 입력하세요.(4자리 이상)">
 						</div>
 						<div class="form-group" id="divPwd">
 							<label for="psw">
 							<span class="glyphicon glyphicon-eye-open"></span> 1차 비밀번호</label>
 							<input type="password" class="pwd form-control" id="pwd" name="pwd"
-								placeholder="1차 비밀번호를 입력하세요">
+								placeholder="1차 비밀번호를 입력하세요(4자리 이상)">
 						</div>
 						<div class="form-group" id="divPwd2">
 							<label for="psw"><span
 								class="glyphicon glyphicon-eye-open"></span> 2차 비밀번호</label> <input
 								type="password" class="form-control" id="pwd2" name="pwd2"
-								placeholder="2차 비밀번호를 입력하세요">
+								placeholder="2차 비밀번호를 입력하세요(4자리 이상)">
 						</div>
 						<div class="form-group" style="float:left; width : 75%" id="divCheckNum">
 							<label for="checknum"><span	class="glyphicon glyphicon-envelope"></span> 인증번호</label> 
 							<input type="text" class="form-control" id="inputCheckNum" name="inputCheckNum" placeholder="인증번호를 입력하세요">
 						</div>
-						<div class="form-group" style="float: right; margin-top: 25px" id="divCheckConfirm">
-							<button type="button" class="btn btn-primary btn-block" id="checkconfirm" name="inputCheckNum">
+						<div class="form-group" style="float: right; margin-top: 25px" id="divCheckConfirm" >
+							<button type="button" class="btn btn-primary btn-block" id="checkConfirm" name="checkConfirm">
 								<span class="glyphicon glyphicon-ok"></span>확인
 							</button>
 						</div>
-						<div class="form-group" style="float: right; margin-top: 25px; margin-right: 20px" id="divSendCheckNum">
+						<div class="form-group" style="float: right; margin-top: 25px; margin-right: 20px" id="divinputCheckNum">
 							<button type="button" class="btn btn-primary btn-block"	id="sendCheckNum">
 								<span class="glyphicon glyphicon-envelope"></span>인증
 							</button>
@@ -464,9 +461,6 @@ style="z-index: 6">
 					<p style="float: right; margin: 10px; height: 30px" id="pwdSearch">
 						비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
 					</p>
-					<p style="float: right; margin: 10px; height: 30px">
-						이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
-					</p>
 				</div>
 				</form>
 			</div>
@@ -480,7 +474,7 @@ style="z-index: 6">
 			<!-- Modal content-->
 			<div class="modal-content">
 			<form class="form-horizontal" method="POST" id="searchFrm">
-				<div class="modal-header" style="padding: 30px 30px;">
+				<div class="modal-header" style="padding: padding: 30px 30px;">
 					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
@@ -488,7 +482,7 @@ style="z-index: 6">
 						<span class="glyphicon glyphicon-lock"></span> 비밀번호 찾기
 					</h4>
 				</div>
-				<div class="modal-body" style="padding: 30px 30px; height: 220px">
+				<div class="modal-body" style="padding: 30px 30px;height: 185px">
 						<div class="form-group">
 							<label for="usrname"><span class="glyphicon glyphicon-user"></span> 이메일</label> 
 							<input type="text" class="form-control" name="searchEmail" placeholder="이메일을 입력하세요" id="searchEmail" value="${emailSave }">
@@ -505,194 +499,354 @@ style="z-index: 6">
 					</button>	
 					<button type="button" class="btn btn-danger btn-default pull-left" data-dismiss="modal" style="margin: 10px; margin-left: 15px">
 						<span class="glyphicon glyphicon-remove"></span>취 소
-					</button>
-					<p style="float: right; margin: 10px; height: 30px">
-						비밀번호<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
-					</p>
-					<p style="float: right; margin: 10px; height: 30px;">
-						이메일<a href="#"> 찾기 </a><span class="glyphicon glyphicon-search"></span>
-					</p>					
+					</button>					
 				</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-		<script>	
-		$(document).ready(function() {
-			//로그인 Modal 실행 (아이디 저장까지)
-			$("#myBtn1").click(function() {
-				//var logEmail = $('#logEmail').val("");
-				var logPwd = $('#logPwd').val("");
-				var logNickname = $('#logNickname').val("");
-				$.ajax({
-                    url:'emailSaveGet.do',
-                    type:'post',
-                    data:$('#logFrm').serialize(),
-                    success:function(data){
-                    	var logEmail = $('#logEmail').val(data);
-        				if(data !="")
-                    		$('#logSave').attr('checked',true);
-        				else
-        					$('#logSave').attr('checked',false);
-                    }
-	         	});
-				$("#LoginModal").modal();
-			});			
-			
-			//회원가입 창 액션
-			$("#myBtn2").click(function() {
-				$("#SignUpModal").modal();
-			});	
-			//비밀번호 찾기 창 액션
-			$("#pwdSearch").click(function() {
-				$('#SignUpModal').modal('toggle');
-				var searchEmail = $('#searchEmail').val("");
-				var searchNickname = $('#searchNickname').val("");
-				$("#searchModal").modal();
-			});	
-			
-	         //아이디 중복확인 액션
-	        $('#emailCheck').click(function() {
-	        	$.ajax({
-	            	url:'emailCheckOK.do',
-		            type:'post',
-		            data:$('#Frm').serialize(),
-		            success:function(data){
-		                if(data=="0"){
-		                	$("#signYes").attr("disabled", false);
-		                    alert("사용가능한 email입니다.");
-		                }else{
-		                   alert("이미 사용중인 email입니다.");
-		                }
-	            }
-	        	});
-	   		});
-	        
-	          //회원가입 액션
-	          $('#signYes').click(function() {
-	            var email = $('#email').val();
-	            var nickname = $('#nickname').val();
-	            var pwd = $('#pwd').val();
-	            var pwd2 = $('#pwd2').val();
-	            var inputCheckNum = $('#inputCheckNum').val();
-	            if (email.trim() == "") {
-	               $('#email').focus();
-	               return;
-	            } else  if(nickname.trim() == ""){
-	               $('#nickname').focus();
-	               return;
-	            } else if (pwd.trim() == "") {
-	               $('#pwd').focus();
-	               return;
-	            } else if (pwd2.trim() == "") {
-	               $('#pwd2').focus();
-	               return;
-	            } else if (pwd.trim() == "") {
-	               $('#inputCheckNum').focus();
-	               return;
-	            } else if(pwd!=pwd2){
-	               alert("비밀번호가 다릅니다");
-	               $('#pwd2').val("");
-	               $('#pwd2').focus();
-	               return;
-	            } else {
-	               $.ajax({
-	                       url:'joinOK.do',
-	                       type:'post',
-	                       data:$('#Frm').serialize(),
-	                       success:function(data){
-	                          alert("회원가입이 완료되었습니다.");
-	                          $('#SignUpModal').modal('toggle');
-	                          $('#email').val("");
-	                          $('#nickname').val("");
-	                          $('#pwd').val("");
-	                          $('#pwd2').val("");
-	                          $('#inputCheckNum').val("");
-	                       } 
-	                 });
-	            }
-	            });
-	          
-	          //로그인 액션
-	         $('#logYes').click(function() {
-	            var logEmail = $('#logEmail').val();
-	            var logPwd = $('#logPwd').val();
-	            var logSave = $('#logSave').val();
-	            if (logEmail.trim() == "" || logEmail.trim()==null) {
-	               alert("Email을 입력해주세요.");
-	               $('#logEmail').focus();
-	               return;
-	            } else if (logPwd.trim() == "") {
-	               alert("비밀번호를 입력해주세요.");
-	               $('#logPwd').focus();               
-	               return;
-	            } else {
-	               $.ajax({
-	                       url:'loginOK.do',
-	                       type:'post',
-	                       data:$('#logFrm').serialize(),
-	                       success:function(data){                  
-	                          if(data=="noemail"){
-	                             alert("E-Mail이 존재하지 않습니다.");
-	                             $('#logEmail').val("");
-	                             return;
-	                          } else if(data=="nopwd"){
-	                             alert("비밀번호가 틀립니다.");
-	                             $('#logPwd').val("");
-	                             return;
-	                          } else {
-	                        	 alert("로그인 성공");
-	                             $('#logEmail').val("");
-	                             $('#logPwd').val("");
-	                             $('#LoginModal').modal('toggle');
-	                             location.href="onm.do";
-	                          }
-	              		  } 
-	               	});
-	            }
-	         });
-	          
-	         $('#logYes').click(function() {
-        	   	if($('#logSave').attr('checked')) {
-		      		$.ajax({
-	                       url:'emailSaveOK.do',
-	                       type:'post',
-	                       data:$('#logFrm').serialize(),
-	                       success:function(data){
-	                       }
-		            });
-		    	} else{
-		    		$.ajax({
-	                       url:'emailSaveOK.do',
-	                       type:'post',
-	                       data:$('#logFrm').serialize(),
-	                       success:function(data){
-	                       }
-		            });
-		    	}
-	         });
-	   
-	         //로그인 아이디 저장 액션
-	         $('#logSave').click(function() {
-	            var logSave = $('#logSave').val();
-	            if($('#logSave').attr('checked')) {
-	                  alert("개인 컴퓨터가 아닐시 개인정보 유출에 위험이 있을 수 있습니다.");     
-	            }
-	         });
-	         
-	 		//로그아웃
-			$('#myBtn3').click(function() {
-				$.ajax({
-                    url:'logOutOK.do',
-                    type:'post',
-                    data:$('#logFrm').serialize(),
-                    success:function(data){
-                    	alert("성공적으로 로그아웃 되었습니다");
-                    }
-	        	});
-			});		
-		});
-	</script>
+	<!-- 회원정보 변경 모달  -->
+	<!-- Modal -->
+	<div class="modal fade" id="UserInfoChangeModal" role="dialog"  tabindex="-1" aria-labelledby="modal-login-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="padding: 30px 30px;">
+					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4>
+						<span class="glyphicon glyphicon-user"></span> 회원정보 변경
+					</h4>
+					
+				</div>
+				<form class="form-horizontal" method="POST" id="changeFrm" name="changeFrm">
+					<div class="modal-body" style="padding:40px 50px;height: 410px;">
+						<div class="form-group" id="divEmail" >
+							<label for="email"><span class="glyphicon glyphicon-user"></span> 이메일</label>
+							<input type="text" class="email form-control" id="emailChange" name="emailChange" placeholder="이메일을 입력하세요" value=${logEmail }>
+						</div>						
+						<div class="form-group" id="divNickname">
+							<label for="nickname">
+							<span class="glyphicon glyphicon-apple"></span> 닉네임</label>
+							<input type="text" class="pwd form-control" id="nicknameChange" name="nicknameChange" placeholder="사용하실 대화명을 입력하세요.(4자리 이상)" value=${logNickname }>
+						</div>
+						<div class="form-group" id="divPwd">
+							<label for="psw">
+							<span class="glyphicon glyphicon-eye-open"></span> 기존 비밀번호</label>
+							<input type="password" class="pwd form-control" id="pwdChange" name="pwdChange"
+								placeholder="기존 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+						<div class="form-group" id="divNewPwd">
+							<label for="psw"><span
+								class="glyphicon glyphicon-eye-open"></span> 새 비밀번호</label> <input
+								type="password" class="form-control" id="newPwdChange" name="newPwdChange"
+								placeholder="새 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+						<div class="form-group" id="divNewPwd2">
+							<label for="checknum"><span	class="glyphicon glyphicon-eye-open"></span> 새 비밀번호 확인</label> 
+							<input type="password" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+					</div>
+				<div class="modal-footer">
+					<button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px">
+						<span class="glyphicon glyphicon-plus"></span>완 료
+					</button>
+					<button type="button" class="btn btn-danger btn-default pull-left"
+						data-dismiss="modal" value="Input Button" style="margin: 10px">
+						<span class="glyphicon glyphicon-remove"></span>취 소
+					</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+			<script>	
+			$(document).ready(function() {
+				//로그인 Modal 실행 (아이디 저장까지)
+				$("#myBtn1").click(function() {
+					//var logEmail = $('#logEmail').val("");
+					var logPwd = $('#logPwd').val("");
+					var logNickname = $('#logNickname').val("");
+					$.ajax({
+						url : 'emailSaveGet.do',
+						type : 'post',
+						data : $('#logFrm').serialize(),
+						success : function(data) {
+							var logEmail = $('#logEmail').val(data);
+							if (data != "")
+								$('#logSave').attr('checked', true);
+							else
+								$('#logSave').attr('checked', false);
+						}
+					});
+					$("#LoginModal").modal();
+				});
+
+				//회원가입 창 액션
+				$("#myBtn2").click(function() {
+					$("#SignUpModal").modal();
+				});
+				
+				//비밀번호 찾기 창 액션
+				$("#pwdSearch").click(function() {
+					$('#SignUpModal').modal('toggle');
+					var searchEmail = $('#searchEmail').val("");
+					var searchNickname = $('#searchNickname').val("");
+					$("#searchModal").modal();
+				});
+				$("#pwdSearch2").click(function() {
+					$('#LoginModal').modal('toggle');
+					var searchEmail = $('#searchEmail').val("");
+					var searchNickname = $('#searchNickname').val("");
+					$("#searchModal").modal();
+				});
+				
+				//비밀번호 변경 창 액션
+				$("#userDetail").click(function() {
+					var emailChange = $('#emailChange').val();
+					//$('#emailChange').attr('disabled', true);
+					var nicknameChange = $('#nicknameChange').val();
+					var pwdChange = $('#pwdChange').val("");
+					var newPwdChange = $('#newPwdChange').val("");
+					var newPwdChange2 = $('#newPwdChange2').val("");
+					$("#UserInfoChangeModal").modal();
+				});
+				
+				//아이디 중복확인 액션
+				$('#emailCheck').click(function() {
+					$.ajax({
+						url : 'emailCheckOK.do',
+						type : 'post',
+						data : $('#Frm').serialize(),
+						success : function(data) {
+							if (data == "0") {
+								alert("사용가능한 email입니다.");
+							} else {
+								alert("이미 사용중인 email입니다.");
+							}
+						}
+					});
+				});
+				
+				//이메일 보내기
+				$('#sendCheckNum').click(function() {
+					var email = $('#email').val();
+					if (email.trim()=="") {
+						$('#email').focus();
+						return;
+					} else {
+						alert("이메일 전송");	
+					}
+					$.ajax({
+						url : 'emailSend.do',
+						type : 'post',
+						data : $('#Frm').serialize(),
+						success : function(data) {
+							//이메일 전송완료
+						}
+					});
+				});
+				
+				//이메일 인증확인 액션
+				$('#checkConfirm').click(function() {
+					$.ajax({
+						url : 'checkConfirm.do',
+						type : 'post',
+						data : $('#Frm').serialize(),
+						success : function(data) {
+							if(data=="ok"){
+								alert("인증번호가 확인되었습니다.")
+								$("#signYes").attr("disabled", false);	
+							} else {
+								alert("인증번호가 틀립니다.");
+							}
+						}
+					});
+				});
+
+				//회원가입 액션
+				$('#signYes').click(function() {
+					var email = $('#email').val();
+					var nickname = $('#nickname').val();
+					var pwd = $('#pwd').val();
+					var pwd2 = $('#pwd2').val();
+					var inputCheckNum = $('#inputCheckNum').val();
+					if (email.trim() == "" || email.length < 10) {
+						$('#email').focus();
+						return;
+					} else if (nickname.trim() == "" || nickname.length <4) {
+						$('#nickname').focus();
+						return;
+					} else if (pwd.trim() == "" || pwd.length <4) {
+						$('#pwd').focus();
+						return;
+					} else if (pwd2.trim() == "" || pwd2.length <4) {
+						$('#pwd2').focus();
+						return;
+					} else if (inputCheckNum.trim() == "" || inputCheckNum.length <6) {
+						$('#inputCheckNum').focus();
+						return;
+					} else if (pwd != pwd2) {
+						alert("비밀번호가 다릅니다");
+						$('#pwd2').val("");
+						$('#pwd2').focus();
+						return;
+					} else {
+						$.ajax({
+							url : 'joinOK.do',
+							type : 'post',
+							data : $('#Frm').serialize(),
+							success : function(data) {
+								alert("회원가입이 완료되었습니다.");
+								$('#SignUpModal').modal('toggle');
+								$('#email').val("");
+								$('#nickname').val("");
+								$('#pwd').val("");
+								$('#pwd2').val("");
+								$('#inputCheckNum').val("");
+							}
+						});
+					}
+				});
+
+				//로그인 액션
+				$('#logYes').click(function() {
+					var logEmail = $('#logEmail').val();
+					var logPwd = $('#logPwd').val();
+					var logSave = $('#logSave').val();
+					if (logEmail.trim() == "" || logEmail.trim() == null) {
+						alert("Email을 입력해주세요.");
+						$('#logEmail').focus();
+						return;
+					} else if (logPwd.trim() == "") {
+						alert("비밀번호를 입력해주세요.");
+						$('#logPwd').focus();
+						return;
+					} else {
+						$.ajax({
+							url : 'loginOK.do',
+							type : 'post',
+							data : $('#logFrm').serialize(),
+							success : function(data) {
+								if (data == "noemail") {
+									alert("E-Mail이 존재하지 않습니다.");
+									$('#logEmail').val("");
+									return;
+								} else if (data == "nopwd") {
+									alert("비밀번호가 틀립니다.");
+									$('#logPwd').val("");
+									return;
+								} else if (data == "already") {
+									alert("이미 로그인 되어있습니다.")
+									$('#logPwd').val("");
+								} else {
+									alert("로그인 성공");
+									$('#logEmail').val("");
+									$('#logPwd').val("");
+									$('#LoginModal').modal('toggle');
+									location.href = "onm.do";
+								}
+							}
+						});
+					}
+				});
+
+				// 로그인 시 아이디 저장하는 액션
+				$('#logYes').click(function() {
+					if ($('#logSave').attr('checked')) {
+						$.ajax({
+							url : 'emailSaveOK.do',
+							type : 'post',
+							data : $('#logFrm').serialize(),
+							success : function(data) {
+							}
+						});
+					} else {
+						$.ajax({
+							url : 'emailSaveOK.do',
+							type : 'post',
+							data : $('#logFrm').serialize(),
+							success : function(data) {
+							}
+						});
+					}
+				});
+
+				//로그인 아이디 저장 액션
+				$('#logSave').click(function() {
+					var logSave = $('#logSave').val();
+					if ($('#logSave').attr('checked')) {
+						alert("개인 컴퓨터가 아닐시 개인정보 유출에 위험이 있을 수 있습니다.");
+					}
+				});
+
+				//로그아웃
+				$('#myBtn3').click(function() {
+					$.ajax({
+						url : 'logOutOK.do',
+						type : 'post',
+						data : $('#logFrm').serialize(),
+						success : function(data) {
+							alert("성공적으로 로그아웃 되었습니다");
+						}
+					});
+				});
+				
+				//비밀번호 찾기 액션
+				$('#searchYes').click(function(){
+					alert("정확히 입력하셨다면, 이메일을 확인해보세요.")
+					$.ajax({
+						url : 'searchPwdOK.do',
+						type : 'post',
+						data : $('#searchFrm').serialize(),
+						success : function(data) {
+						}
+					});
+				});
+				
+				//비밀번호 변경 액션
+				$('#changeYes').click(function(){
+					var emailChange = $('#emailChange').val();
+					var nicknameChange = $('#nicknameChange').val();
+					var pwdChange = $('#pwdChange').val();
+					var newPwdChange = $('#newPwdChange').val();
+					var newPwdChange2 = $('#newPwdChange2').val();
+				 	if (nicknameChange.trim() == "" || nicknameChange.length <4) {
+						$('#nicknameChange').focus();
+						return;
+					} else if (pwdChange.trim() == "" || pwdChange.length <1) {
+						$('#pwdChange').focus();
+						return;
+					} else if (newPwdChange.trim() == "" || newPwdChange.length <4) {
+						$('#newPwdChange').focus();
+						return;
+					} else if(newPwdChange2.trim() =="" || newPwdChange2.length <4) {
+						$('#newPwdChange2').focus();
+						return;
+					} else if (newPwdChange.trim() != newPwdChange2.trim()){
+						$('#newPwdChange2').val("");
+						$('#newPwdChange2').focus();
+						return;
+					} else {
+						$.ajax({
+							url : 'changeUserInfoOK.do',
+							type : 'post',
+							data : $('#changeFrm').serialize(),
+							success : function(data) {
+								if(data.length>0){
+									alert("기존 비밀번호가 틀립니다.");
+								} else {
+									alert("회원정보 변경완료");
+									$('#UserInfoChangeModal').modal('toggle');
+								}
+							}
+						});						
+					}
+				});
+			});
+		</script>
 </body>
 </html>

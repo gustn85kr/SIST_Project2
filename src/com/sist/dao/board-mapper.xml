@@ -21,8 +21,24 @@
 	<!-- 로그인 시 Session에 저장할 값들을 가져오는 SQL -->
 	<select id="logCheck" parameterType="User" resultType="User">
 		SELECT
-		no,nickname,pwd FROM ONMUSER WHERE email=#{email}
+		no,nickname,pwd,email FROM ONMUSER WHERE email=#{email}
 	</select>
+	
+	<!-- 비밀번호 찾기  -->
+	<select id="searchPwd" parameterType="User" resultType="String">
+		SELECT pwd FROM ONMUSER WHERE email=#{email} and nickname=#{nickname}
+	</select>
+	
+	<!-- 회원정보 변경용 DBPWD 비교하기 -->
+	<select id="getPwd" parameterType="String" resultType="String">
+		SELECT pwd FROM ONMUSER WHERE email=#{email}
+	</select>
+	
+	<!-- 회원정보 변경 -->
+	<update id="changeUserInfo" parameterType="User">
+		UPDATE ONMUSER SET
+		nickname=#{nickname}, pwd=#{pwd} WHERE email=#{email}
+	</update>
 	
 	<!-- onm.jsp 호출시 list 출력 -->
 	<select id="listSearch" resultType="Olist" parameterType="int">
@@ -51,7 +67,7 @@
 		DELETE FROM onmlist WHERE
 		no=#{no}
 	</delete>
-	
+		
 	<!-- list 업데이트 -->
 	<update id="dragEvent" parameterType="Olist">
 		UPDATE onmlist SET

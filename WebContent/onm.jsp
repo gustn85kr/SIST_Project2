@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-	
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
 <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/one.style.css">
 <link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
@@ -21,7 +21,7 @@
 <link href="calendar/fullcalendar.css" rel="stylesheet" />
 <link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
-  	
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  	
 <script src="assets/plugins/jquery/jquery.min.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="calendar/moment.min.js"></script>
@@ -157,9 +157,9 @@ font-size: 14px;
    }
    #calendar{
    }
-#cardDetail .modal-dialog {
+/* #cardDetail .modal-dialog {
 		width:75%
-	}
+	} */
 .fc-time{
    display : none;
 }
@@ -199,6 +199,15 @@ font-size: 14px;
    
 <script type="text/javascript">
 $(document).ready(function(){
+	$("#userDetail2").click(function() {
+		var emailChage = $('#emailChage').val("");
+		var nicknameChange = $('#nicknameChange').val("");
+		var pwdChange = $('#pwdChange').val("");
+		var newPwdChange = $('#newPwdChange').val("");
+		var newPwdChange2 = $('#newPwdChange2').val("");
+		$("#PwdChageModal").modal();
+	});
+	
 	var labelColor=null;
 	
 		$('#calendar').fullCalendar({
@@ -735,6 +744,68 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 </script>
 <title>오늘 일을 내일로 미루자</title>
 </head>
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+	<!-- 회원정보 변경 모달  -->
+	<!-- Modal -->
+	<div class="modal fade" id="PwdChageModal" role="dialog"  tabindex="-1" aria-labelledby="modal-login-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="padding: 30px 30px;">
+					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4>
+						<span class="glyphicon glyphicon-user"></span> 회원정보 변경
+					</h4>
+					
+				</div>
+				<form class="form-horizontal" method="POST" id="chageFrm" name="chageFrm">
+					<div class="modal-body" style="padding:40px 50px;height: 410px;">
+						<div class="form-group" id="divEmail" >
+							<label for="email"><span class="glyphicon glyphicon-user"></span> 이메일</label>
+							<input type="text" class="email form-control" id="emailChage" name="emailChage" placeholder="이메일을 입력하세요">
+						</div>						
+						<div class="form-group" id="divNickname">
+							<label for="nickname">
+							<span class="glyphicon glyphicon-apple"></span> 닉네임</label>
+							<input type="text" class="pwd form-control" id="nicknameChange" name="nicknameChange"
+								placeholder="사용하실 대화명을 입력하세요.(4자리 이상)">
+						</div>
+						<div class="form-group" id="divPwd">
+							<label for="psw">
+							<span class="glyphicon glyphicon-eye-open"></span> 기존 비밀번호</label>
+							<input type="password" class="pwd form-control" id="pwdChange" name="pwdChange"
+								placeholder="기존 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+						<div class="form-group" id="divNewPwd">
+							<label for="psw"><span
+								class="glyphicon glyphicon-eye-open"></span> 새 비밀번호</label> <input
+								type="password" class="form-control" id="newPwdChange" name="newPwdChange"
+								placeholder="새 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+						<div class="form-group" id="divNewPwd2">
+							<label for="checknum"><span	class="glyphicon glyphicon-eye-open"></span> 인증번호</label> 
+							<input type="text" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+					</div>
+				<div class="modal-footer">
+					<button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
+						<span class="glyphicon glyphicon-plus"></span>완 료
+					</button>
+					<button type="button" class="btn btn-danger btn-default pull-left"
+						data-dismiss="modal" value="Input Button" style="margin: 10px">
+						<span class="glyphicon glyphicon-remove"></span>취 소
+					</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+		
+
 <body id="body" data-spy="scroll" data-target=".one-page-header" class="demo-lightbox-gallery">
 	<!--=== Header ===-->
 	<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
@@ -767,7 +838,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 							<li class="page-scroll home"><a href="intro.do">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;집으로</a></li>
 							
-							<li class="page-scroll home"><a href="#detail">
+							<li class="page-scroll home" id="userDetail2"><a href="#detail">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}님</a></li>
 							
 							<li class="page-scroll home" id="myBtn3"><a href="logOutOK.do">
@@ -781,7 +852,6 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 		<!-- /.container -->
 	</nav>
 	<!--=== End Header ===-->
-
 	 <div id="sist" class="row">
 	    <div class=" col-md-6 half" id='calendar'>
         	<div id="calendar_attr">
@@ -835,11 +905,7 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
 	    				<input type="button" value="추가" class="listTitleBtn" />
 	    				<input type="button" value="취소" class="listTitleCancel" />
 	    			</div>
-	    		</div>
-	    		
-	    		
-	    		
-	    		
+	    		</div>	
 			</div>
 	    </div>
     </div>
@@ -847,12 +913,9 @@ var position = new daum.maps.LatLng(37.572730, 126.970204);
     <div class="modal-dialog">
  		<div>
  			  <jsp:include page="detail.jsp" flush="false" /> 
- 		</div>   
-
-      
+ 		</div>
     </div>
   </div>   	    
 </body>
-		<!-- JS Global Compulsory -->
-		
+		<!-- JS Global Compulsory -->		
 </html>

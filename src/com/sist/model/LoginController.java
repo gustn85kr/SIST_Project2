@@ -24,23 +24,32 @@ public class LoginController {
 		UserDTO d = UserDAO.logCheck(email);
 		if (result == 0) {
 			LogCheck = "noemail";
-		} else {
+		} else {				
 			if (d.getPwd().equals(pwd)) {
 				LogCheck = "ok";
 				// 로그인 성공시 로그인을 세션으로 보낸다.
 				session.setAttribute("logNickname", d.getNickname());
+				session.setAttribute("logEmail", d.getEmail());
 				session.setAttribute("logUserno", d.getNo());
+				//로그인 성공시 쿠키값을 넘긴다.
+				Cookie[] cookies = req.getCookies();
+				emailSave = cookies[((int)cookies.length-1)].getValue();
+				if(email!=session.getAttribute("logEmail")){
+					LogCheck="already";
+					res.getWriter().write(String.valueOf(LogCheck));
+					return "ajax";
+				} else {
+					res.getWriter().write(String.valueOf(emailSave));
+					res.getWriter().write(String.valueOf(LogCheck));
+					return "ajax";
+				}
+				
 			} else {
 				LogCheck = "nopwd";
 			}
 		}
 		// 로그인 시 로그인 종류를 보낸다
 		res.getWriter().write(String.valueOf(LogCheck));
-		
-		//로그인 성공시 쿠키값을 넘긴다.
-		Cookie[] cookies = req.getCookies();
-		emailSave = cookies[((int)cookies.length-1)].getValue();
-		res.getWriter().write(String.valueOf(emailSave));
 		return "ajax";
 	}
 	
