@@ -731,6 +731,7 @@ background: #BCF12A;
   	   $(this).on("click","#priorityBtn",function(){
   			obj = document.getElementById('priorityDiv');
 	  		if(obj.style.display == "none"){
+	  			divHide();
 	  		  	$("#priorityDiv").css('display','inline');
 	  		}else{
 	  			$("#priorityDiv").css('display','none');
@@ -759,6 +760,8 @@ background: #BCF12A;
   	  $(this).on("click","#checkBtn",function(){
   		  obj = document.getElementById('checkDiv');
   		  if(obj.style.display=="none"){
+  			  
+  			divHide();
   		  	$("#checkDiv").css("display","inline");
   		  }else{
   			$("#checkDiv").css("display","none");
@@ -777,6 +780,7 @@ background: #BCF12A;
 	    $(this).on("click","#dateBtn",function(){
 	    	 obj = document.getElementById('dateDiv');
 	    	 if(obj.style.display=="none"){
+	    		 divHide();
 	    		$("#dateDiv").css("display","inline");
 	    	 }else{
 	    		$("#dateDiv").css("display","none");
@@ -784,8 +788,10 @@ background: #BCF12A;
 	    });
 	   	$(this).on("click","#btnMap",function(){
 	   		obj = document.getElementById('mapApp');
-	   		if(obj.style.display=="none")
+	   		if(obj.style.display=="none"){
+	   			divHide();
 	   			$("#mapApp").css("display","inline");
+	   	}
 	   		else
 	   			$("#mapApp").css("display","none");
 	   		
@@ -796,6 +802,7 @@ background: #BCF12A;
 	   	$(this).on("click","#labelBtn",function(){
 	   		obj = document.getElementById('labelDiv');
 	   		if(obj.style.display=="none"){
+	   			divHide();
 	   			$("#labelDiv").css("display","inline");
 	   		}
 	   		else{
@@ -895,8 +902,10 @@ background: #BCF12A;
 	    });
 		$(this).on("click","#fileUpButton",function(){
 			obj = document.getElementById('fileUpDiv');
-	   		if(obj.style.display=="none")
+	   		if(obj.style.display=="none"){
+	   			divHide();
 	   			$("#fileUpDiv").css("display","inline");
+	   		}
 	   		else
 	   			$("#fileUpDiv").css("display","none");
 		});
@@ -966,6 +975,17 @@ function resize(obj) {
 	  obj.style.height = "1px";
 	  obj.style.height = (50+obj.scrollHeight)+"px";
 }
+
+function divHide(){
+	$('#fileUpDiv').hide();
+	$('#checkDiv').hide();
+	$('#mapApp').hide();
+	$('#priorityDiv').hide();
+	$('#labelDiv').hide();
+	$('#dateDiv').hide();	
+}//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
+
+
 
           
 </script>
