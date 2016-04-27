@@ -36,7 +36,7 @@ public class DispatcherServlet extends HttpServlet {
 				for(Method m:methods){
 					RequestMapping rm = m.getAnnotation(RequestMapping.class);
 					if(rm.value().equals(cmd)){
-						String jspName = (String)m.invoke(obj, request ,response);
+						String jspName=(String)m.invoke(obj, request ,response);
 						if(jspName.equals("ajax")){
 							return;
 						}

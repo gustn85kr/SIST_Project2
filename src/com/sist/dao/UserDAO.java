@@ -27,7 +27,7 @@ public class UserDAO{
 	
 	//회원가입 (이메일 중복확인)
 	public static int confirmEmail(String email){
-		SqlSession session=ssf.openSession();
+		 SqlSession session=ssf.openSession();
 		 int cnt=session.selectOne("confirmEmail",email);
 		 session.close();
 		 return cnt;
@@ -40,11 +40,34 @@ public class UserDAO{
 		session.close();
 		return cnt;
 	}
-	
+	//로그인 아이디, 비밀번호 체크
 	public static UserDTO logCheck(String email){
 		SqlSession session=ssf.openSession();
 		UserDTO d = session.selectOne("logCheck",email);
 		session.close();
 		return d;
+	}
+	
+	//비밀번호 찾기 
+	public static String searchPwd(UserDTO d){
+		SqlSession session=ssf.openSession();
+		String dbPwd = session.selectOne("searchPwd",d);
+		session.close();
+		return dbPwd;
+	}
+	
+	//DB비밀번호 가져오기 - 비밀번호 변경용
+	public static String getPwd(String email){
+		SqlSession session=ssf.openSession();
+		String dbPwd=session.selectOne("getPwd", email);
+		session.close();
+		return dbPwd;
+	}
+	
+	//회원정보 변경
+	public static void changeUserInfo(UserDTO d){
+		SqlSession session=ssf.openSession(true);
+		session.update("changeUserInfo",d);
+		session.close();
 	}
 }

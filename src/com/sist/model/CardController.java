@@ -21,7 +21,6 @@ public class CardController {
 		vo.setTitle(title);
 		vo.setUserno((int) session.getAttribute("logUserno"));
 		int cnt = OnmDAO.createCard(vo);
-
 		res.getWriter().write(String.valueOf(cnt));
 		return "ajax";
 	}
@@ -47,6 +46,24 @@ public class CardController {
 		vo.setNo(Integer.parseInt(no));
 		vo.setLabel(label);
 		OnmDAO.cardLabelUpdate(vo);
+		
+		return "ajax";
+	}
+	
+	@RequestMapping("dateDrag.do")
+	public String dateDrag(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		HttpSession session = req.getSession();
+		String startdate = req.getParameter("startdate");
+		String enddate = req.getParameter("enddate"); 
+
+
+		CardVO vo = new CardVO();
+		vo.setStartdate(startdate);
+		vo.setEnddate(enddate);
+		vo.setUserno((int) session.getAttribute("logUserno"));
+		OnmDAO.dateDrag(vo);
+
+
 		return "ajax";
 	}
 

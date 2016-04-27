@@ -2,7 +2,6 @@ package com.sist.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,8 +11,6 @@ import com.sist.controller.RequestMapping;
 import com.sist.dao.CardVO;
 import com.sist.dao.ListVO;
 import com.sist.dao.OnmDAO;
-import com.sist.dao.UserDAO;
-import com.sist.dao.UserDTO;
 
 @Controller("mainController")
 public class MainController {
@@ -37,10 +34,11 @@ public class MainController {
 
 		List<CardVO> clist = new ArrayList<CardVO>();
 		clist = OnmDAO.loadCard((int) session.getAttribute("logUserno"));
-
+		for(CardVO vo : clist){
+			System.out.println(vo.getTitle()+","+vo.getStartdate());
+		}
 		req.setAttribute("clist", clist);
 		req.setAttribute("list", list);
-
 		return "onm";
 	}
 
@@ -48,8 +46,8 @@ public class MainController {
 	public String detail(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String strno = req.getParameter("no");
 		int no = Integer.parseInt(strno.substring(4));
-
 		CardVO vo = OnmDAO.cardInfo(no);
+		
 		req.setAttribute("card", vo);
 		return "detail";
 	}

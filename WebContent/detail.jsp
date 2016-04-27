@@ -282,15 +282,23 @@ padding:5px;
 					<input type="hidden" id="cardNo" value="${card.no}"/>
 					<span class="glyphicon glyphicon-list-alt" id="glypTitle"> ${card.title}</span><span id="listName">${card.regdate}</span>
 					<div id="modalDate">
-					<c:if test="${card.startdate!=null}">
-						<span class='glyphicon glyphicon-calendar'>일정날짜</span>
-						<div id='sdateDiv'> <b>시작일 </b>: ${card.startdate}</div>
-					</c:if>
-					<c:if test="${card.enddate!=null}">
-						<div id='edateDiv'> <b>종료일 </b>: ${card.enddate}</div>
-					</c:if>
+						<c:if test="${card.startdate!=null}">
+							<span class='glyphicon glyphicon-calendar'>일정날짜</span>
+							<div id='sdateDiv'> <b>시작일 </b>: ${card.startdate}</div>
+						</c:if>
+						<c:if test="${card.enddate!=null}">
+							<div id='edateDiv'> <b>종료일 </b>: ${card.enddate}</div>
+						</c:if>
 					</div>
 					<div id="modalPriority">
+					<c:if test="${card.priority1!=null || card.priority2!=null}">
+					<span class='glyphicon glyphicon-star'>우선순위</span><br/>
+					<div id='priorityIf'>
+						<span style='background-color:${card.priority1}'>중요도</span>
+						<span style='background-color:${card.priority2}'>선호도</span>
+					</div>
+					</c:if>
+					
 					</div>
 					<div id="modalLabel">
 					<c:if test="${card.label!=null}">
