@@ -36,6 +36,52 @@ body{
    margin:20px;
    padding:20px;
 }
+#modalBottom{
+   border-top: 2px solid #eee;
+   margin:20px;
+   padding:20px;
+}
+#commentBox {
+    border: 2px solid rgb(173, 204, 204);
+    height: 100px;
+    width: 50%;
+    box-shadow: 0 0 27px rgb(204, 204, 204) inset;
+    transition: 500ms all ease;
+    padding: 3px 3px 3px 3px;
+}
+
+#commentBox:hover,
+#commentBox:focus {
+    width: 80%;
+    transition: 500ms all ease;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjYxRDEzQTBCMzI0MzExRTFBNDYzRkQ4Qzc3RDdBOTg5IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjYxRDEzQTBDMzI0MzExRTFBNDYzRkQ4Qzc3RDdBOTg5Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NjFEMTNBMDkzMjQzMTFFMUE0NjNGRDhDNzdEN0E5ODkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NjFEMTNBMEEzMjQzMTFFMUE0NjNGRDhDNzdEN0E5ODkiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz52VTCHAAABFUlEQVR42uxV0Q2DIBBV4z8bdAM26AZ1Ap3AToAT6AR1Ap2gbuAGzKD/TkCP5NmQRpQaSH96yQsJHO/k7t0ZK6WikJZEgS14gHSeZxX6BQuhwerL3pw6ACMIQkuQHsgluDQnM2ugN3rgrK33ha3INdbqBHn1wWFVUU7ghMKxLgt8Oe46yVQ7lrgoD/JdwDf/tg+ueK4mGDfOR5zV8D3VaBwFy6CM1VrsCfjYG81BclrPHVZp7HcoLN8LshdgNMg50pDh7In+uSCIsKUpnqZJWfQ8EB4gOlLRnXBzVVFvpIA5yJTBV241aeLSLI622aRmiho8k3uYRcM6LlLksEWzMA/DjqP4+oNLW5G9Wfz/J/88wEuAAQA9yExzBAEQqwAAAABJRU5ErkJggg==) no-repeat right;
+    background-size: 25px 25px;
+    background-position: 96% 62%;
+    padding: 3px 32px 3px 3px;
+}
+#commentBtnBox{
+	display:none;
+}
+#commentArea{
+	margin-top:15px;
+	min-width:60%;
+	word-break:break-all;
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+}
+#commentAdd{
+margin-top:15px;
+}
+
+#commentBtnBox{
+float:left;
+margin-top:10px;
+}
 #content{
    height : 50px;
    border: 2px;
@@ -59,6 +105,9 @@ margin-bottom:10px;
    font-size: 25px;
 }
 #glypMid{
+   font-size: 25px;
+}
+#glypBottom{
    font-size: 25px;
 }
 #mytextarea{
@@ -278,6 +327,8 @@ border: #fff;
 width: 48px;
 height: 48px;
 }
+
+
 </style>
 </head>
 <body>
@@ -371,6 +422,16 @@ height: 48px;
 									<span class="glyphicon glyphicon-remove-sign"></span> 삭제하기</button>
 							</div>
 						</form>
+					</div>
+				</div>
+				
+				<div id=modalBottom>
+					<span class="glyphicon glyphicon-comment" id="glypBottom"> 댓글</span><br>
+					<div id="commentAdd">
+						<textarea id="commentBox" cols="50" placeholder="댓글을 입력해주세요.."></textarea><br>
+						<div id="commentBtnBox">
+							<button id="commentAddBtn">추가</button>
+						</div>
 					</div>
 				</div>
 				
