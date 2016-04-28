@@ -411,16 +411,18 @@ height: 48px;
 		
         		
         		<br>                          <%-- 뛰어 --%>        
+
 		        <form class="fileUpload" action="insert.jsp" method="post" enctype="multipart/form-data" id="fileaddiBtn">
 					<button type="button" class="btn btn-default btn-sm" id="fileUpButton" style="border:0">
 						<img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
 					</button>
 					<div id="fileUpDiv" style="display:none">
-						<input type="file" class="btn-default btn-sm" name="upload" id="upload" style="margin-bottom:3px; margin-top:5px;">
-						<button type="submit" class="btn btn-default btn-sm" id="fileInsert">확인</button>
-						<button type="reset" class="btn btn-default btn-sm" id="fileDelete">취소</button>
+						<input type="file" class="btn-default btn-sm" name="upload" id="upload" style="margin-bottom:3px; margin-top:5px;width:220px">
+						<button type="button" class="btn btn-default btn-sm" id="fileInsert">확인</button>
+						<button type="button" class="btn btn-default btn-sm" id="fileDelete">취소</button>
 						<!-- fuc = File Upload Cancel -->
 					</div>
+					<br>
 				</form>
 		                              <%-- 뛰어 --%>
 		        
@@ -531,25 +533,25 @@ height: 48px;
              	</button>
              	<div class="container" id ="labelDiv" style="display:none">
                   <div class="btn-group" data-toggle="buttons" >         
-                     <label class="btn" style="background-color: red" >
-                        <input type="radio" name="option10" id="option10" autocomplete="off" checked  value="red">
+                     <label class="btn" style="background-color: #F5876E" >
+                        <input type="radio" name="option10" id="option10" autocomplete="off" checked  value="#F5876E">
                         <span class="glyphicon glyphicon-ok" ></span>
                      </label>
-                     <label class="btn" style="background-color: yellow">
-                        <input type="radio" name="option10" id="option10" autocomplete="off" value="yellow">
+                     <label class="btn" style="background-color: #61A8DC">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="#61A8DC">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
             
-                     <label class="btn btn-warning" style="background-color: #1D8947">
-                        <input type="radio" name="option10" id="option10" autocomplete="off" value="#1D8947">
+                     <label class="btn btn-warning" style="background-color: #8EBD40 ">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="#8EBD40">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
-                     <label class="btn btn-warning" style="background-color: pink">
-                        <input type="radio" name="option10" id="option10" autocomplete="off" value="pink">
+                     <label class="btn btn-warning" style="background-color: #988CC3 ">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="#988CC3">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
-                     <label class="btn btn-warning" style="background-color: #019AE6">
-                        <input type="radio" name="option10" id="option10" autocomplete="off" value="#019AE6">
+                     <label class="btn btn-warning" style="background-color: #D8C86E ">
+                        <input type="radio" name="option10" id="option10" autocomplete="off" value="#D8C86E">
                         <span class="glyphicon glyphicon-ok"></span>
                      </label>
                   </div> 

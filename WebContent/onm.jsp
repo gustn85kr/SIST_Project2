@@ -111,7 +111,7 @@ body{
 }
  
  .listTitleBtn, .listTitleCancel{
-       float:right;
+       float:left;
        background: #fff;
          border: #fff;
  }
@@ -304,8 +304,8 @@ background: #BCF12A;
 			theme: true,
 			header: {
 				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay'
+				center: 'title'
+				,right: 'month'
 			},
 			defaultDate: '2016-04-02',
 			selectable: true,
@@ -497,7 +497,9 @@ background: #BCF12A;
   	          revertDuration: 0
   	    });
   	    $(this).on("click",".footText",function(){
+  			$('.footText').show();
   			$(this).css('display', 'none');
+  			$('.footInput').hide();
   			$(this).siblings(".footInput").css('display', 'inline'); 
   			$(this).siblings('.footInput').find('textarea').focus();
   		});
@@ -542,6 +544,12 @@ background: #BCF12A;
 	      
  			
   		});
+  	  $(this).on("click",".cardCancel",function(){ 
+  		  
+  		  $('.footText').show();
+  		  $(this).parents('.footInput').hide();
+  		  
+  	  });
   	    $(this).on("click",".addListBtn",function(){
   	    	/*  var listTitle =""; */
   	    	$(this).css('display','none');
@@ -593,7 +601,7 @@ background: #BCF12A;
 	      	  	
 	      	 	 $('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span><img src='calendar/images/createlist.png' ></span></div> "+
 	   	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='List Title'/> "+
-	   	  			    "<input type='button' value='취소' class='listTitleCancel' /><input type='button' value='추가' class='listTitleBtn' />"+
+	   	  			    "<input type='button' value='추가' class='listTitleBtn' /> <input type='button' value='취소' class='listTitleCancel' />"+
 	     				"</div><div>");
 	    			$("#timetable .items").sortable({
 	    	            connectWith: "ul"  
@@ -693,6 +701,7 @@ background: #BCF12A;
   	   $(this).on("click","#priorityBtn",function(){
   			obj = document.getElementById('priorityDiv');
 	  		if(obj.style.display == "none"){
+	  			divHide();
 	  		  	$("#priorityDiv").css('display','inline');
 	  		}else{
 	  			$("#priorityDiv").css('display','none');
@@ -734,6 +743,8 @@ background: #BCF12A;
   	  $(this).on("click","#checkBtn",function(){
   		  obj = document.getElementById('checkDiv');
   		  if(obj.style.display=="none"){
+  			  
+  			divHide();
   		  	$("#checkDiv").css("display","inline");
   		  }else{
   			$("#checkDiv").css("display","none");
@@ -752,6 +763,7 @@ background: #BCF12A;
 	    $(this).on("click","#dateBtn",function(){
 	    	 obj = document.getElementById('dateDiv');
 	    	 if(obj.style.display=="none"){
+	    		 divHide();
 	    		$("#dateDiv").css("display","inline");
 	    	 }else{
 	    		$("#dateDiv").css("display","none");
@@ -759,8 +771,10 @@ background: #BCF12A;
 	    });
 	   	$(this).on("click","#btnMap",function(){
 	   		obj = document.getElementById('mapApp');
-	   		if(obj.style.display=="none")
+	   		if(obj.style.display=="none"){
+	   			divHide();
 	   			$("#mapApp").css("display","inline");
+	   	}
 	   		else
 	   			$("#mapApp").css("display","none");
 	   		
@@ -771,6 +785,7 @@ background: #BCF12A;
 	   	$(this).on("click","#labelBtn",function(){
 	   		obj = document.getElementById('labelDiv');
 	   		if(obj.style.display=="none"){
+	   			divHide();
 	   			$("#labelDiv").css("display","inline");
 	   		}
 	   		else{
@@ -921,15 +936,17 @@ background: #BCF12A;
 	    });
 		$(this).on("click","#fileUpButton",function(){
 			obj = document.getElementById('fileUpDiv');
-	   		if(obj.style.display=="none")
+	   		if(obj.style.display=="none"){
+	   			divHide();
 	   			$("#fileUpDiv").css("display","inline");
+	   		}
 	   		else
 	   			$("#fileUpDiv").css("display","none");
 		});
 		$(this).on("click","#fileDelete",function(){
 			$("#fileUpDiv").css('display','none');
 		});
-	    $(this).ready(function(){
+/* 	    $(this).ready(function(){
 	        function readURL(input) {
 	            if (input.files && input.files[0]) {
 	                var reader = new FileReader();
@@ -942,7 +959,7 @@ background: #BCF12A;
 	  	       $("#upload").change(function(){
 	  	    	   readURL(this);
 	        });
-	     });
+	     }); */
 	    
 	    $(this).on("click","#addchecklist",function(){
 			$('#checkready').append("<textarea cols='30' rows='1' id='chetext'></textarea>");
@@ -992,6 +1009,17 @@ function resize(obj) {
 	  obj.style.height = "1px";
 	  obj.style.height = (50+obj.scrollHeight)+"px";
 }
+
+function divHide(){
+	$('#fileUpDiv').hide();
+	$('#checkDiv').hide();
+	$('#mapApp').hide();
+	$('#priorityDiv').hide();
+	$('#labelDiv').hide();
+	$('#dateDiv').hide();	
+}//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
+
+
 
           
 </script>
