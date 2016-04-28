@@ -1,31 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
-<link rel="stylesheet"
-	href="assets/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/one.style.css">
 <link rel="stylesheet" href="assets/dist/dragula.css" type="text/css">
 <link rel="shortcut icon" href="favicon.ico">
 
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet"
-	href="http://www.w3schools.com/lib/w3-theme-teal.css">
-<link rel="stylesheet"
-	href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-<%-- css --%>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">    <%-- css --%>
 
 <link rel='stylesheet' href='calendar/jquery-ui.min.css' />
 <link href="calendar/fullcalendar.css" rel="stylesheet" />
-<link href="calendar/fullcalendar.print.css" rel='stylesheet'
-	media='print' />
+<link href="calendar/fullcalendar.print.css" rel='stylesheet' media='print' />
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" /> -->
 <link rel="stylesheet" href="assets/css/jquery-ui.css" />
 <script src="assets/plugins/jquery/jquery.min.js"></script>
@@ -33,20 +26,18 @@
 <script src="calendar/moment.min.js"></script>
 <script src="calendar/fullcalendar.min.js"></script>
 
-<script type="text/javascript"
-	src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-<script type="text/javascript"
-	src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+<script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
 
 <script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-<script type="text/javascript"
-	src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
 
 
 <style type="text/css">
 body {
 	font-family: 'Malgun Gothic';
+	padding : 20px;
 }
 
 .bar {
@@ -63,22 +54,35 @@ body {
 	border-radius: 3px;
 }
 
-/* 모달 CSS 수정하기!! */
 .modal-header, h4, .close {
 	background-color: #5cb85c;
 	color: white !important;
 	text-align: center;
-	font-size: 30px;
+	font-size: 25px;
+	min-height: auto;
+	min-width: auto;
 }
 
 .modal-footer {
 	background-color: #f9f9f9;
+	min-height: auto;
+	min-width: auto;
+}
+#PwdChageModal{
+	left:-100px;
+}
+#planSearchModal .modal-content{
+	width: 1350px; 
+	height: 700px;
+	min-height: auto;
+	min-width: auto;
 }
 
 #planSearchModal {
 	position: fixed;
-	left: -650px;
-	top: 0px;
+	left: -800px;
+	min-height: auto;
+	min-width: auto;
 }
 
 .list {
@@ -187,6 +191,7 @@ body {
 }
 
 #sist {
+	/* width:4500px; */
 	height: 700px;
 }
 
@@ -374,14 +379,13 @@ body {
 						});
 
 						var labelColor = null;
-
 						$('#calendar').fullCalendar(
 								{
 									theme : true,
 									header : {
 										left : 'prev,next today',
 										center : 'title',
-										right : 'month,agendaWeek,agendaDay'
+										right : 'month'
 									},
 									defaultDate : '2016-04-02',
 									selectable : true,
@@ -442,7 +446,6 @@ body {
 							event.title = "${vo.title}";
 							event.start = "${vo.startdate}";
 							event.end = "${vo.enddate}";
-
 							if (labelColor == null) {
 								event.color = "green";
 							} else {
@@ -453,7 +456,6 @@ body {
 
 							$('#calendar').fullCalendar('addEventSource',
 									events);
-
 							</c:forEach>
 						}
 						$(this)
@@ -543,7 +545,6 @@ body {
 																								{
 																									zIndex : 1
 																								});
-
 																						var mapContainer = document
 																								.getElementById('map'), // 지도를 표시할 div 
 																						mapOption = {
@@ -553,32 +554,26 @@ body {
 																							level : 1
 																						// 지도의 확대 레벨
 																						};
-
 																						// 지도를 생성합니다    
 																						var map = new daum.maps.Map(
 																								mapContainer,
 																								mapOption);
-
 																						// 장소 검색 객체를 생성합니다
 																						var ps = new daum.maps.services.Places();
-
 																						// 키워드로 장소를 검색합니다
 																						ps
 																								.keywordSearch(
 																										searchPlace,
 																										placesSearchCB);
-
 																						// 키워드 검색 완료 시 호출되는 콜백함수 입니다
 																						function placesSearchCB(
 																								status,
 																								data,
 																								pagination) {
 																							if (status === daum.maps.services.Status.OK) {
-
 																								// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 																								// LatLngBounds 객체에 좌표를 추가합니다
 																								var bounds = new daum.maps.LatLngBounds();
-
 																								for (var i = 0; i < data.places.length; i++) {
 																									displayMarker(data.places[i]);
 																									bounds
@@ -586,13 +581,11 @@ body {
 																													data.places[i].latitude,
 																													data.places[i].longitude));
 																								}
-
 																								// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 																								map
 																										.setBounds(bounds);
 																							}
 																						}
-
 																						// 지도에 마커를 표시하는 함수입니다
 																						function displayMarker(
 																								place) {
@@ -605,7 +598,6 @@ body {
 																												place.latitude,
 																												place.longitude)
 																									});
-
 																							// 마커에 클릭이벤트를 등록합니다
 																							daum.maps.event
 																									.addListener(
@@ -663,7 +655,6 @@ body {
 												});
 											}
 										});
-
 						$("ul[id^='available']").draggable({
 							revert : true, // immediately snap back to original position
 							revertDuration : 0
@@ -1215,27 +1206,20 @@ body {
 						$(this).on("click", "#fileDelete", function() {
 							$("#fileUpDiv").css('display', 'none');
 						});
-						$(this)
-								.ready(
-										function() {
-											function readURL(input) {
-												if (input.files
-														&& input.files[0]) {
-													var reader = new FileReader();
-													reader.onload = function(e) {
-														$('#blah')
-																.attr(
-																		'src',
-																		e.target.result);
-													}
-													reader
-															.readAsDataURL(input.files[0]);
-												}
-											}
-											$("#upload").change(function() {
-												readURL(this);
-											});
-										});
+						/* 	    $(this).ready(function(){
+							        function readURL(input) {
+							            if (input.files && input.files[0]) {
+							                var reader = new FileReader();
+							                reader.onload = function (e) { 
+							                    $('#blah').attr('src', e.target.result);
+							                }                    
+							                reader.readAsDataURL(input.files[0]);
+							            }
+							        }
+							  	       $("#upload").change(function(){
+							  	    	   readURL(this);
+							        });
+							     }); */
 
 						$(this)
 								.on(
@@ -1321,7 +1305,6 @@ body {
 		obj.style.height = "1px";
 		obj.style.height = (50 + obj.scrollHeight) + "px";
 	}
-
 	function divHide() {
 		$('#fileUpDiv').hide();
 		$('#checkDiv').hide();
@@ -1331,8 +1314,8 @@ body {
 		$('#dateDiv').hide();
 	}//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
 </script>
-<title>오늘 일을 내일로 미루자</title>
-</head>
+				<title>오늘 일을 내일로 미루자</title>
+				</head>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 <!-- 회원정보 변경 모달  -->
@@ -1407,7 +1390,7 @@ body {
 	<div class="modal fade" id="planSearchModal" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
-			<div class="modal-content" style="width: 1200px; height: 400px;">
+			<div class="modal-content">
 				<div class="modal-header" style="padding: 30px 30px;">
 					<button type="button" class="close" data-dismiss="modal"
 						style="margin-top: 7px;">
@@ -1485,7 +1468,8 @@ body {
 				<div id='calendar_container'></div>
 			</div>
 		</div>
-		<!-- 검색 위치 -->
+		
+		<!-- 일정 검색 위치 -->
 		<form role="form">
 			<div class="form-group has-success has-feedback">
 				<label class="col-sm-0 control-label" for="inputSuccess"
@@ -1497,14 +1481,10 @@ body {
 						placeholder="찾고싶은 일정을 입력하세요..."> &nbsp;&nbsp;&nbsp;
 				</div>
 				<div>
-					<button type="button" class="btn btn-success" id="searchBtn">검
-						색</button>
-					&nbsp;&nbsp;&nbsp; <label class="radio-inline"
-						style="padding-top: 3px;"> <input type="radio"
-						name="optradio">내 일정
-					</label> <label class="radio-inline" style="padding-top: 3px;"> <input
-						type="radio" name="optradio">모든 일정
-					</label>
+					<button type="button" class="btn btn-success" id="searchBtn">검색</button>&nbsp;&nbsp;&nbsp; 
+					<label class="radio-inline" style="padding-top: 3px;"> <input type="radio"name="optradio" id="radioMyplan">내 일정</label>
+					<label class="radio-inline" style="padding-top: 3px;"> <input type="radio" name="optradio" id="radioAllplan">모든 일정</label>
+					<label class="radio-inline" style="padding-top: 3px;"> <input type="radio" name="optradio" id="radioHash">#해시태그</label>
 				</div>
 			</div>
 		</form>
@@ -1514,29 +1494,6 @@ body {
 				style="float: left; max-width: 7000px; margin-top: 50px;">
 
 				<div style="text-align: center"></div>
-
-				<!-- 	<div class="weekday col-md-1">
-	    			<div class='listHeader'>
-	    				<p> Title
-	    				<button type="button" class="btn btn-sm btn-default listDelete" style="float:right">
-         							 <span class="glyphicon glyphicon-trash"></span>
-     					   </button>
-     					</p>
-	    			</div>
-	        		<ul class="items">
-			            <li class="list">  류정현1</li>
-			            <li class="list">정현1</li>
-	      			</ul>
-	      			<div class = 'listFoot'>
-	      				<button class="btn-primary footText" type="button"> 일정 추가하기</button>
-						<div class='footInput' style='display:none;'>	
-							<textarea cols='31' rows='3' style="resize:none"></textarea>
-							<input type="button" value="추가" class="cardInsert btn-primary" />
-							<input type="button" value="취소" class="cardCancel btn-primary" />
-						</div>
-				</div>
-	    		</div>      -->
-
 				<c:forEach var="vo" items="${list}">
 
 	    			${vo.html}

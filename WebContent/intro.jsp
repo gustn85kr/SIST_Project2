@@ -52,19 +52,21 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
-	<style type="text/css">
-		.modal-header, h4, .close {
-		background-color: #5cb85c;
-		color:white !important;
+
+<style type="text/css">
+	.modal-header, h4, .close {
+	    background-color: #5cb85c;
+	    color:white !important;
 	    text-align: center;
 	    font-size: 30px;
-	}
+}
 	.modal-footer {
 	    background-color: #f9f9f9;
 	}
-	</style>
+</style>
+	
+	
 </head>
-
 <!--
 The #page-top ID is part of the scrolling feature.
 The data-spy and data-target are part of the built-in Bootstrap scrollspy function.
