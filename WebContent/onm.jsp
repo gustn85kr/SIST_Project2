@@ -94,6 +94,7 @@ body {
 	font-size: 20px;
 	word-break: break-all;
 }
+<<<<<<< HEAD
 
 #timetable {
 	height: 800px;
@@ -104,6 +105,18 @@ body {
 	border-left-color: #D7CECC;
 }
 
+=======
+ 
+ #timetable{
+     height: 800px;
+    border: 2px solid;
+    border-bottom-color: #fff;
+    border-top-color: #fff;
+    border-right-color: #fff;
+    border-left-color: #D7CECC;
+ }
+ 
+>>>>>>> refs/remotes/origin/master
 .items .ui-selected {
 	background: red;
 	color: white;
@@ -111,9 +124,17 @@ body {
 }
 
 .items {
+<<<<<<< HEAD
 	list-style-type: none;
 	margin: 0;
 	padding: 10px;
+=======
+    list-style-type: none;
+    margin:0;
+    padding: 10px;
+ 
+    
+>>>>>>> refs/remotes/origin/master
 }
 
 .items li {
@@ -135,7 +156,29 @@ body {
 	background-color: #fff;
 	margin: 20px;
 
+<<<<<<< HEAD
 	/* max-height : 700px; */
+=======
+    width: 300px;
+    padding: 5px; 
+    border-bottom: 2px solid #EDE1E7;
+    border-top: 2px solid #EDE1E7;
+    background-color: #fff;
+    margin: 20px;
+    
+    /* max-height : 700px; */   
+}
+ 
+ .listTitleBtn, .listTitleCancel{
+       float:left;
+       background: #fff;
+         border: #fff;
+ }
+ 
+ 
+ .listTitleBtn:hover, .listTitleBtn:active {
+   border-bottom: 2px solid #2694e8;
+>>>>>>> refs/remotes/origin/master
 }
 
 .listTitleBtn, .listTitleCancel {
@@ -171,6 +214,7 @@ body {
 	background-color: orange;
 	display: inline;
 }
+<<<<<<< HEAD
 
 #draggablePanelList .panel-heading {
 	cursor: move;
@@ -189,7 +233,21 @@ body {
 	max-width: 700px;
 	margin: 0 auto;
 }
+=======
+    
+    #draggablePanelList .panel-heading {
+        cursor: move;
+    } 
+   #calendar_attr {
+  
+      margin: 40px 10px;
+      padding: 0;
+      font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+      font-size: 14px;
+   }
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
 #sist {
 	/* width:4500px; */
 	height: 700px;
@@ -198,17 +256,71 @@ body {
 #cardList {
 	
 }
+=======
+   #calendar_container {
+      position:relative;
+      top:700px;
+      max-width: 700px;
+      margin: 0 auto;
+   }
+   
+    #sist{
+       /* width:4500px; */
+       height: 700px;
+          
+    }
+    #cardList{
+    }
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
 .listHeader {
 	margin: 2px;
 	font: bold;
 	font-size: 25px;
 }
+=======
+    .listHeader{
+       margin: 2px;
+       font: bold;
+       font-size: 25px;
+       
+    }
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
 .footText {
 	width: 280px;
 }
+=======
+   .footText{
+       width:280px;
+    }
+    .footInput{
+        width : 280px; 
+        text-align : center;
+        margin : 5px;
+        height: 50px;
+    } 
+    .footInput textarea{
+       width:280px;
+    }
+    .cardInsert{
+       margin-left: 100px;
+    }
+    .listHeader{
+       margin:5px;
+       height: 20px;
+    }
+    .listHeader p{
+       color :black;
+       font-size:20px;
+       margin: 5px;
+    }
+    #calendar{
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
 .footInput {
 	width: 280px;
 	text-align: center;
@@ -289,15 +401,35 @@ body {
 
 .fc-time {
 	display: none;
+=======
+    }
+   #cardDetail {
+      padding-right:460px;
+   }
+.modal-dialog 
+{
+
+}
+.fc-time{
+   display : none;
+>>>>>>> refs/remotes/origin/master
 }
 
 #blah {
+<<<<<<< HEAD
 	width: 110px;
 	height: 80px;
 	text-align: center;
 }
 
+=======
+   width:110px;
+   height:80px;
+   text-align: center;
+   }
+>>>>>>> refs/remotes/origin/master
 .addListBtn {
+<<<<<<< HEAD
 	background-color: transparent;
 	color: black;
 	display: block;
@@ -307,6 +439,31 @@ body {
 	/* width: 100%; */
 	/* text-align: left; */
 	cursor: pointer;
+=======
+    background-color: transparent;
+    color: black;
+    display: block;
+    height: 100%;
+   /*  line-height: 40px; */
+    text-decoration: none;
+    /* width: 100%; */
+    /* text-align: left; */
+    cursor:pointer;
+}
+
+
+.addListTxt{
+   background-color: transparent;
+    color: black;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    width: 100%;
+    text-align: center;
+    border:inherit;
+    margin:10px;
+>>>>>>> refs/remotes/origin/master
 }
 
 .addListTxt {
@@ -361,6 +518,7 @@ body {
 </style>
 
 <script type="text/javascript">
+<<<<<<< HEAD
 	//유저정보 보기 액션
 	$(document)
 			.ready(
@@ -373,7 +531,22 @@ body {
 							var newPwdChange2 = $('#newPwdChange2').val("");
 							$("#PwdChageModal").modal();
 						});
+=======
+	$(document).ready(function(){
+		$("#userDetail2").click(function() {
+			var emailChage = $('#emailChage').val("");
+			var nicknameChange = $('#nicknameChange').val("");
+			var pwdChange = $('#pwdChange').val("");
+			var newPwdChange = $('#newPwdChange').val("");
+			var newPwdChange2 = $('#newPwdChange2').val("");
+			$("#PwdChageModal").modal();
+		});
+		
+		
+		
+>>>>>>> refs/remotes/origin/master
 
+<<<<<<< HEAD
 						$("#searchBtn").click(function() {
 							$("#planSearchModal").modal();
 						});
@@ -412,6 +585,113 @@ body {
 												.format('YYYY/MM/DD');
 										var enddate = event.end
 												.format('YYYY/MM/DD');
+=======
+		$('#calendar').fullCalendar({ 
+			theme: true,
+			header: {
+				left: 'prev,next today',
+				center: 'title'
+				,right: 'month'
+			},
+			defaultDate: '2016-04-02',
+			selectable: true,
+			selectHelper: true,
+			eventDurationEditable: false,   // 이벤트 resize disable
+	
+	/* 		select: function(start, end) {
+				
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					
+				}
+				$('#calendar').fullCalendar('unselect');
+			}, */ //이벤트 추가함수
+			editable: true,
+			eventDrop: function(event, delta, revertFunc) {
+				var startdate=event.start.format('YYYY/MM/DD');
+				var enddate=event.end.format('YYYY/MM/DD');
+				var cardno=event.id;
+				alert(cardno);
+				 $.ajax({
+		           	 url:'dateDrag.do',
+		           	 type:'post',
+		           	 dataType:"json",
+		           	 data:{"startdate":startdate , "enddate":enddate ,"no":cardno},
+		           	 success:function(data){
+						alert("성공2")
+		          	         }
+		    	   });
+				
+			},
+			eventClick: function(event) {
+				$('#cardDetail').modal();
+			
+		  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
+		  	   
+		  	},
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+		
+			
+			]
+		});
+		calInit();
+		function calInit(){
+		     <c:forEach var="vo" items="${clist}">
+		        var events=new Array();   
+		        event = new Object();       
+		        event.title = "${vo.title}"; 
+		        event.start = "${vo.startdate}";
+		        event.end = "${vo.enddate}";
+				event.id ="${vo.no}";
+		        var labelC =  "${vo.label}";
+				
+		        if(labelC==""){
+		        event.color =  "green";
+		        }else{
+		           event.color = labelC;
+		        }
+		        event.allDay = false;
+		        events.push(event);
+		       
+		        $('#calendar').fullCalendar('addEventSource',events);
+				
+		     </c:forEach>
+		     
+		}
+		$(this).on("click",".list",function(){
+			//ev.preventDefault();
+		    var target = "detail.do?no=";
+		    target= target+$(this).attr("id");
+		    alert(target);
+			$("#cardDetail .modal-dialog").load(target, function() {
+		
+					$('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
+				    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+				    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+				        $("#edate").datepicker( "option", "minDate", selectedDate );
+				    });
+				    $('#edate').datepicker({ dateFormat: 'yy/mm/dd'});
+				    $('#edate').datepicker("option", "minDate", $("#sdate").val());
+				    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
+				        $("#sdate").datepicker( "option", "maxDate", selectedDate );
+				    });
+				    
+				    //여기부터 지도
+				    $("#txtAddress").keydown(function(e) {
+	                      if (e.keyCode == 13) {
+	                    	  $("#modalMap").css("display","block");
+	                     		/* map.relayout(); */
+	                       var searchPlace = $(this).val();   
+	                    	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+	                    	
+	                    	  var infowindow = new daum.maps.InfoWindow({zIndex:1});
+>>>>>>> refs/remotes/origin/master
 
 										$.ajax({
 											url : 'dateDrag.do',
@@ -626,6 +906,7 @@ body {
 											}); */
 										});
 
+<<<<<<< HEAD
 						$("#timetable .items")
 								.sortable(
 										{
@@ -633,6 +914,476 @@ body {
 											update : function(e, ui) { //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
 												/* 	 var test1= $(this).html();
 												   alert(test1); */
+=======
+	      
+ 			
+  		});
+  	  $(this).on("click",".cardCancel",function(){ 
+  		  
+  		  $('.footText').show();
+  		  $(this).parents('.footInput').hide();
+  		  
+  	  });
+  	    $(this).on("click",".addListBtn",function(){
+  	    	/*  var listTitle =""; */
+  	    	$(this).css('display','none');
+  	    	$(this).siblings('.addListPanel').show();
+  	    	$(this).siblings('.addListPanel').find('.addListTxt').focus();
+  	    	
+  		});
+  	    $(this).on("click","#commentAddOk",function(){
+  	 
+  	    	var commenttext = $(this).siblings("#commentText").val();
+  	    	$(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div id='commentArea'>"+commenttext+"</div></div>");
+  	    	
+  	    	
+  	    	$(this).parents("#commentDialog").append("<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>추가</button>");
+  	    	
+  	    	$(this).siblings("#commentText").val("");
+  	    	$(this).parent("#commentAddArea").remove();
+  	    	
+  	    });
+  	    $(this).on("click","#commentDelete",function(){
+  	    	$(this).parent("#commentPanel").remove();
+  	    	
+  	    }); 	    
+  	  /* addListPanelCreation addListPanelCancel */
+  	    $(this).on("click",".listTitleCancel",function(){
+  	    	$(this).parent('.addListPanel').hide();
+  	    	$(this).parent('.addListPanel').siblings('.addListBtn').show();
+  	    	$(this).siblings('.addListTxt').val("");
+  	    	
+  	    });
+  	    $(this).on("click",".listTitleBtn",function(){
+  		  	
+  			var listTitle= $(this).siblings('.addListTxt').val();
+        	$(this).parent('.addListPanel').parent('.weekday').hide();
+	  		$.ajax({
+	            url:"getListNo.do",
+	            type:'post',
+	            success:function(data){
+	            	listno=data;
+	      	    	var tmpHtml = "<div class='weekday col-md-1' id=list"+listno+"><div class='listHeader'><p>"+listTitle+
+	    			"<button type='button' class='btn btn-sm btn-default listDelete'> "+
+	    			"<img src='calendar/images/deletelist.png'></button></p>"+
+	    			"</div><ul class='items'></ul><div class = 'listFoot'> "+
+	    			"<button class='btn-primary footText' id='listtitleaddbtn'><img src='calendar/images/plus-hover.png'></button><div class='footInput' style='display:none;'> "+
+					" <textarea cols='30' rows='3'></textarea><input type='button' value='취소' class='cardCancel btn-primary'/>"+
+					" <input type='button' value='추가' class='cardInsert btn-primary'/>  "+
+	 				"</div></div></div> ";
+	      	 	 	$('#timetable').append(tmpHtml);
+	      	  	
+	      	 	 $('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span><img src='calendar/images/createlist.png' ></span></div> "+
+	   	  				"<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='List Title'/> "+
+	   	  			    "<input type='button' value='추가' class='listTitleBtn' /> <input type='button' value='취소' class='listTitleCancel' />"+
+	     				"</div><div>");
+	    			$("#timetable .items").sortable({
+	    	            connectWith: "ul"  
+	    	    	});
+	    		  	$.ajax({
+	    		            url:'listAdd.do',
+	    		            type:'post',
+	    		            dataType:"json",
+	    		            data:{"title":listTitle , "html":tmpHtml , "no":listno},
+	    		            success:function(data){
+	    		            	/* alert(tmpHtml); */
+	    		            }
+	    		    });
+	    		  	
+	    		  	
+	    		  	 $("#timetable .items").sortable({
+	    	             connectWith: "ul",           
+	    	             update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
+	    	          /* 	 var test1= $(this).html();
+	    	             alert(test1); */
+	    	          
+	    		       var listno= $(this).parents('.weekday').attr('id');
+	    	           var draghtml = $(this).parents('.weekday').html();
+	    	           var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+	    	          
+	    		           	  $.ajax({
+	    			           	 url:'dragEvent.do',
+	    			           	 type:'post',
+	    			           	 dataType:"json",
+	    			           	 data:{"listno":listno , "html":ehtml},
+	    			           	 success:function(data){
+	    			           	 	    
+	    			          	         }
+	    			    	   });
+	    	             }
+	    	         });
+	    		  	 
+	            }
+	   		 });		 
+  	    }); 
+  	    $("#insertContent").tooltip();
+  	    $(this).on("click","#insertContent",function(){  	    	
+  	    	$(this).parent("#contentText").siblings("#newTA").css('display','inline');
+  	    	$(this).parent("#contentText").siblings("#showContent").css('display','none');
+  	    	$(this).css('display','none');
+  	    	
+  	    	tinymce.init({
+  	    	  selector: '#mytextarea',
+  	    	  height: 200,
+  	    	  theme: 'modern',
+  	    	  plugins: [
+  	    	    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+  	    	    'searchreplace wordcount visualblocks visualchars code fullscreen',
+  	    	    'insertdatetime media nonbreaking save table contextmenu directionality',
+  	    	    'emoticons template paste textcolor colorpicker textpattern imagetools'
+  	    	  ],
+  	    	  toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  	    	  toolbar2: 'print preview media | forecolor backcolor emoticons',
+  	    	  image_advtab: true,
+  	    	  templates: [
+  	    	    { title: 'Test template 1', content: 'Test 1' }
+  	    	  ],
+  	    	  content_css: [
+  	    	    '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+  	    	    '//www.tinymce.com/css/codepen.min.css'
+  	    	  ]
+  	    	   
+  	    	 });
+  	      	 
+  	    });
+  	    $(this).on("click","#contentInsert",function(){
+  	    	var cardno = $('#cardNo').val();
+  	    	var tmp = tinyMCE.activeEditor.getContent();
+  	    	$.ajax({
+                url:'contentUpdate.do',
+                type:'post',
+                dataType:"json",
+                data:{
+                		"content" : tmp,
+              	  		"no":cardno},
+                success:function(data){
+                   /* alert("Yes"); */
+                }
+          });
+  	    	$(this).parent("#newTA").css('display',"none");
+  	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
+  	    	$(this).parent("#newTA").siblings("#showContent").empty();
+  	    	$(this).parent("#newTA").siblings("#showContent").append(tmp);
+  	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
+  	    });
+    	$(this).on("click","#contentCancel",function(){
+	    	var tmp = tinyMCE.activeEditor.getContent();
+	    	$(this).parent("#newTA").css('display',"none");
+	    	$(this).parent("#newTA").siblings("#showContent").css('display',"inline");
+	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
+	   });
+  	   $(this).on("click","#priorityBtn",function(){
+  			obj = document.getElementById('priorityDiv');
+	  		if(obj.style.display == "none"){
+	  			divHide();
+	  		  	$("#priorityDiv").css('display','inline');
+	  		}else{
+	  			$("#priorityDiv").css('display','none');
+	  		}	  		
+  	  });
+  	  $(this).on("click","#priorityInsert",function(){
+  			$("#priorityDiv").css('display','none');
+  			var op1 = $(':radio[name="option1"]:checked').val();
+  			alert(op1);
+		  	var op2 = $(':radio[name="option2"]:checked').val();
+		  	alert(op2);
+  	    	var cardno = $('#cardNo').val();
+  	    	$.ajax({
+                url:'priorityUpdate.do',
+                type:'post',
+                dataType:"json",
+                data:{
+                		"op1":op1,
+                		"op2":op2,
+              	  		"no":cardno},
+                success:function(data){
+                   /* alert("Yes"); */
+                }
+          });
+		  	$('input').prop('checked', false);
+		  	$('#modalPriority').empty();
+	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
+	  		if(op1!=null){
+	  			$("#priorityIf").append("<span style='background-color:"+op1+"'> 중요도</span>");
+	  		}
+	  		if(op2!=null){
+	  			$("#priorityIf").append("<span style='background-color:"+op2+"'> 선호도</span>");
+	  		}
+  	  });
+  	  $(this).on("click","#priorityCancel",function(){
+  		$("#priorityDiv").css('display','none');
+  		$('#modalPriority').empty();
+  	  });
+  	  $(this).on("click","#checkBtn",function(){
+  		  obj = document.getElementById('checkDiv');
+  		  if(obj.style.display=="none"){
+  			  
+  			divHide();
+  		  	$("#checkDiv").css("display","inline");
+  		  }else{
+  			$("#checkDiv").css("display","none");
+  		  }
+  		  
+  	  });
+  	  $(this).on("click","#checkInsert",function(){
+  		  $("#dateDiv").css("display","none");
+  		  $("#checklistadd").css("display",'inline');
+  		  var title = $('#checkTitle').val();
+  		  $('#checklisttitle').text(title);
+  	  });
+  	$(this).on("click","#checkCancel",function(){
+		  $("#checklistadd").empty();
+	  });
+	    $(this).on("click","#dateBtn",function(){
+	    	 obj = document.getElementById('dateDiv');
+	    	 if(obj.style.display=="none"){
+	    		 divHide();
+	    		$("#dateDiv").css("display","inline");
+	    	 }else{
+	    		$("#dateDiv").css("display","none");
+	    	 }
+	    });
+	   	$(this).on("click","#btnMap",function(){
+	   		obj = document.getElementById('mapApp');
+	   		if(obj.style.display=="none"){
+	   			divHide();
+	   			$("#mapApp").css("display","inline");
+	   	}
+	   		else
+	   			$("#mapApp").css("display","none");
+	   		
+	   		obj = document.getElementById('modalMap');
+	   		if(obj.style.display=="block")
+	   			$("#modalMap").css("display","none");
+	   	});
+	   	$(this).on("click","#labelBtn",function(){
+	   		obj = document.getElementById('labelDiv');
+	   		if(obj.style.display=="none"){
+	   			divHide();
+	   			$("#labelDiv").css("display","inline");
+	   		}
+	   		else{
+	   			$("#labelDiv").css("display","none");
+	   		}
+	   	});
+	   $(this).on("click","#labelDelete",function(){
+			$('#modalLabel').empty();
+	   });
+	   $(this).on("click","#labelInsert",function(){
+	    	  
+		   	var cardno = $('#cardNo').val();
+	    	  $('#modalLabel').empty();
+	          var labelColor = $(':radio[name="option10"]:checked').val();
+	    	  $.ajax({
+	                url:'labelUpdate.do',
+	                type:'post',
+	                dataType:"json",
+	                data:{
+	                		"label" : labelColor,
+	              	  		"no":cardno},
+	                success:function(data){
+	                   /* alert("Yes"); */
+	                }
+	          });
+	    	  
+	    	  var title = $('#glypTitle').text();
+	    	  var startDate= $('#sdateDiv').text().substring(5);
+	    	  alert(startDate);
+	          var endDate=$('#edateDiv').text().substring(5);
+	          if(startDate!=""){
+	        	  $('#calendar').fullCalendar( 'removeEvents', cardno);
+	        	  var events=new Array();     
+		          event = new Object();       
+		          event.title = title; 
+		          event.start = startDate;    // its a date string
+		          event.end = endDate;
+		          event.id =  cardno;
+	              event.color = labelColor;
+		          
+		          event.allDay = false;
+		          events.push(event);
+		          
+		          $('#calendar').fullCalendar('addEventSource',events); 
+	          }
+	          $('#modalLabel').append("<span class='glyphicon glyphicon-tags'>라벨</span><br/><div id='labelColor' style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
+	      });
+	   
+	   	
+	   $(this).on("click","#mapSearch",function(){
+	   		$("#modalMap").css("display","block");
+	   		
+	   	});
+	      $(this).on("click","#lockaddBtn",function(){
+				 var op;
+				 var cardno = $('#cardNo').val(); 
+				 obj = document.getElementById('lockchange');
+	             if(obj.style.display=="inline"){
+	                 $("#lockchange").css("display","none");
+	                 $("#lockchacom").css("display",'inline');
+	                 op = 2;
+	            }
+	             else{
+	                 $("#lockchange").css("display","inline");
+	                 $("#lockchacom").css("display",'none');
+	                 op = 1;
+	            }
+	             $.ajax({
+		              url:'openUpdate.do',
+		              type:'post',
+		              dataType:"json",
+		              data:{"open":op,
+		            	  		"no":cardno},
+		              success:function(data){
+		                 /* alert("Yes"); */
+		              }
+		     	  });   
+	          });
+	   $(this).on("click","#mapCancel",function(){
+	   		$("#modalMap").css("display","none");
+	   		
+	   	});
+	   $(this).on("click","#modalBdClose",function(){
+	         $('#cardDetail').modal('hide');
+	      });
+	   $(this).on("click","#dateInsert",function(){
+	          $("#dateDiv").css("display","none");
+	          var title = $('#glypTitle').text();
+	          var id = $('#cardNo').val();
+	          var startDate= $('#sdate').val();
+	          var endDate=$('#edate').val();
+	       	  var labelColor = $('#labelColor').css("background-color");
+	       	  alert(labelColor);
+	       	  var cardno = $('#cardNo').val();
+	       	  $('#calendar').fullCalendar( 'removeEvents', cardno);
+	          var events=new Array();     
+	          event = new Object();       
+	          event.title = title; 
+	          event.start = startDate;    // its a date string
+	          event.end = endDate;
+	          event.id =  id;
+	          if(labelColor==null){
+	          event.color = "green";
+	          }else{
+	             event.color = labelColor;
+	          }
+	          event.allDay = false;
+	          events.push(event);
+	          
+	          $('#calendar').fullCalendar('addEventSource',events);
+	          $('#modalDate').empty();
+	          $('#modalDate').append("<span class='glyphicon glyphicon-calendar'>일정날짜</span><div id='sdateDiv'> <b id='startD'>시작일 </b>: "+startDate+"</div>");
+	          if(endDate!=""){
+	             $('#modalDate').append("<div id='edateDiv'> <b id='endD'>종료일 </b>: "+endDate+"</div>");
+	          }
+	          
+	          
+	          $.ajax({
+	              url:'dateUpdate.do',
+	              type:'post',
+	              dataType:"json",
+	              data:{"start":startDate,
+	            	  		"end":endDate,
+	            	  		"no":cardno},
+	              success:function(data){
+	                 /* alert("Yes"); */
+	              }
+	     	  });
+	       });
+	    $(this).on("click",".listDelete",function(){
+	    	if (confirm('해당 리스트를 삭제 하시겠습니까?')) {
+	    		var deleteid=$(this).parents(".weekday").attr("id");
+	    		$.ajax({
+		            url:'listDelete.do',
+		            type:'post',
+		            dataType:"json",
+		            data:{"id":deleteid},
+		            success:function(data){
+		            	/* alert("Yes"); */
+		            }
+		    });
+	    		/* alert(deleteid); */
+	    		$(this).parents(".weekday").remove();    
+	    	} else {
+	    	    // Do nothing!
+	    	}
+	    	
+	    });
+		$(this).on("click","#fileUpButton",function(){
+			obj = document.getElementById('fileUpDiv');
+	   		if(obj.style.display=="none"){
+	   			divHide();
+	   			$("#fileUpDiv").css("display","inline");
+	   		}
+	   		else
+	   			$("#fileUpDiv").css("display","none");
+		});
+		$(this).on("click","#fileDelete",function(){
+			$("#fileUpDiv").css('display','none');
+		});
+/* 	    $(this).ready(function(){
+	        function readURL(input) {
+	            if (input.files && input.files[0]) {
+	                var reader = new FileReader();
+	                reader.onload = function (e) { 
+	                    $('#blah').attr('src', e.target.result);
+	                }                    
+	                reader.readAsDataURL(input.files[0]);
+	            }
+	        }
+	  	       $("#upload").change(function(){
+	  	    	   readURL(this);
+	        });
+	     }); */
+	    
+	    $(this).on("click","#addchecklist",function(){
+			$('#checkready').append("<textarea cols='30' rows='1' id='chetext'></textarea>");
+			$('#complecheck').css('display',"inline");
+			document.getElementById("complecheck").disabled=false;
+			document.getElementById("addchecklist").disabled=true;
+		}); 
+		$(this).on("click","#complecheck",function(){
+			var message = $('textarea#chetext').val();
+			$('#chetext').css('display',"none");
+			$('#checkready').append("<form id='checkboxform'><p><input type='checkbox' />"+message+"</p></form>");
+			document.getElementById("addchecklist").disabled=false;
+			document.getElementById("complecheck").disabled=true;
+			 $('#chetext').remove();
+			 
+			 $('#checkready').ready(function() {
+		      	  
+		      	  // get box count
+		      	  var count = 0;
+		      	  var checked = 0;
+		      	  function countBoxes() { 
+		      	    count = $("input[type='checkbox']").length;
+		      	    console.log(count);
+		      	  }
+		      	  
+		      	  countBoxes();
+		      	  $(":checkbox").click(countBoxes);
+		      	  
+		      	  // count checks
+		      	 function countChecked() {
+			      	    checked = $("input:checked").length;
+			      	    
+			      	    var percentage = parseInt(((checked / count) * 100),10);
+			      	    $(".progressbar-bar").progressbar({
+			      	            value: percentage
+			      	        });
+			      	    $(".progressbar-label").text(percentage + "%");
+			      	  }
+			      	  
+			      	  countChecked();
+			      	  $(":checkbox").click(countChecked);
+		      	 
+		      	});
+		});    
+});
+function resize(obj) {
+	  obj.style.height = "1px";
+	  obj.style.height = (50+obj.scrollHeight)+"px";
+}
+>>>>>>> refs/remotes/origin/master
 
 												var listno = $(this).parents(
 														'.weekday').attr('id');
