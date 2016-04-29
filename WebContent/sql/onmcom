@@ -14,3 +14,11 @@ CREATE SEQUENCE seq_ocm
 	START WITH 1
 	INCREMENT BY 1;
 commit;
+
+function 
+1. 지도검색명 
+2. 체크리스트 제목
+3. 체크리스트 no checked
+4. 체크리스트 checked
+5. 파일첨부 파일명
+6. 커맨트 

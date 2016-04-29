@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.CardVO;
+import com.sist.dao.CommVO;
 import com.sist.dao.ListVO;
 import com.sist.dao.OnmDAO;
 
@@ -48,7 +49,14 @@ public class MainController {
 			String data = vo.getContent();
 			vo.setContent(HashingHTML.htmlTostr(data));
 		}
+		String map = OnmDAO.loadMap(no);
+		String checkTitle = OnmDAO.loadCheckListTitle(no);
+		List<CommVO> checkList = OnmDAO.loadCheckList(no);
+		System.out.println(map);
 		req.setAttribute("card", vo);
+		req.setAttribute("map", map);
+		req.setAttribute("checkTitle", checkTitle);
+		req.setAttribute("checkList", checkList);
 		return "detail";
 	}
 }

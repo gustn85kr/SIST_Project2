@@ -33,10 +33,12 @@
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
    <style type="text/css">
 body{
    font-family:'Malgun Gothic';
+   padding:20px;
 }
 .bar {
     width: 100px;
@@ -151,17 +153,17 @@ body{
     } 
    #calendar_attr {
   
-      margin: 40px 10px;
-      padding: 0;
+      margin: 40px 10px; 
+      padding: 0; 
       font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
       font-size: 14px;
    }
 
    #calendar_container {
-      position:relative;
+      /* position:relative; */
       top:700px;
       max-width: 700px;
-      margin: 0 auto;
+      /* margin: 0 auto; */
    }
    
     #sist{
@@ -271,7 +273,7 @@ padding: 0px;
 text-align: center;
 }
 
-#calendarunder{
+/* #calendarunder{
     height: 30px;
     background:#D3F1B9;
     width: 100px;
@@ -279,7 +281,7 @@ text-align: center;
 
 #calendarunder img{
 margin-right:10px;
-}
+} */
 
 .ui-progressbar-value{
 background: #BCF12A;
@@ -330,14 +332,13 @@ background: #BCF12A;
 				var startdate=event.start.format('YYYY/MM/DD');
 				var enddate=event.end.format('YYYY/MM/DD');
 				var cardno=event.id;
-				alert(cardno);
 				 $.ajax({
 		           	 url:'dateDrag.do',
 		           	 type:'post',
 		           	 dataType:"json",
 		           	 data:{"startdate":startdate , "enddate":enddate ,"no":cardno},
 		           	 success:function(data){
-						alert("성공2")
+				
 		          	         }
 		    	   });
 				
@@ -382,7 +383,6 @@ background: #BCF12A;
 			//ev.preventDefault();
 		    var target = "detail.do?no=";
 		    target= target+$(this).attr("id");
-		    alert(target);
 			$("#cardDetail .modal-dialog").load(target, function() {
 		
 					$('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
@@ -403,58 +403,18 @@ background: #BCF12A;
 	                     		/* map.relayout(); */
 	                       var searchPlace = $(this).val();   
 	                    	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-	                    	
-	                    	  var infowindow = new daum.maps.InfoWindow({zIndex:1});
-
-	                    	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	                    	      mapOption = {
-	                    	          center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-	                    	          level: 1 // 지도의 확대 레벨
-	                    	      };  
-
-	                    	  // 지도를 생성합니다    
-	                    	  var map = new daum.maps.Map(mapContainer, mapOption); 
-
-	                    	  // 장소 검색 객체를 생성합니다
-	                    	  var ps = new daum.maps.services.Places(); 
-
-	                    	  // 키워드로 장소를 검색합니다
-	                    	  ps.keywordSearch(searchPlace, placesSearchCB); 
-
-	                    	  // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-	                    	  function placesSearchCB (status, data, pagination) {
-	                    	      if (status === daum.maps.services.Status.OK) {
-
-	                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-	                    	          // LatLngBounds 객체에 좌표를 추가합니다
-	                    	          var bounds = new daum.maps.LatLngBounds();
-
-	                    	          for (var i=0; i<data.places.length; i++) {
-	                    	              displayMarker(data.places[i]);    
-	                    	              bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
-	                    	          }       
-
-	                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-	                    	          map.setBounds(bounds);
-	                    	      } 
-	                    	  }
-
-	                    	  // 지도에 마커를 표시하는 함수입니다
-	                    	  function displayMarker(place) {
-	                    	      
-	                    	      // 마커를 생성하고 지도에 표시합니다
-	                    	      var marker = new daum.maps.Marker({
-	                    	          map: map,
-	                    	          position: new daum.maps.LatLng(place.latitude, place.longitude) 
-	                    	      });
-
-	                    	      // 마커에 클릭이벤트를 등록합니다
-	                    	      daum.maps.event.addListener(marker, 'click', function() {
-	                    	          // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-	                    	          infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
-	                    	          infowindow.open(map, marker);
-	                    	      });
-	                    	  }
+	                    	showMap(searchPlace);
+	                    	var cardno = $('#cardNo').val(); 
+	                        $.ajax({
+	            	              url:'mapUpdate.do',
+	            	              type:'post',
+	            	              dataType:"json",
+	            	              data:{"loc":searchPlace,
+	            	            	  		"no":cardno},
+	            	              success:function(data){
+	            	                 /* alert("Yes"); */
+	            	              }
+	            	     	  });  
 
 	                     		
 	                      }
@@ -469,7 +429,9 @@ background: #BCF12A;
 				remote : 'detail.do'
 			}); */
 		});
-		
+		$('#cardDetail').on('hidden.bs.modal', function () {
+			 location.reload();
+			})
 	  	 $("#timetable .items").sortable({
              connectWith: "ul",           
              update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
@@ -520,12 +482,10 @@ background: #BCF12A;
 	           	 data:{"title":text},
 	           	 success:function(data){
 	           	 	 cardno = data;
-	           	 	 alert(cardno);
 	           	 	$('#tmpcard').attr('id', "card"+cardno);
 	           	 	var listno= $("#card"+cardno).parents('.weekday').attr('id');
 		    	    var draghtml = $("#card"+cardno).parents('.weekday').html();
 		        	var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>";
-		        	alert
 		  	    	$.ajax({
 		  	           	 url:'dragEvent.do',
 		  	           	 type:'post',
@@ -691,6 +651,30 @@ background: #BCF12A;
   	    	$(this).parent("#newTA").siblings("#showContent").empty();
   	    	$(this).parent("#newTA").siblings("#showContent").append(tmp);
   	    	$(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
+            // hash
+            var message = tinyMCE.activeEditor.getContent();
+            $('#hashready').append(message);
+            var a=$('#hashready').text();
+            var splitedArray = a.split(' ');
+             var linkedContent = '';
+          for(var word in splitedArray)
+         {
+            word = splitedArray[word];
+            if(word.indexOf('#')==0)
+           {
+                  word = '<a href=\'링크\'>'+word+'</a>';
+           }
+          else
+         {
+                    word='';  
+          }
+            linkedContent += word+' ';
+          }
+         	
+            $('#hashtag').css('display',"inline");     
+            $('#hashtag').append(linkedContent);  
+            
+         
   	    });
     	$(this).on("click","#contentCancel",function(){
 	    	var tmp = tinyMCE.activeEditor.getContent();
@@ -710,9 +694,9 @@ background: #BCF12A;
   	  $(this).on("click","#priorityInsert",function(){
   			$("#priorityDiv").css('display','none');
   			var op1 = $(':radio[name="option1"]:checked').val();
-  			alert(op1);
+  			//alert(op1);
 		  	var op2 = $(':radio[name="option2"]:checked').val();
-		  	alert(op2);
+		  	//alert(op2);
   	    	var cardno = $('#cardNo').val();
   	    	$.ajax({
                 url:'priorityUpdate.do',
@@ -727,14 +711,16 @@ background: #BCF12A;
                 }
           });
 		  	$('input').prop('checked', false);
-		  	$('#modalPriority').empty();
+		  	drawChart(op1,op2);
+		  	
+		  /* 	$('#modalPriority').empty();
 	  		$('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
 	  		if(op1!=null){
 	  			$("#priorityIf").append("<span style='background-color:"+op1+"'> 중요도</span>");
 	  		}
 	  		if(op2!=null){
 	  			$("#priorityIf").append("<span style='background-color:"+op2+"'> 선호도</span>");
-	  		}
+	  		} */
   	  });
   	  $(this).on("click","#priorityCancel",function(){
   		$("#priorityDiv").css('display','none');
@@ -756,9 +742,31 @@ background: #BCF12A;
   		  $("#checklistadd").css("display",'inline');
   		  var title = $('#checkTitle').val();
   		  $('#checklisttitle').text(title);
+  		  var cardno=$('#cardNo').val();
+		
+		  $.ajax({
+           	 url:'checkCreate.do',
+           	 type:'post',
+           	 dataType:"json",
+           	 data:{"title":title ,"no":cardno},
+           	 success:function(data){
+
+          	         }
+    	   });
   	  });
   	$(this).on("click","#checkCancel",function(){
 		  $("#checklistadd").empty();
+		  var cardno=$('#cardNo').val();
+			
+		  $.ajax({
+           	 url:'checkListDelete.do',
+           	 type:'post',
+           	 dataType:"json",
+           	 data:{"no":cardno},
+           	 success:function(data){
+
+          	         }
+    	   });
 	  });
 	    $(this).on("click","#dateBtn",function(){
 	    	 obj = document.getElementById('dateDiv');
@@ -778,9 +786,9 @@ background: #BCF12A;
 	   		else
 	   			$("#mapApp").css("display","none");
 	   		
-	   		obj = document.getElementById('modalMap');
+/* 	   		obj = document.getElementById('modalMap');
 	   		if(obj.style.display=="block")
-	   			$("#modalMap").css("display","none");
+	   			$("#modalMap").css("display","none"); */
 	   	});
 	   	$(this).on("click","#labelBtn",function(){
 	   		obj = document.getElementById('labelDiv');
@@ -837,6 +845,20 @@ background: #BCF12A;
 	   	
 	   $(this).on("click","#mapSearch",function(){
 	   		$("#modalMap").css("display","block");
+	   		var searchPlace = $('#txtAddress').val();   
+        	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+        	showMap(searchPlace);
+        	var cardno = $('#cardNo').val(); 
+            $.ajax({
+	              url:'mapUpdate.do',
+	              type:'post',
+	              dataType:"json",
+	              data:{"loc":searchPlace,
+	            	  		"no":cardno},
+	              success:function(data){
+	                 /* alert("Yes"); */
+	              }
+	     	  });  
 	   		
 	   	});
 	      $(this).on("click","#lockaddBtn",function(){
@@ -866,7 +888,17 @@ background: #BCF12A;
 	          });
 	   $(this).on("click","#mapCancel",function(){
 	   		$("#modalMap").css("display","none");
-	   		
+         	var cardno = $('#cardNo').val(); 
+            $.ajax({
+	              url:'mapDelete.do',
+	              type:'post',
+	              dataType:"json",
+	              data:{
+	            	  		"no":cardno},
+	              success:function(data){
+	                 /* alert("Yes"); */
+	              }
+	     	  });  
 	   	});
 	   $(this).on("click","#modalBdClose",function(){
 	         $('#cardDetail').modal('hide');
@@ -967,10 +999,41 @@ background: #BCF12A;
 			document.getElementById("complecheck").disabled=false;
 			document.getElementById("addchecklist").disabled=true;
 		}); 
+	     $(this).on("click",".chkList",function(){
+	    	 var id = $(this).attr("id");
+	    	 var chk = $(this).is(":checked");
+	    	 var func = 0 ;
+	    	 if(chk==true){
+	    		 func=4;
+	    	 }else{
+	    		 func=3;
+	    	 }
+	    	 $.ajax({
+	              url:'checkListChange.do',
+	              type:'post',
+	              dataType:"json",
+	              data:{"function":func,
+	            	  		"id":id},
+	              success:function(data){
+	            	  		          
+	              }
+	     	  });
+	     })
 		$(this).on("click","#complecheck",function(){
 			var message = $('textarea#chetext').val();
+			var cardno = $('#cardNo').val(); 
+            $.ajax({
+	              url:'checkListUpdate.do',
+	              type:'post',
+	              dataType:"json",
+	              data:{"msg":message,
+	            	  		"no":cardno},
+	              success:function(data){
+	            	  $('#checkready').append("<form id='checkboxform'><p><input type='checkbox' class='chkList' id="+data+">"+message+"</p></form>");		          
+	              }
+	     	  });
 			$('#chetext').css('display',"none");
-			$('#checkready').append("<form id='checkboxform'><p><input type='checkbox' />"+message+"</p></form>");
+			
 			document.getElementById("addchecklist").disabled=false;
 			document.getElementById("complecheck").disabled=true;
 			 $('#chetext').remove();
@@ -990,7 +1053,7 @@ background: #BCF12A;
 		      	  
 		      	  // count checks
 		      	 function countChecked() {
-			      	    checked = $("input:checked").length;
+			      	    checked = $("input:checked").length-1;
 			      	    
 			      	    var percentage = parseInt(((checked / count) * 100),10);
 			      	    $(".progressbar-bar").progressbar({
@@ -1005,6 +1068,132 @@ background: #BCF12A;
 		      	});
 		});    
 });
+function drawChart(op1,op2){
+    var val1=0;
+    switch(op1){
+      case "#FDC6C6":
+         val1=1;
+         break;
+      case "#FFACAC":
+         val1=2;
+         break;
+      case "#FC7474":
+         val1=3;
+         break;
+      case "#FC4B4B":
+         val1=4;
+         break;
+      case "#FC0000":
+         val1=5;
+         break;
+    }
+    var val2=0;
+    switch(op2){
+      case "#DFDFFD":
+         val2=1;
+         break;
+      case "#C0C0FF":
+         val2=2;
+         break;
+      case "#8F8FFF":
+         val2=3;
+         break;
+      case "#4E4EFD":
+         val2=4;
+         break;
+      case "#1414FC":
+         val2=5;
+         break;
+      }
+   // alert(val1);
+   // alert(val2);
+    
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+
+          var data = google.visualization.arrayToDataTable([
+            ['', '', { role: 'style' }],
+            ['중요도', val1, op1],
+            ['선호도', val2, op2]
+          ]);
+
+          var view = new google.visualization.DataView(data);
+          view.setColumns([0, 1,
+                           { calc: "stringify",
+                             sourceColumn: 1,
+                             type: "string",
+                             role: "annotation" },
+                           2]);
+          
+          var options = {
+            title: '우선순위',
+            legend: { position: 'none' },
+            chartArea: {width: '220px'},
+            hAxis: {
+              minValue: 0,
+              ticks: [0, 1, 2, 3, 4, 5]
+            },
+            vAxis: {
+              
+            }
+            
+          };
+
+          var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+          chart.draw(view, options);
+    }
+}
+function showMap(searchPlace){
+	  var infowindow = new daum.maps.InfoWindow({zIndex:1});
+	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	      mapOption = {
+	          center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+	          level: 1 // 지도의 확대 레벨
+	      };  
+	  // 지도를 생성합니다    
+	  var map = new daum.maps.Map(mapContainer, mapOption); 
+	  // 장소 검색 객체를 생성합니다
+	  var ps = new daum.maps.services.Places(); 
+	  // 키워드로 장소를 검색합니다
+	  ps.keywordSearch(searchPlace, placesSearchCB); 
+	  // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+	  function placesSearchCB (status, data, pagination) {
+	      if (status === daum.maps.services.Status.OK) {
+
+	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+	          // LatLngBounds 객체에 좌표를 추가합니다
+	          var bounds = new daum.maps.LatLngBounds();
+
+	          for (var i=0; i<data.places.length; i++) {
+	              displayMarker(data.places[i]);    
+	              bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
+	          }       
+
+	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+	          map.setBounds(bounds);
+	      } 
+	  }
+	  // 지도에 마커를 표시하는 함수입니다
+	  function displayMarker(place) {
+	      
+	      // 마커를 생성하고 지도에 표시합니다
+	      var marker = new daum.maps.Marker({
+	          map: map,
+	          position: new daum.maps.LatLng(place.latitude, place.longitude) 
+	      });
+
+	      // 마커에 클릭이벤트를 등록합니다
+	      daum.maps.event.addListener(marker, 'click', function() {
+	          // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+	          infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
+	          infowindow.open(map, marker);
+	      });
+	  }
+	  map.relayout();
+}
 function resize(obj) {
 	  obj.style.height = "1px";
 	  obj.style.height = (50+obj.scrollHeight)+"px";

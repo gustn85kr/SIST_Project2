@@ -89,7 +89,10 @@
 	<select id="getCardInfo" resultType="Ocard" parameterType="int">
 		SELECT no,userno,title,content,regdate,startdate,enddate,priority1,priority2,done,label FROM onmcard WHERE no=#{no}
 	</select>
-	
+	<!-- 캘린더 드래그 드롭 업데이트 -->
+    <update id="dateDrag" parameterType="Ocard">
+      UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE no=#{no} <!-- where절에 cardid가와야됨  -->
+    </update>	
 	<!-- onm.jsp 호출시 card date 출력 -->
     <select id="loadCard" resultType="Ocard" parameterType="int">
        SELECT startdate,enddate,title,label,no FROM onmcard WHERE userno=#{userno} AND startdate is not null
@@ -114,8 +117,54 @@
 	<update id="cardOpenUpdate" parameterType="Ocard">
     	UPDATE onmcard SET done=#{done} WHERE no=#{no}
 	</update>
-	<!-- 캘린더 드래그 드롭 업데이트 -->
-    <update id="dateDrag" parameterType="Ocard">
-      UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE no=#{no} <!-- where절에 cardid가와야됨  -->
-    </update>
+	<!-- 맵 Insert -->
+	<insert id="mapInsert" parameterType="Comm">
+		INSERT INTO onmcomm VALUES(seq_ocm.nextval,#{cardno},1,SYSDATE,#{cardcomm}) 
+	</insert>
+	<!-- 맵 update -->
+	<update id="mapUpdate" parameterType="Comm">
+		UPDATE onmcomm SET cardcomm=#{cardcomm} WHERE cardno=#{cardno} AND function=1
+	</update>
+	<!-- 맵 존재하는지 검사 -->
+	<select id="countMap" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM onmcomm WHERE cardno=#{cardno} AND function=1
+	</select>
+	<!-- card open시 맵 load -->
+	<select id="loadMap" parameterType="int" resultType="String">
+		SELECT cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=1
+	</select>
+	<!-- card map delete -->
+	<delete id="mapDelete" parameterType="int">
+		DELETE FROM onmcomm WHERE cardno=#{cardno} AND function=1
+	</delete>
+	<!-- checklist title create --> 
+	<insert id="checkListCreate" parameterType="Comm">
+		INSERT INTO onmcomm VALUES(seq_ocm.nextval,#{cardno},2,SYSDATE,#{cardcomm}) 
+	</insert>
+	<!-- checklist update --> 
+	<insert id="checkListUpdate" parameterType="Comm">
+		INSERT INTO onmcomm VALUES(seq_ocm.nextval,#{cardno},3,SYSDATE,#{cardcomm}) 
+	</insert>
+	<!-- checklist get no -->
+	<select id="getCheckListNo" resultType="int">
+		SELECT MAX(no) FROM onmcomm
+	</select>
+	<!-- checklist function change -->
+	<update id="checkListChange" parameterType="Comm">
+		UPDATE onmcomm SET function = #{function} WHERE no=#{no}
+	</update> 
+	<!-- checklist delete -->
+	<delete id="checkListDelete" parameterType="int">
+		DELETE FROM onmcomm WHERE cardno=#{cardno} AND (function=2 OR function=3)
+	</delete>
+	<!-- load checklist title -->
+	<select id="loadCheckListTitle" parameterType="int" resultType="String">
+		SELECT cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=2
+	</select>
+	<!-- load checklist -->
+	<select id="loadCheckList" parameterType="int" resultType="Comm">
+		SELECT no,function,cardcomm FROM onmcomm WHERE cardno=#{cardno} AND (function=3 OR function=4)
+	</select>
+	
+	
 </mapper>

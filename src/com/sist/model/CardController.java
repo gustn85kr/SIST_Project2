@@ -102,4 +102,67 @@ public class CardController {
 		return "ajax";
 		
 	}
+	@RequestMapping("mapUpdate.do")
+	public String mapUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CommVO vo = new CommVO();
+		String cardno= req.getParameter("no");
+		String loc = req.getParameter("loc");
+		System.out.println("À§Ä¡:"+loc);
+		vo.setCardcomm(loc);
+		vo.setCardno(Integer.parseInt(cardno));
+		vo.setFunction(1);
+		int result = OnmDAO.countMap(Integer.parseInt(cardno));
+		if(result==0){
+			OnmDAO.mapInsert(vo);
+		}else{
+			OnmDAO.mapUpdate(vo);
+		}
+		
+		return "ajax";
+	}
+	@RequestMapping("mapDelete.do")
+	public String mapDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String cardno= req.getParameter("no");
+		OnmDAO.mapDelete(Integer.parseInt(cardno));
+		return "ajax";
+	}
+	@RequestMapping("checkCreate.do")
+	public String checkCreate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CommVO vo = new CommVO();
+		String cardno= req.getParameter("no");
+		String title = req.getParameter("title");
+		vo.setCardcomm(title);
+		vo.setCardno(Integer.parseInt(cardno));
+		OnmDAO.checkListCreate(vo);
+		
+		return "ajax";
+	}
+	@RequestMapping("checkListUpdate.do")
+	public String checkListUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CommVO vo = new CommVO();
+		String cardno= req.getParameter("no");
+		String title = req.getParameter("msg");
+		vo.setCardcomm(title);
+		vo.setCardno(Integer.parseInt(cardno));
+		int no = OnmDAO.checkListUpdate(vo);
+		res.getWriter().write(String.valueOf(no));
+		return "ajax";
+	}
+	@RequestMapping("checkListDelete.do")
+	public String checkListDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String cardno= req.getParameter("no");
+		OnmDAO.checkListDelete(Integer.parseInt(cardno));
+		return "ajax";
+	}
+	@RequestMapping("checkListChange.do")
+	public String checkListChange(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		CommVO vo = new CommVO();
+		String id= req.getParameter("id");
+		String func = req.getParameter("function");
+		vo.setNo(Integer.parseInt(id));
+		vo.setFunction(Integer.parseInt(func));
+		OnmDAO.checkListChange(vo);
+		
+		return "ajax";
+	}
 }

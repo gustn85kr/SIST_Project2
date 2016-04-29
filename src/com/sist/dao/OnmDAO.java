@@ -106,8 +106,68 @@ public class OnmDAO {
 	public static void dateDrag(CardVO vo) {
 		SqlSession session = ssf.openSession(true);
 		session.update("dateDrag", vo);
-		System.out.println("데이트드래그");
-
 		session.close();
 	}
+	public static void mapInsert(CommVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.insert("mapInsert",vo);
+		session.close();
+	}
+	public static void mapUpdate(CommVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.update("mapUpdate",vo);
+		session.close();
+	}
+	public static int countMap(int cardno){
+		SqlSession session = ssf.openSession();
+		int res = session.selectOne("countMap",cardno);
+		session.close();
+		return res;
+	}
+	public static String loadMap(int cardno){
+		SqlSession session = ssf.openSession();
+		String res = session.selectOne("loadMap",cardno);
+		session.close();
+		return res;
+	}
+	public static void mapDelete(int cardno){
+		SqlSession session = ssf.openSession(true);
+		session.delete("mapDelete",cardno);
+		session.close();
+	}
+	public static void checkListCreate(CommVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.insert("checkListCreate",vo);
+		session.close();
+	}
+	public static int checkListUpdate(CommVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.insert("checkListUpdate",vo);
+		int res = session.selectOne("getCheckListNo");
+		session.close();
+		return res;
+	}
+	public static void checkListDelete(int cardno){
+		SqlSession session = ssf.openSession(true);
+		session.delete("checkListDelete",cardno);
+		session.close();
+	}
+	public static String loadCheckListTitle(int cardno){
+		SqlSession session = ssf.openSession();
+		String res = session.selectOne("loadCheckListTitle",cardno);
+		session.close();
+		return res;
+	}
+	public static List<CommVO> loadCheckList(int cardno){
+		SqlSession session = ssf.openSession();
+		List<CommVO> res = session.selectList("loadCheckList",cardno);
+		session.close();
+		return res;
+	}
+	public static void checkListChange(CommVO vo){
+		SqlSession session = ssf.openSession(true);
+		session.update("checkListChange",vo);
+		session.close();
+	}
+
 }

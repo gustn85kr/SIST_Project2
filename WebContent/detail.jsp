@@ -279,13 +279,67 @@ width: 48px;
 height: 48px;
 }
 </style>
+
+<script type="text/javascript">
+	$(function(){
+	    
+	});
+/*  	function searchMap(searchPlace){
+	  var infowindow = new daum.maps.InfoWindow({zIndex:1});
+	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	      mapOption = {
+	          center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+	          level: 1 // 지도의 확대 레벨
+	      };  
+	  // 지도를 생성합니다    
+	  var map = new daum.maps.Map(mapContainer, mapOption);
+	  // 장소 검색 객체를 생성합니다
+	  var ps = new daum.maps.services.Places(); 
+	  // 키워드로 장소를 검색합니다
+	  ps.keywordSearch(searchPlace, placesSearchCB); 
+	  // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+	  function placesSearchCB (status, data, pagination) {
+	      if (status === daum.maps.services.Status.OK) {
+
+	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+	          // LatLngBounds 객체에 좌표를 추가합니다
+	          var bounds = new daum.maps.LatLngBounds();
+
+	          for (var i=0; i<data.places.length; i++) {
+	              displayMarker(data.places[i]);    
+	              bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
+	          }       
+
+	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+	          map.setBounds(bounds);
+	      } 
+	  }
+	  // 지도에 마커를 표시하는 함수입니다
+	  function displayMarker(place) {
+	      
+	      // 마커를 생성하고 지도에 표시합니다
+	      var marker = new daum.maps.Marker({
+	          map: map,
+	          position: new daum.maps.LatLng(place.latitude, place.longitude) 
+	      });
+
+	      // 마커에 클릭이벤트를 등록합니다
+	      daum.maps.event.addListener(marker, 'click', function() {
+	          // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+	          infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
+	          infowindow.open(map, marker);
+	      });
+	  }
+}
+  */
+ 
+</script>
 </head>
 <body>
-	
 	<div class="modal-dialog" id="modalBody">
 		<div class="row">
 			<div id="content" >
-				<button type="button" id="modalBdClose"><img src="calendar\images\closeBig-icon.png" ></button>
+				<button type="button" id="modalBdClose"><img src="calendar\images\closeB-icon.png" ></button>
 			</div>
 			<div class="col-sm-9">
 				<div id="modalTitle">
@@ -302,6 +356,9 @@ height: 48px;
 					</div>
 					<div id="modalPriority">
 					<c:if test="${card.priority1!=null || card.priority2!=null}">
+					<script type="text/javascript">
+						drawChart("${card.priority1}","${card.priority2}")
+					</script>
 					<span class='glyphicon glyphicon-star'>우선순위</span><br/>
 					<div id='priorityIf'>
 						<span style='background-color:${card.priority1}'>중요도</span>
@@ -327,21 +384,95 @@ height: 48px;
   					  <c:if test="${card.content!=null}">
 	  					  <div id="showContent">
 	  					  	${card.content} 					  
-	  					  </div>				  
+	  					  </div>
+	  					  <div id="hashready" style="display:none"></div>           
+                   		  <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>				  
   					  </c:if>
   					  <c:if test="${card.content==null}">
 	  					  <div id="showContent" style="display:none"> 					  
-	  					  </div>				  
+	  					  </div>
+	  					  <div id="hashready" style="display:none"></div>           
+                   		  <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>				  
   					  </c:if>
 					</div>				
 				</div>
 				
 				<div id="modalMid"> 
 					<span class="glyphicon glyphicon-th-list" id="glypMid"> 추가기능</span><br>
-					<div id="modalMap" style="display:none">			
+					<c:if test="${map!=null}">
+
+					<div id="modalMap" style="display:block">			
 						<div id="mapunder"><img src="calendar\images\map-icon.png" style="text-align:left;">&nbsp;&nbsp;위치정보</div>
+						
 						<div id="map" style="width:400px;height:300px;"></div>
 					</div>
+					<script type="text/javascript">
+						showMap("${map}");
+					</script>
+					</c:if>
+					<c:if test="${map==null}">
+					<div id="modalMap" style="display:none">			
+						<div id="mapunder"><img src="calendar\images\map-icon.png" style="text-align:left;">&nbsp;&nbsp;위치정보</div>
+						
+						<div id="map" style="width:400px;height:300px;"></div>
+					</div>
+					</c:if>
+					<c:if test="${checkTitle!=null}">
+					<div id="checklistadd">
+						<div id="checkunder"><img src="calendar\images\checkbox-icon.png" style="text-align:left;">&nbsp;&nbsp;체크리스트</div>
+						<p id="checklisttitle">${checkTitle}</p>
+						<div class="progressbar-container" id="progressbar-container">
+				  			<div class="progressbar-bar" id="progressbar-bar"></div>
+				  			<div class="progressbar-label" id="progressbar-label" ></div>	  
+	  		 			</div>
+	  		
+	  		  			<div class="checkready" id= "checkready" >
+	  		  			<c:forEach var="chk" items="${checkList}">
+	  		  			<c:if test="${chk.function==3}">
+	  		  				<form id='checkboxform'><p><input type='checkbox' class='chkList' id='${chk.no}'>${chk.cardcomm}</p></form>
+	  		  			</c:if>
+	  		  			<c:if test="${chk.function==4}">
+	  		  				<form id='checkboxform'><p><input type='checkbox' class='chkList' id='${chk.no}' checked="checked">${chk.cardcomm}</p></form>
+	  		  			</c:if>
+	  		  			</c:forEach>
+			  			</div>
+			   			<div id="addcheck">
+						  <button type="button" class="addlistcheck" id="addchecklist">추가</button>
+						  <button type="button" class="checkcomplete" id="complecheck" style="display:none">완료</button>
+			   			</div>
+					</div>
+					<script type="text/javascript">
+					 $('#checkready').ready(function() {
+				      	  
+				      	  // get box count
+				      	  var count = 0;
+				      	  var checked = 0;
+				      	  function countBoxes() { 
+				      	    count = $("input[type='checkbox']").length;
+				      	    console.log(count);
+				      	  }
+				      	  
+				      	  countBoxes();
+				      	  $(":checkbox").click(countBoxes);
+				      	  
+				      	  // count checks
+				      	 function countChecked() {
+					      	    checked = $("input:checked").length-1;
+					      	    
+					      	    var percentage = parseInt(((checked / count) * 100),10);
+					      	    $(".progressbar-bar").progressbar({
+					      	            value: percentage
+					      	        });
+					      	    $(".progressbar-label").text(percentage + "%");
+					      	  }
+					      	  
+					      	  countChecked();
+					      	  $(":checkbox").click(countChecked);
+				      	 
+				      	});
+					</script>
+					</c:if>
+					<c:if test="${checkTitle==null}">
 					<div id="checklistadd" style="display:none">
 						<div id="checkunder"><img src="calendar\images\checkbox-icon.png" style="text-align:left;">&nbsp;&nbsp;체크리스트</div>
 						<p id="checklisttitle"></p>
@@ -358,6 +489,7 @@ height: 48px;
 						  <button type="button" class="checkcomplete" id="complecheck" style="display:none">완료</button>
 			   			</div>
 					</div>
+					</c:if>
 					<div id="modalFile" style="display:none">
 						<form class="fileUpload" action="download.jsp" method="post" enctype="multipart/form-data">
 							<div id="fileUpField" >
@@ -404,10 +536,10 @@ height: 48px;
         			</div>
         		</div>
 		        
-		        <br/>
+	<!-- 	        <br/>
 		        <button type="button" class="btn btn-default btn-sm" id="manaddBtn">
 		          <img src="calendar\images\man-icon.png" class="addicon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인원 추가
-		        </button>
+		        </button> -->
 		
         		
         		<br>                          <%-- 뛰어 --%>        
@@ -441,7 +573,7 @@ height: 48px;
 		        	</div>
 		        	<div>
 		        	    <input type="button" id="checkInsert"  class="btniconcss" value="생성"/>
-		        		<input type="button" id="checkCancel" class="btniconcss" value="취소"/>
+		        		<input type="button" id="checkCancel" class="btniconcss" value="삭제"/>
 		        	</div>
 		        
 		        </div>
@@ -508,7 +640,7 @@ height: 48px;
 							</label>
 				
 							<label class="btn btn-warning" style="background-color:#8F8FFF ">
-								<input type="radio" name="option2" id="option2" autocomplete="off" value="#8F8FFF ">
+								<input type="radio" name="option2" id="option2" autocomplete="off" value="#8F8FFF">
 								<span class="glyphicon glyphicon-ok"></span>
 							</label>
 				
@@ -558,10 +690,13 @@ height: 48px;
                   <div>
                      <input type="button" id="labelInsert"  class="btniconcss" value="확인"/>
                   	<input type="button" id="labelDelete"  class="btniconcss" value="삭제"/>
-                  </div>
-  
-		    
+				  </div>
 			</div>
+			
+			<div class="prioritygraph">
+                 <div id="chart_div" ></div>
+            </div>
+            
 		</div>
 		</div>
 	</div>
