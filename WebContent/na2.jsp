@@ -300,9 +300,7 @@ height: 48px;
                   <div id="contentText" style="font: bold;"><img src="calendar\images\text-icon.png" style="text-align:left;font-size:20px;">&nbsp;&nbsp;일정내용<span id="insertContent" data-toggle="tooltip" title="일정 내용 수정">  수정  </span></div>
                   <div id="newTA" style="display:none">
                       <textarea id="mytextarea" >
-            
                       </textarea>
-                      
                        <button type="button" class="btn btn-default btn-sm" id="contentInsert">입력</button>
                        <button type="button" class="btn btn-default btn-sm" id="contentCancel" >취소</button>
                    </div>
@@ -403,26 +401,32 @@ height: 48px;
             </form>
                                     <%-- 뛰어 --%>
               
-               <button type="button" class="btn btn-default btn-sm" id="mailaddBtn">
-                <img src="calendar\images\email-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  메일
-              </button>          
-               
+               <button type="button" class="btn btn-default btn-sm" id="mailBtn">
+                <img src="calendar\images\email-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 메일
+               </button>      
+               <div id ="mailDiv" style="display:none">
+                 <div style="margin:10px;"> 받는 사람 :
+                 <input type="text" id="toMail" class="textcss"/>
+                 </div>
+ 		   		 <div>
+                     <input type="button" id="sendMail"  class="btniconcss" value="보내기"/>
+                     <input type="button" id="cancelMail" class="btniconcss" value="취소"/>
+                 </div>
+               </div>
                <br>                       <%-- 뛰어 --%>
                
                <button type="button" class="btn btn-default btn-sm" id="checkBtn">
                 <img src="calendar\images\checkbox-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크리스트
               </button>
               <div id="checkDiv" style="display:none">
-                 <div style="margin:10px;">
-                    제목  <input type="text" id="checkTitle" class="textcss"/>
+                 <div style="margin:10px;"> 제목  : 
+                 <input type="text" id="checkTitle" class="textcss"/>
                  </div>
                  <div>
                      <input type="button" id="checkInsert"  class="btniconcss" value="생성"/>
-                    <input type="button" id="checkCancel" class="btniconcss" value="취소"/>
-                 </div>
-              
-              </div>
-              
+                     <input type="button" id="checkCancel" class="btniconcss" value="취소"/>
+                 </div>              
+              </div>              
                <br>                        <%-- 뛰어 --%>
               
               <button type="button" class="btn btn-default btn-sm" id="btnMap">

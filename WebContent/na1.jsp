@@ -569,6 +569,7 @@ $(document).ready(function(){
           $(this).parent("#newTA").siblings("#showContent").css('display',"inline");
           $(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
       });
+       //리스트 모달에서 우선순위 버튼 클릭 액션
         $(this).on("click","#priorityBtn",function(){
            obj = document.getElementById('priorityDiv');
            if(obj.style.display == "none"){
@@ -577,6 +578,24 @@ $(document).ready(function(){
               $("#priorityDiv").css('display','none');
            }           
        });
+       
+        //모달에서 메일보내기 버튼 클릭 액션
+       $(this).on("click","#mailBtn",function(){
+    	  obj = document.getElementById('mailDiv');
+    	  if(obj.style.display == "none"){
+    		  $("#mailDiv").css("display","inline");
+    	  } else {
+    		  $("#mailDiv").css("display","none");
+    	  }
+       });
+        
+       $(this).on("click","#sendMail",function(){
+           // 수정
+           $("#mailDiv").css("display","none");
+           $("#mailBtn").css("display",'inline');
+           var sendMail = $('#toMail').val();
+       });
+            
        $(this).on("click","#priorityInsert",function(){
            $("#priorityDiv").css('display','none');
            var op1 = $(':radio[name="option1"]:checked').val();
@@ -596,26 +615,30 @@ $(document).ready(function(){
         $("#priorityDiv").css('display','none');
         $('#modalPriority').empty();
        });
-       $(this).on("click","#checkBtn",function(){
-          obj = document.getElementById('checkDiv');
-          if(obj.style.display=="none"){
-             $("#checkDiv").css("display","inline");
-          }else{
-           $("#checkDiv").css("display","none");
-          }
-          
-       });
-       $(this).on("click","#checkInsert",function(){
-          // 수정
+       
+     //체크리스트 버튼 클릭 시 액션
+     $(this).on("click","#checkBtn",function(){
+         obj = document.getElementById('checkDiv');
+         if(obj.style.display=="none"){
+            $("#checkDiv").css("display","inline");
+         }else{
           $("#checkDiv").css("display","none");
-          $("#checklistadd").css("display",'inline');
-          var title = $('#checkTitle').val();
-          $('#checklisttitle').text(title);
-       });
+         }          
+     });
+       
+     $(this).on("click","#checkInsert",function(){
+         // 수정
+         $("#checkDiv").css("display","none");
+         $("#checklistadd").css("display",'inline');
+         var title = $('#checkTitle').val();
+         $('#checklisttitle').text(title);
+     });
+       
      $(this).on("click","#checkCancel",function(){
         $("#checklistadd").empty();
      });
-       $(this).on("click","#dateBtn",function(){
+     
+     $(this).on("click","#dateBtn",function(){
            obj = document.getElementById('dateDiv');
            if(obj.style.display=="none"){
              $("#dateDiv").css("display","inline");
@@ -675,6 +698,10 @@ $(document).ready(function(){
       $(this).on("click","#dateDelete",function(){
          $("#dateDiv").css('display','none');
       });
+      $(this).on("click","#cancelMail",function(){
+          $("#mailDiv").css('display','none');
+       });  
+        
       $(this).on("click","#checkCancel",function(){
          $("#checkDiv").css('display','none');
       });

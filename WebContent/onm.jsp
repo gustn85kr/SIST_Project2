@@ -313,7 +313,8 @@ body {
 }
 
 #cardDetail .modal-dialog {
-	width: 75%
+	width: 100%;
+	left: 120px;
 }
 
 .fc-time {
@@ -487,10 +488,95 @@ body {
 											}
 										});
 									},
-									eventClick : function(event) {
-										$('#cardDetail').modal();
-										/*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
-									},
+									eventClick: function(event) {
+										//ev.preventDefault();
+									    var target = "detail.do?no=";
+									    var cdno = 'card'+event.id;
+									    target= target+cdno.trim();
+									    alert(target);
+										$("#cardDetail .modal-dialog").load(target, function() {
+											
+												$('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
+											    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+											    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+											        $("#edate").datepicker( "option", "minDate", selectedDate );
+											    });
+											    $('#edate').datepicker({ dateFormat: 'yy/mm/dd'});
+											    $('#edate').datepicker("option", "minDate", $("#sdate").val());
+											    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
+											        $("#sdate").datepicker( "option", "maxDate", selectedDate );
+											    });
+											    
+											    //여기부터 지도
+											    $("#txtAddress").keydown(function(e) {
+								                      if (e.keyCode == 13) {
+								                    	  $("#modalMap").css("display","block");
+								                     		/* map.relayout(); */
+								                       var searchPlace = $(this).val();   
+								                    	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+								                    	
+								                    	  var infowindow = new daum.maps.InfoWindow({zIndex:1});
+
+								                    	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+								                    	      mapOption = {
+								                    	          center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+								                    	          level: 1 // 지도의 확대 레벨
+								                    	      };  
+
+								                    	  // 지도를 생성합니다    
+								                    	  var map = new daum.maps.Map(mapContainer, mapOption); 
+
+								                    	  // 장소 검색 객체를 생성합니다
+								                    	  var ps = new daum.maps.services.Places(); 
+
+								                    	  // 키워드로 장소를 검색합니다
+								                    	  ps.keywordSearch(searchPlace, placesSearchCB); 
+
+								                    	  // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+								                    	  function placesSearchCB (status, data, pagination) {
+								                    	      if (status === daum.maps.services.Status.OK) {
+
+								                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+								                    	          // LatLngBounds 객체에 좌표를 추가합니다
+								                    	          var bounds = new daum.maps.LatLngBounds();
+
+								                    	          for (var i=0; i<data.places.length; i++) {
+								                    	              displayMarker(data.places[i]);    
+								                    	              bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
+								                    	          }       
+
+								                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+								                    	          map.setBounds(bounds);
+								                    	      } 
+								                    	  }
+
+								                    	  // 지도에 마커를 표시하는 함수입니다
+								                    	  function displayMarker(place) {
+								                    	      
+								                    	      // 마커를 생성하고 지도에 표시합니다
+								                    	      var marker = new daum.maps.Marker({
+								                    	          map: map,
+								                    	          position: new daum.maps.LatLng(place.latitude, place.longitude) 
+								                    	      });
+
+								                    	      // 마커에 클릭이벤트를 등록합니다
+								                    	      daum.maps.event.addListener(marker, 'click', function() {
+								                    	          // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+								                    	          infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
+								                    	          infowindow.open(map, marker);
+								                    	      });
+								                    	  }
+
+								                     		
+								                      }
+								                  });  //지도 끝
+											    
+									    });
+										
+										$("#cardDetail").modal("show"); 
+								  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
+								  	   
+								  	},
 									eventLimit : true, // allow "more" link when too many events
 									events : [
 									]
@@ -820,36 +906,7 @@ body {
 											'.addListTxt').focus();
 
 								});
-						$(this)
-								.on(
-										"click",
-										"#commentAddOk",
-										function() {
-
-											var commenttext = $(this).siblings(
-													"#commentText").val();
-											$(this)
-													.parents("#commentDialog")
-													.append(
-															"<div id='commentPanel'><button id='commentDelete'>X</button><div id='commentArea'>"
-																	+ commenttext
-																	+ "</div></div>");
-
-											$(this)
-													.parents("#commentDialog")
-													.append(
-															"<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>추가</button>");
-
-											$(this).siblings("#commentText")
-													.val("");
-											$(this).parent("#commentAddArea")
-													.remove();
-
-										});
-						$(this).on("click", "#commentDelete", function() {
-							$(this).parent("#commentPanel").remove();
-
-						});
+						
 						/* addListPanelCreation addListPanelCancel */
 						$(this).on(
 								"click",
@@ -1062,20 +1119,12 @@ body {
 								$("#priorityDiv").css('display', 'none');
 							}
 						});
-						$(this)
-								.on(
-										"click",
-										"#priorityInsert",
+						$(this).on("click", "#priorityInsert",
 										function() {
-											$("#priorityDiv").css('display',
-													'none');
-											var op1 = $(
-													':radio[name="option1"]:checked')
-													.val();
+											$("#priorityDiv").css('display','none');
+											var op1 = $(':radio[name="option1"]:checked').val();
 											alert(op1);
-											var op2 = $(
-													':radio[name="option2"]:checked')
-													.val();
+											var op2 = $(':radio[name="option2"]:checked').val();
 											alert(op2);
 											var cardno = $('#cardNo').val();
 											$.ajax({
@@ -1093,44 +1142,62 @@ body {
 											});
 											$('input').prop('checked', false);
 											$('#modalPriority').empty();
-											$('#modalPriority')
-													.append(
-															"<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
+											$('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
 											if (op1 != null) {
-												$("#priorityIf")
-														.append(
-																"<span style='background-color:"+op1+"'> 중요도</span>");
+												$("#priorityIf").append("<span style='background-color:"+op1+"'> 중요도</span>");
 											}
 											if (op2 != null) {
-												$("#priorityIf")
-														.append(
-																"<span style='background-color:"+op2+"'> 선호도</span>");
+												$("#priorityIf").append("<span style='background-color:"+op2+"'> 선호도</span>");
 											}
 										});
 						$(this).on("click", "#priorityCancel", function() {
 							$("#priorityDiv").css('display', 'none');
 							$('#modalPriority').empty();
 						});
+						
+						//모달에서 메일보내기 버튼 클릭 액션
+					       $(this).on("click", "#mailBtn",function() {
+					    	  obj = document.getElementById('mailDiv');
+					    	  if(obj.style.display == "none") {
+					    		  divHide();
+					    		  $("#mailDiv").css("display","inline");
+					    	  } else {
+					    		  $("#mailDiv").css("display","none");
+					    	  }
+					       });
+					        
+					       $(this).on("click","#sendMail",function(){
+					           $("#mailDiv").css("display","none");
+					           $("#mailBtn").css("display",'inline');
+					           var sendMail = $('#toMail').val();
+					       });	
+					       
+					       $(this).on("click","#cancelMail",function(){
+					           $("#mailDiv").css('display','none');
+					       }); 
+					     //모달에서 메일보내기 버튼 클릭 액션 end
+				     
 						$(this).on("click", "#checkBtn", function() {
 							obj = document.getElementById('checkDiv');
 							if (obj.style.display == "none") {
-
 								divHide();
 								$("#checkDiv").css("display", "inline");
 							} else {
 								$("#checkDiv").css("display", "none");
 							}
-
 						});
+				     
 						$(this).on("click", "#checkInsert", function() {
 							$("#dateDiv").css("display", "none");
 							$("#checklistadd").css("display", 'inline');
 							var title = $('#checkTitle').val();
 							$('#checklisttitle').text(title);
 						});
+						
 						$(this).on("click", "#checkCancel", function() {
 							$("#checklistadd").empty();
 						});
+						
 						$(this).on("click", "#dateBtn", function() {
 							obj = document.getElementById('dateDiv');
 							if (obj.style.display == "none") {
@@ -1140,6 +1207,7 @@ body {
 								$("#dateDiv").css("display", "none");
 							}
 						});
+						
 						$(this).on("click", "#btnMap", function() {
 							obj = document.getElementById('mapApp');
 							if (obj.style.display == "none") {
@@ -1152,6 +1220,7 @@ body {
 							if (obj.style.display == "block")
 								$("#modalMap").css("display", "none");
 						});
+						
 						$(this).on("click", "#labelBtn", function() {
 							obj = document.getElementById('labelDiv');
 							if (obj.style.display == "none") {
@@ -1161,20 +1230,16 @@ body {
 								$("#labelDiv").css("display", "none");
 							}
 						});
+						
 						$(this).on("click", "#labelDelete", function() {
 							$('#modalLabel').empty();
 						});
-						$(this)
-								.on(
-										"click",
-										"#labelInsert",
-										function() {
-
+						
+						$(this).on("click", "#labelInsert",	function() {
 											var cardno = $('#cardNo').val();
 											$('#modalLabel').empty();
 											var labelColor = $(
-													':radio[name="option10"]:checked')
-													.val();
+													':radio[name="option10"]:checked').val();
 											$.ajax({
 												url : 'labelUpdate.do',
 												type : 'post',
@@ -1216,6 +1281,45 @@ body {
 													.append(
 															"<span class='glyphicon glyphicon-tags'>라벨</span><br/><div id='labelColor' style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
 										});
+						
+						   /*
+		   				<div id=modalBottom>
+						<span class="glyphicon glyphicon-comment" id="glypBottom"> 댓글</span><br>
+						<div id="commentAdd">
+							<textarea id="commentBox" placeholder="댓글을 입력해주세요.."></textarea><br>
+							<div id="commentBtnBox">
+								<button id="commentAddBtn">추가</button>
+							</div>
+						</div>
+						<div id="commentArea">
+							
+						</div>	
+					</div>
+		   */
+		   
+		   $(this).on("click",'#commentAddBtn',function(){
+			  
+			   var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
+			   $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' style='float:right; background-color:transparent'>x</button><div>"+textcomment+"</div></div>");
+			   $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
+			   $(this).parents('#commentAdd').remove();
+
+			  
+		   });
+		   
+		   $(this).on("click",'#commentDelete',function(){
+			  $(this).parents('#commentArea').remove(); 
+		   });
+		   
+		   $(this).on("keyup",'#commentBox',function(){
+			   var txt = $(this).val();
+			   if(txt==""){
+				   $(this).siblings('#commentBtnBox').hide();
+			   }else{
+				   $(this).siblings('#commentBtnBox').show(); 
+			   }
+		   });
+
 
 						$(this).on("click", "#mapSearch", function() {
 							$("#modalMap").css("display", "block");
@@ -1456,6 +1560,7 @@ body {
 		$('#priorityDiv').hide();
 		$('#labelDiv').hide();
 		$('#dateDiv').hide();
+		$('#mailDiv').hide();
 	}//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
 </script>
 <title>오늘 일을 내일로 미루자</title>
