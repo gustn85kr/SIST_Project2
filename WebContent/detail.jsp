@@ -609,14 +609,14 @@ width:220px;
 
 		        <form class="fileUpload" action="insert.jsp" method="post" enctype="multipart/form-data" id="fileaddiBtn">
 					<button type="button" class="btn btn-default btn-sm" id="fileUpButton" style="border:0">
-						<img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
+					<img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
 					</button>
 					<div id="fileUpDiv" style="display:none">
-						<input type="file" class="btn-default btn-sm" name="upload" id="upload" style="margin-bottom:3px; margin-top:5px;width:220px">
+						<input type="file" name="fileupload" />
+						<input type="button" id="btn" value="전송" /> 
 						<button type="button" class="btn btn-default btn-sm" id="fileInsert">확인</button>
 						<button type="button" class="btn btn-default btn-sm" id="fileDelete">취소</button>
-						<!-- fuc = File Upload Cancel -->
-					</div>
+				</div>
 					<br>
 				</form>
 		                              <%-- 뛰어 --%>
