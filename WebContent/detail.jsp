@@ -543,7 +543,7 @@ width:220px;
 			   			</div>
 					</div>
 					</c:if>
-					<div id="modalFile" style="display:none">
+					<div id="modalFile" style="display:inline">
 						<form class="fileUpload" action="download.jsp" method="post" enctype="multipart/form-data">
 							<div id="fileUpField" >
 								<span class="glyphicon glyphicon-paperclip" id="glypfile"></span> 颇老梅何
@@ -607,7 +607,7 @@ width:220px;
         		
         		<br>                          <%-- 顿绢 --%>        
 
-		        <form class="fileUpload" action="insert.jsp" method="post" enctype="multipart/form-data" id="fileaddiBtn">
+		        <form class="fileUpload" action="fileInsert.do" method="post" enctype="multipart/form-data" id="fileaddiBtn">
 					<button type="button" class="btn btn-default btn-sm" id="fileUpButton" style="border:0">
 						<img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;颇老梅何
 					</button>

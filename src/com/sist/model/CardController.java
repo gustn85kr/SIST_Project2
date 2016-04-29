@@ -1,9 +1,13 @@
 package com.sist.model;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
@@ -164,5 +168,29 @@ public class CardController {
 		OnmDAO.checkListChange(vo);
 		
 		return "ajax";
+	}
+	@RequestMapping("fileInsert.do")
+	public String fileInsert(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    req.setCharacterEncoding("EUC-KR");
+    String enctype="EUC-KR";
+    int size=1024*1024*100;
+    String path="c://download";
+    MultipartRequest mr=
+          new MultipartRequest(req,path,size,enctype,
+                new DefaultFileRenamePolicy());
+
+    String filename=mr.getOriginalFileName("upload");
+    System.out.println(filename);
+    if(filename==null)
+    {
+       System.out.println("파일 네임 널");   
+    }
+    else
+    {
+       System.out.println(filename);
+       File file=new File("c:\\download\\"+filename);
+       
+    }
+	  return "ajax";
 	}
 }

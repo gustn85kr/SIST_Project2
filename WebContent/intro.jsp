@@ -153,8 +153,8 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 					data-endeasing="Power1.easeIn"
 					data-captionhidden="off"
 					style="z-index: 6">
-					일정관리! 어렵지 않아요~<br>
-                    이제 쉽고 간편하게 즐기세요~
+					변명중에서 가장 어리석고 못난 변명은<br>
+					'시간이 없어서' 라는 변명이다<br>-에디슨-
 				</div>	
 		</li>
 
@@ -172,7 +172,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			data-start="1500"
 			data-easing="Back.easeInOut"
 			data-endspeed="300">
-			2번 slide
+			I can't remember anything without you.
 		</div>
 
 		<!-- LAYER -->
@@ -187,7 +187,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 		data-endeasing="Power1.easeIn"
 		data-captionhidden="off"
 		style="z-index: 6">
-		일정을 보며 할일을 함께 계획하세요
+		시간을 선택하는것은 시간을 절약하는 것이다.
 	</div>
 </li>
 
@@ -238,7 +238,7 @@ style="z-index: 6">
 	data-start="1500"
 	data-easing="Back.easeInOut"
 	data-endspeed="300">
-	4번 slide
+	우리는 오늘은 이러고 있지만, 내일은 어떻게 될지 누가 알아요?
 </div>
 
 <!-- LAYER -->
@@ -253,7 +253,7 @@ data-endspeed="300"
 data-endeasing="Power1.easeIn"
 data-captionhidden="off"
 style="z-index: 6">
-당신의 일상과 계획을 <br>다른사람들과 함께 공유하세요
+Time is the most valuable thing a man can spend.
 </div>
 </li>
 
@@ -271,7 +271,7 @@ style="z-index: 6">
 	data-start="1500"
 	data-easing="Back.easeInOut"
 	data-endspeed="300">
-	5번 slide.
+	I love us..
 </div>
 
 <!-- LAYER -->
@@ -286,7 +286,13 @@ data-endspeed="300"
 data-endeasing="Power1.easeIn"
 data-captionhidden="off"
 style="z-index: 6">
-당신의 일상을 기록하세요.
+Remember me. Try your best,, Maybe we can.                    <!-- 1번 슬라이드 집중 시키고 싶음.
+                                                                                        2번 슬라이드 우리 기능 소개
+                                                                                        3번 슬라이드 명언
+                                                                                        4번 슬라이드 영어나 뭐 그런 멋있는말
+                                                                                        5번 우리 기능이 쉽다는걸 강조 
+                                                                                        슬라이드를 궁금해서 넘겨보게 싶게 만들고 싶음.
+                                                                                        그러나, 아직은 창조적인 생각이 안나서.. -->
 </div>
 
 </li>
