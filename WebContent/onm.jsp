@@ -80,21 +80,7 @@ body {
 }
 
 #PwdChageModal {
-	left: -100px;
-}
-
-#planSearchModal .modal-content {
-	width: 1350px;
-	height: 700px;
-	min-height: auto;
-	min-width: auto;
-}
-
-#planSearchModal {
-	position: fixed;
-	left: -800px;
-	min-height: auto;
-	min-width: auto;
+	left: -50px;
 }
 
 .list {
@@ -116,17 +102,6 @@ body {
 	border-left-color: #D7CECC;
 }
 
-#timetable {
-	height: 800px;
-	border: 2px solid;
-	border-bottom-color: #fff;
-	border-top-color: #fff;
-	border-right-color: #fff;
-	border-left-color: #D7CECC;
-}
-
->>>>>>>
-refs /remotes/origin/master
 .items .ui-selected {
 	background: red;
 	color: white;
@@ -234,10 +209,6 @@ refs /remotes/origin/master
 	height: 700px;
 }
 
-#cardList {
-	
-}
-
 .listHeader {
 	margin: 2px;
 	font: bold;
@@ -258,7 +229,40 @@ refs /remotes/origin/master
 .footInput textarea {
 	width: 280px;
 }
+/* 검색 결과 모달 CSS */
+#planSearchModal .modal-content {
+	width: 1350px;
+	height: 700px;
+	min-height: auto;
+	min-width: auto;
+}
 
+#planSearchModal {
+	position: fixed;
+	left: -800px;
+	min-height: auto;
+	min-width: auto;
+}
+
+#planSearchModal .modal-dialog .modal-content .searchHead label{
+	text-align:center;
+	margin : 2px;
+	margin-bottom : 15px;
+	margin-top : 15px;
+	height: 35px;
+	vertical-align: middle;
+	background-color:rgba(195,195,195,0.9);
+}
+
+#planSearchModal .modal-dialog .modal-content .searchRow label {
+	margin : 2px;
+	margin-bottom : 7px;
+	margin-top : 7px;
+	height : 35px;
+	text-align: left;
+	vertical-align: middle;
+}
+/* 검색 결과 모달 CSS 끝 */
 .cardInsert {
 	margin-left: 100px;
 }
@@ -272,25 +276,6 @@ refs /remotes/origin/master
 	color: black;
 	font-size: 20px;
 	margin: 5px;
-}
-
-#calendar {
-	
-}
-
-.footInput {
-	width: 280px;
-	text-align: center;
-	margin: 5px;
-	height: 50px;
-}
-
-.footInput textarea {
-	width: 280px;
-}
-
-.cardInsert {
-	margin-left: 100px;
 }
 
 .listHeader {
@@ -322,34 +307,9 @@ refs /remotes/origin/master
 	width: 280px;
 }
 
-.footInput {
-	width: 280px;
-	text-align: center;
-	margin: 5px;
-	height: 50px;
-}
-
-.footInput textarea {
-	width: 280px;
-}
 
 .cardInsert {
 	margin-left: 100px;
-}
-
-.listHeader {
-	margin: 5px;
-	height: 20px;
-}
-
-.listHeader p {
-	color: black;
-	font-size: 20px;
-	margin: 5px;
-}
-
-#calendar {
-	
 }
 
 #cardDetail .modal-dialog {
@@ -454,12 +414,32 @@ refs /remotes/origin/master
 							$("#PwdChageModal").modal();
 						});
 						
-						//검색창 모달
-						$("#searchBtn").click(function(){
+						//일정 검색 기능			
+						$("#btnSearch").click(function(){
 							$("#planSearchModal").modal();
 						});
-						
-						
+						/* $("#btnSearch").click(function(){
+							var searchRadios = document.querySelector('input[name="searchRadio"]:checked').value;
+							var inputSearch = $("#inputSearch").val();
+							if(inputSearch=="" || inputSearch==null){
+								$('#inputSearch').focus();
+								return;
+							} else {
+								$("#planSearchModal").modal();
+								$.ajax({
+									url : 'planSearch.do',
+									type : 'post',
+									data : {
+										"searchRadios" : searchRadios,
+										"inputSearch" : inputSearch
+									},
+									success : function(data) {
+										
+									}
+								});
+							}
+						}); */
+
 						$('#calendar').fullCalendar(
 								{
 									theme : true,
@@ -474,7 +454,6 @@ refs /remotes/origin/master
 									eventDurationEditable : false, // 이벤트 resize disable
 
 									/* 		select: function(start, end) {
-												
 												var eventData;
 												if (title) {
 													eventData = {
@@ -482,7 +461,6 @@ refs /remotes/origin/master
 														start: start,
 														end: end
 													};
-													
 												}
 												$('#calendar').fullCalendar('unselect');
 											}, *///이벤트 추가함수
@@ -508,17 +486,13 @@ refs /remotes/origin/master
 												alert("성공2")
 											}
 										});
-
 									},
 									eventClick : function(event) {
 										$('#cardDetail').modal();
-
 										/*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
-
 									},
 									eventLimit : true, // allow "more" link when too many events
 									events : [
-
 									]
 								});
 						calInit();
@@ -542,9 +516,7 @@ refs /remotes/origin/master
 
 							$('#calendar').fullCalendar('addEventSource',
 									events);
-
 							</c:forEach>
-
 						}
 						$(this)
 								.on(
@@ -560,7 +532,6 @@ refs /remotes/origin/master
 													.load(
 															target,
 															function() {
-
 																$('#sdate')
 																		.datepicker(
 																				{
@@ -1562,7 +1533,7 @@ refs /remotes/origin/master
 	<div class="modal fade" id="planSearchModal" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
-			<div class="modal-content">
+			<div class="modal-content" >
 				<div class="modal-header" style="padding: 30px 30px;">
 					<button type="button" class="close" data-dismiss="modal"
 						style="margin-top: 7px;">
@@ -1572,9 +1543,33 @@ refs /remotes/origin/master
 						<span class="glyphicon glyphicon-user"></span> 일정 검색
 					</h4>
 				</div>
-				<div class="modal-body" style="padding: 40px 50px;">
-					<div class=""></div>
-				</div>
+				
+				<div class="searchHead" >
+					<label class="col-sm-2 half" style="margin-left: 50px">이메일</label>
+					<label class="col-sm-3 half">제목</label>
+					<label class="col-sm-5 half">내용</label>
+					<label class="col-sm-1 half">조회수</label>
+				</div>	
+				
+				<c:forEach var="i" begin="1" end="10">
+				<c:if test="${i%2==0}">
+					<div class="searchRow">
+						<label class="col-sm-2" style="margin-left: 50px">바보3</label>
+						<label class="col-sm-3">바보3</label>
+						<label class="col-sm-5">바보3</label>
+						<label class="col-sm-1">바보3</label>
+					</div>
+				</c:if>
+				
+				<c:if test="${i%2==1}" >
+					<div class="searchRow">
+						<label class="col-sm-2" style="background-color:rgba(195,195,195,0.3); margin-left: 50px;">바보3</label>
+						<label class="col-sm-3" style="background-color:rgba(195,195,195,0.3)">바보3</label>
+						<label class="col-sm-5" style="background-color:rgba(195,195,195,0.3)">바보3</label>
+						<label class="col-sm-1" style="background-color:rgba(195,195,195,0.3)">바보3</label>
+					</div>
+				</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -1639,44 +1634,42 @@ refs /remotes/origin/master
 			</div>
 		</div>
 
-		<!-- 일정 검색 위치 -->
+<!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
 		<form role="form">
 			<div class="form-group has-success has-feedback">
-				<label class="col-sm-0 control-label" for="inputSuccess"
-					style="float: left; text-align: center; height: auto; padding-top: 6px;">&nbsp;&nbsp;&nbsp;&nbsp;일정
-					검색 <span class="glyphicon glyphicon-search"></span>
-				</label>
-				<div class="col-sm-2">
-					<input type="text" class="form-control" id="inputSuccess"
-						placeholder="찾고싶은 일정을 입력하세요..."> &nbsp;&nbsp;&nbsp;
-				</div>
-				<div>
-					<button type="button" class="btn btn-success" id="searchBtn">검색</button>
-					&nbsp;&nbsp;&nbsp; <label class="radio-inline"
-						style="padding-top: 3px;"> <input type="radio"
-						name="optradio" id="radioMyplan">내 일정
-					</label> <label class="radio-inline" style="padding-top: 3px;"> <input
-						type="radio" name="optradio" id="radioAllplan">모든 일정
-					</label> <label class="radio-inline" style="padding-top: 3px;"> <input
-						type="radio" name="optradio" id="radioHash">#해시태그
+				<div class="col-md-6 half" id="planSearch">
+					<label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;">
+					&nbsp;&nbsp;&nbsp;&nbsp;일정검색 <span class="glyphicon glyphicon-search"></span>
 					</label>
+					<div class="col-md-3" style="height: 34px">
+						<input type="text" class="form-control" id="inputSearch" placeholder="찾고싶은 일정을 입력하세요..."> &nbsp;&nbsp;&nbsp;						
+					</div>
+					<div id="searchRadios" style="float: left; width:auto"> 
+						<button type="button" class="btn btn-success" id="btnSearch">검색</button>
+							&nbsp;&nbsp;&nbsp;
+						<label class="radio-inline" style="padding-top: 3px;">
+							<input type="radio"	name="searchRadio" id="radioMyPlan" value="1">내 일정
+						</label> 
+						<label class="radio-inline" style="padding-top: 3px;"> 
+							<input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정
+						</label> 
+						<label class="radio-inline" style="padding-top: 3px;"> 
+							<input type="radio" name="searchRadio" id="radioHash" value="3">#해시태그
+						</label>
+					</div>
 				</div>
 			</div>
 		</form>
+<!-------- 일정 검색 위치 마무리 ------------------------------------------------------------------------------------------------------------------>
 		<div class="col-md-6 half" id='cardList'>
 			<div style="clear: both"></div>
 			<div id="timetable"
-				style="float: left; max-width: 7000px; margin-top: 50px;">
+				style="float: left; max-width: 7000px;">
 
 				<div style="text-align: center"></div>
-				<c:forEach var="vo" items="${list}">
-
-	    			${vo.html}
-
+				<c:forEach var="vo" items="${list}">${vo.html}
 	    		</c:forEach>
 				<div class="weekday col-md-1">
-
-
 					<div class="addListBtn">
 						<span><img src="calendar/images/createlist.png"></span>
 					</div>

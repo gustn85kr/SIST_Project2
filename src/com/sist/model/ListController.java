@@ -71,4 +71,17 @@ public class ListController {
 		//res.getWriter().write(tot);
 		return "ajax";
 	}
+	
+	@RequestMapping("planSearch.do")
+	public String planSearch(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		HttpSession session=req.getSession();
+		session.getAttribute("logEmail");
+		req.setCharacterEncoding("UTF-8");
+		String inputSearch = req.getParameter("inputSearch");
+		String searchRadios = req.getParameter("searchRadios");
+		System.out.println("inputSearch : "+inputSearch);
+		System.out.println("searchRadios : "+searchRadios);
+		
+		return "ajax";
+	}
 }
