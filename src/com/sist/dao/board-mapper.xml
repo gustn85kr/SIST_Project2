@@ -163,7 +163,7 @@
 	</select>
 	<!-- load checklist -->
 	<select id="loadCheckList" parameterType="int" resultType="Comm">
-		SELECT no,function,cardcomm FROM onmcomm WHERE cardno=#{cardno} AND (function=3 OR function=4)
+		SELECT no,function,cardcomm FROM onmcomm WHERE cardno=#{cardno} AND (function=3 OR function=4) ORDER BY no 
 	</select>
 	
 	

@@ -8,7 +8,8 @@ public class PackageScan {
 	   List<String> list=new ArrayList<String>();
 	   try
 	   {
-		   String path="C:\\Users\\aaa\\git\\SIST_Project2\\src\\";
+		   String path="C:\\Users\\aaa\\Git\\SIST_Project2\\src\\"; // Çö¼ö Çü
+		   //String path="C:\\Users\\sist\\git\\SIST_Project2\\src\\"; //¼³ÈÆ
 		   String real_path=path+pack.replace(".", "\\");
 		   // java//com//sist//movie
 		   // com.sist.movie.BoardController
