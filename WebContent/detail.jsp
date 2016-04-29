@@ -92,7 +92,6 @@ margin-top:10px;
 .modal-content{
    position: relative;
    margin:0 auto;
-
    width:900px;
    
 }
@@ -140,7 +139,7 @@ background: #fff;
    padding-left:20px;
 }
 #contentText{
-   font-size : 17px;
+   font-size : 20px;
    margin:10px;
 }
 #sideBar{
@@ -486,7 +485,8 @@ height: 48px;
 					<br>
 				</form>
 		                              <%-- 뛰어 --%>
-		        
+		        <!-- 모달로 이메일 보내기 -->                      
+		        <form class="contentSendMail" method="post" id="contentSendMail">
 		        <button type="button" class="btn btn-default btn-sm" id="mailBtn" style="border:0px;">&nbsp;
                 <img src="calendar\images\email-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 메일
                </button>      
@@ -496,11 +496,14 @@ height: 48px;
                  </div>
  		   		 <div>
                      <input type="button" id="sendMail"  class="btniconcss" value="보내기"/>
+                     <input type="button" id="sendMeMail"  class="btniconcss" value="나한테보내기"/>
                      <input type="button" id="cancelMail" class="btniconcss" value="취소"/>
                  </div>
                </div>
+               </form>
                <br>                       <%-- 뛰어 --%>
-		         
+		       <!-- 모달로 이메일 보내기 -->
+		       
 		         <button type="button" class="btn btn-default btn-sm" id="checkBtn">
 		          <img src="calendar\images\checkbox-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크리스트
 		        </button>

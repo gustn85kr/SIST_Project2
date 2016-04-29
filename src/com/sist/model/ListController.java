@@ -1,5 +1,15 @@
 package com.sist.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,6 +18,7 @@ import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.ListVO;
 import com.sist.dao.OnmDAO;
+import com.sun.javafx.collections.MappingChange.Map;
 
 @Controller("listController")
 public class ListController {
@@ -83,5 +94,45 @@ public class ListController {
 		System.out.println("searchRadios : "+searchRadios);
 		
 		return "ajax";
+	}
+	
+	@RequestMapping("contentSendMail.do")
+	public String contentSendMail(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		String list="";
+		HttpSession session2=req.getSession();
+		String fromEmail=(String)session2.getAttribute("logEmail"); //자기 자신한테 보내기용 스트링 값;
+		String toMail = req.getParameter("toMail"); //보낼 사람 메일 주소 가져오기
+		String host = "smtp.gmail.com";
+		String to = toMail;
+		String from = "onm10114@gmail.com";
+		String password = "qawsedrf@";
+		String from_name = "오내미 운영자";
+
+		Properties props = new Properties();
+		props.put("mail.smtps.auth", "true");
+		Session session = Session.getInstance(props);
+		
+		try {
+			MimeMessage msg = new MimeMessage(session);
+			msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(from_name, "UTF-8", "B")));
+			msg.setSubject("오내미 사용자 요청에 의한 일정정보입니다.");
+
+			msg.setContent("<h1>일정 정보 : "+
+			/* 사용자 요청에 의해 정보가 전달 될 내용을 넣는 부분 */
+					+"</h1>", "text/html;charset=" + "EUC-KR");
+			InternetAddress address = new InternetAddress(to);
+			msg.setRecipient(Message.RecipientType.TO, address);
+			
+			Transport transport = session.getTransport("smtps");
+			transport.connect(host, from, password);
+			transport.sendMessage(msg, msg.getAllRecipients());
+			Transport.send(msg);
+			transport.close();
+			
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		
+		return list;
 	}
 }

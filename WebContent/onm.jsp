@@ -229,6 +229,7 @@ body {
 .footInput textarea {
 	width: 280px;
 }
+
 /* 검색 결과 모달 CSS */
 #planSearchModal .modal-content {
 	width: 1350px;
@@ -312,9 +313,11 @@ body {
 	margin-left: 100px;
 }
 
+/* 일정 Detail 모달 CSS */
 #cardDetail .modal-dialog {
+	left: 0px;
+	top: 0px;
 	width: 100%;
-	left: 120px;
 }
 
 .fc-time {
@@ -322,7 +325,10 @@ body {
 }
 
 #cardDetail {
-	padding-right: 460px;
+	
+	padding-left: 100px;
+	padding-right: 100px;
+	margin-right: 100px;
 }
 
 .modal-dialog {
@@ -1169,13 +1175,44 @@ body {
 					       $(this).on("click","#sendMail",function(){
 					           $("#mailDiv").css("display","none");
 					           $("#mailBtn").css("display",'inline');
-					           var sendMail = $('#toMail').val();
-					       });	
+					           var toMail = $('#toMail').val();
+					           $.ajax({
+									url : 'contentSendMail.do',
+									type : 'post',
+									dataType : "json",
+									data : {
+										//Modal Content 선택해서 내용 보내기
+										"label" : labelColor,
+										"no" : cardno
+									},
+									success : function(data) {
+										
+									}
+								});
+					       });
+					       
+					       //자기한테보내기
+					       $(this).on("click","#sendMeMail",function(){
+					    	   $.ajax({
+									url : 'contentSendMail.do',
+									type : 'post',
+									dataType : "json",
+									data : {
+										//Modal Content 선택해서 내용 보내기
+										"label" : labelColor,
+										"no" : cardno
+									},
+									success : function(data) {
+										
+									}
+								});
+					       }); 
 					       
 					       $(this).on("click","#cancelMail",function(){
 					           $("#mailDiv").css('display','none');
 					       }); 
 					     //모달에서 메일보내기 버튼 클릭 액션 end
+					     
 				     
 						$(this).on("click", "#checkBtn", function() {
 							obj = document.getElementById('checkDiv');
@@ -1768,9 +1805,7 @@ body {
 <!-------- 일정 검색 위치 마무리 ------------------------------------------------------------------------------------------------------------------>
 		<div class="col-md-6 half" id='cardList'>
 			<div style="clear: both"></div>
-			<div id="timetable"
-				style="float: left; max-width: 7000px;">
-
+			<div id="timetable"	style="float: left; max-width: 7000px;">
 				<div style="text-align: center"></div>
 				<c:forEach var="vo" items="${list}">${vo.html}
 	    		</c:forEach>
