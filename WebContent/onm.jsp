@@ -667,29 +667,37 @@ body {
             $("#mailDiv").css('display','none');
         }); 
       //모달에서 메일보내기 버튼 클릭 액션 end
-        $(this).on("click","#commentAddOk",function(){
-     
-            var commenttext = $(this).siblings("#commentText").val();
-            $(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div id='commentArea'>"+commenttext+"</div></div>");
-            
-            
-            $(this).parents("#commentDialog").append("<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>추가</button>");
-            
-            $(this).siblings("#commentText").val("");
-            $(this).parent("#commentAddArea").remove();
-            
-        });
-        $(this).on("click","#commentDelete",function(){
-            $(this).parent("#commentPanel").remove();
-            
-        });         
-      /* addListPanelCreation addListPanelCancel */
-        $(this).on("click",".listTitleCancel",function(){
+
+      
+      		$(this).on("click",".listTitleCancel",function(){
             $(this).parent('.addListPanel').hide();
             $(this).parent('.addListPanel').siblings('.addListBtn').show();
             $(this).siblings('.addListTxt').val("");
             
         });
+      
+      	   $(this).on("click",'#commentAddBtn',function(){  
+			var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
+		   $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' class='close' style='float:right; background-color:transparent'>&times;</button><div>"+textcomment+"</div></div>");
+		   $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
+		   $(this).parents('#commentAdd').remove();  
+		   });
+		   
+		   $(this).on("click",'#commentDelete',function(){
+			  $(this).parents('#commentArea').remove(); 
+		   });
+		   
+		   $(this).on("keyup",'#commentBox',function(){
+			   var txt = $(this).val();
+			   if(txt==""){
+				   $(this).siblings('#commentBtnBox').hide();
+			   }else{
+				   $(this).siblings('#commentBtnBox').show(); 
+			   }
+		   });
+      
+      
+      
         $(this).on("click",".listTitleBtn",function(){
             
             var listTitle= $(this).siblings('.addListTxt').val();
