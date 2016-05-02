@@ -471,6 +471,8 @@ width:220px;
 						<div id="map" style="width:400px;height:300px;"></div>
 					</div>
 					<script type="text/javascript">
+					$('#map').remove();
+					$('#modalMap').append("<div id='map' style='width:400px;height:300px;'></div>");
 						showMap("${map}");
 					</script>
 					</c:if>
@@ -629,7 +631,7 @@ width:220px;
 					<img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
 					</button>
 					<div id="fileUpDiv" style="display:none">
-						<input type="file" name="fileupload" />
+						<input type="file" name="fileupload" id="fileUpload" />
 						<input type="button" id="btn" value="전송" /> 
 						<button type="button" class="btn btn-default btn-sm" id="fileInsert">확인</button>
 						<button type="button" class="btn btn-default btn-sm" id="fileDelete">취소</button>

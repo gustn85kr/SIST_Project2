@@ -54,15 +54,26 @@
 	<link rel="stylesheet" href="assets/css/custom.css">
 
 <style type="text/css">
-	.modal-header, h4, .close {
-	    background-color: #5cb85c;
-	    color:white !important;
-	    text-align: center;
-	    font-size: 30px;
+.modal-header2, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
 }
-	.modal-footer {
-	    background-color: #f9f9f9;
-	}
+.modal-footer2 {
+    background-color: #f9f9f9;
+    height: 60px;
+}
+
+.modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer {
+    background-color: #f9f9f9;
+}
 </style>
 	
 	
@@ -520,7 +531,7 @@ Remember me. Try your best,, Maybe we can.                    <!-- 1번 슬라이드 
 		<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
-				<div class="modal-header" style="padding: 30px 30px;">
+				<div class="modal-header2" style="padding: 30px 30px;">
 					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
@@ -557,7 +568,7 @@ Remember me. Try your best,, Maybe we can.                    <!-- 1번 슬라이드 
 							<input type="password" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
 						</div>
 					</div>
-				<div class="modal-footer">
+				<div class="modal-footer2">
 					<button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px">
 						<span class="glyphicon glyphicon-plus"></span>완 료
 					</button>
@@ -748,7 +759,6 @@ Remember me. Try your best,, Maybe we can.                    <!-- 1번 슬라이드 
 									$('#logPwd').val("");
 									return;
 								} else {
-									alert("로그인 성공");
 									$('#logEmail').val("");
 									$('#logPwd').val("");
 									$('#LoginModal').modal('toggle');

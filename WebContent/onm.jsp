@@ -31,12 +31,33 @@
 
 <script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=ddcf4460013008172d4b85dea4263c64&libraries=services"></script>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-   <style type="text/css">
+<style type="text/css">
+.modal-header2, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer2 {
+    background-color: #f9f9f9;
+    height: 60px;
+}
+
+.modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
 body{
    font-family:'Malgun Gothic';
    padding:20px;
@@ -358,7 +379,7 @@ float: right;
               center: 'prev title next'
               ,right: 'month'
             },
-            defaultDate: '2016-04-02',
+            defaultDate: '2016-05-02',
             selectable: true,
             selectHelper: true,
             eventDurationEditable: false,   // 이벤트 resize disable
@@ -450,6 +471,7 @@ float: right;
 			                    	          }       
 
 			                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+			                    	       	  map.relayout();
 			                    	          map.setBounds(bounds);
 			                    	      } 
 			                    	  }
@@ -527,6 +549,7 @@ float: right;
                     $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
                         $("#sdate").datepicker( "option", "maxDate", selectedDate );
                     });
+                   
                     
                     //여기부터 지도
                     $("#txtAddress").keydown(function(e) {
@@ -535,8 +558,10 @@ float: right;
                                 /* map.relayout(); */
                            var searchPlace = $(this).val();   
                             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+                            alert(searchPlace);
                             showMap(searchPlace);
                             var cardno = $('#cardNo').val(); 
+                            alert(cardno+"!!!!");
                             $.ajax({
                                   url:'mapUpdate.do',
                                   type:'post',
@@ -544,7 +569,6 @@ float: right;
                                   data:{"loc":searchPlace,
                                             "no":cardno},
                                   success:function(data){
-                                     /* alert("Yes"); */
                                   }
                               });  
 
@@ -693,6 +717,29 @@ float: right;
             $(this).siblings('.addListTxt').val("");
             
         });
+      
+      	   $(this).on("click",'#commentAddBtn',function(){  
+			var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
+		   $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' class='close' style='float:right; background-color:transparent'>&times;</button><div>"+textcomment+"</div></div>");
+		   $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
+		   $(this).parents('#commentAdd').remove();  
+		   });
+		   
+		   $(this).on("click",'#commentDelete',function(){
+			  $(this).parents('#commentArea').remove(); 
+		   });
+		   
+		   $(this).on("keyup",'#commentBox',function(){
+			   var txt = $(this).val();
+			   if(txt==""){
+				   $(this).siblings('#commentBtnBox').hide();
+			   }else{
+				   $(this).siblings('#commentBtnBox').show(); 
+			   }
+		   });
+      
+      
+      
         $(this).on("click",".listTitleBtn",function(){
             
             var listTitle= $(this).siblings('.addListTxt').val();
@@ -1138,13 +1185,10 @@ float: right;
         });
         
 		 $(this).on("click","#btn",function(){
-			 alert("asd");
-        	  var formData = new FormData();
-        	/*   formData.append("test2", $("input[name=test2]").val());
-        	
-        	  formData.append("test3", $("textarea[name=test3]").text()); */
+         	  var formData = new FormData();
+        	var fn="1234";
         	  formData.append("fileupload", $("input[name=fileupload]")[0].files[0]);
-        	  $.ajax({
+/*         	  $.ajax({
         	    url: 'fileUpload.do',
         	    data: formData,
         	    processData: false,
@@ -1153,11 +1197,21 @@ float: right;
         	    success: function(data){
         	    	
         	    }
-        	    
         	  });
-        	  alert($('#'));
-          });
-		 
+        	  alert($('#'));  */
+        	  $.ajax({
+          	    url: 'fileDownload.do',
+          	    data: {"fn":fn},
+          	    processData: false,
+          	    contentType: false,
+          	    type: 'POST',
+          	    success: function(data){
+          	    	
+          	    }
+          	  });
+          	  alert($('#')); 
+        
+		 });
 		 
         $(this).on("click","#fileUpButton",function(){
             obj = document.getElementById('fileUpDiv');
@@ -1396,7 +1450,7 @@ float: right;
   }
 
 
-function showMap(searchPlace){
+/* function showMap(searchPlace){
       var infowindow = new daum.maps.InfoWindow({zIndex:1});
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
           mapOption = {
@@ -1442,8 +1496,20 @@ function showMap(searchPlace){
               infowindow.open(map, marker);
           });
       }
-      map.relayout();
-}
+      function resizeMap() {
+    	    var mapContainer = document.getElementById('map');
+    	    mapContainer.style.width = '400px';
+    	    mapContainer.style.height = '300px'; 
+    	}
+
+    	function relayout() {    
+    	    
+    	    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+    	    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+    	    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+    	    map.relayout();
+    	}
+} */
 function resize(obj) {
       obj.style.height = "1px";
       obj.style.height = (50+obj.scrollHeight)+"px";
@@ -1458,6 +1524,57 @@ function divHide(){
     $('#dateDiv').hide();   
 }//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
 
+function showMap(searchPlace){
+  alert("showMap"+searchPlace);
+  var infowindow = new daum.maps.InfoWindow({zIndex:1});
+          alert("zIndex");
+      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+          mapOption = {
+              center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+              level: 1 // 지도의 확대 레벨
+          };  
+      // 지도를 생성합니다    
+      
+      var map = new daum.maps.Map(mapContainer, mapOption); 
+      // 장소 검색 객체를 생성합니다
+      var ps = new daum.maps.services.Places(); 
+      // 키워드로 장소를 검색합니다
+      ps.keywordSearch(searchPlace, placesSearchCB); 
+      // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+      function placesSearchCB (status, data, pagination) {
+          if (status === daum.maps.services.Status.OK) {
+
+              // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+              // LatLngBounds 객체에 좌표를 추가합니다
+              var bounds = new daum.maps.LatLngBounds();
+
+              for (var i=0; i<data.places.length; i++) {
+                  displayMarker(data.places[i]);    
+                  bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
+              }       
+
+              // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+              map.setBounds(bounds);
+          } 
+      }
+      // 지도에 마커를 표시하는 함수입니다
+      function displayMarker(place) {
+          
+          // 마커를 생성하고 지도에 표시합니다
+          var marker = new daum.maps.Marker({
+              map: map,
+              position: new daum.maps.LatLng(place.latitude, place.longitude) 
+          });
+
+          // 마커에 클릭이벤트를 등록합니다
+          daum.maps.event.addListener(marker, 'click', function() {
+              // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+              infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
+              infowindow.open(map, marker);
+          });
+      }
+      map.relayout();
+}
 
 
           
@@ -1472,7 +1589,7 @@ function divHide(){
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header" style="padding: 30px 30px;">
+                <div class="modal-header2" style="padding: 30px 30px;">
                     <button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                     </button>
@@ -1510,7 +1627,7 @@ function divHide(){
                             <input type="text" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
                         </div>
                     </div>
-                <div class="modal-footer">
+                <div class="modal-footer2">
                     <button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
                         <span class="glyphicon glyphicon-plus"></span>완 료
                     </button>
@@ -1525,7 +1642,7 @@ function divHide(){
     </div>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-<!-- 일정찾기 -->
+<!-- 일정찾기 검색결과 모달 -->
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="planSearchModal" role="dialog">
@@ -1630,9 +1747,8 @@ function divHide(){
                 <div id='calendar_container'></div>
             </div>
         </div>
-
+<!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
          <div class="col-md-6 half" id ='cardList' >
-                <!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
 		        <form role="form">
 		            <div class="form-group has-success has-feedback">
 		                <div  id="planSearch">
@@ -1660,22 +1776,12 @@ function divHide(){
 		        </form>
   <!-------- 일정 검색 위치 마무리 ------------------------------------------------------------------------------------------------------------------>
             <div style="clear:both"></div>
-                
-    
-
             <div id="timetable" style="float:left;max-width:7000px; margin-top:50px;">
-                
                 <div style="text-align:center">
-                
                 </div>
-                <c:forEach var="vo" items="${list}">
-
-                    ${vo.html}
-
+                <c:forEach var="vo" items="${list}">${vo.html}
                 </c:forEach>
-                <div class="weekday col-md-1">
-                
-                    
+                <div class="weekday col-md-1"> 
                     <div class="addListBtn">
                         <span><img src="calendar/images/createlist.png" ></span>
                     </div>
@@ -1689,18 +1795,13 @@ function divHide(){
             </div>
         </div>
     </div>
-
-
       <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
         <div>
-
               <%-- <jsp:include page="detail.do" flush="false" /> --%> 
         </div>   
-
     </div>
   </div>    
-    
 </body>
         <!-- JS Global Compulsory -->       
 </html>

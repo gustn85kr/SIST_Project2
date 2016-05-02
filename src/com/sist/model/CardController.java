@@ -1,17 +1,19 @@
 package com.sist.model;
 
-import java.io.File;
+import java.io.*;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.net.*;
 import com.oreilly.servlet.MultipartRequest;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
+import java.util.*;
 
 @Controller("cardController")
 public class CardController {
@@ -109,6 +111,7 @@ public class CardController {
 	}
 	@RequestMapping("mapUpdate.do")
 	public String mapUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	  System.out.println("tttttt");
 		CommVO vo = new CommVO();
 		String cardno= req.getParameter("no");
 		String loc = req.getParameter("loc");
@@ -179,7 +182,6 @@ public class CardController {
 
 	     Enumeration formNames=multi.getFileNames();  // 폼의 이름 반환
 	     System.out.println(formNames);
-
 	     String fileInput = "";
 	     String fileName = "";
 	     String type = "";
@@ -239,4 +241,16 @@ public class CardController {
 	  }
 	  return "ajax";
 	}
+	/*
+	 @RequestMapping("download.do")
+	    public ModelAndView download(@RequestParam("path")String path, 
+	                                  @RequestParam("fileName")String fileName){
+	         
+	        String fullPath = path + "\\" + fileName;
+	         
+	        File file = new File(fullPath);
+	         
+	        return new ModelAndView("download", "downloadFile", file);
+	    }*/
+	
 }
