@@ -468,6 +468,7 @@ body {
 			                    	          }       
 
 			                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+			                    	       	  map.relayout();
 			                    	          map.setBounds(bounds);
 			                    	      } 
 			                    	  }
@@ -545,6 +546,7 @@ body {
                     $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
                         $("#sdate").datepicker( "option", "maxDate", selectedDate );
                     });
+                   
                     
                     //여기부터 지도
                     $("#txtAddress").keydown(function(e) {
@@ -562,7 +564,6 @@ body {
                                   data:{"loc":searchPlace,
                                             "no":cardno},
                                   success:function(data){
-                                     /* alert("Yes"); */
                                   }
                               });  
 
@@ -1147,13 +1148,10 @@ body {
         });
         
 		 $(this).on("click","#btn",function(){
-			 alert("asd");
-        	  var formData = new FormData();
-        	/*   formData.append("test2", $("input[name=test2]").val());
-        	
-        	  formData.append("test3", $("textarea[name=test3]").text()); */
+         	  var formData = new FormData();
+        	var fn="1234";
         	  formData.append("fileupload", $("input[name=fileupload]")[0].files[0]);
-        	  $.ajax({
+/*         	  $.ajax({
         	    url: 'fileUpload.do',
         	    data: formData,
         	    processData: false,
@@ -1162,11 +1160,21 @@ body {
         	    success: function(data){
         	    	
         	    }
-        	    
         	  });
-        	  alert($('#'));
-          });
-		 
+        	  alert($('#'));  */
+        	  $.ajax({
+          	    url: 'fileDownload.do',
+          	    data: {"fn":fn},
+          	    processData: false,
+          	    contentType: false,
+          	    type: 'POST',
+          	    success: function(data){
+          	    	
+          	    }
+          	  });
+          	  alert($('#')); 
+        
+		 });
 		 
         $(this).on("click","#fileUpButton",function(){
             obj = document.getElementById('fileUpDiv');
@@ -1377,6 +1385,7 @@ function showMap(searchPlace){
               }       
 
               // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+              map.relayout();
               map.setBounds(bounds);
           } 
       }
@@ -1396,7 +1405,19 @@ function showMap(searchPlace){
               infowindow.open(map, marker);
           });
       }
-      map.relayout();
+      function resizeMap() {
+    	    var mapContainer = document.getElementById('map');
+    	    mapContainer.style.width = '400px';
+    	    mapContainer.style.height = '300px'; 
+    	}
+
+    	function relayout() {    
+    	    
+    	    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+    	    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+    	    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+    	    map.relayout();
+    	}
 }
 function resize(obj) {
       obj.style.height = "1px";
