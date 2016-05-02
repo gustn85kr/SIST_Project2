@@ -35,7 +35,28 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-   <style type="text/css">
+<style type="text/css">
+.modal-header2, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer2 {
+    background-color: #f9f9f9;
+    height: 60px;
+}
+
+.modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+}
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
 body{
    font-family:'Malgun Gothic';
    padding:20px;
@@ -1397,7 +1418,7 @@ function divHide(){
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header" style="padding: 30px 30px;">
+                <div class="modal-header2" style="padding: 30px 30px;">
                     <button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                     </button>
@@ -1435,7 +1456,7 @@ function divHide(){
                             <input type="text" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
                         </div>
                     </div>
-                <div class="modal-footer">
+                <div class="modal-footer2">
                     <button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
                         <span class="glyphicon glyphicon-plus"></span>완 료
                     </button>
@@ -1450,7 +1471,7 @@ function divHide(){
     </div>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-<!-- 일정찾기 -->
+<!-- 일정찾기 검색결과 모달 -->
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="planSearchModal" role="dialog">
@@ -1555,9 +1576,8 @@ function divHide(){
                 <div id='calendar_container'></div>
             </div>
         </div>
-
+<!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
          <div class="col-md-6 half" id ='cardList' >
-                <!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
 		        <form role="form">
 		            <div class="form-group has-success has-feedback">
 		                <div  id="planSearch">
@@ -1585,22 +1605,12 @@ function divHide(){
 		        </form>
   <!-------- 일정 검색 위치 마무리 ------------------------------------------------------------------------------------------------------------------>
             <div style="clear:both"></div>
-                
-    
-
             <div id="timetable" style="float:left;max-width:7000px; margin-top:50px;">
-                
                 <div style="text-align:center">
-                
                 </div>
-                <c:forEach var="vo" items="${list}">
-
-                    ${vo.html}
-
+                <c:forEach var="vo" items="${list}">${vo.html}
                 </c:forEach>
-                <div class="weekday col-md-1">
-                
-                    
+                <div class="weekday col-md-1"> 
                     <div class="addListBtn">
                         <span><img src="calendar/images/createlist.png" ></span>
                     </div>
@@ -1614,18 +1624,13 @@ function divHide(){
             </div>
         </div>
     </div>
-
-
       <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
         <div>
-
               <%-- <jsp:include page="detail.do" flush="false" /> --%> 
         </div>   
-
     </div>
   </div>    
-    
 </body>
         <!-- JS Global Compulsory -->       
 </html>
