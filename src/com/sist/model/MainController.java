@@ -2,6 +2,8 @@ package com.sist.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -52,11 +54,24 @@ public class MainController {
 		String map = OnmDAO.loadMap(no);
 		String checkTitle = OnmDAO.loadCheckListTitle(no);
 		List<CommVO> checkList = OnmDAO.loadCheckList(no);
-		System.out.println(map);
+		List<CommVO> commList = OnmDAO.loadCommList(no);
+		String beHash = OnmDAO.loadHash(no);
+		List<String> hashList = new ArrayList<String>();
+		//System.out.println(beHash);
+		if(beHash!=null){
+  		StringTokenizer st = new StringTokenizer(beHash, ",");
+  		//System.out.println("count"+st.countTokens());
+      while(st.hasMoreTokens()){
+        hashList.add(st.nextToken());
+      }
+		}
+		System.out.println(hashList.size());
 		req.setAttribute("card", vo);
 		req.setAttribute("map", map);
 		req.setAttribute("checkTitle", checkTitle);
 		req.setAttribute("checkList", checkList);
+		req.setAttribute("commList", commList);
+		req.setAttribute("hashList", hashList);
 		return "detail";
 	}
 }

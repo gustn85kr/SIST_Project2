@@ -62,7 +62,7 @@ body{
 #commentBtnBox{
 	display:none;
 }
-#commentArea{
+.commentArea{
 	margin-top:15px;
 	min-width:60%;
 	word-break:break-all;
@@ -438,14 +438,25 @@ width:220px;
 	  					  <div id="showContent">
 	  					  	${card.content} 					  
 	  					  </div>
-	  					  <div id="hashready" style="display:none"></div>           
-                   		  <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>				  
+	  					  <div id="hashready" style="display:none"></div>    
+                          <c:if test="${hashList!=null}">       
+                          <div id="hashtag" style="border-top: 2px solid #eee;width: 500;" >
+
+                           <c:forEach var="tt" items="${hashList}">
+                               <a href="#" > ${tt} </a>
+                           </c:forEach>
+                          </div>
+                          </c:if>                 
+                          <c:if test="${hashList==null}">
+                           <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>
+                          </c:if>				  
   					  </c:if>
   					  <c:if test="${card.content==null}">
 	  					  <div id="showContent" style="display:none"> 					  
 	  					  </div>
 	  					  <div id="hashready" style="display:none"></div>           
-                   		  <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>				  
+                          <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>     
+	  					  
   					  </c:if>
 					</div>				
 				</div>
@@ -561,6 +572,12 @@ width:220px;
 				
 				<div id=modalBottom>
 					<span class="glyphicon glyphicon-comment" id="glypBottom"> 댓글</span><br>
+					<c:forEach var="comm" items="${commList}">
+					   <div class='commentArea' id='comm${comm.no }'>
+					       <button id='commentDelete' style='float:right; background-color:transparent'>x</button>
+					       <div>${comm.cardcomm}</div>
+					     </div>
+					</c:forEach>
 					<div id="commentAdd">
 						<textarea id="commentBox" cols="50" placeholder="댓글을 입력해주세요.."></textarea><br>
 						<div id="commentBtnBox">
@@ -765,7 +782,7 @@ width:220px;
 			</div>
 			
 			<div class="prioritygraph" style="width: 230px;height: 200px;"> 
-                 <div id="chart_div"></div>
+                 <div id="container" style="min-width: 200px; max-width: 210px; height: 150px; margin: 0 auto"></div>
             </div>
             
 		</div>

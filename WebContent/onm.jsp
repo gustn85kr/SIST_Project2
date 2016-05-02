@@ -33,7 +33,8 @@
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 
    <style type="text/css">
 body{
@@ -307,7 +308,9 @@ body {
 /*  background: #FFE288; */
  }
 
-
+.listTitleCancel,.listTitleBtn{
+float: right;
+}
     </style>
    
 <script type="text/javascript">
@@ -670,7 +673,7 @@ body {
         $(this).on("click","#commentAddOk",function(){
      
             var commenttext = $(this).siblings("#commentText").val();
-            $(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div id='commentArea'>"+commenttext+"</div></div>");
+            $(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div class='commentArea'>"+commenttext+"</div></div>");
             
             
             $(this).parents("#commentDialog").append("<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>추가</button>");
@@ -766,7 +769,7 @@ body {
                 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                 'searchreplace wordcount visualblocks visualchars code fullscreen',
                 'insertdatetime media nonbreaking save table contextmenu directionality',
-                'emoticons template paste textcolor colorpicker textpattern imagetools'
+                'emoticons template paste textcolor colorpicker imagetools'
               ],
               toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
               toolbar2: 'print preview media | forecolor backcolor emoticons',
@@ -805,24 +808,41 @@ body {
             var message = tinyMCE.activeEditor.getContent();
             $('#hashready').append(message);
             var a=$('#hashready').text();
+            var hasht ="";
+            a = a.replace(/\n/gi, " ");
+
             var splitedArray = a.split(' ');
-             var linkedContent = '';
-          for(var word in splitedArray)
-         {
+            var linkedContent = "";
+          for(var word in splitedArray){
             word = splitedArray[word];
-            if(word.indexOf('#')==0)
-           {
-                  word = '<a href=\'링크\'>'+word+'</a>';
+            if(word.indexOf('#')==0){
+              hasht += (word.trim()+",");    
+              word = '<a href=\'링크\'>'+word+'</a>';
+                  
            }
-          else
-         {
+          else{
                     word='';  
           }
             linkedContent += word+' ';
-          }
             
-            $('#hashtag').css('display',"inline");     
-            $('#hashtag').append(linkedContent);  
+          }
+            var cardno = $('#cardNo').val();
+            $.ajax({
+              url:'hashInsert.do',
+              type:'post',
+              dataType:"json",
+              data:{
+                      "hash" : hasht,
+                      "no":cardno},
+              success:function(data){
+                 /* alert("Yes"); */
+              }
+        });
+            $('#hashtag').css('display',"inline");
+            $("#hashready").empty();
+            $('#hashtag').empty();
+            $('#hashtag').append(linkedContent);
+            linkedContent="";
             
          
         });
@@ -1191,7 +1211,49 @@ body {
                                       
                   }
               });
-         })
+         });
+        $(this).on("click",'#commentAddBtn',function(){
+           
+           var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
+           $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp><button id='commentDelete' style='float:right; background-color:transparent'>x</button><div>"+textcomment+"</div></div>");
+           $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
+           $(this).parents('#commentAdd').remove();
+           //alert(textcomment);
+           var cardno= $('#cardNo').val();
+           $.ajax({
+               url:'commentAdd.do',
+               type:'post',
+               dataType:"json",
+               data:{"no":cardno , "comm":textcomment},
+               success:function(data){
+                 $('#commtmp').attr("id","comm"+data)
+                       }
+             });
+          
+       });
+       
+       $(this).on("click",'#commentDelete',function(){
+          var no = $(this).parents('.commentArea').attr("id");
+          $.ajax({
+            url:'commentDelete.do',
+            type:'post',
+            dataType:"json",
+            data:{"no":no },
+            success:function(data){
+              
+            }
+          });
+          $(this).parents('.commentArea').remove(); 
+       });
+       
+       $(this).on("keyup",'#commentBox',function(){
+           var txt = $(this).val();
+           if(txt==""){
+               $(this).siblings('#commentBtnBox').hide();
+           }else{
+               $(this).siblings('#commentBtnBox').show(); 
+           }
+       });
         $(this).on("click","#complecheck",function(){
             var message = $('textarea#chetext').val();
             var cardno = $('#cardNo').val(); 
@@ -1243,84 +1305,97 @@ body {
 
         });    
 });
-function drawChart(op1,op2){
-    var val1=0;
-    switch(op1){
-      case "#FDC6C6":
-         val1=1;
-         break;
-      case "#FFACAC":
-         val1=2;
-         break;
-      case "#FC7474":
-         val1=3;
-         break;
-      case "#FC4B4B":
-         val1=4;
-         break;
-      case "#FC0000":
-         val1=5;
-         break;
-    }
-    var val2=0;
-    switch(op2){
-      case "#DFDFFD":
-         val2=1;
-         break;
-      case "#C0C0FF":
-         val2=2;
-         break;
-      case "#8F8FFF":
-         val2=3;
-         break;
-      case "#4E4EFD":
-         val2=4;
-         break;
-      case "#1414FC":
-         val2=5;
-         break;
-      }
-   // alert(val1);
-   // alert(val2);
-    
-    google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(drawBasic);
+    function drawChart(op1,op2){    
+      var val1=0;
+         switch(op1){
+           case "#FDC6C6":
+              val1=1;
+              break;
+           case "#FFACAC":
+              val1=2;
+              break;
+           case "#FC7474":
+              val1=3;
+              break;
+           case "#FC4B4B":
+              val1=4;
+              break;
+           case "#FC0000":
+              val1=5;
+              break;
+         }
+         var val2=0;
+         switch(op2){
+           case "#DFDFFD":
+              val2=1;
+              break;
+           case "#C0C0FF":
+              val2=2;
+              break;
+           case "#8F8FFF":
+              val2=3;
+              break;
+           case "#4E4EFD":
+              val2=4;
+              break;
+           case "#1414FC":
+              val2=5;
+              break;
+           }
+         
+         
+      $(function () {
+        Highcharts.setOptions({
+          colors: [op1, op2]
+      });
 
-    function drawBasic() {
-
-          var data = google.visualization.arrayToDataTable([
-            ['', '', { role: 'style' }],
-            ['중요도', val1, op1],
-            ['선호도', val2, op2]
-          ]);
-
-          var view = new google.visualization.DataView(data);
-          view.setColumns([0, 1,
-                           { calc: "stringify",
-                             sourceColumn: 1,
-                             type: "string",
-                             role: "annotation" },
-                           2]);
-          
-          var options = {
-            title: '우선순위',
-            legend: { position: 'none' },
-            chartArea: {width: '100%'},
-            hAxis: {
-              minValue: 0,
-              ticks: [0, 1, 2, 3, 4, 5]
-            },
-            vAxis: {
+      $('#container').highcharts({
+          chart: {
+              type: 'bar',
+              borderColor: '#eee',
+              borderRadius: 20,
+               borderWidth: 2
+          },
+          title: {
+              text: null
+          },
+          subtitle: {
+              text: '우선순위'
+          },
+          xAxis: {
+              categories: ['중요도', '선호도']
+          },
+          yAxis: {
+              min: 0,
+              max: 5,
+              tickInterval: 1, 
+              title: {
+                  text: null
+              }
+          },
+          legend: {
+              reversed: false,   
+           enabled: false
               
-            }
-            
-          };
+          },
+          plotOptions: {
+              series: {
+                  stacking: 'tick'
+              }
+          },
+          series: [{
+              name: 'John',
+              data: [val1, 0]
+          }, {
+              name: 'Jane',
+              data: [0, val2]
+          }]
+      });
+  });
+      
+  }
 
-          var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 
-          chart.draw(view, options);
-    }
-}
 function showMap(searchPlace){
       var infowindow = new daum.maps.InfoWindow({zIndex:1});
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -1607,8 +1682,8 @@ function divHide(){
                     
                     <div class="addListPanel" style="display:none;">
                         <input name="name" class="addListTxt" type="text" placeholder="리스트 추가하기.."/>
-                        <input type="button" value="추가" class="listTitleBtn" />
                         <input type="button" value="취소" class="listTitleCancel" />
+                        <input type="button" value="추가" class="listTitleBtn" />
                     </div>
                 </div>  
             </div>

@@ -204,6 +204,39 @@ public class CardController {
 	     }
 	    req.setAttribute("originFileName",originFileName);
 		    return "ajax";
-
+	}
+	@RequestMapping("commentAdd.do")
+	public String commentAdd(HttpServletRequest req,HttpServletResponse res) throws Exception{
+	  CommVO vo = new CommVO();
+	  String no = req.getParameter("no");
+	  String comm = req.getParameter("comm");
+	  vo.setCardno(Integer.parseInt(no));
+	  vo.setCardcomm(comm);
+	  int result = OnmDAO.commentCreate(vo);
+	  res.getWriter().write(String.valueOf(result));
+	  return "ajax";
+	}
+	@RequestMapping("commentDelete.do")
+	public String commentDelete(HttpServletRequest req,HttpServletResponse res) throws Exception{
+	  String no = req.getParameter("no");
+	  no = no.substring(4);
+	  OnmDAO.deleteComm(Integer.parseInt(no));
+	  return "ajax";
+	}
+	@RequestMapping("hashInsert.do")
+	public String hashInsert(HttpServletRequest req,HttpServletResponse res) throws Exception{
+	  
+	  CommVO vo = new CommVO();
+	  String cardno=req.getParameter("no");
+	  String hash = req.getParameter("hash");
+	  vo.setCardno(Integer.parseInt(cardno));
+	  vo.setCardcomm(hash);
+	  int cnt = OnmDAO.countHash(Integer.parseInt(cardno));
+	  if(cnt == 0){
+	    OnmDAO.hashInsert(vo);
+	  }else{
+	    OnmDAO.hashUpdate(vo);
+	  }
+	  return "ajax";
 	}
 }
