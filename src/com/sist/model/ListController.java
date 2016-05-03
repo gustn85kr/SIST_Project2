@@ -1,5 +1,13 @@
 package com.sist.model;
 
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,6 +44,7 @@ public class ListController {
 		String id = req.getParameter("id");
 		id = id.substring(4);
 		OnmDAO.listDelete(Integer.parseInt(id));
+		
 		return "ajax";
 	}
 	
@@ -69,6 +78,7 @@ public class ListController {
 		/*OnmDAO.dragEvent(no);*/
 		//res.setCharacterEncoding("UTF-8");
 		//res.getWriter().write(tot);
+		
 		return "ajax";
 	}
 	
@@ -81,6 +91,53 @@ public class ListController {
 		String searchRadios = req.getParameter("searchRadios");
 		System.out.println("inputSearch : "+inputSearch);
 		System.out.println("searchRadios : "+searchRadios);
+		
+		return "ajax";
+	}
+	
+	@RequestMapping("sendMail.do")
+	public String sendMail(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		String toMail = req.getParameter("toMail");
+		String planSubject = req.getParameter("planSubject");
+		String planDate = req.getParameter("planDate");
+		String planContent = req.getParameter("planContent");	
+		
+		String host = "smtp.gmail.com";
+		String to = toMail;
+		String from = "onm10114@gmail.com";
+		String password = "qawsedrf@";
+		String from_name = "오내미 운영자";
+
+		Properties props = new Properties();
+		props.put("mail.smtps.auth", "true");
+		Session session = Session.getInstance(props);
+		
+		try {
+			MimeMessage msg = new MimeMessage(session);
+			msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(from_name, "UTF-8", "B")));
+			msg.setSubject("오내미 일정 메일발송입니다.");
+			msg.setContent(
+					"<table border=5 background=http://cfile26.uf.tistory.com/image/034FB94C519370551F0C45 style='background-repeat : no-repeat;'>"+
+						"<tr>"+
+							"<td style=width:500px align=center><font color=black>"+planSubject.trim()+"</font></td>"+
+							"<td style=width:200px align=center><font color=black>"+planDate.trim()+"</font></td>"+
+						"</tr>"+
+						"<tr>"+
+							"<td colspan=2 align=left><font color=black>"+planContent.trim()+"</font></td>"+
+						"</tr>"+
+					"</table>"
+					, "text/html;charset=" + "EUC-KR");
+			InternetAddress address = new InternetAddress(to);
+			msg.setRecipient(Message.RecipientType.TO, address);
+			
+			Transport transport = session.getTransport("smtps");
+			transport.connect(host, from, password);
+			transport.sendMessage(msg, msg.getAllRecipients());
+			Transport.send(msg);
+			transport.close();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
 		
 		return "ajax";
 	}

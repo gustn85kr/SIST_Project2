@@ -33,30 +33,10 @@
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<style type="text/css">
-.modal-header2, h4, .close {
-    background-color: #5cb85c;
-    color:white !important;
-    text-align: center;
-    font-size: 30px;
-}
-.modal-footer2 {
-    background-color: #f9f9f9;
-    height: 60px;
-}
-
-.modal-header, h4, .close {
-    background-color: #5cb85c;
-    color:white !important;
-    text-align: center;
-    font-size: 30px;
-}
-.modal-footer {
-    background-color: #f9f9f9;
-}
-
+   <style type="text/css">
 body{
    font-family:'Malgun Gothic';
    padding:20px;
@@ -328,7 +308,9 @@ body {
 /*  background: #FFE288; */
  }
 
-
+.listTitleCancel,.listTitleBtn{
+float: right;
+}
     </style>
    
 <script type="text/javascript">
@@ -468,7 +450,6 @@ body {
 			                    	          }       
 
 			                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-			                    	       	  map.relayout();
 			                    	          map.setBounds(bounds);
 			                    	      } 
 			                    	  }
@@ -546,7 +527,6 @@ body {
                     $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
                         $("#sdate").datepicker( "option", "maxDate", selectedDate );
                     });
-                   
                     
                     //여기부터 지도
                     $("#txtAddress").keydown(function(e) {
@@ -564,6 +544,7 @@ body {
                                   data:{"loc":searchPlace,
                                             "no":cardno},
                                   success:function(data){
+                                     /* alert("Yes"); */
                                   }
                               });  
 
@@ -645,15 +626,9 @@ body {
                          success:function(data){
                                 
                          }
-                     });  
-                     
-                                    
+                     });               
                  }
             });
-            
-
-          
-            
         });
       $(this).on("click",".cardCancel",function(){ 
           
@@ -670,56 +645,65 @@ body {
         });
       //모달에서 메일보내기 버튼 클릭 액션
         $(this).on("click", "#mailBtn",function() {
-           obj = document.getElementById('mailDiv');
-           if(obj.style.display == "none") {
-               divHide();
-               $("#mailDiv").css("display","inline");
-           } else {
-               $("#mailDiv").css("display","none");
-           }
-        });
+         obj = document.getElementById('mailDiv');
+         if(obj.style.display == "none") {
+             divHide();
+             $("#mailDiv").css("display","inline");
+         } else {
+             $("#mailDiv").css("display","none");
+         }
+      });
          
+      //일정 메일 보내기
         $(this).on("click","#sendMail",function(){
-            $("#mailDiv").css("display","none");
-            $("#mailBtn").css("display",'inline');
-            var sendMail = $('#toMail').val();
+	  			//$("#mailDiv").css("display","none");
+	  			//$("#mailBtn").css("display",'inline');
+	  			var toMail = $('#toMail').val();
+	  			var planSubject = $('#glypTitle').html();
+	  			var planDate = $('#modalDate').html();
+	  			var planContent = $('#showContent').html();
+	  			$.ajax({
+	  			    url:'sendMail.do',
+	  			    type:'post',
+	  			    dataType:"json",
+	  			    data:{"toMail": toMail,
+	  			    		"planSubject":planSubject,
+	  			    		"planDate":planDate,
+	  			    		"planContent":planContent},
+	  			    		success:function(data){
+	  			    			alert("전송완료")
+	  			            }
+	  			});
         });  
         
         $(this).on("click","#cancelMail",function(){
             $("#mailDiv").css('display','none');
         }); 
       //모달에서 메일보내기 버튼 클릭 액션 end
-
       
-      		$(this).on("click",".listTitleCancel",function(){
+        $(this).on("click","#commentAddOk",function(){
+     
+            var commenttext = $(this).siblings("#commentText").val();
+            $(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div class='commentArea'>"+commenttext+"</div></div>");
+            
+            
+            $(this).parents("#commentDialog").append("<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>추가</button>");
+            
+            $(this).siblings("#commentText").val("");
+            $(this).parent("#commentAddArea").remove();
+            
+        });
+        $(this).on("click","#commentDelete",function(){
+            $(this).parent("#commentPanel").remove();
+            
+        });         
+      /* addListPanelCreation addListPanelCancel */
+        $(this).on("click",".listTitleCancel",function(){
             $(this).parent('.addListPanel').hide();
             $(this).parent('.addListPanel').siblings('.addListBtn').show();
             $(this).siblings('.addListTxt').val("");
             
         });
-      
-      	   $(this).on("click",'#commentAddBtn',function(){  
-			var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
-		   $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' class='close' style='float:right; background-color:transparent'>&times;</button><div>"+textcomment+"</div></div>");
-		   $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
-		   $(this).parents('#commentAdd').remove();  
-		   });
-		   
-		   $(this).on("click",'#commentDelete',function(){
-			  $(this).parents('#commentArea').remove(); 
-		   });
-		   
-		   $(this).on("keyup",'#commentBox',function(){
-			   var txt = $(this).val();
-			   if(txt==""){
-				   $(this).siblings('#commentBtnBox').hide();
-			   }else{
-				   $(this).siblings('#commentBtnBox').show(); 
-			   }
-		   });
-      
-      
-      
         $(this).on("click",".listTitleBtn",function(){
             
             var listTitle= $(this).siblings('.addListTxt').val();
@@ -796,7 +780,7 @@ body {
                 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
                 'searchreplace wordcount visualblocks visualchars code fullscreen',
                 'insertdatetime media nonbreaking save table contextmenu directionality',
-                'emoticons template paste textcolor colorpicker textpattern imagetools'
+                'emoticons template paste textcolor colorpicker imagetools'
               ],
               toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
               toolbar2: 'print preview media | forecolor backcolor emoticons',
@@ -835,24 +819,41 @@ body {
             var message = tinyMCE.activeEditor.getContent();
             $('#hashready').append(message);
             var a=$('#hashready').text();
+            var hasht ="";
+            a = a.replace(/\n/gi, " ");
+
             var splitedArray = a.split(' ');
-             var linkedContent = '';
-          for(var word in splitedArray)
-         {
+            var linkedContent = "";
+          for(var word in splitedArray){
             word = splitedArray[word];
-            if(word.indexOf('#')==0)
-           {
-                  word = '<a href=\'링크\'>'+word+'</a>';
+            if(word.indexOf('#')==0){
+              hasht += (word.trim()+",");    
+              word = '<a href=\'링크\'>'+word+'</a>';
+                  
            }
-          else
-         {
+          else{
                     word='';  
           }
             linkedContent += word+' ';
-          }
             
-            $('#hashtag').css('display',"inline");     
-            $('#hashtag').append(linkedContent);  
+          }
+            var cardno = $('#cardNo').val();
+            $.ajax({
+              url:'hashInsert.do',
+              type:'post',
+              dataType:"json",
+              data:{
+                      "hash" : hasht,
+                      "no":cardno},
+              success:function(data){
+                 /* alert("Yes"); */
+              }
+        });
+            $('#hashtag').css('display',"inline");
+            $("#hashready").empty();
+            $('#hashtag').empty();
+            $('#hashtag').append(linkedContent);
+            linkedContent="";
             
          
         });
@@ -1148,10 +1149,13 @@ body {
         });
         
 		 $(this).on("click","#btn",function(){
-         	  var formData = new FormData();
-        	var fn="1234";
+			 alert("asd");
+        	  var formData = new FormData();
+        	/*   formData.append("test2", $("input[name=test2]").val());
+        	
+        	  formData.append("test3", $("textarea[name=test3]").text()); */
         	  formData.append("fileupload", $("input[name=fileupload]")[0].files[0]);
-/*         	  $.ajax({
+        	  $.ajax({
         	    url: 'fileUpload.do',
         	    data: formData,
         	    processData: false,
@@ -1160,21 +1164,11 @@ body {
         	    success: function(data){
         	    	
         	    }
+        	    
         	  });
-        	  alert($('#'));  */
-        	  $.ajax({
-          	    url: 'fileDownload.do',
-          	    data: {"fn":fn},
-          	    processData: false,
-          	    contentType: false,
-          	    type: 'POST',
-          	    success: function(data){
-          	    	
-          	    }
-          	  });
-          	  alert($('#')); 
-        
-		 });
+        	  alert($('#'));
+          });
+		 
 		 
         $(this).on("click","#fileUpButton",function(){
             obj = document.getElementById('fileUpDiv');
@@ -1228,7 +1222,49 @@ body {
                                       
                   }
               });
-         })
+         });
+        $(this).on("click",'#commentAddBtn',function(){
+           
+           var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
+           $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp><button id='commentDelete' style='float:right; background-color:transparent'>x</button><div>"+textcomment+"</div></div>");
+           $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
+           $(this).parents('#commentAdd').remove();
+           //alert(textcomment);
+           var cardno= $('#cardNo').val();
+           $.ajax({
+               url:'commentAdd.do',
+               type:'post',
+               dataType:"json",
+               data:{"no":cardno , "comm":textcomment},
+               success:function(data){
+                 $('#commtmp').attr("id","comm"+data)
+                       }
+             });
+          
+       });
+       
+       $(this).on("click",'#commentDelete',function(){
+          var no = $(this).parents('.commentArea').attr("id");
+          $.ajax({
+            url:'commentDelete.do',
+            type:'post',
+            dataType:"json",
+            data:{"no":no },
+            success:function(data){
+              
+            }
+          });
+          $(this).parents('.commentArea').remove(); 
+       });
+       
+       $(this).on("keyup",'#commentBox',function(){
+           var txt = $(this).val();
+           if(txt==""){
+               $(this).siblings('#commentBtnBox').hide();
+           }else{
+               $(this).siblings('#commentBtnBox').show(); 
+           }
+       });
         $(this).on("click","#complecheck",function(){
             var message = $('textarea#chetext').val();
             var cardno = $('#cardNo').val(); 
@@ -1280,84 +1316,97 @@ body {
 
         });    
 });
-function drawChart(op1,op2){
-    var val1=0;
-    switch(op1){
-      case "#FDC6C6":
-         val1=1;
-         break;
-      case "#FFACAC":
-         val1=2;
-         break;
-      case "#FC7474":
-         val1=3;
-         break;
-      case "#FC4B4B":
-         val1=4;
-         break;
-      case "#FC0000":
-         val1=5;
-         break;
-    }
-    var val2=0;
-    switch(op2){
-      case "#DFDFFD":
-         val2=1;
-         break;
-      case "#C0C0FF":
-         val2=2;
-         break;
-      case "#8F8FFF":
-         val2=3;
-         break;
-      case "#4E4EFD":
-         val2=4;
-         break;
-      case "#1414FC":
-         val2=5;
-         break;
-      }
-   // alert(val1);
-   // alert(val2);
-    
-    google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(drawBasic);
+    function drawChart(op1,op2){    
+      var val1=0;
+         switch(op1){
+           case "#FDC6C6":
+              val1=1;
+              break;
+           case "#FFACAC":
+              val1=2;
+              break;
+           case "#FC7474":
+              val1=3;
+              break;
+           case "#FC4B4B":
+              val1=4;
+              break;
+           case "#FC0000":
+              val1=5;
+              break;
+         }
+         var val2=0;
+         switch(op2){
+           case "#DFDFFD":
+              val2=1;
+              break;
+           case "#C0C0FF":
+              val2=2;
+              break;
+           case "#8F8FFF":
+              val2=3;
+              break;
+           case "#4E4EFD":
+              val2=4;
+              break;
+           case "#1414FC":
+              val2=5;
+              break;
+           }
+         
+         
+      $(function () {
+        Highcharts.setOptions({
+          colors: [op1, op2]
+      });
 
-    function drawBasic() {
-
-          var data = google.visualization.arrayToDataTable([
-            ['', '', { role: 'style' }],
-            ['중요도', val1, op1],
-            ['선호도', val2, op2]
-          ]);
-
-          var view = new google.visualization.DataView(data);
-          view.setColumns([0, 1,
-                           { calc: "stringify",
-                             sourceColumn: 1,
-                             type: "string",
-                             role: "annotation" },
-                           2]);
-          
-          var options = {
-            title: '우선순위',
-            legend: { position: 'none' },
-            chartArea: {width: '100%'},
-            hAxis: {
-              minValue: 0,
-              ticks: [0, 1, 2, 3, 4, 5]
-            },
-            vAxis: {
+      $('#container').highcharts({
+          chart: {
+              type: 'bar',
+              borderColor: '#eee',
+              borderRadius: 20,
+               borderWidth: 2
+          },
+          title: {
+              text: null
+          },
+          subtitle: {
+              text: '우선순위'
+          },
+          xAxis: {
+              categories: ['중요도', '선호도']
+          },
+          yAxis: {
+              min: 0,
+              max: 5,
+              tickInterval: 1, 
+              title: {
+                  text: null
+              }
+          },
+          legend: {
+              reversed: false,   
+           enabled: false
               
-            }
-            
-          };
+          },
+          plotOptions: {
+              series: {
+                  stacking: 'tick'
+              }
+          },
+          series: [{
+              name: 'John',
+              data: [val1, 0]
+          }, {
+              name: 'Jane',
+              data: [0, val2]
+          }]
+      });
+  });
+      
+  }
 
-          var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 
-          chart.draw(view, options);
-    }
-}
 function showMap(searchPlace){
       var infowindow = new daum.maps.InfoWindow({zIndex:1});
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -1385,7 +1434,6 @@ function showMap(searchPlace){
               }       
 
               // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-              map.relayout();
               map.setBounds(bounds);
           } 
       }
@@ -1405,19 +1453,7 @@ function showMap(searchPlace){
               infowindow.open(map, marker);
           });
       }
-      function resizeMap() {
-    	    var mapContainer = document.getElementById('map');
-    	    mapContainer.style.width = '400px';
-    	    mapContainer.style.height = '300px'; 
-    	}
-
-    	function relayout() {    
-    	    
-    	    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-    	    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-    	    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-    	    map.relayout();
-    	}
+      map.relayout();
 }
 function resize(obj) {
       obj.style.height = "1px";
@@ -1447,7 +1483,7 @@ function divHide(){
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header2" style="padding: 30px 30px;">
+                <div class="modal-header" style="padding: 30px 30px;">
                     <button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                     </button>
@@ -1485,7 +1521,7 @@ function divHide(){
                             <input type="text" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
                         </div>
                     </div>
-                <div class="modal-footer2">
+                <div class="modal-footer">
                     <button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
                         <span class="glyphicon glyphicon-plus"></span>완 료
                     </button>
@@ -1500,7 +1536,7 @@ function divHide(){
     </div>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-<!-- 일정찾기 검색결과 모달 -->
+<!-- 일정찾기 -->
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="planSearchModal" role="dialog">
@@ -1605,8 +1641,9 @@ function divHide(){
                 <div id='calendar_container'></div>
             </div>
         </div>
-<!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
+
          <div class="col-md-6 half" id ='cardList' >
+                <!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
 		        <form role="form">
 		            <div class="form-group has-success has-feedback">
 		                <div  id="planSearch">
@@ -1634,32 +1671,47 @@ function divHide(){
 		        </form>
   <!-------- 일정 검색 위치 마무리 ------------------------------------------------------------------------------------------------------------------>
             <div style="clear:both"></div>
+                
+    
+
             <div id="timetable" style="float:left;max-width:7000px; margin-top:50px;">
+                
                 <div style="text-align:center">
+                
                 </div>
-                <c:forEach var="vo" items="${list}">${vo.html}
+                <c:forEach var="vo" items="${list}">
+
+                    ${vo.html}
+
                 </c:forEach>
-                <div class="weekday col-md-1"> 
+                <div class="weekday col-md-1">
+                
+                    
                     <div class="addListBtn">
                         <span><img src="calendar/images/createlist.png" ></span>
                     </div>
                     
                     <div class="addListPanel" style="display:none;">
                         <input name="name" class="addListTxt" type="text" placeholder="리스트 추가하기.."/>
-                        <input type="button" value="추가" class="listTitleBtn" />
                         <input type="button" value="취소" class="listTitleCancel" />
+                        <input type="button" value="추가" class="listTitleBtn" />
                     </div>
                 </div>  
             </div>
         </div>
     </div>
+
+
       <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
         <div>
+
               <%-- <jsp:include page="detail.do" flush="false" /> --%> 
         </div>   
+
     </div>
   </div>    
+    
 </body>
         <!-- JS Global Compulsory -->       
 </html>
