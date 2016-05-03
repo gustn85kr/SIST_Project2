@@ -60,7 +60,7 @@ body{
 #commentBtnBox{
 	display:none;
 }
-#commentArea{
+.commentArea{
 	margin-top:15px;
 	min-width:60%;
 	word-break:break-all;
@@ -395,14 +395,25 @@ width:220px;
 	  					  <div id="showContent">
 	  					  	${card.content} 					  
 	  					  </div>
-	  					  <div id="hashready" style="display:none"></div>           
-                   		  <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>				  
+	  					  <div id="hashready" style="display:none"></div>    
+                          <c:if test="${hashList!=null}">       
+                          <div id="hashtag" style="border-top: 2px solid #eee;width: 500;" >
+
+                           <c:forEach var="tt" items="${hashList}">
+                               <a href="#" > ${tt} </a>
+                           </c:forEach>
+                          </div>
+                          </c:if>                 
+                          <c:if test="${hashList==null}">
+                           <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>
+                          </c:if>				  
   					  </c:if>
   					  <c:if test="${card.content==null}">
 	  					  <div id="showContent" style="display:none"> 					  
 	  					  </div>
 	  					  <div id="hashready" style="display:none"></div>           
-                   		  <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>				  
+                          <div id="hashtag" style="display:none;border-top: 2px solid #eee;width: 500;" ></div>     
+	  					  
   					  </c:if>
 					</div>				
 				</div>
@@ -420,8 +431,6 @@ width:220px;
 					$('#map').remove();
 					$('#modalMap').append("<div id='map' style='width:400px;height:300px;'></div>");
 						showMap("${map}");
-						map.relayout();
-						alert('aa');
 					</script>
 					</c:if>
 					<c:if test="${map==null}">
@@ -504,7 +513,7 @@ width:220px;
 			   			</div>
 					</div>
 					</c:if>
-					<div id="modalFile" style="display:none">
+					<div id="modalFile" style="display:inline">
 						<form class="fileUpload" action="download.jsp" method="post" enctype="multipart/form-data">
 							<div id="fileUpField" >
 								<span class="glyphicon glyphicon-paperclip" id="glypfile"></span> ∆ƒ¿œ√∑∫Œ
@@ -522,6 +531,12 @@ width:220px;
 				
 				<div id=modalBottom>
 					<span class="glyphicon glyphicon-comment" id="glypBottom"> ¥Ò±€</span><br>
+					<c:forEach var="comm" items="${commList}">
+					   <div class='commentArea' id='comm${comm.no }'>
+					       <button id='commentDelete' style='float:right; background-color:transparent'>x</button>
+					       <div>${comm.cardcomm}</div>
+					     </div>
+					</c:forEach>
 					<div id="commentAdd">
 						<textarea id="commentBox" cols="50" placeholder="¥Ò±€¿ª ¿‘∑¬«ÿ¡÷ººø‰.."></textarea><br>
 						<div id="commentBtnBox">
@@ -568,7 +583,7 @@ width:220px;
         		
         		<br>                          <%-- ∂ŸæÓ --%>        
 
-		        <form class="fileUpload" action="insert.jsp" method="post" enctype="multipart/form-data" id="fileaddiBtn">
+		        <form class="fileUpload" action="fileInsert.do" method="post" enctype="multipart/form-data" id="fileaddiBtn">
 					<button type="button" class="btn btn-default btn-sm" id="fileUpButton" style="border:0">
 					<img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;∆ƒ¿œ√∑∫Œ
 					</button>
@@ -726,7 +741,7 @@ width:220px;
 			</div>
 			
 			<div class="prioritygraph" style="width: 230px;height: 200px;"> 
-                 <div id="chart_div"></div>
+                 <div id="container" style="min-width: 200px; max-width: 210px; height: 150px; margin: 0 auto"></div>
             </div>
             
 		</div>

@@ -8,11 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.net.*;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.oreilly.servlet.MultipartRequest;
+
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.*;
@@ -114,6 +111,7 @@ public class CardController {
 	}
 	@RequestMapping("mapUpdate.do")
 	public String mapUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	  System.out.println("tttttt");
 		CommVO vo = new CommVO();
 		String cardno= req.getParameter("no");
 		String loc = req.getParameter("loc");
@@ -175,6 +173,7 @@ public class CardController {
 		
 		return "ajax";
 	}
+
 	@RequestMapping("fileUpload.do")
 	public String fileUpload(HttpServletRequest req,HttpServletResponse res) throws Exception{
 		
@@ -207,6 +206,40 @@ public class CardController {
 	     }
 	    req.setAttribute("originFileName",originFileName);
 		    return "ajax";
+	}
+	@RequestMapping("commentAdd.do")
+	public String commentAdd(HttpServletRequest req,HttpServletResponse res) throws Exception{
+	  CommVO vo = new CommVO();
+	  String no = req.getParameter("no");
+	  String comm = req.getParameter("comm");
+	  vo.setCardno(Integer.parseInt(no));
+	  vo.setCardcomm(comm);
+	  int result = OnmDAO.commentCreate(vo);
+	  res.getWriter().write(String.valueOf(result));
+	  return "ajax";
+	}
+	@RequestMapping("commentDelete.do")
+	public String commentDelete(HttpServletRequest req,HttpServletResponse res) throws Exception{
+	  String no = req.getParameter("no");
+	  no = no.substring(4);
+	  OnmDAO.deleteComm(Integer.parseInt(no));
+	  return "ajax";
+	}
+	@RequestMapping("hashInsert.do")
+	public String hashInsert(HttpServletRequest req,HttpServletResponse res) throws Exception{
+	  
+	  CommVO vo = new CommVO();
+	  String cardno=req.getParameter("no");
+	  String hash = req.getParameter("hash");
+	  vo.setCardno(Integer.parseInt(cardno));
+	  vo.setCardcomm(hash);
+	  int cnt = OnmDAO.countHash(Integer.parseInt(cardno));
+	  if(cnt == 0){
+	    OnmDAO.hashInsert(vo);
+	  }else{
+	    OnmDAO.hashUpdate(vo);
+	  }
+	  return "ajax";
 	}
 	/*
 	 @RequestMapping("download.do")

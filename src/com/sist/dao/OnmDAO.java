@@ -169,5 +169,45 @@ public class OnmDAO {
 		session.update("checkListChange",vo);
 		session.close();
 	}
-
+	public static int commentCreate(CommVO vo){
+	  SqlSession session = ssf.openSession(true);
+	  session.insert("commentCreate",vo);
+	  int res = session.selectOne("getCheckListNo");
+	  session.close();
+	  return res;
+	}
+	public static void deleteComm(int no){
+	  SqlSession session = ssf.openSession(true);
+	  session.delete("deleteComm",no);
+	  session.close();
+	}
+	 public static List<CommVO> loadCommList(int cardno){
+	    SqlSession session = ssf.openSession();
+	    List<CommVO> res = session.selectList("loadCommList",cardno);
+	    session.close();
+	    return res;
+	  }
+	 public static void hashInsert(CommVO vo){
+	   SqlSession session = ssf.openSession(true);
+	   session.insert("hashInsert",vo);
+	   session.close();
+	 }
+	 public static void hashUpdate(CommVO vo){
+	   SqlSession session = ssf.openSession(true);
+     session.insert("hashUpdate",vo);
+     session.close();
+	 }
+	 public static String loadHash(int no){
+	   SqlSession session = ssf.openSession();
+	   String res = session.selectOne("loadHash",no);
+	   session.close();
+	   return res;
+	 }
+	 public static int countHash(int no){
+	   SqlSession session = ssf.openSession();
+	   int res = session.selectOne("countHash",no);
+	   session.close();
+	   return res;
+	       
+	 }
 }
