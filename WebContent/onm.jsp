@@ -397,7 +397,6 @@ float: right;
 				    var target = "detail.do?no=";
 				    var cdno = 'card'+event.id;
 				    target= target+cdno.trim();
-				    alert(target);
 					$("#cardDetail .modal-dialog").load(target, function() {
 						
 							$('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
@@ -535,10 +534,8 @@ float: right;
                                 /* map.relayout(); */
                            var searchPlace = $(this).val();   
                             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-                            alert(searchPlace);
                             showMap(searchPlace);
                             var cardno = $('#cardNo').val(); 
-                            alert(cardno+"!!!!");
                             $.ajax({
                                   url:'mapUpdate.do',
                                   type:'post',
@@ -673,7 +670,6 @@ float: right;
 	  			    		"planDate":planDate,
 	  			    		"planContent":planContent},
 	  			    		success:function(data){
-	  			    			alert("전송완료")
 	  			            }
 	  			});
         });  
@@ -1005,7 +1001,6 @@ float: right;
               
               var title = $('#glypTitle').text();
               var startDate= $('#sdateDiv').text().substring(5);
-              alert(startDate);
               var endDate=$('#edateDiv').text().substring(5);
               if(startDate!=""){
                   $('#calendar').fullCalendar( 'removeEvents', cardno);
@@ -1093,7 +1088,6 @@ float: right;
               var startDate= $('#sdate').val();
               var endDate=$('#edate').val();
               var labelColor = $('#labelColor').css("background-color");
-              alert(labelColor);
               var cardno = $('#cardNo').val();
               $('#calendar').fullCalendar( 'removeEvents', cardno);
               var events=new Array();     
@@ -1151,7 +1145,6 @@ float: right;
         });
         
 		 $(this).on("click","#btn",function(){
-			 alert("asd");
         	  var formData = new FormData();
         	/*   formData.append("test2", $("input[name=test2]").val());
         	
@@ -1489,9 +1482,7 @@ function divHide(){
 }//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
 
 function showMap(searchPlace){
-  alert("showMap"+searchPlace);
   var infowindow = new daum.maps.InfoWindow({zIndex:1});
-          alert("zIndex");
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
           mapOption = {
               center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
@@ -1518,6 +1509,7 @@ function showMap(searchPlace){
               }       
 
               // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+              map.relayout();
               map.setBounds(bounds);
           } 
       }
