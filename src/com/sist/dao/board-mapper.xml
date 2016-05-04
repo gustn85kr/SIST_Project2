@@ -20,8 +20,7 @@
 	
 	<!-- 로그인 시 Session에 저장할 값들을 가져오는 SQL -->
 	<select id="logCheck" parameterType="User" resultType="User">
-		SELECT
-		no,nickname,pwd,email FROM ONMUSER WHERE email=#{email}
+		SELECT no,nickname,pwd,email FROM ONMUSER WHERE email=#{email}
 	</select>
 	
 	<!-- 비밀번호 찾기  -->
@@ -90,6 +89,21 @@
 		SELECT no,userno,title,content,regdate,startdate,enddate,priority1,priority2,done,label FROM onmcard WHERE no=#{no}
 	</select>
 	
+	<!-- 카드 삭제 -->
+   <delete id="cardDelete" parameterType="int">
+      DELETE FROM onmcard WHERE no=#{no}
+   </delete>
+ 
+   <!-- 카드 삭제 전에 comm 모두 삭제 -->
+   <delete id="deleteAllComm" parameterType="int">
+      DELETE FROM onmcomm  WHERE cardno=#{cardno}
+   </delete>
+   <!-- card 업데이트 -->
+   <update id="cardUpdate" parameterType="Olist">
+      UPDATE onmlist SET
+      html=#{html} WHERE no=#{no}
+   </update>
+   
 	<!-- 캘린더 드래그 드롭 업데이트 -->
     <update id="dateDrag" parameterType="Ocard">
       UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE no=#{no} <!-- where절에 cardid가와야됨  -->
@@ -218,6 +232,19 @@
     <!-- load hash -->
     <select id="loadHash" parameterType="int" resultType="String">
         SELECT cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=90 
+    </select>
+    
+    <!-- file insert -->
+    <insert id="fileInsert" parameterType="Comm">
+        INSERT INTO onmcomm VALUES(seq_ocm.nextval,#{cardno},5,SYSDATE,#{cardcomm})
+    </insert>
+    <!-- file Delete -->
+    <delete id="fileDelete" parameterType="int">
+       DELETE FROM onmcomm WHERE cardno=#{cardno} AND function=5
+    </delete>
+    <!-- load hash -->
+    <select id="loadFile" parameterType="int" resultType="String">
+        SELECT cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=5
     </select>
     
     <!-- 검색 (MyPlan)  -->

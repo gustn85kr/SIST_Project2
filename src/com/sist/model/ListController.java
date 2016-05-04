@@ -115,6 +115,7 @@ public class ListController {
 				String data = HashingHTML.htmlToSearch(vo.getContent());
 				vo.setContent(data);
 			 }
+			 req.setAttribute("list", list);		
 		} else{//해시태그
 			System.out.println("라디오스3");
 			 List<SearchVO> list = OnmDAO.searchHashPlan(map);
@@ -122,6 +123,7 @@ public class ListController {
 				String data = HashingHTML.htmlToSearch(vo.getContent());
 				vo.setContent(data);
 			 }
+			 req.setAttribute("list", list);		
 		}
 		return "search";
 	}
