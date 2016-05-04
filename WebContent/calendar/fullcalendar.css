@@ -595,14 +595,17 @@ a.fc-more:hover {
 
 .fc-today-button.ui-button.ui-state-default.ui-corner-left.ui-corner-right.ui-state-disabled
 ,.fc-today-button.ui-button.ui-state-default.ui-corner-left.ui-corner-right{
-   border:1px solid #cac7d2p;
-   border-radius:3px;
+   margin-right: 30px;
+   border: 2px solid #2694e8;
+   border-radius: 7px;
    margin-left: 30px;
     background: none;
-    border: none;
+  
 }
 .fc-month-button.ui-button.ui-state-default.ui-corner-left.ui-corner-right.ui-state-active{
    margin-right: 30px;
+   border: 2px solid #2694e8;
+    border-radius: 7px;
 }
 /* the things within each left/right/center section */
 .fc .fc-toolbar > * > * { /* extra precedence to override button border margins */

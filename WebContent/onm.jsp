@@ -116,7 +116,7 @@ body{
 }
  
  .listTitleBtn, .listTitleCancel{
-       float:left;
+       float:right;
        background: none;
          border: #fff;
  }
@@ -674,6 +674,7 @@ body {
 	  			    		"planDate":planDate,
 	  			    		"planContent":planContent},
 	  			    		success:function(data){
+	  			    		  alert("일정 전송을 완료했습니다.");
 	  			            }
 	  			});
         });  
@@ -681,18 +682,12 @@ body {
         $(this).on("click","#cancelMail",function(){
             $("#mailDiv").css('display','none');
         }); 
-
-      //모달에서 메일보내기 버튼 클릭 액션 end
-
-
-      /* addListPanelCreation addListPanelCancel */
         $(this).on("click",".listTitleCancel",function(){
             $(this).parent('.addListPanel').hide();
             $(this).parent('.addListPanel').siblings('.addListBtn').show();
             $(this).siblings('.addListTxt').val("");
-            
         });
-           
+
         $(this).on("click",".listTitleBtn",function(){
             
             var listTitle= $(this).siblings('.addListTxt').val();
@@ -935,7 +930,7 @@ body {
              data:{"no":cardno},
              success:function(data){
 
-                     }
+             }
            });
       });
         $(this).on("click","#dateBtn",function(){
@@ -1537,6 +1532,7 @@ function divHide(){
     $('#priorityDiv').hide();
     $('#labelDiv').hide();
     $('#dateDiv').hide();   
+    $('#mailDiv').hide();
 }//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
 
 function showMap(searchPlace){
@@ -1764,7 +1760,7 @@ function showMap(searchPlace){
 		        <form role="form">
 		            <div class="form-group has-success has-feedback">
 		                <div  id="planSearch">
-		                    <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;">
+		                    <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;color:#fff;">
 		                    &nbsp;&nbsp;&nbsp;&nbsp;일정검색 <span class="glyphicon glyphicon-search"></span>
 		                    </label>
 		                    <div class="col-md-3" style="height: 34px">
@@ -1773,13 +1769,13 @@ function showMap(searchPlace){
 		                    <div id="searchRadios" style="float: left; width:auto"> 
 		                        <button type="button" class="btn btn-success" id="btnSearch">검색</button>
 		                            &nbsp;&nbsp;&nbsp;
-		                        <label class="radio-inline" style="padding-top: 3px;">
+		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;">
 		                            <input type="radio" name="searchRadio" id="radioMyPlan" value="1">내 일정
 		                        </label> 
-		                        <label class="radio-inline" style="padding-top: 3px;"> 
+		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;"> 
 		                            <input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정
 		                        </label> 
-		                        <label class="radio-inline" style="padding-top: 3px;"> 
+		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;"> 
 		                            <input type="radio" name="searchRadio" id="radioHash" value="3">#해시태그
 		                        </label>
 		                    </div>

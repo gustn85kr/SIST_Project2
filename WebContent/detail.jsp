@@ -32,12 +32,12 @@ body{
    
 }
 #modalMid{
-   border-top: 2px solid #eee;
+   border-top: 3px solid #eee;
    margin:20px;
    padding:20px;
 }
 #modalBottom{
-   border-top: 2px solid #eee;
+   border-top: 3px solid #eee;
    margin:20px;
    padding:20px;
 }
@@ -61,17 +61,15 @@ body{
 #commentBtnBox{
    display:none;
 }
-#commentArea{
-   margin-top:15px;
-   min-width:60%;
-   word-break:break-all;
-    background-color: #F2F2F2;
-    border-radius: 5px;
-    box-shadow: 0 0 6px #B2B2B2;
+.commentArea{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    min-width: 60%;
+    word-break: break-all;
     display: inline-block;
-    padding: 10px 18px;
     position: relative;
-    vertical-align: top;
+    border-bottom: 2px solid #C7C7C7;
+    height: 25px;
 }
 #commentAdd{
 margin-top:15px;
@@ -296,8 +294,20 @@ width:200px;
 }
 #fileUpButton,#mailBtn{
    background: none;
+   margin: 8px;
+   width: 127.063px;
+}
+#ui-datepicker-div{
+background: #fff;
 }
 
+#commentAddBtn{
+border: none;
+background: none;
+}
+#commentAddBtn:hover, #commentAddBtn:active {
+border-bottom:2px solid #2694e8;
+} 
 </style>
 
 
@@ -512,8 +522,7 @@ width:200px;
                     <span class="glyphicon glyphicon-comment" id="glypBottom"> 댓글</span><br>
                     <c:forEach var="comm" items="${commList}">
                        <div class='commentArea' id='comm${comm.no }'>
-                           <button id='commentDelete' style='float:right; background-color:transparent'>x</button>
-                           <div>유저닉네임  시간</div>
+                           <button id='commentDelete' style='float:right; background-color:transparent; border:none;'><img src="calendar\images\msgdelete.png"></button>
                            <div>${comm.cardcomm}</div>
                          </div>
                     </c:forEach>
@@ -561,11 +570,11 @@ width:200px;
                 </button> -->
         
                 
-                <br><br>                          <%-- 뛰어 --%>        
+                <br>                          <%-- 뛰어 --%>        
 
                 
                     <button type="button" class="btn btn-default btn-sm" id="fileUpButton" style="border:0">
-                    <img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
+                    <img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
                     </button>
                     <div id="fileUpDiv" style="display:none">
                         <form class="fileUpload" action="fileInsert.do" method="post" enctype="multipart/form-data" id="fileaddiBtn">
@@ -580,8 +589,8 @@ width:200px;
                 
                                       <%-- 뛰어 --%>
                 
-                <button type="button" class="btn btn-default btn-sm" id="mailBtn" style="border:0px;">&nbsp;
-                <img src="calendar\images\email-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 메일
+                <button type="button" class="btn btn-default btn-sm" id="mailBtn" style="border:0px;">
+                <img src="calendar\images\email-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 메일
                </button>      
                <div id ="mailDiv" style="display:none">
                  <div style="margin:10px;"> 받는 사람 :
