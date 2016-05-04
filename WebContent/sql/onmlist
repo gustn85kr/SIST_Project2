@@ -14,3 +14,11 @@ CREATE SEQUENCE seq_ol
 /*
 INSERT INTO onmlist (no,titlel,html) VALUES(seq_ol.nextval,'user',);
 */
+
+
+--검색 sql
+SELECT onmuser.email, onmcard.title,onmcard.content,onmcomm.cardcomm
+FROM onmuser
+INNER JOIN onmcard ON onmuser.no=onmcard.userno
+LEFT OUTER JOIN onmcomm ON onmcard.no=onmcomm.cardno
+WHERE (title LIKE '%검색%' OR CONTENT LIKE '%검색%') AND FUNCTION=90;

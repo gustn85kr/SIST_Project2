@@ -11,6 +11,7 @@
      <typeAlias type="com.sist.dao.ListVO" alias="Olist"/>
      <typeAlias type="com.sist.dao.CardVO" alias="Ocard"/>
      <typeAlias type="com.sist.dao.CommVO" alias="Comm"/>
+     <typeAlias type="com.sist.dao.SearchVO" alias="Search"/>
    </typeAliases>
    <!-- 개발환경 설정 -->
    <environments default="development">    

@@ -207,7 +207,26 @@ public class OnmDAO {
 	   SqlSession session = ssf.openSession();
 	   int res = session.selectOne("countHash",no);
 	   session.close();
-	   return res;
-	       
+	   return res; 
+	 }
+	 
+	 //검색기능
+	 public static List<SearchVO> searchMyPlan(Map map){
+		   SqlSession session = ssf.openSession();
+		   List<SearchVO> list = session.selectList("searchMyPlan",map);
+		   session.close();
+		   return list;
+	 }
+	 public static List<SearchVO> searchAllPlan(Map map){
+		   SqlSession session = ssf.openSession();
+		   List<SearchVO> list = session.selectList("searchAllPlan",map);
+		   session.close();
+		   return list;
+	 }
+	 public static List<SearchVO> searchHashPlan(Map map){
+		   SqlSession session = ssf.openSession();
+		   List<SearchVO> list = session.selectList("searchHashPlan",map);
+		   session.close();
+		   return list;
 	 }
 }

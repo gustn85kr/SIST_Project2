@@ -358,10 +358,10 @@ width:220px;
 					<div id="modalDate">
 						<c:if test="${card.startdate!=null}">
 							<span class='glyphicon glyphicon-calendar'>일정날짜</span>
-							<div id='sdateDiv'> <b id="startD">시작일 </b>: ${card.startdate}</div>
+							<div id='sdateDiv'><b id="startD">시작일 : </b>${card.startdate}</div>
 						</c:if>
 						<c:if test="${card.enddate!=null}">
-							<div id='edateDiv'> <b id="endD">종료일 </b>: ${card.enddate}</div>
+							<div id='edateDiv'> <b id="endD">종료일 : </b>${card.enddate}</div>
 						</c:if>
 					</div>
 					<div id="modalPriority">

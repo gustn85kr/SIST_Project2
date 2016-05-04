@@ -1,5 +1,9 @@
 package com.sist.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -16,6 +20,7 @@ import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 import com.sist.dao.ListVO;
 import com.sist.dao.OnmDAO;
+import com.sist.dao.SearchVO;
 
 @Controller("listController")
 public class ListController {
@@ -82,26 +87,57 @@ public class ListController {
 		return "ajax";
 	}
 	
+	//검색기능
 	@RequestMapping("planSearch.do")
 	public String planSearch(HttpServletRequest req, HttpServletResponse res) throws Exception{
-		HttpSession session=req.getSession();
-		session.getAttribute("logEmail");
-		req.setCharacterEncoding("UTF-8");
 		String inputSearch = req.getParameter("inputSearch");
 		String searchRadios = req.getParameter("searchRadios");
-		System.out.println("inputSearch : "+inputSearch);
-		System.out.println("searchRadios : "+searchRadios);
-		
-		return "ajax";
+		HttpSession session=req.getSession();
+		String logNickname=(String)session.getAttribute("logNickname");
+		System.out.println(logNickname);
+		System.out.println(inputSearch);
+		System.out.println(searchRadios);		
+		Map map=new HashMap();
+		map.put("inputSearch", inputSearch);
+		map.put("logNickname", logNickname);
+		if(searchRadios.equals("1")){ //내 일정
+			System.out.println("라디오스1");
+			 List<SearchVO> list = OnmDAO.searchMyPlan(map);
+			 for(SearchVO vo : list){
+				String data = HashingHTML.htmlToSearch(vo.getContent());
+				vo.setContent(data);
+			 }
+			 req.setAttribute("list", list);			 
+		} else if(searchRadios.equals("2")){ //모든 일정
+			System.out.println("라디오스2");
+			 List<SearchVO> list = OnmDAO.searchAllPlan(map);
+			 for(SearchVO vo : list){
+				String data = HashingHTML.htmlToSearch(vo.getContent());
+				vo.setContent(data);
+			 }
+		} else{//해시태그
+			System.out.println("라디오스3");
+			 List<SearchVO> list = OnmDAO.searchHashPlan(map);
+			 for(SearchVO vo : list){
+				String data = HashingHTML.htmlToSearch(vo.getContent());
+				vo.setContent(data);
+			 }
+		}
+		return "search";
 	}
 	
 	@RequestMapping("sendMail.do")
 	public String sendMail(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		String toMail = req.getParameter("toMail");
 		String planSubject = req.getParameter("planSubject");
-		String planDate = req.getParameter("planDate");
+		String sdateDiv = req.getParameter("sdateDiv");
+		String edateDiv = req.getParameter("edateDiv");
 		String planContent = req.getParameter("planContent");	
-		
+		System.out.println(toMail);
+		System.out.println(planSubject);
+		System.out.println(sdateDiv);
+		System.out.println(edateDiv);
+		System.out.println(planContent);
 		String host = "smtp.gmail.com";
 		String to = toMail;
 		String from = "onm10114@gmail.com";
@@ -117,16 +153,18 @@ public class ListController {
 			msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(from_name, "UTF-8", "B")));
 			msg.setSubject("오내미 일정 메일발송입니다.");
 			msg.setContent(
-					"<table border=5 background=http://cfile26.uf.tistory.com/image/034FB94C519370551F0C45 style='background-repeat : no-repeat;'>"+
-						"<tr>"+
-							"<td style=width:500px align=center><font color=black>"+planSubject.trim()+"</font></td>"+
-							"<td style=width:200px align=center><font color=black>"+planDate.trim()+"</font></td>"+
-						"</tr>"+
-						"<tr>"+
-							"<td colspan=2 align=left><font color=black>"+planContent.trim()+"</font></td>"+
-						"</tr>"+
-					"</table>"
-					, "text/html;charset=" + "EUC-KR");
+					"<table cellpadding='10' cellspacing='4' border='1' background='http://image.shutterstock.com/z/stock-photo-architect-constructor-designer-background-illustration-109023893.jpg' style='background-repeat: no-repeat'>"+
+					"<tr style='width: auto'>"+
+						"<td style='max-width: auto; min-width: 100px' align='center' bgcolor='white'><font color='black' size='5px'><strong>제목</strong></font></td>"+
+						"<td style='max-width: auto; min-width: 400px' align='center' bgcolor='white'><font color='black' size='5px'>'<strong>"+planSubject.trim()+"</strong>'</font></td>"+
+						"<td style='max-width: auto; min-width: 100px' align='center' bgcolor='white'><font color='black' size='5px'><strong>기간</strong></font></td>"+
+						"<td style='max-width: auto; min-width: 300px' align='center' bgcolor='white'><font color='black' size='5px'>'<strong>"+sdateDiv.trim()+" ~ "+edateDiv.trim()+"</strong></font></td>"+
+					"</tr>"+
+					"<tr>"+
+						"<td style='width: 100px' align='center'><font color='black'	size='5px'><strong>내용</strong></font></td>"+
+						"<td colspan='3' style='align: left'><font color='black'>'"+planContent.trim()+"'</font></td>"+
+					"</tr>"+
+				"</table>", "text/html;charset=" + "EUC-KR");
 			InternetAddress address = new InternetAddress(to);
 			msg.setRecipient(Message.RecipientType.TO, address);
 			
@@ -138,7 +176,6 @@ public class ListController {
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-		
 		return "ajax";
 	}
 }

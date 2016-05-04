@@ -60,9 +60,18 @@
 	    text-align: center;
 	    font-size: 30px;
 }
-	.modal-footer {
-	    background-color: #f9f9f9;
-	}
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
+#bgSignUpBtn,#bgLoginBtn{
+	width: 200px;
+	background-color: rgba(92,184,92,0.8);
+	font-family: fantasy;
+	font-size: 18px;
+	width: 100px;
+	z-index: 100;
+}
 </style>
 	
 	
@@ -103,8 +112,10 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 						<c:if test="${logNickname ne null}">
 							<li class="page-scroll home"><a href="onm.do">
 							<span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;오내미로</a></li>
+							
 							<li class="page-scroll home" id="userDetail"><a href="#detail">
 							<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;${logNickname}님</a></li>							
+							
 							<li class="page-scroll home" id="myBtn3"><a href="logOutOK.do">
 							<span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;&nbsp;로그아웃</a></li>
 						</c:if>
@@ -120,27 +131,25 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 	<!-- Intro Section -->
 	<section id="intro" class="intro-section">
 		<div class="fullscreenbanner-container">
-			<div class="fullscreenbanner">
+			<div class="fullscreenbanner">						
 				<ul>
-					<!-- SLIDE 1 -->
-
-					<li data-transition="curtain-1" data-slotamount="5" data-masterspeed="700" data-title="Slide 1">
+					<!-- SLIDE 1 -->		
+					<li data-transition="slidedown" data-slotamount="5" data-masterspeed="700" data-title="Slide 1">						
 						<!-- MAIN IMAGE -->
 						
 						<img src="assets/img/sliders/revolution/test01.jpg" alt="slidebg1" data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
-     
-						<!-- LAYERS -->
-						<div class="tp-caption rs-caption-1 sft start"
+						<!-- LAYERS -->							
+					<div class="tp-caption rs-caption-1 sft start"
 						data-x="center"
 						data-hoffset="0"
 						data-y="100"
 						data-speed="800"
 						data-start="2000"
 						data-easing="Back.easeInOut"
-						data-endspeed="300">
-						Planning made fun!
+						data-endspeed="300">										
+						Planning made fun!.	
+																				
 					</div>
-
 					<!-- LAYER -->
 					<div class="tp-caption rs-caption-2 sft"
 					data-x="center"
@@ -152,14 +161,18 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 					data-endspeed="300"
 					data-endeasing="Power1.easeIn"
 					data-captionhidden="off"
-					style="z-index: 6">
+					style="z-index: 6">     				
 					변명중에서 가장 어리석고 못난 변명은<br>
 					'시간이 없어서' 라는 변명이다<br>-에디슨-
+					<br>
+					<br>
+					<span class="page-scroll bgLoginBtn"><a href="#bgLoginBtn" class="btn-u btn-brd btn-brd-hover btn-u-light" id="bgLoginBtn">로그인</a></span>
+					<span class="page-scroll bgSignUpBtn"><a href="#bgSignUpBtn" class="btn-u btn-brd btn-brd-hover btn-u-light" id="bgSignUpBtn">회원가입</a></span>			
 				</div>	
-		</li>
+			</li>
 
 		<!-- SLIDE 2 -->
-		<li data-transition="slideup" data-slotamount="5" data-masterspeed="1000" data-title="Slide 2">
+		<li data-transition="slidedown" data-slotamount="5" data-masterspeed="1000" data-title="Slide 2">
 			<!-- MAIN IMAGE -->
 			<img src="assets/img/sliders/revolution/test02.jpg" alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 
@@ -171,7 +184,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			data-speed="800"
 			data-start="1500"
 			data-easing="Back.easeInOut"
-			data-endspeed="300">
+			data-endspeed="300">	
 			I can't remember anything without you.
 		</div>
 
@@ -192,7 +205,7 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 </li>
 
 <!-- SLIDE 3 -->
-<li data-transition="slidefade" data-slotamount="5" data-masterspeed="700"  data-title="Slide 3">
+<li data-transition="slidedown" data-slotamount="5" data-masterspeed="700"  data-title="Slide 3">
 	<!-- MAIN IMAGE -->
 	<img src="assets/img/sliders/revolution/test003.jpg"  alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 
@@ -220,12 +233,12 @@ data-endeasing="Power1.easeIn"
 data-captionhidden="off"
 style="z-index: 6">
 일정,텍스트,이미지,체크리스트,링크,파일첨부,지도,해시태그 등 <br>
-    많은 기능들과 함께 하세요
+    많은 기능들과 함께 하세요.
 </div>
 
 </li>
 <!-- SLIDE 4 -->
-<li data-transition="curtain-4" data-slotamount="5" data-masterspeed="700"  data-title="Slide 4">
+<li data-transition="slidedown" data-slotamount="5" data-masterspeed="700"  data-title="Slide 4">
 	<!-- MAIN IMAGE -->
 	<img src="assets/img/sliders/revolution/test13.jpg"  alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 
@@ -286,7 +299,11 @@ data-endspeed="300"
 data-endeasing="Power1.easeIn"
 data-captionhidden="off"
 style="z-index: 6">
-Remember me. Try your best,, Maybe we can.                    <!-- 1번 슬라이드 집중 시키고 싶음.
+Remember me. Try your best,, Maybe we can. 
+					<br>
+					<br>
+					<span class="page-scroll bgLoginBtn"><a href="#bgLoginBtn" class="btn-u btn-brd btn-brd-hover btn-u-light" id="bgLoginBtn">로그인</a></span>
+					<span class="page-scroll bgSignUpBtn"><a href="#bgSignUpBtn" class="btn-u btn-brd btn-brd-hover btn-u-light" id="bgSignUpBtn">회원가입</a></span>		                   <!-- 1번 슬라이드 집중 시키고 싶음.
                                                                                         2번 슬라이드 우리 기능 소개
                                                                                         3번 슬라이드 명언
                                                                                         4번 슬라이드 영어나 뭐 그런 멋있는말
@@ -592,9 +609,32 @@ Remember me. Try your best,, Maybe we can.                    <!-- 1번 슬라이드 
 					});
 					$("#LoginModal").modal();
 				});
+				
+				$(".bgLoginBtn").click(function() {
+					//var logEmail = $('#logEmail').val("");
+					var logPwd = $('#logPwd').val("");
+					var logNickname = $('#logNickname').val("");
+					$.ajax({
+						url : 'emailSaveGet.do',
+						type : 'post',
+						data : $('#logFrm').serialize(),
+						success : function(data) {
+							var logEmail = $('#logEmail').val(data);
+							if (data != "")
+								$('#logSave').attr('checked', true);
+							else
+								$('#logSave').attr('checked', false);
+						}
+					});
+					$("#LoginModal").modal();
+				});				
 
 				//회원가입 창 액션
 				$("#myBtn2").click(function() {
+					$("#SignUpModal").modal();
+				});
+				
+				$(".bgSignUpBtn").click(function() {
 					$("#SignUpModal").modal();
 				});
 				

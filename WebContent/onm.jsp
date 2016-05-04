@@ -311,46 +311,75 @@ body {
 .listTitleCancel,.listTitleBtn{
 float: right;
 }
+
+/* 일정검색 Modal 넣기 */
+	.modal-header, h4, .close {
+	    background-color: #5cb85c;
+	    color:white !important;
+	    text-align: center;
+	    font-size: 30px;
+}
+	.modal-footer {
+	    background-color: #f9f9f9;
+}
     </style>
    
 <script type="text/javascript">
     $(document).ready(function(){
         $("#userDetail2").click(function() {
-            var emailChage = $('#emailChage').val("");
-            var nicknameChange = $('#nicknameChange').val("");
+            var emailChage = $('#emailChage').val();
+            var nicknameChange = $('#nicknameChange').val();
             var pwdChange = $('#pwdChange').val("");
             var newPwdChange = $('#newPwdChange').val("");
             var newPwdChange2 = $('#newPwdChange2').val("");
-            $("#PwdChageModal").modal();
+            $("#UserInfoChangeModal").modal();
         });
         
       //일정 검색 기능          
-        $("#btnSearch").click(function(){
-            $("#planSearchModal").modal();
-        });
-        /* $("#btnSearch").click(function(){
+      $("#btnSearch").click(function(){
+        	
+        	var target = "planSearch.do?searchRadios=";
+        	var searchRadios = document.querySelector('input[name="searchRadio"]:checked').value;
+        	
+            var inputSearch = $("#inputSearch").val();
+            
+             target = target+searchRadios;
+             target = target +"&inputSearch=";
+             alert(inputSearch);
+             target = target +inputSearch;
+            if(inputSearch=="" || inputSearch==null){
+                $('#inputSearch').focus();
+                alert("2222");
+            }else{
+	            	alert("gogo");
+		        	$("#planSearchModal .modal-dialog").load(target, function() {
+		            $("#planSearchModal").modal("show");	        	
+	        	});
+            }
+        }); 
+       /* $("#btnSearch").click(function(){
             var searchRadios = document.querySelector('input[name="searchRadio"]:checked').value;
+            alert(searchRadios);
             var inputSearch = $("#inputSearch").val();
             if(inputSearch=="" || inputSearch==null){
                 $('#inputSearch').focus();
-                return;
-            } else {
-                $("#planSearchModal").modal();
+            } else {                
                 $.ajax({
                     url : 'planSearch.do',
                     type : 'post',
+                    dataType:'json',
                     data : {
                         "searchRadios" : searchRadios,
                         "inputSearch" : inputSearch
                     },
                     success : function(data) {
-                        
+                    	$("#planSearchModal").modal();
                     }
                 });
             }
-        }); */
+        });
         
-
+ */
         $('#calendar').fullCalendar({ 
             theme: true,
             header: {
@@ -662,18 +691,21 @@ float: right;
 	  			//$("#mailBtn").css("display",'inline');
 	  			var toMail = $('#toMail').val();
 	  			var planSubject = $('#glypTitle').html();
-	  			var planDate = $('#modalDate').html();
 	  			var planContent = $('#showContent').html();
+	  			var sdate = $('#sdateDiv').text();
+	  			var edate = $('#edateDiv').text();
+	  			alert("전송완료")
 	  			$.ajax({
 	  			    url:'sendMail.do',
 	  			    type:'post',
 	  			    dataType:"json",
 	  			    data:{"toMail": toMail,
 	  			    		"planSubject":planSubject,
-	  			    		"planDate":planDate,
+	  			    		"sdateDiv":sdate,
+	  			    		"edateDiv":edate,
 	  			    		"planContent":planContent},
 	  			    		success:function(data){
-	  			    			alert("전송완료")
+	  			    			
 	  			            }
 	  			});
         });  
@@ -851,20 +883,21 @@ float: right;
                  /* alert("Yes"); */
               }
         });
+            
             $('#hashtag').css('display',"inline");
             $("#hashready").empty();
             $('#hashtag').empty();
             $('#hashtag').append(linkedContent);
             linkedContent="";
-            
-         
         });
+        
         $(this).on("click","#contentCancel",function(){
             var tmp = tinyMCE.activeEditor.getContent();
             $(this).parent("#newTA").css('display',"none");
             $(this).parent("#newTA").siblings("#showContent").css('display',"inline");
             $(this).parent("#newTA").siblings("#contentText").children("#insertContent").css('display',"inline");
        });
+        
        $(this).on("click","#priorityBtn",function(){
             obj = document.getElementById('priorityDiv');
             if(obj.style.display == "none"){
@@ -874,6 +907,7 @@ float: right;
                 $("#priorityDiv").css('display','none');
             }           
       });
+       
       $(this).on("click","#priorityInsert",function(){
             $("#priorityDiv").css('display','none');
             var op1 = $(':radio[name="option1"]:checked').val();
@@ -1244,6 +1278,48 @@ float: right;
              });
           
        });
+        
+      //비밀번호 변경 액션
+		$('#changeYes').click(function(){
+			var emailChange = $('#emailChange').val();
+			var nicknameChange = $('#nicknameChange').val();
+			var pwdChange = $('#pwdChange').val();
+			var newPwdChange = $('#newPwdChange').val();
+			var newPwdChange2 = $('#newPwdChange2').val();
+		 	if (nicknameChange.trim() == "" || nicknameChange.length <4) {
+				$('#nicknameChange').focus();
+				return;
+			} else if (pwdChange.trim() == "" || pwdChange.length <1) {
+				$('#pwdChange').focus();
+				return;
+			} else if (newPwdChange.trim() == "" || newPwdChange.length <4) {
+				$('#newPwdChange').focus();
+				return;
+			} else if(newPwdChange2.trim() =="" || newPwdChange2.length <4) {
+				$('#newPwdChange2').focus();
+				return;
+			} else if (newPwdChange.trim() != newPwdChange2.trim()){
+				$('#newPwdChange2').val("");
+				$('#newPwdChange2').focus();
+				return;
+			} else {
+				$.ajax({
+					url : 'changeUserInfoOK.do',
+					type : 'post',
+					data : $('#changeFrm').serialize(),
+					success : function(data) {
+						if(data.length>0){
+							alert("기존 비밀번호가 틀립니다.");
+							var pwdChange = $('#pwdChange').val("");
+						} else {
+							alert("회원정보 변경완료");
+							$('#UserInfoChangeModal').modal('toggle');
+						}
+					}
+				});						
+			}
+		});
+        
        
        $(this).on("click",'#commentDelete',function(){
           var no = $(this).parents('.commentArea').attr("id");
@@ -1547,109 +1623,118 @@ function showMap(searchPlace){
 </head>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-    <!-- 회원정보 변경 모달  -->
-    <!-- Modal -->
-    <div class="modal fade" id="PwdChageModal" role="dialog"  tabindex="-1" aria-labelledby="modal-login-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header" style="padding: 30px 30px;">
-                    <button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
-                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                    </button>
-                    <h4>
-                        <span class="glyphicon glyphicon-user"></span> 회원정보 변경
-                    </h4>
-                    
-                </div>
-                <form class="form-horizontal" method="POST" id="chageFrm" name="chageFrm">
-                    <div class="modal-body" style="padding:40px 50px;height: 410px;">
-                        <div class="form-group" id="divEmail" >
-                            <label for="email"><span class="glyphicon glyphicon-user"></span> 이메일</label>
-                            <input type="text" class="email form-control" id="emailChage" name="emailChage" placeholder="이메일을 입력하세요">
-                        </div>                      
-                        <div class="form-group" id="divNickname">
-                            <label for="nickname">
-                            <span class="glyphicon glyphicon-apple"></span> 닉네임</label>
-                            <input type="text" class="pwd form-control" id="nicknameChange" name="nicknameChange"
-                                placeholder="사용하실 대화명을 입력하세요.(4자리 이상)">
-                        </div>
-                        <div class="form-group" id="divPwd">
-                            <label for="psw">
-                            <span class="glyphicon glyphicon-eye-open"></span> 기존 비밀번호</label>
-                            <input type="password" class="pwd form-control" id="pwdChange" name="pwdChange"
-                                placeholder="기존 비밀번호를 입력하세요(4자리 이상)">
-                        </div>
-                        <div class="form-group" id="divNewPwd">
-                            <label for="psw"><span
-                                class="glyphicon glyphicon-eye-open"></span> 새 비밀번호</label> <input
-                                type="password" class="form-control" id="newPwdChange" name="newPwdChange"
-                                placeholder="새 비밀번호를 입력하세요(4자리 이상)">
-                        </div>
-                        <div class="form-group" id="divNewPwd2">
-                            <label for="checknum"><span class="glyphicon glyphicon-eye-open"></span> 인증번호</label> 
-                            <input type="text" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
-                        </div>
-                    </div>
-                <div class="modal-footer">
-                    <button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
-                        <span class="glyphicon glyphicon-plus"></span>완 료
-                    </button>
-                    <button type="button" class="btn btn-danger btn-default pull-left"
-                        data-dismiss="modal" value="Input Button" style="margin: 10px">
-                        <span class="glyphicon glyphicon-remove"></span>취 소
-                    </button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
+ <!-- 회원정보 변경 모달  -->
+	<!-- Modal -->
+	<div class="modal fade" id="UserInfoChangeModal" role="dialog"  tabindex="-1" aria-labelledby="modal-login-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header" style="padding: 30px 30px;">
+					<button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4>
+						<span class="glyphicon glyphicon-user"></span> 회원정보 변경
+					</h4>
+					
+				</div>
+				<form class="form-horizontal" method="POST" id="changeFrm" name="changeFrm">
+					<div class="modal-body" style="padding:40px 50px;height: 410px;">
+						<div class="form-group" id="divEmail" >
+							<label for="email"><span class="glyphicon glyphicon-user"></span> 이메일</label>
+							<input type="text" class="email form-control" id="emailChange" name="emailChange" placeholder="이메일을 입력하세요" value=${logEmail }>
+						</div>						
+						<div class="form-group" id="divNickname">
+							<label for="nickname">
+							<span class="glyphicon glyphicon-apple"></span> 닉네임</label>
+							<input type="text" class="pwd form-control" id="nicknameChange" name="nicknameChange" placeholder="사용하실 대화명을 입력하세요.(4자리 이상)" value=${logNickname }>
+						</div>
+						<div class="form-group" id="divPwd">
+							<label for="psw">
+							<span class="glyphicon glyphicon-eye-open"></span> 기존 비밀번호</label>
+							<input type="password" class="pwd form-control" id="pwdChange" name="pwdChange"
+								placeholder="기존 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+						<div class="form-group" id="divNewPwd">
+							<label for="psw"><span
+								class="glyphicon glyphicon-eye-open"></span> 새 비밀번호</label> <input
+								type="password" class="form-control" id="newPwdChange" name="newPwdChange"
+								placeholder="새 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+						<div class="form-group" id="divNewPwd2">
+							<label for="checknum"><span	class="glyphicon glyphicon-eye-open"></span> 새 비밀번호 확인</label> 
+							<input type="password" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
+						</div>
+					</div>
+				<div class="modal-footer">
+					<button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px">
+						<span class="glyphicon glyphicon-plus"></span>완 료
+					</button>
+					<button type="button" class="btn btn-danger btn-default pull-left"
+						data-dismiss="modal" value="Input Button" style="margin: 10px">
+						<span class="glyphicon glyphicon-remove"></span>취 소
+					</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-<!-- 일정찾기 -->
+<style>
+.modal-header2, h4, .close {
+	   background-color: #5cb85c;
+	   color:white !important;
+	   text-align: center;
+	   font-size: 30px;
+}
+
+.modal-header2{
+	width: 1000px;
+	min-width: 200px;
+}
+
+.modal-body2{
+	background-color: #ffffff;
+	width:1000px;
+	min-width: 200px;
+	height: auto;
+	min-height: 400px;
+}
+
+.search-group2{
+	height: 40px;
+	padding: 8px 0px 35px;
+	font-size: 17px;
+	background-color: rgba(255,242,0,0.4);
+	text-align: center;
+
+}
+
+.search-group3{
+	height: 40px;
+	padding: 18px 0px 40px;
+	font-size: 15px;
+}
+
+.search-group4{
+	height: 40px;
+	padding: 18px 0px 40px;
+	font-size: 15px;
+	background-color:rgba(195,195,195,0.4)
+}
+
+#planSearchModal{
+	overflow: hidden;
+	right: 400px;
+}
+</style>
+<!-- 일정검색 Modal  -->
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="planSearchModal" role="dialog">
         <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content" >
-                <div class="modal-header" style="padding: 30px 30px;">
-                    <button type="button" class="close" data-dismiss="modal"
-                        style="margin-top: 7px;">
-                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                    </button>
-                    <h4 style="width: auto; height: auto;">
-                        <span class="glyphicon glyphicon-user"></span> 일정 검색
-                    </h4>
-                </div>
-                
-                <div class="searchHead" >
-                    <label class="col-sm-2 half" style="margin-left: 50px">이메일</label>
-                    <label class="col-sm-3 half">제목</label>
-                    <label class="col-sm-5 half">내용</label>
-                    <label class="col-sm-1 half">조회수</label>
-                </div>  
-                
-                <c:forEach var="i" begin="1" end="10">
-                <c:if test="${i%2==0}">
-                    <div class="searchRow">
-                        <label class="col-sm-2" style="margin-left: 50px">바보3</label>
-                        <label class="col-sm-3">바보3</label>
-                        <label class="col-sm-5">바보3</label>
-                        <label class="col-sm-1">바보3</label>
-                    </div>
-                </c:if>
-                
-                <c:if test="${i%2==1}" >
-                    <div class="searchRow">
-                        <label class="col-sm-2" style="background-color:rgba(195,195,195,0.3); margin-left: 50px;">바보3</label>
-                        <label class="col-sm-3" style="background-color:rgba(195,195,195,0.3)">바보3</label>
-                        <label class="col-sm-5" style="background-color:rgba(195,195,195,0.3)">바보3</label>
-                        <label class="col-sm-1" style="background-color:rgba(195,195,195,0.3)">바보3</label>
-                    </div>
-                </c:if>
-                </c:forEach>
-            </div>
+        			<!-- Modal content-->
+				<!-- serach.jsp로 간당 -->
         </div>
     </div>
 </div>
