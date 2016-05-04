@@ -20,8 +20,7 @@
 	
 	<!-- 로그인 시 Session에 저장할 값들을 가져오는 SQL -->
 	<select id="logCheck" parameterType="User" resultType="User">
-		SELECT
-		no,nickname,pwd,email FROM ONMUSER WHERE email=#{email}
+		SELECT no,nickname,pwd,email FROM ONMUSER WHERE email=#{email}
 	</select>
 	
 	<!-- 비밀번호 찾기  -->
@@ -94,7 +93,11 @@
    <delete id="cardDelete" parameterType="int">
       DELETE FROM onmcard WHERE no=#{no}
    </delete>
-   
+ 
+   <!-- 카드 삭제 전에 comm 모두 삭제 -->
+   <delete id="deleteAllComm" parameterType="int">
+      DELETE FROM onmcomm  WHERE cardno=#{cardno}
+   </delete>
    <!-- card 업데이트 -->
    <update id="cardUpdate" parameterType="Olist">
       UPDATE onmlist SET

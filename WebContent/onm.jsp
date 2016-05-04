@@ -673,6 +673,7 @@ body {
 	  			    		"planDate":planDate,
 	  			    		"planContent":planContent},
 	  			    		success:function(data){
+	  			    		  alert("일정 전송을 완료했습니다.");
 	  			            }
 	  			});
         });  
@@ -968,7 +969,7 @@ body {
              data:{"no":cardno},
              success:function(data){
 
-                     }
+             }
            });
       });
         $(this).on("click","#dateBtn",function(){
@@ -1526,6 +1527,7 @@ function divHide(){
     $('#priorityDiv').hide();
     $('#labelDiv').hide();
     $('#dateDiv').hide();   
+    $('#mailDiv').hide();
 }//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
 
 function showMap(searchPlace){
