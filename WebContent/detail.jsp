@@ -15,7 +15,6 @@ body{
       font-size: 15px;
       padding : 20px;
 }
-
 #modalBody{
    background: url("calendar/images/back7.jpg");
    background-repeat: no-repeat;
@@ -50,7 +49,6 @@ body{
     transition: 500ms all ease;
     padding: 3px 3px 3px 3px;
 }
-
 #commentBox:hover,
 #commentBox:focus {
     width: 80%;
@@ -78,7 +76,6 @@ body{
 #commentAdd{
 margin-top:15px;
 }
-
 #commentBtnBox{
 float:left;
 margin-top:10px;
@@ -93,15 +90,12 @@ margin-top:10px;
 .modal-content{
    position: relative;
    margin:0 auto;
-
    width:900px;
    
 }
-
 #glypTitle,#listName{
 margin-bottom:10px;
 }
-
 #glypTitle{
    font-size: 25px;
 }
@@ -114,7 +108,6 @@ margin-bottom:10px;
 #mytextarea{
    
 }
-
 #contentInsert,#contentCancel{
 float:left;
 width:45px;
@@ -127,14 +120,11 @@ text-align: center;
 background: none;
 margin-top: 5px;
 }
-
 #contentInsert:hover, #contentInsert:active, #contentCancel:hover, #contentCancel:active{
 
 border-bottom: 2px solid #2694e8;
 }
-
 #modalTextarea{
-
 }
 #insertContext:HOVER {
    color : gray;
@@ -150,7 +140,6 @@ border-bottom: 2px solid #2694e8;
 #sideBar{
    
    padding : 10px;
-
 }
 #map{
 max-height:100%;
@@ -168,26 +157,22 @@ max-width:100%;
 #labelDiv .btn.active span.glyphicon {            
    opacity: 1;            
 }
-
 input[type="checkbox"] { 
   height: 20px; 
   width: 20px; 
   margin-right: 10px;
 }   
-
 .checkready { font-size: 1.5em; }
 .ui-progressbar-value { background: ##BCF12A; }
 .progressbar-container {
   position: relative;
   width: 350px; 
 }
-
 .progressbar-bar { 
   height: 25px;
 margin: 10px 0;
 border-radius: 7px;
 }
-
 .progressbar-label {
   position: absolute;
   top: 2px;
@@ -200,8 +185,6 @@ border: 2px;
 margin: 8px;
 background: none;
 }
-
-
 .btn.btn-default.btn-sm:hover, .btn.btn-default.btn-sm:active {
    background: #ECFF97;
 }
@@ -209,43 +192,35 @@ background: none;
 width: 100px;
 height: 24px;
 } */
-
 .textcss{
 border: 2px solid #FFE925;
 border-radius: 5px;
 margin:1px;
 }
-
 #fileInsert,#fileDelete{
 width: 46px;
 height: 28px;
 }
-
 .btniconcss{
 background: none;
 border:none;
 float:center;
 }
-
 .btniconcss:hover, .btniconcss:active {
 border-bottom:2px solid #2694e8;
 } 
-
 #dateInsert, #dateDelete, #fileInsert, #fileDelete{
 background: none;
 border:none;
 float:center;
 color:black;
 }
-
 #dateInsert:hover, #dateInsert:active, #dateDelete:hover, #dateDelete:active, #fileInsert:hover, #fileInsert:active, #fileDelete:hover, #fileDelete:active{
 border-bottom:2px solid #2694e8;
 } 
-
 #addsearch{
 margin:10px;
 }
-
 #insertContent{
 background: none;
 border-bottom: 2px solid #2694e8;
@@ -255,22 +230,18 @@ margin: 10px;
 text-align: center;
 cursor : pointer;
 }
-
 #insertContent:hover, #insertContent:active{
 background: #C8E1F1;
 }
-
 #checkunder{
     margin: 5px;
     height: 30px;
     width: 120px;
 }
-
 #checklisttitle{
 font-size:20px;
 font-weight: bold;
 }
-
 #addchecklist,#complecheck{
 background: none;
 border:none;
@@ -279,7 +250,6 @@ border:none;
 #addchecklist:hover,#addchecklist:active,#complecheck:hover#complecheck:active{
 border-bottom: 2px solid #2694e8;
 }
-
 #chetext{
 border: 2px solid #FFE925;
 border-radius: 3px;
@@ -287,12 +257,10 @@ width: 400px;
 height: 30px;
 font-size: 20px;
 }
-
 #checkboxform p{
 font-size:18px;
 margin:0px;
 }
-
 #mapunder{
 width:120px;
 height: 35px;
@@ -300,20 +268,16 @@ margin:5px;
 margin-bottom:0px;
 padding:10px;
 padding-top:0px;
-
 }
-
 #map{
 margin:5px;
 }
-
 .priorityunder{
 width:120px;
 height: 35px;
 padding:5px;
 margin-bottom: 5px;
 }
-
 #labelunder{
 margin:5px;
 width: 80px;
@@ -321,7 +285,6 @@ height: 35px;
 margin-left:0px;
 padding:5px;
 }
-
 #modalBdClose{
 background: none;
 border: none;
@@ -334,13 +297,16 @@ width:200px;
 #fileUpButton,#mailBtn{
    background: none;
 }
+
 </style>
- <script type="text/javascript">
-    $(function(){
-      
-       setTimeout("showMap('${map}')",500);
-  /*  showMap("${map}"); */
-    });
+
+
+<script type="text/javascript">
+	$(function(){
+		 setTimeout("showMap('${map}')",500);
+	/* 	showMap("${map}"); */
+	});
+
 </script>
 </head>
 <body>
@@ -419,7 +385,6 @@ width:200px;
                 <div id="modalMid"> 
                     <span class="glyphicon glyphicon-th-list" id="glypMid"> 추가기능</span><br>
                     <c:if test="${map!=null}">
-
                     <div id="modalMap" style="display:block">           
                         <div id="mapunder"><img src="calendar\images\map-icon.png" style="text-align:left;">&nbsp;&nbsp;위치정보</div>
                         

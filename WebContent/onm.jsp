@@ -393,34 +393,34 @@ body {
                    });
                 
             },
-                eventClick: function(event) {
-                    //ev.preventDefault();
-                    var target = "detail.do?no=";
-                    var cdno = 'card'+event.id;
-                    target= target+cdno.trim();
-                    //alert(target);
-                    $("#cardDetail .modal-dialog").load(target, function() {
-                        
-                            $('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
-                            $('#sdate').datepicker("option", "maxDate", $("#edate").val());
-                            $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
-                                $("#edate").datepicker( "option", "minDate", selectedDate );
-                            });
-                            $('#edate').datepicker({ dateFormat: 'yy/mm/dd'});
-                            $('#edate').datepicker("option", "minDate", $("#sdate").val());
-                            $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
-                                $("#sdate").datepicker( "option", "maxDate", selectedDate );
-                            });
-                            
-                            //여기부터 지도
-                            $("#txtAddress").keydown(function(e) {
-                                  if (e.keyCode == 13) {
-                                    $("#modalMap").css("display","block");
-                                        /* map.relayout(); */
-                                   var searchPlace = $(this).val();   
-                                    // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-                                    
-                                      var infowindow = new daum.maps.InfoWindow({zIndex:1});
+
+            	eventClick: function(event) {
+					//ev.preventDefault();
+				    var target = "detail.do?no=";
+				    var cdno = 'card'+event.id;
+				    target= target+cdno.trim();
+					$("#cardDetail .modal-dialog").load(target, function() {
+						
+							$('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
+						    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+						    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+						        $("#edate").datepicker( "option", "minDate", selectedDate );
+						    });
+						    $('#edate').datepicker({ dateFormat: 'yy/mm/dd'});
+						    $('#edate').datepicker("option", "minDate", $("#sdate").val());
+						    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
+						        $("#sdate").datepicker( "option", "maxDate", selectedDate );
+						    });
+						    
+						    //여기부터 지도
+						    $("#txtAddress").keydown(function(e) {
+			                      if (e.keyCode == 13) {
+			                    	  $("#modalMap").css("display","block");
+			                     		/* map.relayout(); */
+			                       var searchPlace = $(this).val();   
+			                    	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+			                    	
+			                    	  var infowindow = new daum.maps.InfoWindow({zIndex:1});
 
                                       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                                           mapOption = {
@@ -450,10 +450,12 @@ body {
                                                   bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
                                               }       
 
-                                              // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-                                              map.setBounds(bounds);
-                                          } 
-                                      }
+
+			                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+			                    	          map.setBounds(bounds);
+			                    	      } 
+			                    	  }
+
 
                                       // 지도에 마커를 표시하는 함수입니다
                                       function displayMarker(place) {
@@ -528,7 +530,6 @@ body {
                     $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
                         $("#sdate").datepicker( "option", "maxDate", selectedDate );
                     });
-                   
                     
                     //여기부터 지도
                     $("#txtAddress").keydown(function(e) {
@@ -537,6 +538,7 @@ body {
                                 /* map.relayout(); */
                            var searchPlace = $(this).val();   
                             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+                            showMap(searchPlace);
                             var cardno = $('#cardNo').val(); 
                             $.ajax({
                                   url:'mapUpdate.do',
@@ -545,6 +547,7 @@ body {
                                   data:{"loc":searchPlace,
                                             "no":cardno},
                                   success:function(data){
+                                     /* alert("Yes"); */
                                   }
                               });  
 
@@ -625,13 +628,9 @@ body {
                          data:{"listno":listno , "html":ehtml},
                          success:function(data){                                
                          }
-                     });                                                           
+                     });               
                  }
             });
-            
-
-          
-            
         });
       $(this).on("click",".cardCancel",function(){ 
           
@@ -648,24 +647,40 @@ body {
         });
       //모달에서 메일보내기 버튼 클릭 액션
         $(this).on("click", "#mailBtn",function() {
-           obj = document.getElementById('mailDiv');
-           if(obj.style.display == "none") {
-               divHide();
-               $("#mailDiv").css("display","inline");
-           } else {
-               $("#mailDiv").css("display","none");
-           }
-        });
+         obj = document.getElementById('mailDiv');
+         if(obj.style.display == "none") {
+             divHide();
+             $("#mailDiv").css("display","inline");
+         } else {
+             $("#mailDiv").css("display","none");
+         }
+      });
          
+      //일정 메일 보내기
         $(this).on("click","#sendMail",function(){
-            $("#mailDiv").css("display","none");
-            $("#mailBtn").css("display",'inline');
-            var sendMail = $('#toMail').val();
+	  			//$("#mailDiv").css("display","none");
+	  			//$("#mailBtn").css("display",'inline');
+	  			var toMail = $('#toMail').val();
+	  			var planSubject = $('#glypTitle').html();
+	  			var planDate = $('#modalDate').html();
+	  			var planContent = $('#showContent').html();
+	  			$.ajax({
+	  			    url:'sendMail.do',
+	  			    type:'post',
+	  			    dataType:"json",
+	  			    data:{"toMail": toMail,
+	  			    		"planSubject":planSubject,
+	  			    		"planDate":planDate,
+	  			    		"planContent":planContent},
+	  			    		success:function(data){
+	  			            }
+	  			});
         });  
         
         $(this).on("click","#cancelMail",function(){
             $("#mailDiv").css('display','none');
         }); 
+
       //모달에서 메일보내기 버튼 클릭 액션 end
         $(this).on("click","#commentAddOk",function(){
      
@@ -690,7 +705,7 @@ body {
             $(this).siblings('.addListTxt').val("");
             
         });
-      
+ 
 /*             $(this).on("click",'#commentAddBtn',function(){  
             var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
            $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' class='close' style='float:right; background-color:transparent'>&times;</button><div>"+textcomment+"</div></div>");
@@ -710,9 +725,7 @@ body {
                    $(this).siblings('#commentBtnBox').show(); 
                }
            });
-      
-      
-      
+
         $(this).on("click",".listTitleBtn",function(){
             
             var listTitle= $(this).siblings('.addListTxt').val();
@@ -1012,7 +1025,6 @@ body {
               
               var title = $('#glypTitle').text();
               var startDate= $('#sdateDiv').text().substring(5);
-              //alert(startDate);
               var endDate=$('#edateDiv').text().substring(5);
               if(startDate!=""){
                   $('#calendar').fullCalendar( 'removeEvents', cardno);
@@ -1162,7 +1174,6 @@ body {
               var startDate= $('#sdate').val();
               var endDate=$('#edate').val();
               var labelColor = $('#labelColor').css("background-color");
-              //alert(labelColor);
               var cardno = $('#cardNo').val();
               $('#calendar').fullCalendar( 'removeEvents', cardno);
               var events=new Array();     
@@ -1267,36 +1278,6 @@ body {
          
      });
   
-        
-         $(this).on("click","#btn",function(){
-              var formData = new FormData();
-              var fn="1234";
-              formData.append("fileupload", $("input[name=fileupload]")[0].files[0]);
-/*            $.ajax({
-                url: 'fileUpload.do',
-                data: formData,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                success: function(data){
-                    
-                }
-              });
-              alert($('#'));  */
-              $.ajax({
-                url: 'fileDownload.do',
-                data: formData,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                success: function(data){
-                    
-                }
-              });
-              //alert($('#')); 
-        
-         });
-         
         $(this).on("click","#fileUpButton",function(){
             obj = document.getElementById('fileUpDiv');
             if(obj.style.display=="none"){
@@ -1608,7 +1589,7 @@ function showMap(searchPlace){
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header2" style="padding: 30px 30px;">
+                <div class="modal-header" style="padding: 30px 30px;">
                     <button type="button" class="close" data-dismiss="modal" style="margin-top: 7px;">
                         <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                     </button>
@@ -1646,7 +1627,7 @@ function showMap(searchPlace){
                             <input type="text" class="form-control" id="newPwdChange2" name="newPwdChange2" placeholder="새 비밀번호를 입력하세요(4자리 이상)">
                         </div>
                     </div>
-                <div class="modal-footer2">
+                <div class="modal-footer">
                     <button type="button" id="changeYes" name="chageYes" class="btn btn-success btn-default pull-left"  value="Send" style="margin: 10px; margin-left: 35px" disabled>
                         <span class="glyphicon glyphicon-plus"></span>완 료
                     </button>
@@ -1661,7 +1642,7 @@ function showMap(searchPlace){
     </div>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-<!-- 일정찾기 검색결과 모달 -->
+<!-- 일정찾기 -->
 <div class="container">
     <!-- Modal -->
     <div class="modal fade" id="planSearchModal" role="dialog">
@@ -1766,41 +1747,52 @@ function showMap(searchPlace){
                 <div id='calendar_container'></div>
             </div>
         </div>
-<!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
+
          <div class="col-md-6 half" id ='cardList' >
-                <form role="form">
-                    <div class="form-group has-success has-feedback">
-                        <div  id="planSearch">
-                            <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;">
-                            &nbsp;&nbsp;&nbsp;&nbsp;일정검색 <span class="glyphicon glyphicon-search"></span>
-                            </label>
-                            <div class="col-md-3" style="height: 34px">
-                                <input type="text" class="form-control" id="inputSearch" placeholder="찾고싶은 일정을 입력하세요..."> &nbsp;&nbsp;&nbsp;                        
-                            </div>
-                            <div id="searchRadios" style="float: left; width:auto"> 
-                                <button type="button" class="btn btn-success" id="btnSearch">검색</button>
-                                    &nbsp;&nbsp;&nbsp;
-                                <label class="radio-inline" style="padding-top: 3px;">
-                                    <input type="radio" name="searchRadio" id="radioMyPlan" value="1">내 일정
-                                </label> 
-                                <label class="radio-inline" style="padding-top: 3px;"> 
-                                    <input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정
-                                </label> 
-                                <label class="radio-inline" style="padding-top: 3px;"> 
-                                    <input type="radio" name="searchRadio" id="radioHash" value="3">#해시태그
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                <!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
+		        <form role="form">
+		            <div class="form-group has-success has-feedback">
+		                <div  id="planSearch">
+		                    <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;">
+		                    &nbsp;&nbsp;&nbsp;&nbsp;일정검색 <span class="glyphicon glyphicon-search"></span>
+		                    </label>
+		                    <div class="col-md-3" style="height: 34px">
+		                        <input type="text" class="form-control" id="inputSearch" placeholder="찾고싶은 일정을 입력하세요..."> &nbsp;&nbsp;&nbsp;                        
+		                    </div>
+		                    <div id="searchRadios" style="float: left; width:auto"> 
+		                        <button type="button" class="btn btn-success" id="btnSearch">검색</button>
+		                            &nbsp;&nbsp;&nbsp;
+		                        <label class="radio-inline" style="padding-top: 3px;">
+		                            <input type="radio" name="searchRadio" id="radioMyPlan" value="1">내 일정
+		                        </label> 
+		                        <label class="radio-inline" style="padding-top: 3px;"> 
+		                            <input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정
+		                        </label> 
+		                        <label class="radio-inline" style="padding-top: 3px;"> 
+		                            <input type="radio" name="searchRadio" id="radioHash" value="3">#해시태그
+		                        </label>
+		                    </div>
+		                </div>
+		            </div>
+		        </form>
   <!-------- 일정 검색 위치 마무리 ------------------------------------------------------------------------------------------------------------------>
             <div style="clear:both"></div>
+                
+    
+
             <div id="timetable" style="float:left;max-width:7000px; margin-top:50px;">
+                
                 <div style="text-align:center">
+                
                 </div>
-                <c:forEach var="vo" items="${list}">${vo.html}
+                <c:forEach var="vo" items="${list}">
+
+                    ${vo.html}
+
                 </c:forEach>
-                <div class="weekday col-md-1"> 
+                <div class="weekday col-md-1">
+                
+                    
                     <div class="addListBtn">
                         <span><img src="calendar/images/createlist.png" ></span>
                     </div>
@@ -1814,13 +1806,18 @@ function showMap(searchPlace){
             </div>
         </div>
     </div>
+
+
       <div class="modal fade" id="cardDetail" role="dialog" >
     <div class="modal-dialog">
         <div>
+
               <%-- <jsp:include page="detail.do" flush="false" /> --%> 
         </div>   
+
     </div>
   </div>    
+    
 </body>
         <!-- JS Global Compulsory -->       
 </html>
