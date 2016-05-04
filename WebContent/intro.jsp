@@ -183,22 +183,23 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			data-start="1500"
 			data-easing="Back.easeInOut"
 			data-endspeed="300">
-			I can't remember anything without you.
+			Drag & Drop !!
 		</div>
 
 		<!-- LAYER -->
 		<div class="tp-caption rs-caption-2 sft"
 		data-x="center"
 		data-hoffset="0"
-		data-y="550"
+		data-y="200"
 		data-speed="1000"
-		data-start="2500"
+		data-start="3000"
 		data-easing="Power4.easeOut"
 		data-endspeed="300"
 		data-endeasing="Power1.easeIn"
 		data-captionhidden="off"
 		style="z-index: 6">
-		시간을 선택하는것은 시간을 절약하는 것이다.
+		Drag & Drop을 통해 <br>
+		일정을 마음대로 수정하세요!!
 	</div>
 </li>
 
@@ -249,7 +250,7 @@ style="z-index: 6">
 	data-start="1500"
 	data-easing="Back.easeInOut"
 	data-endspeed="300">
-	우리는 오늘은 이러고 있지만, 내일은 어떻게 될지 누가 알아요?
+	Calendar!
 </div>
 
 <!-- LAYER -->
@@ -264,7 +265,8 @@ data-endspeed="300"
 data-endeasing="Power1.easeIn"
 data-captionhidden="off"
 style="z-index: 6">
-Time is the most valuable thing a man can spend.
+일정을 세웠다면 <br>
+달력에 표시해 보세요.
 </div>
 </li>
 
@@ -282,7 +284,7 @@ Time is the most valuable thing a man can spend.
 	data-start="1500"
 	data-easing="Back.easeInOut"
 	data-endspeed="300">
-	I love us..
+	어렵지 않습니다.!!!
 </div>
 
 <!-- LAYER -->
@@ -297,7 +299,7 @@ data-endspeed="300"
 data-endeasing="Power1.easeIn"
 data-captionhidden="off"
 style="z-index: 6">
-Remember me. Try your best,, Maybe we can.                    <!-- 1번 슬라이드 집중 시키고 싶음.
+이해해셨죠? 지금 시작하세요!                    <!-- 1번 슬라이드 집중 시키고 싶음.
                                                                                         2번 슬라이드 우리 기능 소개
                                                                                         3번 슬라이드 명언
                                                                                         4번 슬라이드 영어나 뭐 그런 멋있는말
