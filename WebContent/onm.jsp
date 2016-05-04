@@ -116,7 +116,7 @@ body{
 }
  
  .listTitleBtn, .listTitleCancel{
-       float:left;
+       float:right;
        background: none;
          border: #fff;
  }
@@ -682,50 +682,12 @@ body {
             $("#mailDiv").css('display','none');
         }); 
 
-      //모달에서 메일보내기 버튼 클릭 액션 end
-        $(this).on("click","#commentAddOk",function(){
-     
-            var commenttext = $(this).siblings("#commentText").val();
-            $(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div class='commentArea'>"+commenttext+"</div></div>");
-            
-            
-            $(this).parents("#commentDialog").append("<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>추가</button>");
-            
-            $(this).siblings("#commentText").val("");
-            $(this).parent("#commentAddArea").remove();
-            
-        });
-       /*  $(this).on("click","#commentDelete",function(){
-            $(this).parent("#commentPanel").remove();
-            
-        }); */         
-      /* addListPanelCreation addListPanelCancel */
         $(this).on("click",".listTitleCancel",function(){
             $(this).parent('.addListPanel').hide();
             $(this).parent('.addListPanel').siblings('.addListBtn').show();
             $(this).siblings('.addListTxt').val("");
             
         });
- 
-/*             $(this).on("click",'#commentAddBtn',function(){  
-            var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
-           $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' class='close' style='float:right; background-color:transparent'>&times;</button><div>"+textcomment+"</div></div>");
-           $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
-           $(this).parents('#commentAdd').remove();  
-           }); */
-           
-           $(this).on("click",'#commentDelete',function(){
-              $(this).parents('#commentArea').remove(); 
-           });
-           
-           $(this).on("keyup",'#commentBox',function(){
-               var txt = $(this).val();
-               if(txt==""){
-                   $(this).siblings('#commentBtnBox').hide();
-               }else{
-                   $(this).siblings('#commentBtnBox').show(); 
-               }
-           });
 
         $(this).on("click",".listTitleBtn",function(){
             
@@ -1335,7 +1297,7 @@ body {
         $(this).on("click",'#commentAddBtn',function(){
            
            var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
-           $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp><button id='commentDelete' style='float:right; background-color:transparent'>x</button><div>"+textcomment+"</div></div>");
+           $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp>"+textcomment+"<button id='commentDelete' style='float:right; background-color:transparent;border:none;'><img src='calendar/images/msgdelete.png'></button></div>");
            $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
            $(this).parents('#commentAdd').remove();
            //alert(textcomment);
@@ -1755,7 +1717,7 @@ function showMap(searchPlace){
 		        <form role="form">
 		            <div class="form-group has-success has-feedback">
 		                <div  id="planSearch">
-		                    <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;">
+		                    <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;color:#fff;">
 		                    &nbsp;&nbsp;&nbsp;&nbsp;일정검색 <span class="glyphicon glyphicon-search"></span>
 		                    </label>
 		                    <div class="col-md-3" style="height: 34px">
@@ -1764,13 +1726,13 @@ function showMap(searchPlace){
 		                    <div id="searchRadios" style="float: left; width:auto"> 
 		                        <button type="button" class="btn btn-success" id="btnSearch">검색</button>
 		                            &nbsp;&nbsp;&nbsp;
-		                        <label class="radio-inline" style="padding-top: 3px;">
+		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;">
 		                            <input type="radio" name="searchRadio" id="radioMyPlan" value="1">내 일정
 		                        </label> 
-		                        <label class="radio-inline" style="padding-top: 3px;"> 
+		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;"> 
 		                            <input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정
 		                        </label> 
-		                        <label class="radio-inline" style="padding-top: 3px;"> 
+		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;"> 
 		                            <input type="radio" name="searchRadio" id="radioHash" value="3">#해시태그
 		                        </label>
 		                    </div>
