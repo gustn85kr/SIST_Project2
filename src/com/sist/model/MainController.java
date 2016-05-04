@@ -53,6 +53,7 @@ public class MainController {
 		}
 		String map = OnmDAO.loadMap(no);
 		String checkTitle = OnmDAO.loadCheckListTitle(no);
+		String file = OnmDAO.loadFile(no);
 		List<CommVO> checkList = OnmDAO.loadCheckList(no);
 		List<CommVO> commList = OnmDAO.loadCommList(no);
 		String beHash = OnmDAO.loadHash(no);
@@ -65,13 +66,14 @@ public class MainController {
         hashList.add(st.nextToken());
       }
 		}
-		System.out.println(hashList.size());
+		//System.out.println(hashList.size());
 		req.setAttribute("card", vo);
 		req.setAttribute("map", map);
 		req.setAttribute("checkTitle", checkTitle);
 		req.setAttribute("checkList", checkList);
 		req.setAttribute("commList", commList);
 		req.setAttribute("hashList", hashList);
+		req.setAttribute("file", file);
 		return "detail";
 	}
 }

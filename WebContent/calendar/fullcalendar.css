@@ -115,7 +115,7 @@ body .fc { /* extra precedence to overcome jqui */
    font-size: 1em; /* normalize */
    white-space: nowrap;
    cursor: pointer;
-   color: #cac7d2;
+   color: #eee;
 }
 
 /* Firefox has an annoying inner border */
@@ -320,7 +320,7 @@ previous button's border...
 
 .fc th,
 .fc td {
-   border-width: 1px;
+   border-width: 2px;
    padding: 0;
    vertical-align: top;
     color: #333;
@@ -598,6 +598,8 @@ a.fc-more:hover {
    border:1px solid #cac7d2p;
    border-radius:3px;
    margin-left: 30px;
+    background: none;
+    border: none;
 }
 .fc-month-button.ui-button.ui-state-default.ui-corner-left.ui-corner-right.ui-state-active{
    margin-right: 30px;
@@ -606,11 +608,15 @@ a.fc-more:hover {
 .fc .fc-toolbar > * > * { /* extra precedence to override button border margins */
    float: left;
    margin-left: .75em;
+   background: none;
+   border: none;
 }
 
 /* the first thing within each left/center/right section */
 .fc .fc-toolbar > * > :first-child { /* extra precedence to override button border margins */
    margin-left: 0;
+   background: none;
+    border: none;
 }
    
 /* title text */

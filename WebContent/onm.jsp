@@ -36,28 +36,7 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<style type="text/css">
-.modal-header2, h4, .close {
-    background-color: #5cb85c;
-    color:white !important;
-    text-align: center;
-    font-size: 30px;
-}
-.modal-footer2 {
-    background-color: #f9f9f9;
-    height: 60px;
-}
-
-.modal-header, h4, .close {
-    background-color: #5cb85c;
-    color:white !important;
-    text-align: center;
-    font-size: 30px;
-}
-.modal-footer {
-    background-color: #f9f9f9;
-}
-
+   <style type="text/css">
 body{
    font-family:'Malgun Gothic';
    padding:20px;
@@ -77,7 +56,7 @@ body{
 }
  
 .list {
-    background-color: #FFFFFF; 
+    /* background-color: #FFFFFF;  */
     border: 1px solid;
     border-radius: 2em;
     margin: 5px;
@@ -90,11 +69,11 @@ body{
  
  #timetable{
      height: 800px;
-    border: 2px solid;
-    border-bottom-color: #fff;
+    border: none;
+    /* border-bottom-color: #fff;
     border-top-color: #fff;
     border-right-color: #fff;
-    border-left-color: #D7CECC;
+    border-left-color: #D7CECC; */
  }
  
 .items .ui-selected {
@@ -105,21 +84,23 @@ body{
  
 .items {
     list-style-type: none;
-    margin:0;
-    padding: 10px;
+    margin: 0px;
+    padding: 0px;
  
     
 }
  
 .items li {
-    margin: 2px;
+    margin:2px;
     padding: 2px;
     cursor: pointer;
     border:#fff;
     border-bottom: 2px solid #FFE72C; 
     border-radius: 1px;
-    width: 85%;
+    width: 75%;
     margin-bottom: 15px;
+    margin-left:7px;
+    margin-top: 15px;
 }
  
 .weekday {
@@ -128,7 +109,7 @@ body{
     padding: 5px; 
     border-bottom: 2px solid #EDE1E7;
     border-top: 2px solid #EDE1E7;
-    background-color: #fff;
+   /*  background-color: #fff; */
     margin: 20px;
     
     /* max-height : 700px; */   
@@ -136,7 +117,7 @@ body{
  
  .listTitleBtn, .listTitleCancel{
        float:left;
-       background: #fff;
+       background: none;
          border: #fff;
  }
  
@@ -159,7 +140,7 @@ body{
 
  .cardInsert.btn-primary, .cardCancel.btn-primary{
     float: right;
-    background: #fff;
+    background: none;
     color: black;
     border: #fff;
  }
@@ -226,6 +207,7 @@ body{
        color :black;
        font-size:20px;
        margin: 5px;
+       margin-bottom: 10px
     }
     #calendar{
 
@@ -274,7 +256,7 @@ body{
 
 .btn-primary.footText{
     color: #fff;
-    background-color: #fff;
+    background: none;
     border-color: #fff;
     border: #fff;
     margin-bottom: 5px;
@@ -285,7 +267,7 @@ float:right;
 text-align: center;
 width: 30px;
 height: 30px;
-background: #fff;
+background: none;
 border: #fff;
 margin:0px;
 padding: 0px;
@@ -310,28 +292,26 @@ background: #BCF12A;
 }
 
 #datetit{
-background: #D9FFDD;
 width: 110px;
 height: 27px;
 }
 #labeltit{
-background: #CFFFA0;
 width: 80px;
 height: 27px;
 margin-bottom: 5px;
 }
-.close{
-color:black;
-opacity:1;
-}
 body {
- /*background-image: url("calendar/images/back.jpg");*/
+ background: url("calendar/images/back3.jpg");
+ background-repeat: no-repeat;
+ background-position: center center;
 /*  background: #FFE288; */
+ } 
+ 
+ #cardDelete{
+ background: none;
+ border: none;
+  float: left;
  }
-
-.listTitleCancel,.listTitleBtn{
-float: right;
-}
     </style>
    
 <script type="text/javascript">
@@ -413,96 +393,95 @@ float: right;
                    });
                 
             },
-            	eventClick: function(event) {
-					//ev.preventDefault();
-				    var target = "detail.do?no=";
-				    var cdno = 'card'+event.id;
-				    target= target+cdno.trim();
-				    alert(target);
-					$("#cardDetail .modal-dialog").load(target, function() {
-						
-							$('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
-						    $('#sdate').datepicker("option", "maxDate", $("#edate").val());
-						    $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
-						        $("#edate").datepicker( "option", "minDate", selectedDate );
-						    });
-						    $('#edate').datepicker({ dateFormat: 'yy/mm/dd'});
-						    $('#edate').datepicker("option", "minDate", $("#sdate").val());
-						    $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
-						        $("#sdate").datepicker( "option", "maxDate", selectedDate );
-						    });
-						    
-						    //여기부터 지도
-						    $("#txtAddress").keydown(function(e) {
-			                      if (e.keyCode == 13) {
-			                    	  $("#modalMap").css("display","block");
-			                     		/* map.relayout(); */
-			                       var searchPlace = $(this).val();   
-			                    	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-			                    	
-			                    	  var infowindow = new daum.maps.InfoWindow({zIndex:1});
+                eventClick: function(event) {
+                    //ev.preventDefault();
+                    var target = "detail.do?no=";
+                    var cdno = 'card'+event.id;
+                    target= target+cdno.trim();
+                    //alert(target);
+                    $("#cardDetail .modal-dialog").load(target, function() {
+                        
+                            $('#sdate').datepicker({ dateFormat: 'yy/mm/dd'});
+                            $('#sdate').datepicker("option", "maxDate", $("#edate").val());
+                            $('#sdate').datepicker("option", "onClose", function ( selectedDate ) {
+                                $("#edate").datepicker( "option", "minDate", selectedDate );
+                            });
+                            $('#edate').datepicker({ dateFormat: 'yy/mm/dd'});
+                            $('#edate').datepicker("option", "minDate", $("#sdate").val());
+                            $('#edate').datepicker("option", "onClose", function ( selectedDate ) {
+                                $("#sdate").datepicker( "option", "maxDate", selectedDate );
+                            });
+                            
+                            //여기부터 지도
+                            $("#txtAddress").keydown(function(e) {
+                                  if (e.keyCode == 13) {
+                                    $("#modalMap").css("display","block");
+                                        /* map.relayout(); */
+                                   var searchPlace = $(this).val();   
+                                    // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+                                    
+                                      var infowindow = new daum.maps.InfoWindow({zIndex:1});
 
-			                    	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			                    	      mapOption = {
-			                    	          center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-			                    	          level: 1 // 지도의 확대 레벨
-			                    	      };  
+                                      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                                          mapOption = {
+                                              center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                                              level: 1 // 지도의 확대 레벨
+                                          };  
 
-			                    	  // 지도를 생성합니다    
-			                    	  var map = new daum.maps.Map(mapContainer, mapOption); 
+                                      // 지도를 생성합니다    
+                                      var map = new daum.maps.Map(mapContainer, mapOption); 
 
-			                    	  // 장소 검색 객체를 생성합니다
-			                    	  var ps = new daum.maps.services.Places(); 
+                                      // 장소 검색 객체를 생성합니다
+                                      var ps = new daum.maps.services.Places(); 
 
-			                    	  // 키워드로 장소를 검색합니다
-			                    	  ps.keywordSearch(searchPlace, placesSearchCB); 
+                                      // 키워드로 장소를 검색합니다
+                                      ps.keywordSearch(searchPlace, placesSearchCB); 
 
-			                    	  // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-			                    	  function placesSearchCB (status, data, pagination) {
-			                    	      if (status === daum.maps.services.Status.OK) {
+                                      // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+                                      function placesSearchCB (status, data, pagination) {
+                                          if (status === daum.maps.services.Status.OK) {
 
-			                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-			                    	          // LatLngBounds 객체에 좌표를 추가합니다
-			                    	          var bounds = new daum.maps.LatLngBounds();
+                                              // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+                                              // LatLngBounds 객체에 좌표를 추가합니다
+                                              var bounds = new daum.maps.LatLngBounds();
 
-			                    	          for (var i=0; i<data.places.length; i++) {
-			                    	              displayMarker(data.places[i]);    
-			                    	              bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
-			                    	          }       
+                                              for (var i=0; i<data.places.length; i++) {
+                                                  displayMarker(data.places[i]);    
+                                                  bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
+                                              }       
 
-			                    	          // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-			                    	       	  map.relayout();
-			                    	          map.setBounds(bounds);
-			                    	      } 
-			                    	  }
+                                              // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+                                              map.setBounds(bounds);
+                                          } 
+                                      }
 
-			                    	  // 지도에 마커를 표시하는 함수입니다
-			                    	  function displayMarker(place) {
-			                    	      
-			                    	      // 마커를 생성하고 지도에 표시합니다
-			                    	      var marker = new daum.maps.Marker({
-			                    	          map: map,
-			                    	          position: new daum.maps.LatLng(place.latitude, place.longitude) 
-			                    	      });
+                                      // 지도에 마커를 표시하는 함수입니다
+                                      function displayMarker(place) {
+                                          
+                                          // 마커를 생성하고 지도에 표시합니다
+                                          var marker = new daum.maps.Marker({
+                                              map: map,
+                                              position: new daum.maps.LatLng(place.latitude, place.longitude) 
+                                          });
 
-			                    	      // 마커에 클릭이벤트를 등록합니다
-			                    	      daum.maps.event.addListener(marker, 'click', function() {
-			                    	          // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-			                    	          infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
-			                    	          infowindow.open(map, marker);
-			                    	      });
-			                    	  }
+                                          // 마커에 클릭이벤트를 등록합니다
+                                          daum.maps.event.addListener(marker, 'click', function() {
+                                              // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                                              infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
+                                              infowindow.open(map, marker);
+                                          });
+                                      }
 
-			                     		
-			                      }
-			                  });  //지도 끝
-						    
-				    });
-					
-					$("#cardDetail").modal("show"); 
-			  	   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
-			  	   
-			  	},
+                                        
+                                  }
+                              });  //지도 끝
+                            
+                    });
+                    
+                    $("#cardDetail").modal("show"); 
+                   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
+                   
+                },
             eventLimit: true, // allow "more" link when too many events
             events: [
         
@@ -558,10 +537,7 @@ float: right;
                                 /* map.relayout(); */
                            var searchPlace = $(this).val();   
                             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-                            alert(searchPlace);
-                            showMap(searchPlace);
                             var cardno = $('#cardNo').val(); 
-                            alert(cardno+"!!!!");
                             $.ajax({
                                   url:'mapUpdate.do',
                                   type:'post',
@@ -647,12 +623,9 @@ float: right;
                          type:'post',
                          dataType:"json",
                          data:{"listno":listno , "html":ehtml},
-                         success:function(data){
-                                
+                         success:function(data){                                
                          }
-                     });  
-                     
-                                    
+                     });                                                           
                  }
             });
             
@@ -706,10 +679,10 @@ float: right;
             $(this).parent("#commentAddArea").remove();
             
         });
-        $(this).on("click","#commentDelete",function(){
+       /*  $(this).on("click","#commentDelete",function(){
             $(this).parent("#commentPanel").remove();
             
-        });         
+        }); */         
       /* addListPanelCreation addListPanelCancel */
         $(this).on("click",".listTitleCancel",function(){
             $(this).parent('.addListPanel').hide();
@@ -718,25 +691,25 @@ float: right;
             
         });
       
-      	   $(this).on("click",'#commentAddBtn',function(){  
-			var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
-		   $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' class='close' style='float:right; background-color:transparent'>&times;</button><div>"+textcomment+"</div></div>");
-		   $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
-		   $(this).parents('#commentAdd').remove();  
-		   });
-		   
-		   $(this).on("click",'#commentDelete',function(){
-			  $(this).parents('#commentArea').remove(); 
-		   });
-		   
-		   $(this).on("keyup",'#commentBox',function(){
-			   var txt = $(this).val();
-			   if(txt==""){
-				   $(this).siblings('#commentBtnBox').hide();
-			   }else{
-				   $(this).siblings('#commentBtnBox').show(); 
-			   }
-		   });
+/*             $(this).on("click",'#commentAddBtn',function(){  
+            var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
+           $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' class='close' style='float:right; background-color:transparent'>&times;</button><div>"+textcomment+"</div></div>");
+           $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
+           $(this).parents('#commentAdd').remove();  
+           }); */
+           
+           $(this).on("click",'#commentDelete',function(){
+              $(this).parents('#commentArea').remove(); 
+           });
+           
+           $(this).on("keyup",'#commentBox',function(){
+               var txt = $(this).val();
+               if(txt==""){
+                   $(this).siblings('#commentBtnBox').hide();
+               }else{
+                   $(this).siblings('#commentBtnBox').show(); 
+               }
+           });
       
       
       
@@ -1039,7 +1012,7 @@ float: right;
               
               var title = $('#glypTitle').text();
               var startDate= $('#sdateDiv').text().substring(5);
-              alert(startDate);
+              //alert(startDate);
               var endDate=$('#edateDiv').text().substring(5);
               if(startDate!=""){
                   $('#calendar').fullCalendar( 'removeEvents', cardno);
@@ -1065,6 +1038,7 @@ float: right;
             var searchPlace = $('#txtAddress').val();   
             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
             showMap(searchPlace);
+            alert(searchPlace);
             var cardno = $('#cardNo').val(); 
             $.ajax({
                   url:'mapUpdate.do',
@@ -1117,6 +1091,67 @@ float: right;
                   }
               });  
         });
+       $(this).on("click","#fileDelete",function(){
+         $("#modalFile").hide();
+         var cardno= $('#cardNo').val();
+         $.ajax({
+             url:'fileDelete.do',
+             type:'post',
+             dataType:"json",
+             data:{"no":cardno},
+             success:function(data){
+                
+             }
+        });
+       });
+       $(this).on("click","#fileInsert",function(){
+             $("#modalFile").show();
+             var data = new FormData();
+             /* var cardno = $('#cardNo').val(); */ 
+             $.each($('#fileUpload')[0].files, function(i, file) {          
+               data.append('file-' + i, file);
+           });
+             $.ajax({
+               url:'fileUpload.do',
+               type:'post',
+               dataType:"text", 
+               data:data,
+              processData: false,
+              contentType: false,
+               success:function(data){
+                     $('#fileName').empty();
+                     $('#fileName').text(data);
+                     var cardno= $('#cardNo').val();
+                     $.ajax({
+                         url:'fileInsert.do',
+                         type:'post',
+                         dataType:"json",
+                         data:{"no":cardno , "file":data},
+                         success:function(data){
+                            $('fileUpDiv').hide();
+                         }
+                    });
+                     
+               }
+           });  
+       });
+       $(this).on("click","#glydown",function(){
+            var fname = $('#fileName').text();
+            //window.open("c:\\download\\"+fname);
+          // window.location.href("c:\\download\\"+fname); 
+              $.ajax({
+              url:'filedownload.do',
+              type:'post',
+              dataType:"json", 
+              data:{"name":fname},
+              success:function(data){
+                location.href = "filedownload.do?name="+fname;
+              },
+              complete : function(data) {
+                location.href = "filedownload.do?name="+fname;
+              }
+          });  
+       });
        $(this).on("click","#modalBdClose",function(){
              $('#cardDetail').modal('hide');
           });
@@ -1127,7 +1162,7 @@ float: right;
               var startDate= $('#sdate').val();
               var endDate=$('#edate').val();
               var labelColor = $('#labelColor').css("background-color");
-              alert(labelColor);
+              //alert(labelColor);
               var cardno = $('#cardNo').val();
               $('#calendar').fullCalendar( 'removeEvents', cardno);
               var events=new Array();     
@@ -1164,55 +1199,104 @@ float: right;
                   }
               });
            });
-        $(this).on("click",".listDelete",function(){
-            if (confirm('해당 리스트를 삭제 하시겠습니까?')) {
-                var deleteid=$(this).parents(".weekday").attr("id");
-                $.ajax({
-                    url:'listDelete.do',
-                    type:'post',
-                    dataType:"json",
-                    data:{"id":deleteid},
-                    success:function(data){
-                        /* alert("Yes"); */
-                    }
-            });
-                /* alert(deleteid); */
-                $(this).parents(".weekday").remove();    
-            } else {
-                // Do nothing!
-            }
-            
-        });
+       
+       
+       
+       $(this).on("click",".listDelete",function(){
+         var deleteid=$(this).parents(".weekday").attr("id");
+         var cardex=$(this).parents(".listHeader").siblings(".items").children(".list").attr("id");
         
-		 $(this).on("click","#btn",function(){
-         	  var formData = new FormData();
-        	var fn="1234";
-        	  formData.append("fileupload", $("input[name=fileupload]")[0].files[0]);
-/*         	  $.ajax({
-        	    url: 'fileUpload.do',
-        	    data: formData,
-        	    processData: false,
-        	    contentType: false,
-        	    type: 'POST',
-        	    success: function(data){
-        	    	
-        	    }
-        	  });
-        	  alert($('#'));  */
-        	  $.ajax({
-          	    url: 'fileDownload.do',
-          	    data: {"fn":fn},
-          	    processData: false,
-          	    contentType: false,
-          	    type: 'POST',
-          	    success: function(data){
-          	    	
-          	    }
-          	  });
-          	  alert($('#')); 
+     if (cardex==null) {
+         if (confirm('해당 리스트를 삭제 하시겠습니까?')) {
+              $.ajax({
+                  url:'listDelete.do',
+                  type:'post',
+                  dataType:"json",
+                  data:{"id":deleteid},
+                  success:function(data){
+                      /* alert("Yes"); */
+                  }
+          });
+              /* alert(deleteid); */
+              $(this).parents(".weekday").remove();    
+          } else {
+              // Do nothing!
+          }
+        }else
+        {
+            alert("해당 리스트를 삭제하실 수 없습니다.");
+        }
+     });
+     
+   
+      $(this).on("click","#carddeleteBtn",function(){
+         if (confirm('해당 카드를 삭제 하시겠습니까?')) {
+             var cardno = $('#cardNo').val(); 
+             var cardid='card'+cardno;
+             
+             var listno=$('#'+cardid).parents('.weekday.col-md-1').attr("id");
+             //alert(listno);
+             $('.weekday.col-md-1 #'+cardid).remove();
+             var uhtml=$('#'+listno).html();
+             var ehtml = "<div class='weekday col-md-1' id="+listno+">"+uhtml+"</div>";
+             alert(ehtml);
+             $.ajax({
+                 url:'cardDelete.do',
+                 type:'post',
+                 dataType:"json",
+                 data:{"id":cardid},
+                 success:function(data){
+                         $.ajax({
+                          url:'cardUpdate.do',
+                          type:'post',
+                          dataType:"json",
+                          data:{"listno":listno , "html":ehtml},
+                          success:function(data){
+                                 alert("성공");
+                          } 
+                     }); 
+                 }
+         });
+             $('#cardDetail').modal('toggle');
+                
+              
+             
+         } else {
+             
+         }
+         
+     });
+  
         
-		 });
-		 
+         $(this).on("click","#btn",function(){
+              var formData = new FormData();
+              var fn="1234";
+              formData.append("fileupload", $("input[name=fileupload]")[0].files[0]);
+/*            $.ajax({
+                url: 'fileUpload.do',
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data){
+                    
+                }
+              });
+              alert($('#'));  */
+              $.ajax({
+                url: 'fileDownload.do',
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data){
+                    
+                }
+              });
+              //alert($('#')); 
+        
+         });
+         
         $(this).on("click","#fileUpButton",function(){
             obj = document.getElementById('fileUpDiv');
             if(obj.style.display=="none"){
@@ -1449,67 +1533,6 @@ float: right;
       
   }
 
-
-/* function showMap(searchPlace){
-      var infowindow = new daum.maps.InfoWindow({zIndex:1});
-      var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-          mapOption = {
-              center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-              level: 1 // 지도의 확대 레벨
-          };  
-      // 지도를 생성합니다    
-      var map = new daum.maps.Map(mapContainer, mapOption); 
-      // 장소 검색 객체를 생성합니다
-      var ps = new daum.maps.services.Places(); 
-      // 키워드로 장소를 검색합니다
-      ps.keywordSearch(searchPlace, placesSearchCB); 
-      // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-      function placesSearchCB (status, data, pagination) {
-          if (status === daum.maps.services.Status.OK) {
-
-              // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-              // LatLngBounds 객체에 좌표를 추가합니다
-              var bounds = new daum.maps.LatLngBounds();
-
-              for (var i=0; i<data.places.length; i++) {
-                  displayMarker(data.places[i]);    
-                  bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
-              }       
-
-              // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-              map.setBounds(bounds);
-          } 
-      }
-      // 지도에 마커를 표시하는 함수입니다
-      function displayMarker(place) {
-          
-          // 마커를 생성하고 지도에 표시합니다
-          var marker = new daum.maps.Marker({
-              map: map,
-              position: new daum.maps.LatLng(place.latitude, place.longitude) 
-          });
-
-          // 마커에 클릭이벤트를 등록합니다
-          daum.maps.event.addListener(marker, 'click', function() {
-              // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-              infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.title + '</div>');
-              infowindow.open(map, marker);
-          });
-      }
-      function resizeMap() {
-    	    var mapContainer = document.getElementById('map');
-    	    mapContainer.style.width = '400px';
-    	    mapContainer.style.height = '300px'; 
-    	}
-
-    	function relayout() {    
-    	    
-    	    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-    	    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
-    	    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-    	    map.relayout();
-    	}
-} */
 function resize(obj) {
       obj.style.height = "1px";
       obj.style.height = (50+obj.scrollHeight)+"px";
@@ -1525,9 +1548,7 @@ function divHide(){
 }//디테일카드에서 버튼클릭시 다른버튼 지워주는기능
 
 function showMap(searchPlace){
-  alert("showMap"+searchPlace);
   var infowindow = new daum.maps.InfoWindow({zIndex:1});
-          alert("zIndex");
       var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
           mapOption = {
               center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
@@ -1543,17 +1564,15 @@ function showMap(searchPlace){
       // 키워드 검색 완료 시 호출되는 콜백함수 입니다
       function placesSearchCB (status, data, pagination) {
           if (status === daum.maps.services.Status.OK) {
-
               // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
               // LatLngBounds 객체에 좌표를 추가합니다
               var bounds = new daum.maps.LatLngBounds();
-
               for (var i=0; i<data.places.length; i++) {
                   displayMarker(data.places[i]);    
                   bounds.extend(new daum.maps.LatLng(data.places[i].latitude, data.places[i].longitude));
               }       
-
               // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+              map.relayout();
               map.setBounds(bounds);
           } 
       }
@@ -1565,7 +1584,6 @@ function showMap(searchPlace){
               map: map,
               position: new daum.maps.LatLng(place.latitude, place.longitude) 
           });
-
           // 마커에 클릭이벤트를 등록합니다
           daum.maps.event.addListener(marker, 'click', function() {
               // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
@@ -1575,6 +1593,7 @@ function showMap(searchPlace){
       }
       map.relayout();
 }
+
 
 
           
@@ -1749,31 +1768,31 @@ function showMap(searchPlace){
         </div>
 <!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
          <div class="col-md-6 half" id ='cardList' >
-		        <form role="form">
-		            <div class="form-group has-success has-feedback">
-		                <div  id="planSearch">
-		                    <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;">
-		                    &nbsp;&nbsp;&nbsp;&nbsp;일정검색 <span class="glyphicon glyphicon-search"></span>
-		                    </label>
-		                    <div class="col-md-3" style="height: 34px">
-		                        <input type="text" class="form-control" id="inputSearch" placeholder="찾고싶은 일정을 입력하세요..."> &nbsp;&nbsp;&nbsp;                        
-		                    </div>
-		                    <div id="searchRadios" style="float: left; width:auto"> 
-		                        <button type="button" class="btn btn-success" id="btnSearch">검색</button>
-		                            &nbsp;&nbsp;&nbsp;
-		                        <label class="radio-inline" style="padding-top: 3px;">
-		                            <input type="radio" name="searchRadio" id="radioMyPlan" value="1">내 일정
-		                        </label> 
-		                        <label class="radio-inline" style="padding-top: 3px;"> 
-		                            <input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정
-		                        </label> 
-		                        <label class="radio-inline" style="padding-top: 3px;"> 
-		                            <input type="radio" name="searchRadio" id="radioHash" value="3">#해시태그
-		                        </label>
-		                    </div>
-		                </div>
-		            </div>
-		        </form>
+                <form role="form">
+                    <div class="form-group has-success has-feedback">
+                        <div  id="planSearch">
+                            <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;">
+                            &nbsp;&nbsp;&nbsp;&nbsp;일정검색 <span class="glyphicon glyphicon-search"></span>
+                            </label>
+                            <div class="col-md-3" style="height: 34px">
+                                <input type="text" class="form-control" id="inputSearch" placeholder="찾고싶은 일정을 입력하세요..."> &nbsp;&nbsp;&nbsp;                        
+                            </div>
+                            <div id="searchRadios" style="float: left; width:auto"> 
+                                <button type="button" class="btn btn-success" id="btnSearch">검색</button>
+                                    &nbsp;&nbsp;&nbsp;
+                                <label class="radio-inline" style="padding-top: 3px;">
+                                    <input type="radio" name="searchRadio" id="radioMyPlan" value="1">내 일정
+                                </label> 
+                                <label class="radio-inline" style="padding-top: 3px;"> 
+                                    <input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정
+                                </label> 
+                                <label class="radio-inline" style="padding-top: 3px;"> 
+                                    <input type="radio" name="searchRadio" id="radioHash" value="3">#해시태그
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
   <!-------- 일정 검색 위치 마무리 ------------------------------------------------------------------------------------------------------------------>
             <div style="clear:both"></div>
             <div id="timetable" style="float:left;max-width:7000px; margin-top:50px;">

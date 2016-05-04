@@ -69,6 +69,21 @@ public class OnmDAO {
 		return vo;
 	}
 
+  // 카드 삭제
+  public static void cardDelete(int no)
+  {
+     SqlSession session=ssf.openSession(true);
+     session.delete("cardDelete", no);
+     session.close();
+  }
+  
+  // 카드 업데이트
+  public static void cardUpdate(ListVO vo) {
+     SqlSession session = ssf.openSession(true);
+     session.update("cardUpdate", vo);
+     session.close();
+  }
+	
 	public static List<CardVO> loadCard(int userno) {
 		SqlSession session = ssf.openSession();
 		List<CardVO> list = new ArrayList<CardVO>();
@@ -208,6 +223,21 @@ public class OnmDAO {
 	   int res = session.selectOne("countHash",no);
 	   session.close();
 	   return res;
-	       
 	 }
+	 public static void fileInsert(CommVO vo){
+	   SqlSession session = ssf.openSession(true);
+	   session.insert("fileInsert",vo);
+	   session.close();
+	 }
+	 public static void fileDelete(int cardno){
+     SqlSession session = ssf.openSession(true);
+     session.insert("fileDelete",cardno);
+     session.close();
+   }
+	 public static String loadFile(int no){
+     SqlSession session = ssf.openSession();
+     String res = session.selectOne("loadFile",no);
+     session.close();
+     return res;
+   }
 }
