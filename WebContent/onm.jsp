@@ -325,6 +325,7 @@ body {
             $("#PwdChageModal").modal();
         });
         
+ 
       //일정 검색 기능          
         $("#btnSearch").click(function(){
             $("#planSearchModal").modal();
@@ -682,22 +683,8 @@ body {
         }); 
 
       //모달에서 메일보내기 버튼 클릭 액션 end
-        $(this).on("click","#commentAddOk",function(){
-     
-            var commenttext = $(this).siblings("#commentText").val();
-            $(this).parents("#commentDialog").append("<div id='commentPanel'><button id='commentDelete'>X</button><div class='commentArea'>"+commenttext+"</div></div>");
-            
-            
-            $(this).parents("#commentDialog").append("<div id='commentAddArea'><textarea id='commentText' onkeyup=resize(this)></textarea><br><button id='commentAddOk'>추가</button>");
-            
-            $(this).siblings("#commentText").val("");
-            $(this).parent("#commentAddArea").remove();
-            
-        });
-       /*  $(this).on("click","#commentDelete",function(){
-            $(this).parent("#commentPanel").remove();
-            
-        }); */         
+
+
       /* addListPanelCreation addListPanelCancel */
         $(this).on("click",".listTitleCancel",function(){
             $(this).parent('.addListPanel').hide();
@@ -705,27 +692,7 @@ body {
             $(this).siblings('.addListTxt').val("");
             
         });
- 
-/*             $(this).on("click",'#commentAddBtn',function(){  
-            var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
-           $(this).parents("#modalBottom").append("<div id='commentArea'><button id='commentDelete' class='close' style='float:right; background-color:transparent'>&times;</button><div>"+textcomment+"</div></div>");
-           $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
-           $(this).parents('#commentAdd').remove();  
-           }); */
            
-           $(this).on("click",'#commentDelete',function(){
-              $(this).parents('#commentArea').remove(); 
-           });
-           
-           $(this).on("keyup",'#commentBox',function(){
-               var txt = $(this).val();
-               if(txt==""){
-                   $(this).siblings('#commentBtnBox').hide();
-               }else{
-                   $(this).siblings('#commentBtnBox').show(); 
-               }
-           });
-
         $(this).on("click",".listTitleBtn",function(){
             
             var listTitle= $(this).siblings('.addListTxt').val();
@@ -1331,14 +1298,31 @@ body {
                   }
               });
          });
+ 
         $(this).on("click",'#commentAddBtn',function(){
+           var cardno= $('#cardNo').val();
            
+
            var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
-           $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp><button id='commentDelete' style='float:right; background-color:transparent'>x</button><div>"+textcomment+"</div></div>");
+           $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp><button id='commentDelete' style='float:right; background-color:transparent'>x</button><span id='nick''></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='addclock'></span><div>"+textcomment+"</div></div>");
            $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
            $(this).parents('#commentAdd').remove();
            //alert(textcomment);
-           var cardno= $('#cardNo').val();
+           
+           $.ajax({
+               url:'commentNick.do',
+               type:'post',
+               dataType:"json",
+               data:{"no":cardno},
+               success:function(data){
+            	  $('#nick').html(data);
+            	  $('#nick').attr("id","commentNick");
+            	  $('#addclock').html(getTimeStamp());
+            	  $('#addclock').attr("id","clock");
+               }
+             });
+           
+          
            $.ajax({
                url:'commentAdd.do',
                type:'post',
@@ -1513,6 +1497,33 @@ body {
   });
       
   }
+//시간출력
+function getTimeStamp() {
+  	  var d = new Date();
+  	  var s =
+  	    leadingZeros(d.getFullYear(), 4) + '-' +
+  	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+  	    leadingZeros(d.getDate(), 2) + ' ' +
+
+  	    leadingZeros(d.getHours(), 2) + ':' +
+  	    leadingZeros(d.getMinutes(), 2) + ':' +
+  	    leadingZeros(d.getSeconds(), 2);
+
+  	  return s;
+}
+
+function leadingZeros(n, digits) {
+  	  var zero = '';
+  	  n = n.toString();
+
+  	  if (n.length < digits) {
+  	    for (i = 0; i < digits - n.length; i++)
+  	      zero += '0';
+  	  }
+  	  return zero + n;
+}
+//여기까지  시간출력함수
+
 
 function resize(obj) {
       obj.style.height = "1px";

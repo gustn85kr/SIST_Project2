@@ -298,6 +298,14 @@ public class CardController {
 	  OnmDAO.deleteComm(Integer.parseInt(no));
 	  return "ajax";
 	}
+	@RequestMapping("commentNick.do")
+	public String commentNick(HttpServletRequest req,HttpServletResponse res) throws Exception{
+	  HttpSession session = req.getSession();
+	  req.setCharacterEncoding("UTF-8");
+	  String usernick =(String)(session.getAttribute("logNickname"));
+	  res.getWriter().write(usernick);
+	  return "ajax";
+	}
 	@RequestMapping("hashInsert.do")
 	public String hashInsert(HttpServletRequest req,HttpServletResponse res) throws Exception{
 	  

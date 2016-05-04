@@ -513,6 +513,7 @@ width:200px;
                     <c:forEach var="comm" items="${commList}">
                        <div class='commentArea' id='comm${comm.no }'>
                            <button id='commentDelete' style='float:right; background-color:transparent'>x</button>
+                           <div>유저닉네임  시간</div>
                            <div>${comm.cardcomm}</div>
                          </div>
                     </c:forEach>
