@@ -68,8 +68,7 @@ body{
     word-break: break-all;
     display: inline-block;
     position: relative;
-    border-bottom: 2px solid #C7C7C7;
-    height: 25px;
+    border-bottom: 2px solid #e3e3e3;
 }
 #commentAdd{
 margin-top:15px;
@@ -308,6 +307,10 @@ background: none;
 #commentAddBtn:hover, #commentAddBtn:active {
 border-bottom:2px solid #2694e8;
 } 
+#glydown{
+background: none;
+border: none;
+}
 </style>
 
 
@@ -488,11 +491,8 @@ border-bottom:2px solid #2694e8;
                     <div id="modalFile" style="display:none">
                         <form class="fileUpload" action="download.jsp" method="post" enctype="multipart/form-data">
                             <div id="fileUpField" >
-                                <span class="glyphicon glyphicon-paperclip" id="glypfile"> 파일첨부</span> <br/>
-                                <span id="fileName"></span> 
-                                <br><br>
-                                <img id="blah" scr="#">
-                                <button type="button" class="btn btn-default btn-sm" id="glydown">
+                                <span class="glyphicon glyphicon-paperclip" id="glypfile">파일첨부<br/>
+                                <span id="fileName"></span>&nbsp;&nbsp;<button type="button" class="btn btn-default btn-sm" id="glydown">
                                     <span class="glyphicon glyphicon-download-alt" ></span> 다운로드</button>
                                 <!-- <button type="button" class="btn btn-default btn-sm" id="glyremove">
                                     <span class="glyphicon glyphicon-remove-sign"></span> 삭제하기</button> -->
@@ -505,10 +505,7 @@ border-bottom:2px solid #2694e8;
                         <form class="fileUpload" action="download.jsp" method="post" enctype="multipart/form-data">
                             <div id="fileUpField" >
                                 <span class="glyphicon glyphicon-paperclip" id="glypfile"> 파일첨부</span> <br/>
-                                <span id="fileName">${file}</span> 
-                                <br><br>
-                                <img id="blah" scr="#">
-                                <button type="button" class="btn btn-default btn-sm" id="glydown">
+                                <span id="fileName">${file}</span>&nbsp;&nbsp;<button type="button" class="btn btn-default btn-sm" id="glydown">
                                     <span class="glyphicon glyphicon-download-alt" ></span> 다운로드</button>
                                 <!-- <button type="button" class="btn btn-default btn-sm" id="glyremove">
                                     <span class="glyphicon glyphicon-remove-sign"></span> 삭제하기</button> -->

@@ -213,7 +213,8 @@ body{
 
     }
    #cardDetail {
-      padding-right:460px;
+     right: 460px;
+    overflow-y: hidden;
    }
 .modal-dialog 
 {
@@ -311,6 +312,9 @@ body {
  background: none;
  border: none;
   float: left;
+ }
+ #commentNick{
+font-weight: bold;
  }
     </style>
    
@@ -1299,7 +1303,7 @@ body {
            
 
            var textcomment= $(this).parent('#commentBtnBox').siblings('#commentBox').val().replace(/\n/g, '<br/>');
-           $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp><button id='commentDelete' style='float:right; background-color:transparent'>x</button><span id='nick''></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='addclock'></span><div>"+textcomment+"</div></div>");
+           $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp><button id='commentDelete' style='float:right; background-color:transparent;border:none;'><img src='calendar/images/msgdelete.png'></button><span id='nick''></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='addclock'></span><div>"+textcomment+"</div></div>");
            $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
            $(this).parents('#commentAdd').remove();
            //alert(textcomment);
