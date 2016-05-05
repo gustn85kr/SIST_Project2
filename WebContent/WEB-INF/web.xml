@@ -7,7 +7,7 @@
      <init-param>
        <param-name>contextConfigLocation</param-name>
        <!-- <param-value>C:\Users\aaa\git\SIST_Project2\WebContent\WEB-INF\app.xml</param-value>-->
-       <param-value>C:\Users\sist\git\Sist\SIST_Project2\WebContent\WEB-INF\app.xml</param-value> 
+       <param-value>C:\Users\aaa\Git\SIST_Project2\WebContent\WEB-INF\app.xml</param-value> 
      </init-param>
   </servlet>
   <servlet-mapping>

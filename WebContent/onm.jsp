@@ -25,14 +25,13 @@
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="calendar/moment.min.js"></script>
 <script src="calendar/fullcalendar.min.js"></script>
-
+<script src="assets/js/jquery.msgbox.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script type="text/javascript" src="http://www.pureexample.com/js/lib/jquery.ui.touch-punch.min.js"></script>
 
 <script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=ddcf4460013008172d4b85dea4263c64&libraries=services"></script>
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
@@ -84,7 +83,7 @@ body{
  
 .items {
     list-style-type: none;
-    margin: 0px;
+    margin-top: 30px;
     padding: 0px;
  
     
@@ -115,12 +114,16 @@ body{
     /* max-height : 700px; */   
 }
  
- .listTitleBtn, .listTitleCancel{
+.listTitleCancel{
        float:right;
        background: none;
-         border: #fff;
+       border: #fff;
  }
- 
+.listTitleBtn{
+       float:right;
+       background: none;
+       border: #fff;
+ }
  
  .listTitleBtn:hover, .listTitleBtn:active {
    border-bottom: 2px solid #2694e8;
@@ -314,10 +317,6 @@ body {
   float: left;
  }
 
-.listTitleCancel,.listTitleBtn{
-float: right;
-}
-
 /* 일정검색 Modal 넣기 */
 	.modal-header, h4, .close {
 	    background-color: #5cb85c;
@@ -335,6 +334,8 @@ font-weight: bold;
    
 <script type="text/javascript">
     $(document).ready(function(){
+    	cardTitleLimit();
+    	listTitleLimit();
         $("#userDetail2").click(function() {
             var emailChage = $('#emailChage').val();
             var nicknameChange = $('#nicknameChange').val();
@@ -355,13 +356,10 @@ font-weight: bold;
             
              target = target+searchRadios;
              target = target +"&inputSearch=";
-             alert(inputSearch);
              target = target +inputSearch;
             if(inputSearch=="" || inputSearch==null){
                 $('#inputSearch').focus();
-                alert("2222");
             }else{
-	            	alert("gogo");
 		        	$("#planSearchModal .modal-dialog").load(target, function() {
 		            $("#planSearchModal").modal("show");	        	
 	        	});
@@ -369,7 +367,7 @@ font-weight: bold;
         }); 
        /* $("#btnSearch").click(function(){
             var searchRadios = document.querySelector('input[name="searchRadio"]:checked').value;
-            alert(searchRadios);
+            $.alert(searchRadios);
             var inputSearch = $("#inputSearch").val();
             if(inputSearch=="" || inputSearch==null){
                 $('#inputSearch').focus();
@@ -519,7 +517,7 @@ font-weight: bold;
                     });
                     
                     $("#cardDetail").modal("show"); 
-                   /*이벤트 클릭시 발생하는 함수  alert("이벤트 클릭시 발생하는 함수");*/
+                   /*이벤트 클릭시 발생하는 함수  $.alert("이벤트 클릭시 발생하는 함수");*/
                    
                 },
             eventLimit: true, // allow "more" link when too many events
@@ -585,7 +583,7 @@ font-weight: bold;
                                   data:{"loc":searchPlace,
                                             "no":cardno},
                                   success:function(data){
-                                     /* alert("Yes"); */
+                                     /* $.alert("Yes"); */
                                   }
                               });  
 
@@ -608,8 +606,6 @@ font-weight: bold;
          $("#timetable .items").sortable({
              connectWith: "ul",           
              update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
-          /*     var test1= $(this).html();
-             alert(test1); */
  
            var listno= $(this).parents('.weekday').attr('id');
            var draghtml = $(this).parents('.weekday').html();
@@ -640,6 +636,9 @@ font-weight: bold;
         });
         $(this).on("click",".cardInsert",function(){
             var text = $(this).siblings('textarea').val();
+            if(text.trim()==""){
+            	$.alert("카드 제목을 입력 해주세요.");
+            }else{
             var cardno = "tmpcard";
             $(this).siblings('textarea').val("");
               
@@ -669,6 +668,7 @@ font-weight: bold;
                      });               
                  }
             });
+           }
         });
       $(this).on("click",".cardCancel",function(){ 
           
@@ -676,6 +676,7 @@ font-weight: bold;
           $(this).parents('.footInput').hide();
           
       });
+      
         $(this).on("click",".addListBtn",function(){
             /*  var listTitle =""; */
             $(this).css('display','none');
@@ -703,7 +704,6 @@ font-weight: bold;
 	  			var planContent = $('#showContent').html();
 	  			var sdate = $('#sdateDiv').text();
 	  			var edate = $('#edateDiv').text();
-	  			alert("전송완료")
 	  			$.ajax({
 	  			    url:'sendMail.do',
 	  			    type:'post',
@@ -714,9 +714,10 @@ font-weight: bold;
 	  			    		"edateDiv":edate,
 	  			    		"planContent":planContent},
 	  			    		success:function(data){
-	  			    		  alert("일정 전송을 완료했습니다.");
+	  			    		 $.alert("일정 전송을 완료했습니다.");
 	  			            }
 	  			});
+	  			
         });  
         
         $(this).on("click","#cancelMail",function(){
@@ -731,6 +732,9 @@ font-weight: bold;
         $(this).on("click",".listTitleBtn",function(){
             
             var listTitle= $(this).siblings('.addListTxt').val();
+            if(listTitle.trim()==""){
+            	$.alert('리스트 제목을 입력해주세요');
+            }else{
             $(this).parent('.addListPanel').parent('.weekday').hide();
             $.ajax({
                 url:"getListNo.do",
@@ -742,25 +746,29 @@ font-weight: bold;
                     "<img src='calendar/images/deletelist.png'></button></p>"+
                     "</div><ul class='items'></ul><div class = 'listFoot'> "+
                     "<button class='btn-primary footText' id='listtitleaddbtn'><img src='calendar/images/plus-hover.png'></button><div class='footInput' style='display:none;'> "+
-                    " <textarea cols='30' rows='3'></textarea><input type='button' value='취소' class='cardCancel btn-primary'/>"+
-                    " <input type='button' value='추가' class='cardInsert btn-primary'/>  "+
+                    " <textarea cols='30' rows='3' class='cardText'></textarea>"+
+                    " <input type='button' value='취소' class='cardCancel btn-primary'/><input type='button' value='추가' class='cardInsert btn-primary'/> "+
                     "</div></div></div> ";
                     $('#timetable').append(tmpHtml);
-                
+
+                    
                  $('#timetable').append("<div class='weekday col-md-1'><div class='addListBtn'><span><img src='calendar/images/createlist.png' ></span></div> "+
                         "<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='List Title'/> "+
-                        "<input type='button' value='추가' class='listTitleBtn' /> <input type='button' value='취소' class='listTitleCancel' />"+
+                        " <input type='button' value='취소' class='listTitleCancel' /><input type='button' value='추가' class='listTitleBtn' />"+
                         "</div><div>");
                     $("#timetable .items").sortable({
                         connectWith: "ul"  
                     });
+                    cardTitleLimit();
+                    listTitleLimit();
+                    
                     $.ajax({
                             url:'listAdd.do',
                             type:'post',
                             dataType:"json",
                             data:{"title":listTitle , "html":tmpHtml , "no":listno},
                             success:function(data){
-                                /* alert(tmpHtml); */
+                                /* $.alert(tmpHtml); */
                             }
                     });
                     
@@ -769,7 +777,7 @@ font-weight: bold;
                          connectWith: "ul",           
                          update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
                       /*     var test1= $(this).html();
-                         alert(test1); */
+                         $.alert(test1); */
                       
                        var listno= $(this).parents('.weekday').attr('id');
                        var draghtml = $(this).parents('.weekday').html();
@@ -788,8 +796,12 @@ font-weight: bold;
                      });
                      
                 }
-             });         
+             });  
+            }
         }); 
+        
+        
+        
         $("#insertContent").tooltip();
         $(this).on("click","#insertContent",function(){             
             $(this).parent("#contentText").siblings("#newTA").css('display','inline');
@@ -831,7 +843,7 @@ font-weight: bold;
                         "content" : tmp,
                         "no":cardno},
                 success:function(data){
-                   /* alert("Yes"); */
+                   /* $.alert("Yes"); */
                 }
           });
             $(this).parent("#newTA").css('display',"none");
@@ -870,7 +882,7 @@ font-weight: bold;
                       "hash" : hasht,
                       "no":cardno},
               success:function(data){
-                 /* alert("Yes"); */
+                 /* $.alert("Yes"); */
               }
         });
             
@@ -901,9 +913,9 @@ font-weight: bold;
       $(this).on("click","#priorityInsert",function(){
             $("#priorityDiv").css('display','none');
             var op1 = $(':radio[name="option1"]:checked').val();
-            //alert(op1);
+            //$.alert(op1);
             var op2 = $(':radio[name="option2"]:checked').val();
-            //alert(op2);
+            //$.alert(op2);
             var cardno = $('#cardNo').val();
             $.ajax({
                 url:'priorityUpdate.do',
@@ -914,20 +926,12 @@ font-weight: bold;
                         "op2":op2,
                         "no":cardno},
                 success:function(data){
-                   /* alert("Yes"); */
+                   /* $.alert("Yes"); */
                 }
           });
             $('input').prop('checked', false);
             drawChart(op1,op2);
             
-          /*    $('#modalPriority').empty();
-            $('#modalPriority').append("<span class='glyphicon glyphicon-star'>우선순위</span><br/><div id='priorityIf'></div> ");
-            if(op1!=null){
-                $("#priorityIf").append("<span style='background-color:"+op1+"'> 중요도</span>");
-            }
-            if(op2!=null){
-                $("#priorityIf").append("<span style='background-color:"+op2+"'> 선호도</span>");
-            } */
       });
       $(this).on("click","#priorityCancel",function(){
         $("#priorityDiv").css('display','none');
@@ -1023,7 +1027,7 @@ font-weight: bold;
                             "label" : labelColor,
                             "no":cardno},
                     success:function(data){
-                       /* alert("Yes"); */
+                       /* $.alert("Yes"); */
                     }
               });
               
@@ -1054,7 +1058,6 @@ font-weight: bold;
             var searchPlace = $('#txtAddress').val();   
             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
             showMap(searchPlace);
-            alert(searchPlace);
             var cardno = $('#cardNo').val(); 
             $.ajax({
                   url:'mapUpdate.do',
@@ -1063,7 +1066,7 @@ font-weight: bold;
                   data:{"loc":searchPlace,
                             "no":cardno},
                   success:function(data){
-                     /* alert("Yes"); */
+                     /* $.alert("Yes"); */
                   }
               });  
             
@@ -1089,7 +1092,7 @@ font-weight: bold;
                       data:{"open":op,
                                 "no":cardno},
                       success:function(data){
-                         /* alert("Yes"); */
+                         /* $.alert("Yes"); */
                       }
                   });   
               });
@@ -1103,7 +1106,7 @@ font-weight: bold;
                   data:{
                             "no":cardno},
                   success:function(data){
-                     /* alert("Yes"); */
+                     /* $.alert("Yes"); */
                   }
               });  
         });
@@ -1210,7 +1213,7 @@ font-weight: bold;
                             "end":endDate,
                             "no":cardno},
                   success:function(data){
-                     /* alert("Yes"); */
+                     /* $.alert("Yes"); */
                   }
               });
            });
@@ -1229,17 +1232,17 @@ font-weight: bold;
                   dataType:"json",
                   data:{"id":deleteid},
                   success:function(data){
-                      /* alert("Yes"); */
+                      /* $.alert("Yes"); */
                   }
           });
-              /* alert(deleteid); */
+              /* $.alert(deleteid); */
               $(this).parents(".weekday").remove();    
           } else {
               // Do nothing!
           }
         }else
         {
-            alert("해당 리스트를 삭제하실 수 없습니다.");
+            $.alert("해당 리스트를 삭제하실 수 없습니다.");
         }
      });
      
@@ -1250,11 +1253,11 @@ font-weight: bold;
              var cardid='card'+cardno;
              
              var listno=$('#'+cardid).parents('.weekday.col-md-1').attr("id");
-             //alert(listno);
+             //$.alert(listno);
              $('.weekday.col-md-1 #'+cardid).remove();
              var uhtml=$('#'+listno).html();
              var ehtml = "<div class='weekday col-md-1' id="+listno+">"+uhtml+"</div>";
-             alert(ehtml);
+             $.alert(ehtml);
              $.ajax({
                  url:'cardDelete.do',
                  type:'post',
@@ -1267,7 +1270,6 @@ font-weight: bold;
                           dataType:"json",
                           data:{"listno":listno , "html":ehtml},
                           success:function(data){
-                                 alert("성공");
                           } 
                      }); 
                  }
@@ -1344,7 +1346,7 @@ font-weight: bold;
            $(this).parents("#modalBottom").append("<div class='commentArea' id=commtmp><button id='commentDelete' style='float:right; background-color:transparent;border:none;'><img src='calendar/images/msgdelete.png'></button><span id='nick''></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='addclock'></span><div>"+textcomment+"</div></div>");
            $(this).parents("#modalBottom").append("<div id='commentAdd'><textarea id='commentBox' placeholder='댓글을 입력해주세요..'></textarea><br><div id='commentBtnBox'><button id='commentAddBtn'>추가</button></div></div>");
            $(this).parents('#commentAdd').remove();
-           //alert(textcomment);
+           //$.alert(textcomment);
            
            $.ajax({
                url:'commentNick.do',
@@ -1402,10 +1404,10 @@ font-weight: bold;
 					data : $('#changeFrm').serialize(),
 					success : function(data) {
 						if(data.length>0){
-							alert("기존 비밀번호가 틀립니다.");
+							$.alert("기존 비밀번호가 틀립니다.");
 							var pwdChange = $('#pwdChange').val("");
 						} else {
-							alert("회원정보 변경완료");
+							$.alert("회원정보 변경완료");
 							$('#UserInfoChangeModal').modal('toggle');
 						}
 					}
@@ -1591,6 +1593,7 @@ function getTimeStamp() {
   	  return s;
 }
 
+
 function leadingZeros(n, digits) {
   	  var zero = '';
   	  n = n.toString();
@@ -1665,7 +1668,22 @@ function showMap(searchPlace){
       }
       map.relayout();
 }
+function listTitleLimit(){
+    $('.addListTxt').on('keypress', function() {
+        if($(this).val().length > 24) {
+        $(this).val($(this).val().substring(0,24));
+    	}
+	 });  //리스트제목 글자수 12 제한 
 
+}
+
+function cardTitleLimit(){
+    $('.cardText').on('keypress', function() {
+        if($(this).val().length > 24) {
+        $(this).val($(this).val().substring(0,24));
+    	}
+	 });  //리스트제목 글자수 12 제한 
+}
 
 
           

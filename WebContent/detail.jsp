@@ -26,6 +26,8 @@ body{
    padding:20px;
    border-radius: 10px;
    margin:5px;
+   max-height: calc(100vh - 210px);
+   overflow-y: auto;
 }
 #modalTitle{
    border : #eee;
