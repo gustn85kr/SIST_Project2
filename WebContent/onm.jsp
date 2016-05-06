@@ -621,15 +621,6 @@ font-weight: bold;
                      
                              }
                    });  
-                  
-                  $.ajax({
-                      url:'cardListnoUpdate.do',
-                      type:'post',
-                      dataType:"json",
-                      data:{"listno":listno , "cardno":cardno},
-                      success:function(data){
-                              }
-                    }); 
              	},
 /*             	stop:function(event,ui){
            		  var listno= $(this).parents('.weekday').attr('id'); 
