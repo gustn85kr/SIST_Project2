@@ -607,10 +607,6 @@ font-weight: bold;
             })
          $("#timetable .items").sortable({
              connectWith: "ul", 
-/*              stop:function(e,ui){
-            	 alert($(this).parents('.weekday').attr('id'));
-            	 alert(ui.item.attr('id'));
-             }, */
              update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
            var listno= $(this).parents('.weekday').attr('id');
            var draghtml = $(this).parents('.weekday').html();
@@ -622,23 +618,39 @@ font-weight: bold;
                      dataType:"json",
                      data:{"listno":listno , "html":ehtml},
                      success:function(data){
-                         $.ajax({
-                             url:'cardListnoUpdate.do',
-                             type:'post',
-                             dataType:"json",
-                             data:{"listno":listno , "cardno":cardno},
-                             success:function(data){
-                                     }
-                           }); 
+                     
                              }
-                   });                        
-             	}
+                   });  
+                  
+                  $.ajax({
+                      url:'cardListnoUpdate.do',
+                      type:'post',
+                      dataType:"json",
+                      data:{"listno":listno , "cardno":cardno},
+                      success:function(data){
+                              }
+                    }); 
+             	},
+/*             	stop:function(event,ui){
+           		  var listno= $(this).parents('.weekday').attr('id'); 
+           		  alert(listno);
+          		},  */
+                 receive: function (event, ui) {
+               	  var listno= $(this).parents('.weekday').attr('id'); 
+           		  var cardno= ui.item.attr('id');
+           	     $.ajax({
+                     url:'cardListnoUpdate.do',
+                     type:'post',
+                     dataType:"json",
+                     data:{"listno":listno , "cardno":cardno},
+                     success:function(data){
+                             }
+                   }); 
+           		}
+         
          	});
 
-        $("ul[id^='available']").draggable({
-                revert: true,      // immediately snap back to original position
-              revertDuration: 0
-        });
+   
         $(this).on("click",".footText",function(){
             $('.footText').show();
             $(this).css('display', 'none');
@@ -790,34 +802,40 @@ font-weight: bold;
                     
                     $("#timetable .items").sortable({
                         connectWith: "ul", 
-           /*              stop:function(e,ui){
-                       	 alert($(this).parents('.weekday').attr('id'));
-                       	 alert(ui.item.attr('id'));
-                        }, */
                         update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
-                      var listno= $(this).parents('.weekday').attr('id');
-                      var draghtml = $(this).parents('.weekday').html();
-                      var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
-                 	   var cardno= ui.item.attr('id');
+	                      var listno= $(this).parents('.weekday').attr('id');
+	                      var draghtml = $(this).parents('.weekday').html();
+	                      var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+	                 	  var cardno= ui.item.attr('id');
                              $.ajax({
                                 url:'dragEvent.do',
                                 type:'post',
                                 dataType:"json",
                                 data:{"listno":listno , "html":ehtml},
                                 success:function(data){
-                                    $.ajax({
-                                        url:'cardListnoUpdate.do',
-                                        type:'post',
-                                        dataType:"json",
-                                        data:{"listno":listno , "cardno":cardno},
-                                        success:function(data){
-                                                }
-                                      }); 
+                                    
                                         }
-                              });                        
-                        	}
+                              });  
+                             
+                        	},
+                        /* 	stop:function(event,ui){
+                       	
+                      		},  */
+                            receive: function (event, ui) {
+                          	  var listno= $(this).parents('.weekday').attr('id'); 
+                       		  var cardno= ui.item.attr('id');
+                       	     $.ajax({
+                                 url:'cardListnoUpdate.do',
+                                 type:'post',
+                                 dataType:"json",
+                                 data:{"listno":listno , "cardno":cardno},
+                                 success:function(data){
+                                         }
+                               }); 
+                       		}
+             
                     	});
-
+               
                      
                 }
              });  
