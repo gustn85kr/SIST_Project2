@@ -10,6 +10,7 @@ priority1 VARCHAR2(30),
 priority2 VARCHAR2(30),
 done VARCHAR2(10) default '1',
 label VARCHAR2(30),
+listno NUMBER,
 CONSTRAINT oc_userno_fk FOREIGN KEY (userno) REFERENCES onmuser(no)
 );
 

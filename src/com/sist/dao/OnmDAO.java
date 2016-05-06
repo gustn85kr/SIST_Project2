@@ -55,6 +55,18 @@
 	    session.close();
 	  }
 	  
+	  public static void cardListno(CardVO vo) {
+		SqlSession session = ssf.openSession(true);
+		session.update("cardListno", vo);
+	    session.close();
+	  }
+	  public static void cardListnoUpdate(CardVO vo) {
+		SqlSession session = ssf.openSession(true);
+		session.update("cardListnoUpdate", vo);
+		System.out.println("µé·¶´Ù°¡¿ë~");
+	    session.close();
+	  }
+	  
 	  public static int createCard(CardVO vo) {
 	    SqlSession session = ssf.openSession(true);
 	    session.insert("createCard", vo);
@@ -286,5 +298,10 @@
 			   session.close();
 			   return list;
 	}
+	  public static void listCardDelete(int listno) {
+	    SqlSession session = ssf.openSession(true);
+	    session.delete("listCardDelete", listno);
+	    session.close();
+	  }
 
 }

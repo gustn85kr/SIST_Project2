@@ -73,11 +73,23 @@
 		UPDATE onmlist SET
 		html=#{html} WHERE no=#{no}
 	</update>
-
+	<update id="cardListnoUpdate" parameterType="Ocard">
+		UPDATE onmcard SET
+		listno=#{listno} WHERE no=#{no}
+	</update>
+   <delete id="listCardDelete" parameterType="int">
+      DELETE FROM onmcard WHERE listno=#{listno}
+   </delete>
+	
+	
 	<!-- 카드생성   -->
 	<insert id="createCard" parameterType="Ocard">
 		INSERT INTO onmcard VALUE(no,userno,title,regdate) VALUES((seq_oc.nextval),#{userno},#{title},SYSDATE)
 	</insert>
+	<update id="cardListno" parameterType="Ocard">
+		UPDATE onmcard SET
+		listno=#{listno} WHERE no=#{no}
+	</update>
 	
 	<!--  카드 생성시 no  -->
 	<select id="getCardNo" resultType="int">
