@@ -1718,6 +1718,11 @@ function listTitleLimit(){
         $(this).val($(this).val().substring(0,24));
     	}
 	 });  //리스트제목 글자수 12 제한 
+    $('.addListTxt').on('keyup', function() {
+        if($(this).val().length > 24) {
+        $(this).val($(this).val().substring(0,24));
+    	}
+	 });  //리스트제목 글자수 12 제한 	 
 
 }
 
@@ -1727,6 +1732,12 @@ function cardTitleLimit(){
         $(this).val($(this).val().substring(0,24));
     	}
 	 });  //리스트제목 글자수 12 제한 
+    $('.cardText').on('keyup', function() {
+        if($(this).val().length > 24) {
+        $(this).val($(this).val().substring(0,24));
+    	}
+	 });  //리스트제목 글자수 12 제한 	 
+	 
 }
 
 
