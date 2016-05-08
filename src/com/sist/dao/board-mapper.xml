@@ -119,11 +119,20 @@
     	UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE no=#{no}
     </update>
     
+    <!-- card date Delete -->
+    <update id="cardDateDelete" parameterType="int">
+    	UPDATE onmcard SET startdate=null,enddate=null WHERE no=#{no}
+    </update>
+    
     <!-- card label update -->
     <update id="cardLabelUpdate" parameterType="Ocard">
     	UPDATE onmcard SET label=#{label} WHERE no=#{no}
 	</update>
 	
+	<!-- card label delete -->
+	<update id="cardLabelDelete" parameterType="int">
+		UPDATE onmcard SET label=null WHERE no=#{no}
+	</update>
 	<!-- card content update -->
 	<update id="cardContentUpdate" parameterType="Ocard">
     	UPDATE onmcard SET content=#{content} WHERE no=#{no}
@@ -133,7 +142,11 @@
 	<update id="cardPriorityUpdate" parameterType="Ocard">
     	UPDATE onmcard SET priority1=#{priority1},priority2=#{priority2} WHERE no=#{no}
 	</update>
-	
+
+	<!-- card priority delete -->
+	<update id="cardPriorityDelete" parameterType="int">
+		UPDATE onmcard SET priority1=null,priority2=null WHERE no=#{no}
+	</update>	
 	<!-- card open update -->
 	<update id="cardOpenUpdate" parameterType="Ocard">
     	UPDATE onmcard SET done=#{done} WHERE no=#{no}
@@ -196,7 +209,7 @@
 	
 	<!-- load comm list -->
     <select id="loadCommList" parameterType="int" resultType="Comm">
-        SELECT no,cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=99
+        SELECT no,cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=99 ORDER BY no
     </select>
 	
 	<!-- load checklist -->
@@ -234,14 +247,26 @@
         SELECT cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=90 
     </select>
     
+    <!-- 파일 존재하는지 검사 -->
+	<select id="countFile" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM onmcomm WHERE cardno=#{cardno} AND function=1
+	</select>
+	
     <!-- file insert -->
     <insert id="fileInsert" parameterType="Comm">
         INSERT INTO onmcomm VALUES(seq_ocm.nextval,#{cardno},5,SYSDATE,#{cardcomm})
     </insert>
+    
+    <!-- file update -->
+    <update id="fileUpdate" parameterType="Comm">
+    	UPDATE onmcomm SET cardcomm=#{cardcomm} WHERE function=5 AND cardno=#{cardno}
+    </update>
+    
     <!-- file Delete -->
     <delete id="fileDelete" parameterType="int">
        DELETE FROM onmcomm WHERE cardno=#{cardno} AND function=5
     </delete>
+    
     <!-- load hash -->
     <select id="loadFile" parameterType="int" resultType="String">
         SELECT cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=5
@@ -249,7 +274,7 @@
     
     <!-- 검색 (MyPlan)  -->
     <select id="searchMyPlan" parameterType="java.util.Map" resultType="Search">
-    	SELECT onmuser.nickname, onmcard.title,onmcard.content,onmcomm.cardcomm,onmcard.no
+    	SELECT onmuser.nickname, onmcard.title,onmcard.content,onmcomm.cardcomm,onmcomm.cardno
 		FROM onmuser
 		INNER JOIN onmcard ON onmuser.no=onmcard.userno
 		LEFT OUTER JOIN onmcomm ON onmcard.no=onmcomm.cardno
@@ -257,15 +282,15 @@
     </select>
     
     <select id="searchAllPlan" parameterType="java.util.Map" resultType="Search">
-        SELECT onmuser.nickname, onmcard.title,onmcard.content,onmcomm.cardcomm,onmcard.no
+        SELECT onmuser.nickname, onmcard.title,onmcard.content,onmcomm.cardcomm,onmcomm.cardno
 		FROM onmuser
 		INNER JOIN onmcard ON onmuser.no=onmcard.userno
 		LEFT OUTER JOIN onmcomm ON onmcard.no=onmcomm.cardno
-		WHERE (title LIKE '%'||#{inputSearch}||'%' OR CONTENT LIKE '%'||#{inputSearch}||'%') AND FUNCTION=90
+		WHERE (title LIKE '%'||#{inputSearch}||'%' OR CONTENT LIKE '%'||#{inputSearch}||'%') AND FUNCTION=90 AND done=1
 	</select>
 	
 	<select id="searchHashPlan" parameterType="java.util.Map" resultType="Search">
-        SELECT onmuser.nickname, onmcard.title,onmcard.content,onmcomm.cardcomm,onmcard.no
+        SELECT onmuser.nickname, onmcard.title,onmcard.content,onmcomm.cardcomm,onmcomm.cardno
 		FROM onmuser
 		INNER JOIN onmcard ON onmuser.no=onmcard.userno
 		LEFT OUTER JOIN onmcomm ON onmcard.no=onmcomm.cardno

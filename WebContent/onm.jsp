@@ -22,6 +22,7 @@
 <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" /> -->
 <link rel="stylesheet" href="WebContent/assets/css/jquery-ui.css" />
 <script src="assets/plugins/jquery/jquery.min.js"></script>
+<script src="assets/plugins/jquery/jquery-session.js"></script>
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="calendar/moment.min.js"></script>
 <script src="calendar/fullcalendar.min.js"></script>
@@ -36,6 +37,11 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
    <style type="text/css">
+   @media screen and (min-width: 768px) {
+	
+	#cardDetail .modal-dialog  {width:1000px;}
+
+}
 body{
    font-family:'Malgun Gothic';
    padding:20px;
@@ -216,7 +222,7 @@ body{
 
     }
    #cardDetail {
-     right: 460px;
+    width:100%;
     overflow-y: hidden;
    }
 .modal-dialog 
@@ -330,10 +336,12 @@ body {
  #commentNick{
 font-weight: bold;
  }
-    </style>
-   
+    </style> 
+<c:set var="seInput" value="${sessionScope.logSearchInput}"/>
+<c:set var="seType" value="${sessionScope.logSearchType}"/>
 <script type="text/javascript">
     $(document).ready(function(){
+		searchCheck();
     	cardTitleLimit();
     	listTitleLimit();
         $("#userDetail2").click(function() {
@@ -361,10 +369,20 @@ font-weight: bold;
                 $('#inputSearch').focus();
             }else{
 		        	$("#planSearchModal .modal-dialog").load(target, function() {
-		            $("#planSearchModal").modal("show");	        	
+		            $("#planSearchModal").modal("show");
+		            $.session.set('logSearchInput', inputSearch);
+		            $.session.set('logSearchType', searchRadios);
 	        	});
             }
         }); 
+        $(this).on("click",".searchDiv",function(){
+        	var cno= $(this).children(".cno").val();
+        	 var target = "detail.do?no=card";
+			    target= target+cno.trim();
+				$("#cardDetail .modal-dialog").load(target, function() {
+					$("#cardDetail").modal("show");
+				});
+        });
        /* $("#btnSearch").click(function(){
             var searchRadios = document.querySelector('input[name="searchRadio"]:checked').value;
             $.alert(searchRadios);
@@ -452,6 +470,7 @@ font-weight: bold;
 						    $("#txtAddress").keydown(function(e) {
 			                      if (e.keyCode == 13) {
 			                    	  $("#modalMap").css("display","block");
+			                    	  $("#mapApp").hide();
 			                     		/* map.relayout(); */
 			                       var searchPlace = $(this).val();   
 			                    	// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -571,6 +590,7 @@ font-weight: bold;
                     $("#txtAddress").keydown(function(e) {
                           if (e.keyCode == 13) {
                               $("#modalMap").css("display","block");
+                              $("#mapApp").hide();
                                 /* map.relayout(); */
                            var searchPlace = $(this).val();   
                             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -602,7 +622,13 @@ font-weight: bold;
         });
         $('#cardDetail').on('hidden.bs.modal', function () {
              location.reload();
-            })
+
+            });
+        $('#planSearchModal').on('hidden.bs.modal', function () {
+             $.session.set("logSearchInput","none");
+             $.session.set("logSearchType","none");
+
+           });
          $("#timetable .items").sortable({
              connectWith: "ul",           
              update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
@@ -676,7 +702,12 @@ font-weight: bold;
           $(this).parents('.footInput').hide();
           
       });
-      
+        $(this).on("click",".hashLink",function(){
+        	$('#cardDetail').modal('hide');
+        	var inputSearch=$(this).text().substring(2);
+        	$.session.set('logSearchInput', inputSearch);
+            $.session.set('logSearchType', '3');
+        });
         $(this).on("click",".addListBtn",function(){
             /*  var listTitle =""; */
             $(this).css('display','none');
@@ -704,6 +735,8 @@ font-weight: bold;
 	  			var planContent = $('#showContent').html();
 	  			var sdate = $('#sdateDiv').text();
 	  			var edate = $('#edateDiv').text();
+	  			$("#mailDiv").hide();
+	  			alert("일정 전송을 완료했습니다.");
 	  			$.ajax({
 	  			    url:'sendMail.do',
 	  			    type:'post',
@@ -714,7 +747,7 @@ font-weight: bold;
 	  			    		"edateDiv":edate,
 	  			    		"planContent":planContent},
 	  			    		success:function(data){
-	  			    		 $.alert("일정 전송을 완료했습니다.");
+	  			    		 
 	  			            }
 	  			});
 	  			
@@ -864,7 +897,7 @@ font-weight: bold;
             word = splitedArray[word];
             if(word.indexOf('#')==0){
               hasht += (word.trim()+",");    
-              word = '<a href=\'링크\'>'+word+'</a>';
+              word = '<a href=\'링크\' class=hashLink>'+word+'</a>';
                   
            }
           else{
@@ -912,6 +945,7 @@ font-weight: bold;
        
       $(this).on("click","#priorityInsert",function(){
             $("#priorityDiv").css('display','none');
+            $(".prioritygraph").show();
             var op1 = $(':radio[name="option1"]:checked').val();
             //$.alert(op1);
             var op2 = $(':radio[name="option2"]:checked').val();
@@ -929,13 +963,24 @@ font-weight: bold;
                    /* $.alert("Yes"); */
                 }
           });
-            $('input').prop('checked', false);
+            //$('input').prop('checked', false);
             drawChart(op1,op2);
             
       });
       $(this).on("click","#priorityCancel",function(){
         $("#priorityDiv").css('display','none');
-        $('#modalPriority').empty();
+        $('.prioritygraph').hide();
+        var cardno = $('#cardNo').val();
+        $.ajax({
+            url:'priorityDelete.do',
+            type:'post',
+            dataType:"json",
+            data:{
+                    "no":cardno},
+            success:function(data){
+               /* $.alert("Yes"); */
+            }
+    	});
       });
       $(this).on("click","#checkBtn",function(){
           obj = document.getElementById('checkDiv');
@@ -949,7 +994,13 @@ font-weight: bold;
           
       });
       $(this).on("click","#checkInsert",function(){
-          $("#dateDiv").css("display","none");
+    	 if($("#checklistadd").css("display")=="inline"){
+    		 alert("이미 체크리스타 존재합니다.");
+    		 return;
+    	 }
+    		  
+    	  
+          $("#checkDiv").css("display","none");
           $("#checklistadd").css("display",'inline');
           var title = $('#checkTitle').val();
           $('#checklisttitle').text(title);
@@ -1012,11 +1063,24 @@ font-weight: bold;
             }
         });
        $(this).on("click","#labelDelete",function(){
-            $('#modalLabel').empty();
+    	   $('#labelDiv').hide(); 
+    	   $('#modalLabel').empty();
+    	   var cardno = $('#cardNo').val();
+           $.ajax({
+               url:'labelDelete.do',
+               type:'post',
+               dataType:"json",
+               data:{
+                       "no":cardno},
+               success:function(data){
+                
+               }
+         });
        });
        $(this).on("click","#labelInsert",function(){
               
             var cardno = $('#cardNo').val();
+            $('#labelDiv').hide();
               $('#modalLabel').empty();
               var labelColor = $(':radio[name="option10"]:checked').val();
               $.ajax({
@@ -1027,7 +1091,7 @@ font-weight: bold;
                             "label" : labelColor,
                             "no":cardno},
                     success:function(data){
-                       /* $.alert("Yes"); */
+                     
                     }
               });
               
@@ -1054,6 +1118,7 @@ font-weight: bold;
        
         
        $(this).on("click","#mapSearch",function(){
+    	   $("#mapApp").hide();
             $("#modalMap").css("display","block");
             var searchPlace = $('#txtAddress').val();   
             // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -1066,7 +1131,7 @@ font-weight: bold;
                   data:{"loc":searchPlace,
                             "no":cardno},
                   success:function(data){
-                     /* $.alert("Yes"); */
+                 
                   }
               });  
             
@@ -1092,7 +1157,7 @@ font-weight: bold;
                       data:{"open":op,
                                 "no":cardno},
                       success:function(data){
-                         /* $.alert("Yes"); */
+                     
                       }
                   });   
               });
@@ -1106,7 +1171,7 @@ font-weight: bold;
                   data:{
                             "no":cardno},
                   success:function(data){
-                     /* $.alert("Yes"); */
+                     
                   }
               });  
         });
@@ -1125,6 +1190,7 @@ font-weight: bold;
        });
        $(this).on("click","#fileInsert",function(){
              $("#modalFile").show();
+             $("#fileUpDiv").hide();
              var data = new FormData();
              /* var cardno = $('#cardNo').val(); */ 
              $.each($('#fileUpload')[0].files, function(i, file) {          
@@ -1213,13 +1279,27 @@ font-weight: bold;
                             "end":endDate,
                             "no":cardno},
                   success:function(data){
-                     /* $.alert("Yes"); */
+                
                   }
               });
            });
        
        
-       
+       $(this).on("click","#dateDelete",function(){
+    	   $('#modalDate').empty();
+    	   $("#dateDiv").hide();
+    	   var cardno = $('#cardNo').val();
+    	   $('#calendar').fullCalendar( 'removeEvents', cardno);
+    	   $.ajax({
+               url:'dateDelete.do',
+               type:'post',
+               dataType:"json",
+               data:{"no":cardno},
+               success:function(data){
+             
+               }
+           });
+       });
        $(this).on("click",".listDelete",function(){
          var deleteid=$(this).parents(".weekday").attr("id");
          var cardex=$(this).parents(".listHeader").siblings(".items").children(".list").attr("id");
@@ -1232,10 +1312,10 @@ font-weight: bold;
                   dataType:"json",
                   data:{"id":deleteid},
                   success:function(data){
-                      /* $.alert("Yes"); */
+                      
                   }
           });
-              /* $.alert(deleteid); */
+           
               $(this).parents(".weekday").remove();    
           } else {
               // Do nothing!
@@ -1253,7 +1333,6 @@ font-weight: bold;
              var cardid='card'+cardno;
              
              var listno=$('#'+cardid).parents('.weekday.col-md-1').attr("id");
-             //$.alert(listno);
              $('.weekday.col-md-1 #'+cardid).remove();
              var uhtml=$('#'+listno).html();
              var ehtml = "<div class='weekday col-md-1' id="+listno+">"+uhtml+"</div>";
@@ -1351,26 +1430,28 @@ font-weight: bold;
            $.ajax({
                url:'commentNick.do',
                type:'post',
-               dataType:"json",
+               dataType:"text",
                data:{"no":cardno},
                success:function(data){
             	  $('#nick').html(data);
             	  $('#nick').attr("id","commentNick");
             	  $('#addclock').html(getTimeStamp());
             	  $('#addclock').attr("id","clock");
+            	  var comm = data+"/"+getTimeStamp()+"/"+textcomment;
+            	  $.ajax({
+                      url:'commentAdd.do',
+                      type:'post',
+                      dataType:"json",
+                      data:{"no":cardno , "comm":comm},
+                      success:function(data){
+                        $('#commtmp').attr("id","comm"+data)
+                      }
+                 });
                }
              });
            
           
-           $.ajax({
-               url:'commentAdd.do',
-               type:'post',
-               dataType:"json",
-               data:{"no":cardno , "comm":textcomment},
-               success:function(data){
-                 $('#commtmp').attr("id","comm"+data)
-                       }
-             });
+           
           
        });
         
@@ -1684,7 +1765,19 @@ function cardTitleLimit(){
     	}
 	 });  //리스트제목 글자수 12 제한 
 }
-
+function searchCheck(){
+	if($.session.get("logSearchInput")!="none"){
+		var target = "planSearch.do?searchRadios=";
+		var searchRadios = $.session.get("logSearchType");
+		var inputSearch = $.session.get("logSearchInput");
+		target = target+searchRadios;
+        target = target +"&inputSearch=";
+        target = target +inputSearch;
+		$("#planSearchModal .modal-dialog").load(target, function() {
+            $("#planSearchModal").modal("show");
+		});
+	} 
+} 
 
           
 </script>
@@ -1871,7 +1964,7 @@ function cardTitleLimit(){
 		        <form role="form">
 		            <div class="form-group has-success has-feedback">
 		                <div  id="planSearch">
-		                    <label class="col-sm-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;color:#fff;">
+		                    <label class="col-lg-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;color:#fff;">
 		                    &nbsp;&nbsp;&nbsp;&nbsp;일정검색 <span class="glyphicon glyphicon-search"></span>
 		                    </label>
 		                    <div class="col-md-3" style="height: 34px">

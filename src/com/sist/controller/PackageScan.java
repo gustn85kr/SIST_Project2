@@ -9,7 +9,7 @@ public class PackageScan {
 	   try
 	   {
 		   //String path="C:\\Users\\aaa\\Git\\SIST_Project2\\src\\"; // Çö¼ö Çü
-		   String path="C:\\Users\\aaa\\Git\\SIST_Project2\\src\\"; //¼³ÈÆ
+		   String path="C:\\Users\\Administrator\\git\\SIST_Project2\\src\\"; //¼³ÈÆ
 		   String real_path=path+pack.replace(".", "\\");
 		   // java//com//sist//movie
 		   // com.sist.movie.BoardController

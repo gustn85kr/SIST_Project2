@@ -105,6 +105,7 @@ public class ListController {
 			 List<SearchVO> list = OnmDAO.searchMyPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
+				System.out.println(vo.getCardno());
 				vo.setContent(data);
 			 }
 			 req.setAttribute("list", list);			 

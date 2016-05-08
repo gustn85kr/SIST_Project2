@@ -27,8 +27,8 @@
 	                
 	                <c:forEach var="vo" items="${list}">
 	                <%-- <c:if test="${i%2==0}"> --%>
-	                    <div class="search-group3">
-	                    	<input type="hidden" value="${vo.cardno}"/>
+	                    <div class="search-group3 searchDiv">
+	                    	<input type="hidden" value="${vo.cardno}"/ class="cno">
 	                        <label class="col-sm-2" style="margin-left: 50px">${vo.nickname}</label>
 	                        <label class="col-sm-3">${vo.title}</label>
 	                        <label class="col-sm-5">${vo.content}</label>

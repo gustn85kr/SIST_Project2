@@ -10,10 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
-import com.sist.dao.CardVO;
-import com.sist.dao.CommVO;
-import com.sist.dao.ListVO;
-import com.sist.dao.OnmDAO;
+import com.sist.dao.*;
 
 @Controller("mainController")
 public class MainController {
@@ -44,9 +41,17 @@ public class MainController {
 
 	@RequestMapping("detail.do")
 	public String detail(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		HttpSession session = req.getSession();
+		int sno = (int) session.getAttribute("logUserno");
 		String strno = req.getParameter("no");
 		int no = Integer.parseInt(strno.substring(4));
+		String owner;
 		CardVO vo = OnmDAO.cardInfo(no);
+		if(vo.getUserno()==sno){
+			owner = "show";
+		}else{
+			owner="hide";
+		}
 		if(vo.getContent()!=null){
 			String data = vo.getContent();
 			vo.setContent(HashingHTML.htmlTostr(data));
@@ -54,26 +59,38 @@ public class MainController {
 		String map = OnmDAO.loadMap(no);
 		String checkTitle = OnmDAO.loadCheckListTitle(no);
 		String file = OnmDAO.loadFile(no);
+		System.out.println(file);
 		List<CommVO> checkList = OnmDAO.loadCheckList(no);
 		List<CommVO> commList = OnmDAO.loadCommList(no);
+		List<CommentDTO> comment = new ArrayList<CommentDTO>();
+		for(CommVO cvo : commList){
+			CommentDTO c = new CommentDTO();
+			c.setNo(cvo.getNo());
+			StringTokenizer stn = new StringTokenizer(cvo.getCardcomm(), "/");
+			c.setUser(stn.nextToken());
+			c.setTime(stn.nextToken());
+			c.setContent(stn.nextToken());
+			comment.add(c);
+		}
 		String beHash = OnmDAO.loadHash(no);
 		List<String> hashList = new ArrayList<String>();
 		//System.out.println(beHash);
 		if(beHash!=null){
   		StringTokenizer st = new StringTokenizer(beHash, ",");
   		//System.out.println("count"+st.countTokens());
-      while(st.hasMoreTokens()){
-        hashList.add(st.nextToken());
-      }
+	      while(st.hasMoreTokens()){
+	        hashList.add(st.nextToken());
+	      }
 		}
 		//System.out.println(hashList.size());
 		req.setAttribute("card", vo);
 		req.setAttribute("map", map);
 		req.setAttribute("checkTitle", checkTitle);
 		req.setAttribute("checkList", checkList);
-		req.setAttribute("commList", commList);
+		req.setAttribute("commList", comment);
 		req.setAttribute("hashList", hashList);
 		req.setAttribute("file", file);
+		req.setAttribute("own", owner);
 		return "detail";
 	}
 }

@@ -20,7 +20,7 @@ body{
 #modalBody{
    background: url("calendar/images/back7.jpg");
    background-repeat: no-repeat;
-   width:1000px;
+   width:100%;
    min-height:800px;
    max-height:1800px;
    padding:20px;
@@ -91,7 +91,7 @@ margin-top:10px;
 .modal-content{
    position: relative;
    margin:0 auto;
-   width:900px;
+   width:90%;
    
 }
 #glypTitle,#listName{
@@ -332,7 +332,7 @@ border: none;
 			<div id="content" >
 				<button type="button" id="modalBdClose"><img src="calendar\images\closeB-icon.png" ></button>
 			</div>
-			<div class="col-sm-9">
+			<div class="col-lg-9">
 				<div id="modalTitle">
 					<input type="hidden" id="cardNo" value="${card.no}"/>
 					<span class="glyphicon glyphicon-list-alt" id="glypTitle"> ${card.title}</span><span id="listName">${card.regdate}</span>
@@ -364,7 +364,11 @@ border: none;
 					</c:if>
 					</div>
 					<div id="modalTextarea">
-						<div id="contentText" style="font: bold;"><img src="calendar\images\text-icon.png" style="text-align:left;font-size:20px;">&nbsp;&nbsp;일정내용<span id="insertContent" data-toggle="tooltip" title="일정 내용 수정">  수정  </span></div>
+						<div id="contentText" style="font: bold;"><img src="calendar\images\text-icon.png" style="text-align:left;font-size:20px;">&nbsp;&nbsp;일정내용
+						<c:if test="${own=='show'}">
+						<span id="insertContent" data-toggle="tooltip" title="일정 내용 수정">  수정  </span>
+						</c:if>
+						</div>
 						<div id="newTA" style="display:none">
 						 	<textarea id="mytextarea" >
 				
@@ -381,7 +385,7 @@ border: none;
                           <div id="hashtag" style="border-top: 2px solid #eee;width: 500;" >
 
                            <c:forEach var="tt" items="${hashList}">
-                               <a href="#" > ${tt} </a>
+                               <a href="#" class='hashLink'> ${tt} </a>
                            </c:forEach>
                           </div>
                           </c:if>                 
@@ -419,7 +423,7 @@ border: none;
                     </div>
                     </c:if>
                     <c:if test="${checkTitle!=null}">
-                    <div id="checklistadd">
+                    <div id="checklistadd"style="display:inline">
                         <div id="checkunder"><img src="calendar\images\checkbox-icon.png" style="text-align:left;">&nbsp;&nbsp;<b>체크리스트</b></div>
                         <p id="checklisttitle">${checkTitle}</p>
                         <div class="progressbar-container" id="progressbar-container">
@@ -430,17 +434,39 @@ border: none;
                         <div class="checkready" id= "checkready" >
                         <c:forEach var="chk" items="${checkList}">
                         <c:if test="${chk.function==3}">
-                            <form id='checkboxform'><p><input type='checkbox' class='chkList' id='${chk.no}'>${chk.cardcomm}</p></form>
+                            <form id='checkboxform'>
+                            	<p>
+                            	<c:if test="${own=='show'}">
+                            		<input type='checkbox' class='chkList' id='${chk.no}' >
+                            	</c:if>
+                            	<c:if test="${own=='hide'}">
+                            		<input type='checkbox' class='chkList' id='${chk.no}' disabled="disabled">
+                            	</c:if>
+                            		${chk.cardcomm}
+                            	</p>
+                            </form>
                         </c:if>
                         <c:if test="${chk.function==4}">
-                            <form id='checkboxform'><p><input type='checkbox' class='chkList' id='${chk.no}' checked="checked">${chk.cardcomm}</p></form>
+                            <form id='checkboxform'>
+                            	<p>
+                            	<c:if test="${own=='show'}">
+                            		<input type='checkbox' class='chkList' id='${chk.no}' checked="checked">
+                            	</c:if>
+                            	<c:if test="${own=='hide'}">
+                            		<input type='checkbox' class='chkList' id='${chk.no}' checked="checked" disabled="disabled" >
+                            	</c:if>
+                            		${chk.cardcomm}
+                            	</p>
+                            </form>
                         </c:if>
                         </c:forEach>
                         </div>
+                        <c:if test="${own=='show'}">
                         <div id="addcheck">
                           <button type="button" class="addlistcheck" id="addchecklist">추가</button>
                           <button type="button" class="checkcomplete" id="complecheck" style="display:none">완료</button>
                         </div>
+                        </c:if>
                     </div>
                     <script type="text/javascript">
                      $('#checkready').ready(function() {
@@ -522,9 +548,10 @@ border: none;
                 <div id=modalBottom>
                     <span class="glyphicon glyphicon-comment" id="glypBottom"> 댓글</span><br>
                     <c:forEach var="comm" items="${commList}">
-                       <div class='commentArea' id='comm${comm.no }'>
+                       <div class='commentArea' id='comm${comm.no}'>
                            <button id='commentDelete' style='float:right; background-color:transparent; border:none;'><img src="calendar\images\msgdelete.png"></button>
-                           <div>${comm.cardcomm}</div>
+                           <span id='nick${comm.no}''>${comm.user}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='clock'>${comm.time}</span>
+                           <div>${comm.content}</div>
                          </div>
                     </c:forEach>
                     <div id="commentAdd">
@@ -536,7 +563,8 @@ border: none;
                 </div>
                 
             </div>
-            <div class="col-sm-3" id="sideBar">
+            <div class="col-lg-3" id="sideBar">
+            <c:if test="${own=='show'}">
                  <button type="button" class="btn btn-default btn-sm" id="lockaddBtn">
                  <c:if test="${card.done==1}">
                     <div id="lockchange" style="display: inline"><img src="calendar\images\openlock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;공개</div>
@@ -738,7 +766,7 @@ border: none;
             <button class="btn btn-default btn-sm" type="button" id="carddeleteBtn" >                 
                 <img src="calendar\images\carddelete.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 카드삭제                          
           </button>
-          
+          </c:if>
           <br>
             <div class="prioritygraph" style="width: 230px;height: 200px;"> 
                  <div id="container" style="min-width: 200px; max-width: 210px; height: 150px; margin: 0 auto"></div>
