@@ -337,8 +337,8 @@ body {
 font-weight: bold;
  }
     </style> 
-<c:set var="seInput" value="${sessionScope.logSearchInput}"/>
-<c:set var="seType" value="${sessionScope.logSearchType}"/>
+<%-- <c:set var="seInput" value="${sessionScope.logSearchInput}"/>
+<c:set var="seType" value="${sessionScope.logSearchType}"/> --%>
 <script type="text/javascript">
     $(document).ready(function(){
 		searchCheck();
@@ -704,7 +704,8 @@ font-weight: bold;
       });
         $(this).on("click",".hashLink",function(){
         	$('#cardDetail').modal('hide');
-        	var inputSearch=$(this).text().substring(2);
+        	var inputSearch=$(this).text().substring(1);
+        	alert(inputSearch);
         	$.session.set('logSearchInput', inputSearch);
             $.session.set('logSearchType', '3');
         });
@@ -1766,7 +1767,11 @@ function cardTitleLimit(){
 	 });  //리스트제목 글자수 12 제한 
 }
 function searchCheck(){
-	if($.session.get("logSearchInput")!="none"){
+    //alert($.session.get("logSearchInput"));
+    /* if($.session.get("logSearchInput") == "none"){
+      alert("yes");
+    } */
+	if($.session.get("logSearchInput") != "none"){
 		var target = "planSearch.do?searchRadios=";
 		var searchRadios = $.session.get("logSearchType");
 		var inputSearch = $.session.get("logSearchInput");
