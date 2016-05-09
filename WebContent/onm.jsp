@@ -32,7 +32,7 @@
 
 <script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=ddcf4460013008172d4b85dea4263c64&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
@@ -40,7 +40,6 @@
    @media screen and (min-width: 768px) {
 	
 	#cardDetail .modal-dialog  {width:1000px;}
-
 }
 body{
    font-family:'Malgun Gothic';
