@@ -46,10 +46,8 @@ public class MainController {
 		String strno = req.getParameter("no");
 		int no = Integer.parseInt(strno.substring(4));
 		String owner="";
-		System.out.println("no"+no);
 		CardVO vo = OnmDAO.cardInfo(no);
-
-		if(vo.getNo()==sno){
+		if(vo.getUserno()==sno){
 			owner = "show";
 		}else{
 			owner="hide";
