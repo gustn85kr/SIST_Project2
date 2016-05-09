@@ -388,7 +388,6 @@ font-weight: bold;
       
         $(this).on("click",".searchUl",function(){
         	var cno= $(this).siblings(".cno").val();
-        	alert(cno);
         	 var target = "detail.do?no=card";
 			    target= target+cno.trim();
 				$("#cardDetail .modal-dialog").load(target, function() {
@@ -1047,7 +1046,7 @@ font-weight: bold;
       });
       $(this).on("click","#checkInsert",function(){
     	 if($("#checklistadd").css("display")=="inline"){
-    		 alert("이미 체크리스트 존재합니다.");
+    		$. alert("이미 체크리스트 존재합니다.");
     		 return;
     	 }
     		  

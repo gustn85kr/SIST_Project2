@@ -69,7 +69,6 @@ public class OnmDAO {
 	public static CardVO cardInfo(int no) {
 		SqlSession session = ssf.openSession();
 		CardVO vo = session.selectOne("getCardInfo", no);
-		System.out.println("dao userno:"+vo.getUserno());
 		session.close();
 		return vo;
 	}

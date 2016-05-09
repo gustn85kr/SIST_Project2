@@ -81,42 +81,45 @@
 		UPDATE onmcard SET
 		listno=#{listno} WHERE no=#{no}
 	</update>
-	
-   <delete id="listCardDelete" parameterType="int">
-      DELETE FROM onmcard WHERE listno=#{listno}
-   </delete>
-		
-	<!-- 카드생성   -->
+
+	<delete id="listCardDelete" parameterType="int">
+		DELETE FROM onmcard WHERE listno=#{listno}
+	</delete>
+
+	<!-- 카드생성 -->
 	<insert id="createCard" parameterType="Ocard">
 		INSERT INTO onmcard
 		VALUE(no,userno,title,regdate)
 		VALUES((seq_oc.nextval),#{userno},#{title},SYSDATE)
 	</insert>
-	
+
 	<update id="cardListno" parameterType="Ocard">
 		UPDATE onmcard SET
 		listno=#{listno} WHERE no=#{no}
 	</update>
-	
-	<!--  카드 생성시 no  -->
+
+	<!-- 카드 생성시 no -->
 	<select id="getCardNo" resultType="int">
 		SELECT MAX(no) FROM onmcard
 	</select>
 
 	<!-- 카드 정보 출력 -->
 	<select id="getCardInfo" resultType="Ocard" parameterType="int">
-		SELECT no,userno,title,content,regdate,startdate,enddate,priority1,priority2,done,label
+		SELECT
+		no,userno,title,content,regdate,startdate,enddate,priority1,priority2,done,label
 		FROM onmcard WHERE no=#{no}
 	</select>
 
 	<!-- 카드 삭제 -->
 	<delete id="cardDelete" parameterType="int">
-		DELETE FROM onmcard WHERE no=#{no}
+		DELETE FROM onmcard WHERE
+		no=#{no}
 	</delete>
 
 	<!-- 카드 삭제 전에 comm 모두 삭제 -->
 	<delete id="deleteAllComm" parameterType="int">
-		DELETE FROM onmcomm WHERE cardno=#{cardno}
+		DELETE FROM onmcomm
+		WHERE cardno=#{cardno}
 	</delete>
 
 	<!-- card 업데이트 -->
@@ -133,23 +136,27 @@
 
 	<!-- onm.jsp 호출시 card date 출력 -->
 	<select id="loadCard" resultType="Ocard" parameterType="int">
-		SELECT startdate,enddate,title,label,no FROM onmcard WHERE userno=#{userno}
+		SELECT
+		startdate,enddate,title,label,no FROM onmcard WHERE userno=#{userno}
 		AND startdate is not null
 	</select>
-	
+
 	<!-- card date Update -->
 	<update id="cardDateUpdate" parameterType="Ocard">
-		UPDATE onmcard SET startdate=#{startdate},enddate=#{enddate} WHERE no=#{no}
+		UPDATE onmcard SET
+		startdate=#{startdate},enddate=#{enddate} WHERE no=#{no}
 	</update>
 
 	<!-- card date Delete -->
 	<update id="cardDateDelete" parameterType="int">
-		UPDATE onmcard SET startdate=null,enddate=null WHERE no=#{no}
+		UPDATE onmcard SET
+		startdate=null,enddate=null WHERE no=#{no}
 	</update>
 
 	<!-- card label update -->
 	<update id="cardLabelUpdate" parameterType="Ocard">
-		UPDATE onmcard SET label=#{label} WHERE no=#{no}
+		UPDATE onmcard SET
+		label=#{label} WHERE no=#{no}
 	</update>
 
 	<!-- card label delete -->
@@ -157,15 +164,17 @@
 		UPDATE onmcard SET
 		label=null WHERE no=#{no}
 	</update>
-	
+
 	<!-- card content update -->
 	<update id="cardContentUpdate" parameterType="Ocard">
-		UPDATE onmcard SET content=#{content} WHERE no=#{no}
+		UPDATE onmcard SET
+		content=#{content} WHERE no=#{no}
 	</update>
 
 	<!-- card priority update -->
 	<update id="cardPriorityUpdate" parameterType="Ocard">
-		UPDATE onmcard SET priority1=#{priority1},priority2=#{priority2} WHERE
+		UPDATE onmcard SET
+		priority1=#{priority1},priority2=#{priority2} WHERE
 		no=#{no}
 	</update>
 
@@ -176,7 +185,8 @@
 	</update>
 	<!-- card open update -->
 	<update id="cardOpenUpdate" parameterType="Ocard">
-		UPDATE onmcard SET done=#{done} WHERE no=#{no}
+		UPDATE onmcard SET
+		done=#{done} WHERE no=#{no}
 	</update>
 
 	<!-- 맵 Insert -->
@@ -246,7 +256,8 @@
 
 	<!-- load comm list -->
 	<select id="loadCommList" parameterType="int" resultType="Comm">
-		SELECT no,cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=99 ORDER
+		SELECT
+		no,cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=99 ORDER
 		BY no
 	</select>
 
@@ -258,93 +269,107 @@
 
 	<!-- comment insert -->
 	<insert id="commentCreate" parameterType="Comm">
-		INSERT INTO onmcomm VALUES(seq_ocm.nextval,#{cardno},99,SYSDATE,#{cardcomm})
+		INSERT INTO onmcomm
+		VALUES(seq_ocm.nextval,#{cardno},99,SYSDATE,#{cardcomm})
 	</insert>
 
 	<!-- comm delete -->
 	<delete id="deleteComm" parameterType="int">
-		DELETE FROM onmcomm WHERE no=#{no}
+		DELETE FROM onmcomm WHERE
+		no=#{no}
 	</delete>
 
 	<!-- hash insert -->
 	<insert id="hashInsert" parameterType="Comm">
-		INSERT INTO onmcomm VALUES(seq_ocm.nextval,#{cardno},90,SYSDATE,#{cardcomm})
+		INSERT INTO onmcomm
+		VALUES(seq_ocm.nextval,#{cardno},90,SYSDATE,#{cardcomm})
 	</insert>
 
 	<!-- hash Update -->
 	<update id="hashUpdate" parameterType="Comm">
-		UPDATE onmcomm SET cardcomm = #{cardcomm} WHERE function=90 AND cardno = #{cardno}
+		UPDATE onmcomm SET
+		cardcomm = #{cardcomm} WHERE function=90 AND cardno = #{cardno}
 	</update>
 
 	<!-- count hash -->
 	<select id="countHash" resultType="int" parameterType="int">
-		SELECT COUNT(*) FROM onmcomm WHERE function=90 AND cardno=#{cardno}
+		SELECT
+		COUNT(*) FROM onmcomm WHERE function=90 AND cardno=#{cardno}
 	</select>
 
 	<!-- load hash -->
 	<select id="loadHash" parameterType="int" resultType="String">
-		SELECT cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=90
+		SELECT
+		cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=90
 	</select>
 
 	<!-- 파일 존재하는지 검사 -->
-	<select id="countFile" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM onmcomm WHERE cardno=#{cardno} AND function=5
+	<select id="countFile" parameterType="int" resultType="int"> SELECT
+		COUNT(*) FROM onmcomm WHERE cardno=#{cardno} AND function=5
 	</select>
 
 	<!-- file insert -->
 	<insert id="fileInsert" parameterType="Comm">
-		INSERT INTO onmcomm VALUES(seq_ocm.nextval,#{cardno},5,SYSDATE,#{cardcomm})
+		INSERT INTO onmcomm
+		VALUES(seq_ocm.nextval,#{cardno},5,SYSDATE,#{cardcomm})
 	</insert>
 
 	<!-- file update -->
 	<update id="fileUpdate" parameterType="Comm">
-		UPDATE onmcomm SET cardcomm=#{cardcomm} WHERE function=5 AND  cardno=#{cardno}
+		UPDATE onmcomm SET
+		cardcomm=#{cardcomm} WHERE function=5 AND cardno=#{cardno}
 	</update>
 
 	<!-- file Delete -->
 	<delete id="fileDelete" parameterType="int">
-		DELETE FROM onmcomm WHERE cardno=#{cardno} AND function=5
+		DELETE FROM onmcomm WHERE
+		cardno=#{cardno} AND function=5
 	</delete>
 
 	<!-- load hash -->
 	<select id="loadFile" parameterType="int" resultType="String">
-		SELECT cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=5
+		SELECT
+		cardcomm FROM onmcomm WHERE cardno=#{cardno} AND function=5
 	</select>
 
 	<!-- 검색 (MyPlan) -->
-	<!-- <select id="searchMyPlan" parameterType="java.util.Map" resultType="Search">
+	<!-- <select id="searchMyPlan" parameterType="java.util.Map" resultType="Search"> 
 		SELECT onmuser.nickname,onmcard.title,onmcard.content,onmcomm.cardcomm,onmcard.no 
-		FROM onmuser 
-		INNER JOIN onmcard ON onmuser.no=onmcard.userno 
-		LEFT OUTER JOIN onmcomm ON onmcard.no=onmcomm.cardno 
-		WHERE (onmcard.title LIKE '%'||#{inputSearch}||'%' OR onmcard.CONTENT LIKE '%'||#{inputSearch}||'%') AND function=90 AND 
-		onmuser.nickname=#{logNickname}
-	</select> -->
-		<select id="searchMyPlan" parameterType="java.util.Map" resultType="Search">
-		SELECT nickname,title,content,onmcard.no FROM onmuser, onmcard WHERE onmuser.no=onmcard.userno 
-		AND (title LIKE '%'||#{inputSearch}||'%' OR CONTENT LIKE '%'||#{inputSearch}||'%') AND
+		FROM onmuser INNER JOIN onmcard ON onmuser.no=onmcard.userno LEFT OUTER JOIN 
+		onmcomm ON onmcard.no=onmcomm.cardno WHERE (onmcard.title LIKE '%'||#{inputSearch}||'%' 
+		OR onmcard.CONTENT LIKE '%'||#{inputSearch}||'%') AND function=90 AND onmuser.nickname=#{logNickname} 
+		</select> -->
+	<select id="searchMyPlan" parameterType="java.util.Map"
+		resultType="Search">
+		SELECT nickname,title,content,onmcard.no FROM onmuser,
+		onmcard WHERE onmuser.no=onmcard.userno
+		AND (title LIKE '%'||#{inputSearch}||'%' OR CONTENT LIKE
+		'%'||#{inputSearch}||'%') AND
 		onmuser.no=#{logUserNo}
 	</select>
-<!-- 
-	<select id="searchAllPlan" parameterType="java.util.Map" resultType="Search">
-		SELECT onmuser.nickname,onmcard.title,onmcard.content,onmcomm.cardcomm,onmcomm.no
-		FROM onmuser
-		INNER JOIN onmcard ON onmuser.no=onmcard.userno
-		LEFT OUTER JOIN onmcomm ON onmcard.no=onmcomm.cardno
-		WHERE (onmcard.title LIKE '%'||#{inputSearch}||'%' OR CONTENT LIKE '%'||#{inputSearch}||'%') AND
-		onmcard.done=1
-	</select> -->
-	<select id="searchAllPlan" parameterType="java.util.Map" resultType="Search">
-		SELECT nickname,title,content,onmcard.no FROM onmuser, onmcard WHERE onmuser.no=onmcard.userno 
-		AND (title LIKE '%'||#{inputSearch}||'%' OR CONTENT LIKE '%'||#{inputSearch}||'%') AND
+	<!-- <select id="searchAllPlan" parameterType="java.util.Map" resultType="Search"> 
+		SELECT onmuser.nickname,onmcard.title,onmcard.content,onmcomm.cardcomm,onmcomm.no 
+		FROM onmuser INNER JOIN onmcard ON onmuser.no=onmcard.userno LEFT OUTER JOIN 
+		onmcomm ON onmcard.no=onmcomm.cardno WHERE (onmcard.title LIKE '%'||#{inputSearch}||'%' 
+		OR CONTENT LIKE '%'||#{inputSearch}||'%') AND onmcard.done=1 </select> -->
+	<select id="searchAllPlan" parameterType="java.util.Map"
+		resultType="Search">
+		SELECT nickname,title,content,onmcard.no FROM onmuser,
+		onmcard WHERE onmuser.no=onmcard.userno
+		AND (title LIKE '%'||#{inputSearch}||'%' OR CONTENT LIKE
+		'%'||#{inputSearch}||'%') AND
 		onmcard.done=1
 	</select>
-	<select id="searchHashPlan" parameterType="java.util.Map" resultType="Search">
-		SELECT onmuser.nickname,onmcard.title,onmcard.content,onmcomm.cardcomm,onmcomm.no
+	<select id="searchHashPlan" parameterType="java.util.Map"
+		resultType="Search">
+		SELECT
+		onmuser.nickname,onmcard.title,onmcard.content,onmcomm.cardcomm,onmcard.no
 		FROM onmuser
 		INNER JOIN onmcard ON onmuser.no=onmcard.userno
-		LEFT OUTER JOIN onmcomm ON onmcard.no=onmcomm.cardno
-		WHERE (cardcomm LIKE '%'||#{inputSearch}||'%') AND FUNCTION=90
+		LEFT OUTER
+		JOIN onmcomm ON onmcard.no=onmcomm.cardno
+		WHERE (cardcomm LIKE
+		'%'||#{inputSearch}||'%') AND FUNCTION=90 AND onmcard.done=1
 	</select>
 	<select id="searchHashTag" parameterType="int" resultType="String">
 		SELECT cardcomm FROM onmcomm WHERE cardno=#{no} AND function=90
