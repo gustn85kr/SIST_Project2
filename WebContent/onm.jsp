@@ -864,11 +864,12 @@ font-weight: bold;
         
         
         $("#insertContent").tooltip();
-        $(this).on("click","#insertContent",function(){             
+        $(this).on("click","#insertContent",function(){
+            
             $(this).parent("#contentText").siblings("#newTA").css('display','inline');
             $(this).parent("#contentText").siblings("#showContent").css('display','none');
             $(this).css('display','none');
-            
+            var content = $("#showContent").html();
             tinymce.init({
               selector: '#mytextarea',
               height: 200,
@@ -891,6 +892,7 @@ font-weight: bold;
               ]
                
              });
+            tinyMCE.activeEditor.setContent(content);
              
         });
         $(this).on("click","#contentInsert",function(){

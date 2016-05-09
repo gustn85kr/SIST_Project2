@@ -335,7 +335,7 @@ border: none;
 			<div class="col-lg-9">
 				<div id="modalTitle">
 					<input type="hidden" id="cardNo" value="${card.no}"/>
-					<span class="glyphicon glyphicon-list-alt" id="glypTitle"> ${card.title}</span><span id="listName">${card.regdate}</span>
+					<span class="glyphicon glyphicon-list-alt" id="glypTitle"> ${card.title}</span>
 					<div id="modalDate">
 						<c:if test="${card.startdate!=null}">
 							<span class='glyphicon glyphicon-calendar'>일정날짜</span>
@@ -377,7 +377,7 @@ border: none;
 		  					<button type="button" class="btn btn-default btn-sm" id="contentCancel" >취소</button>
   					  </div>
   					  <c:if test="${card.content!=null}">
-	  					  <div id="showContent">
+	  					  <div id="showContent" style="display: inline">
 	  					  	${card.content} 					  
 	  					  </div>
 	  					  <div id="hashready" style="display:none"></div>    
@@ -549,7 +549,9 @@ border: none;
                     <span class="glyphicon glyphicon-comment" id="glypBottom"> 댓글</span><br>
                     <c:forEach var="comm" items="${commList}">
                        <div class='commentArea' id='comm${comm.no}'>
+                            <c:if test="${own=='show'}">
                            <button id='commentDelete' style='float:right; background-color:transparent; border:none;'><img src="calendar\images\msgdelete.png"></button>
+                           </c:if>
                            <span id='nick${comm.no}''><b>${comm.user}</b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='clock'>${comm.time}</span>
                            <div>${comm.content}</div>
                          </div>
