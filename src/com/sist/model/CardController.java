@@ -284,6 +284,7 @@ public class CardController {
 		vo.setCardcomm(fileName);
 		vo.setCardno(Integer.parseInt(no));
 		int result = OnmDAO.countFile(vo);
+		System.out.println(result);
 		if (result == 0) {
 			OnmDAO.fileInsert(vo);
 		} else {

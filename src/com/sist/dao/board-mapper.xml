@@ -249,7 +249,7 @@
     
     <!-- 파일 존재하는지 검사 -->
 	<select id="countFile" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM onmcomm WHERE cardno=#{cardno} AND function=1
+		SELECT COUNT(*) FROM onmcomm WHERE cardno=#{cardno} AND function=5
 	</select>
 	
     <!-- file insert -->
