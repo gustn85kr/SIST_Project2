@@ -4,7 +4,7 @@ public class SearchVO {
 	private String nickname;
 	private String title;
 	private String content;
-	private int cardno;
+	private int no;
 	private String cardcomm;
 	public String getNickname() {
 		return nickname;
@@ -21,11 +21,12 @@ public class SearchVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getCardno() {
-		return cardno;
+	
+	public int getNo() {
+		return no;
 	}
-	public void setCardno(int cardno) {
-		this.cardno = cardno;
+	public void setNo(int no) {
+		this.no = no;
 	}
 	public String getCardcomm() {
 		return cardcomm;

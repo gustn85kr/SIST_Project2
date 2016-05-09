@@ -32,7 +32,7 @@
 
 <script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=ddcf4460013008172d4b85dea4263c64&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
@@ -40,12 +40,14 @@
    @media screen and (min-width: 768px) {
 	
 	#cardDetail .modal-dialog  {width:1000px;}
-
+	#planSearchModal .modal-dialog {width:1200px;}
 }
+
 body{
    font-family:'Malgun Gothic';
    padding:20px;
 }
+
 .bar {
     width: 100px;
     height: 20px;
@@ -90,6 +92,7 @@ body{
 .items {
     list-style-type: none;
     margin-top: 30px;
+    min-height:10px;
     padding: 0px;
  
     
@@ -112,12 +115,9 @@ body{
 
     width: 300px;
     padding: 5px; 
-    border-bottom: 2px solid #EDE1E7;
-    border-top: 2px solid #EDE1E7;
-   /*  background-color: #fff; */
+    border: 2px solid #EDE1E7;
+    border-radius: 10px;
     margin: 20px;
-    
-    /* max-height : 700px; */   
 }
  
 .listTitleCancel{
@@ -287,6 +287,10 @@ padding: 0px;
 text-align: center;
 }
 
+#planSearchModal{
+	overflow: hidden;
+}
+
 /* #calendarunder{
     height: 30px;
     background:#D3F1B9;
@@ -337,8 +341,6 @@ body {
 font-weight: bold;
  }
     </style> 
-<c:set var="seInput" value="${sessionScope.logSearchInput}"/>
-<c:set var="seType" value="${sessionScope.logSearchType}"/>
 <script type="text/javascript">
     $(document).ready(function(){
 		searchCheck();
@@ -355,8 +357,16 @@ font-weight: bold;
         
  
       //일정 검색 기능          
+	  $("#searchForm").keypress(function (e) {
+		  if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+		      $('#btnSearch').click();
+		      return false;
+		  } else {
+		      return true;
+		  }
+      });
+      
       $("#btnSearch").click(function(){
-        	
         	var target = "planSearch.do?searchRadios=";
         	var searchRadios = document.querySelector('input[name="searchRadio"]:checked').value;
         	
@@ -375,8 +385,10 @@ font-weight: bold;
 	        	});
             }
         }); 
-        $(this).on("click",".searchDiv",function(){
-        	var cno= $(this).children(".cno").val();
+      
+        $(this).on("click",".searchUl",function(){
+        	var cno= $(this).siblings(".cno").val();
+        	alert(cno);
         	 var target = "detail.do?no=card";
 			    target= target+cno.trim();
 				$("#cardDetail .modal-dialog").load(target, function() {
@@ -469,6 +481,7 @@ font-weight: bold;
 						    //여기부터 지도
 						    $("#txtAddress").keydown(function(e) {
 			                      if (e.keyCode == 13) {
+			                    	  divHide();
 			                    	  $("#modalMap").css("display","block");
 			                    	  $("#mapApp").hide();
 			                     		/* map.relayout(); */
@@ -589,6 +602,7 @@ font-weight: bold;
                     //여기부터 지도
                     $("#txtAddress").keydown(function(e) {
                           if (e.keyCode == 13) {
+                        	  divHide();
                               $("#modalMap").css("display","block");
                               $("#mapApp").hide();
                                 /* map.relayout(); */
@@ -630,29 +644,43 @@ font-weight: bold;
 
            });
          $("#timetable .items").sortable({
-             connectWith: "ul",           
+             connectWith: "ul",
+             dropOnEmpty: true,
              update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
- 
            var listno= $(this).parents('.weekday').attr('id');
            var draghtml = $(this).parents('.weekday').html();
            var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
-   
+      	   var cardno= ui.item.attr('id');
                   $.ajax({
                      url:'dragEvent.do',
                      type:'post',
                      dataType:"json",
                      data:{"listno":listno , "html":ehtml},
                      success:function(data){
-    
+                     
                              }
-                   });
-             }
-         });     
+                   });  
+             	},
+/*             	stop:function(event,ui){
+           		  var listno= $(this).parents('.weekday').attr('id'); 
+           		  alert(listno);
+          		},  */
+                 receive: function (event, ui) {
+               	  var listno= $(this).parents('.weekday').attr('id'); 
+           		  var cardno= ui.item.attr('id');
+           	     $.ajax({
+                     url:'cardListnoUpdate.do',
+                     type:'post',
+                     dataType:"json",
+                     data:{"listno":listno , "cardno":cardno},
+                     success:function(data){
+                             }
+                   }); 
+           		}
+         
+         	});
 
-        $("ul[id^='available']").draggable({
-                revert: true,      // immediately snap back to original position
-              revertDuration: 0
-        });
+   
         $(this).on("click",".footText",function(){
             $('.footText').show();
             $(this).css('display', 'none');
@@ -667,7 +695,6 @@ font-weight: bold;
             }else{
             var cardno = "tmpcard";
             $(this).siblings('textarea').val("");
-              
             $(this).parents(".listFoot").siblings('.items').append("<li class='list' id="+cardno+">"+text+"</li>");
             $(this).parent(".footInput").css('display', 'none');
             $(this).parent(".footInput").siblings('.footText').css('display', 'inline');
@@ -685,11 +712,13 @@ font-weight: bold;
                     var draghtml = $("#card"+cardno).parents('.weekday').html();
                     var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>";
                     $.ajax({
-                         url:'dragEvent.do',
+                         url:'dragEvent2.do',
                          type:'post',
                          dataType:"json",
-                         data:{"listno":listno , "html":ehtml},
-                         success:function(data){                                
+                         data:{"listno":listno , "html":ehtml,"cardno":cardno},
+                         success:function(data){
+                        	 
+                        	 
                          }
                      });               
                  }
@@ -736,7 +765,7 @@ font-weight: bold;
 	  			var sdate = $('#sdateDiv').text();
 	  			var edate = $('#edateDiv').text();
 	  			$("#mailDiv").hide();
-	  			alert("일정 전송을 완료했습니다.");
+	  			$.alert("일정 전송을 완료했습니다.");
 	  			$.ajax({
 	  			    url:'sendMail.do',
 	  			    type:'post',
@@ -747,7 +776,10 @@ font-weight: bold;
 	  			    		"edateDiv":edate,
 	  			    		"planContent":planContent},
 	  			    		success:function(data){
+
 	  			    		 
+	  			    		$('#toMail').val("");
+	  			    			divHide();
 	  			            }
 	  			});
 	  			
@@ -755,6 +787,8 @@ font-weight: bold;
         
         $(this).on("click","#cancelMail",function(){
             $("#mailDiv").css('display','none');
+            $('#toMail').val("");
+            divHide();
         }); 
         $(this).on("click",".listTitleCancel",function(){
             $(this).parent('.addListPanel').hide();
@@ -789,9 +823,7 @@ font-weight: bold;
                         "<div class='addListPanel' style='display:none;'><input name='name' class='addListTxt' type='text' placeholder='List Title'/> "+
                         " <input type='button' value='취소' class='listTitleCancel' /><input type='button' value='추가' class='listTitleBtn' />"+
                         "</div><div>");
-                    $("#timetable .items").sortable({
-                        connectWith: "ul"  
-                    });
+              
                     cardTitleLimit();
                     listTitleLimit();
                     
@@ -806,27 +838,43 @@ font-weight: bold;
                     });
                     
                     
-                     $("#timetable .items").sortable({
-                         connectWith: "ul",           
-                         update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
-                      /*     var test1= $(this).html();
-                         $.alert(test1); */
-                      
-                       var listno= $(this).parents('.weekday').attr('id');
-                       var draghtml = $(this).parents('.weekday').html();
-                       var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
-                      
-                              $.ajax({
-                                 url:'dragEvent.do',
+                    $("#timetable .items").sortable({
+                        connectWith: "ul", 
+                        dropOnEmpty: true,
+                        update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
+	                      var listno= $(this).parents('.weekday').attr('id');
+	                      var draghtml = $(this).parents('.weekday').html();
+	                      var ehtml = "<div class='weekday col-md-1' id="+listno+">"+draghtml+"</div>"; 
+	                 	  var cardno= ui.item.attr('id');
+                             $.ajax({
+                                url:'dragEvent.do',
+                                type:'post',
+                                dataType:"json",
+                                data:{"listno":listno , "html":ehtml},
+                                success:function(data){
+                                    
+                                        }
+                              });  
+                             
+                        	},
+                        /* 	stop:function(event,ui){
+                       	
+                      		},  */
+                            receive: function (event, ui) {
+                          	  var listno= $(this).parents('.weekday').attr('id'); 
+                       		  var cardno= ui.item.attr('id');
+                       	     $.ajax({
+                                 url:'cardListnoUpdate.do',
                                  type:'post',
                                  dataType:"json",
-                                 data:{"listno":listno , "html":ehtml},
+                                 data:{"listno":listno , "cardno":cardno},
                                  success:function(data){
-                                        
                                          }
-                               });
-                         }
-                     });
+                               }); 
+                       		}
+             
+                    	});
+               
                      
                 }
              });  
@@ -836,11 +884,12 @@ font-weight: bold;
         
         
         $("#insertContent").tooltip();
-        $(this).on("click","#insertContent",function(){             
+        $(this).on("click","#insertContent",function(){
+            
             $(this).parent("#contentText").siblings("#newTA").css('display','inline');
             $(this).parent("#contentText").siblings("#showContent").css('display','none');
             $(this).css('display','none');
-            
+            var content = $("#showContent").html();
             tinymce.init({
               selector: '#mytextarea',
               height: 200,
@@ -863,6 +912,7 @@ font-weight: bold;
               ]
                
              });
+            tinyMCE.activeEditor.setContent(content);
              
         });
         $(this).on("click","#contentInsert",function(){
@@ -897,7 +947,7 @@ font-weight: bold;
             word = splitedArray[word];
             if(word.indexOf('#')==0){
               hasht += (word.trim()+",");    
-              word = '<a href=\'링크\' class=hashLink>'+word+'</a>';
+              word = '<a href=# class=hashLink>'+word+'</a>';
                   
            }
           else{
@@ -963,8 +1013,9 @@ font-weight: bold;
                    /* $.alert("Yes"); */
                 }
           });
-            //$('input').prop('checked', false);
+            $('#labelDiv input').prop('checked', false);
             drawChart(op1,op2);
+            divHide();
             
       });
       $(this).on("click","#priorityCancel",function(){
@@ -981,6 +1032,7 @@ font-weight: bold;
                /* $.alert("Yes"); */
             }
     	});
+
       });
       $(this).on("click","#checkBtn",function(){
           obj = document.getElementById('checkDiv');
@@ -995,7 +1047,7 @@ font-weight: bold;
       });
       $(this).on("click","#checkInsert",function(){
     	 if($("#checklistadd").css("display")=="inline"){
-    		 alert("이미 체크리스타 존재합니다.");
+    		 alert("이미 체크리스트 존재합니다.");
     		 return;
     	 }
     		  
@@ -1015,6 +1067,8 @@ font-weight: bold;
 
                      }
            });
+          $('#checkTitle').val("");
+          divHide();
       });
     $(this).on("click","#checkCancel",function(){
           $("#checklistadd").empty();
@@ -1029,6 +1083,8 @@ font-weight: bold;
 
              }
            });
+          $('#checkTitle').val("");
+          divHide();
       });
         $(this).on("click","#dateBtn",function(){
              obj = document.getElementById('dateDiv');
@@ -1076,6 +1132,7 @@ font-weight: bold;
                 
                }
          });
+
        });
        $(this).on("click","#labelInsert",function(){
               
@@ -1114,6 +1171,7 @@ font-weight: bold;
                   $('#calendar').fullCalendar('addEventSource',events); 
               }
               $('#modalLabel').append("<div id='labeltit'><img src='calendar/images/label-icon.png'>&nbsp;&nbsp;&nbsp;<b>라벨</b></div><div id='labelColor' style='width:50px; background-color:"+labelColor+" '>&nbsp;</div> ");
+              divHide();
           });
        
         
@@ -1133,7 +1191,9 @@ font-weight: bold;
                   success:function(data){
                  
                   }
-              });  
+              }); 
+            $('#txtAddress').val("");
+            divHide();
             
         });
           $(this).on("click","#lockaddBtn",function(){
@@ -1159,7 +1219,8 @@ font-weight: bold;
                       success:function(data){
                      
                       }
-                  });   
+                  }); 
+                 divHide();
               });
        $(this).on("click","#mapCancel",function(){
             $("#modalMap").css("display","none");
@@ -1173,7 +1234,8 @@ font-weight: bold;
                   success:function(data){
                      
                   }
-              });  
+              });
+            divHide();
         });
        $(this).on("click","#fileDelete",function(){
          $("#modalFile").hide();
@@ -1186,7 +1248,9 @@ font-weight: bold;
              success:function(data){
                 
              }
+             
         });
+         divHide();
        });
        $(this).on("click","#fileInsert",function(){
              $("#modalFile").show();
@@ -1213,12 +1277,12 @@ font-weight: bold;
                          dataType:"json",
                          data:{"no":cardno , "file":data},
                          success:function(data){
-                            $('fileUpDiv').hide();
                          }
                     });
                      
                }
-           });  
+           });
+             divHide();
        });
        $(this).on("click","#glydown",function(){
             var fname = $('#fileName').text();
@@ -1282,6 +1346,7 @@ font-weight: bold;
                 
                   }
               });
+              divHide();
            });
        
        
@@ -1301,10 +1366,7 @@ font-weight: bold;
            });
        });
        $(this).on("click",".listDelete",function(){
-         var deleteid=$(this).parents(".weekday").attr("id");
-         var cardex=$(this).parents(".listHeader").siblings(".items").children(".list").attr("id");
-        
-     if (cardex==null) {
+         var deleteid=$(this).parents(".weekday").attr("id"); 
          if (confirm('해당 리스트를 삭제 하시겠습니까?')) {
               $.ajax({
                   url:'listDelete.do',
@@ -1316,14 +1378,12 @@ font-weight: bold;
                   }
           });
            
+
               $(this).parents(".weekday").remove();    
           } else {
               // Do nothing!
           }
-        }else
-        {
-            $.alert("해당 리스트를 삭제하실 수 없습니다.");
-        }
+        
      });
      
    
@@ -1336,7 +1396,6 @@ font-weight: bold;
              $('.weekday.col-md-1 #'+cardid).remove();
              var uhtml=$('#'+listno).html();
              var ehtml = "<div class='weekday col-md-1' id="+listno+">"+uhtml+"</div>";
-             $.alert(ehtml);
              $.ajax({
                  url:'cardDelete.do',
                  type:'post',
@@ -1550,7 +1609,7 @@ font-weight: bold;
                         
                         // count checks
                        function countChecked() {
-                              checked = $("input:checked").length-1;
+                              checked = $("#checkready input:checked").length;
                               
                               var percentage = parseInt(((checked / count) * 100),10);
                               $(".progressbar-bar").progressbar({
@@ -1755,6 +1814,16 @@ function listTitleLimit(){
         $(this).val($(this).val().substring(0,24));
     	}
 	 });  //리스트제목 글자수 12 제한 
+    $('.addListTxt').on('keyup', function() {
+        if($(this).val().length > 24) {
+        $(this).val($(this).val().substring(0,24));
+    	}
+	 });  //리스트제목 글자수 12 제한 	 
+    $('.addListTxt').on('keydown', function() {
+        if($(this).val().length > 24) {
+        $(this).val($(this).val().substring(0,24));
+    	}
+	 });  //리스트제목 글자수 12 제한 	 
 
 }
 
@@ -1764,9 +1833,25 @@ function cardTitleLimit(){
         $(this).val($(this).val().substring(0,24));
     	}
 	 });  //리스트제목 글자수 12 제한 
+    $('.cardText').on('keyup', function() {
+        if($(this).val().length > 24) {
+        $(this).val($(this).val().substring(0,24));
+    	}
+	 });  //리스트제목 글자수 12 제한 	 
+	 
+    $('.cardText').on('keydown', function() {
+        if($(this).val().length > 24) {
+        $(this).val($(this).val().substring(0,24));
+    	}
+	 });  //리스트제목 글자수 12 제한 	 
+	 
 }
 function searchCheck(){
-	if($.session.get("logSearchInput")!="none"){
+    //alert($.session.get("logSearchInput"));
+    /* if($.session.get("logSearchInput") == "none"){
+      alert("yes");
+    } */
+	if($.session.get("logSearchInput") != "none"){
 		var target = "planSearch.do?searchRadios=";
 		var searchRadios = $.session.get("logSearchType");
 		var inputSearch = $.session.get("logSearchInput");
@@ -1842,54 +1927,6 @@ function searchCheck(){
 		</div>
 	</div>
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-<style>
-.modal-header2, h4, .close {
-	   background-color: #5cb85c;
-	   color:white !important;
-	   text-align: center;
-	   font-size: 30px;
-}
-
-.modal-header2{
-	width: 1000px;
-	min-width: 200px;
-}
-
-.modal-body2{
-	background-color: #ffffff;
-	width:1000px;
-	min-width: 200px;
-	height: auto;
-	min-height: 400px;
-}
-
-.search-group2{
-	height: 40px;
-	padding: 8px 0px 35px;
-	font-size: 17px;
-	background-color: rgba(255,242,0,0.4);
-	text-align: center;
-
-}
-
-.search-group3{
-	height: 40px;
-	padding: 18px 0px 40px;
-	font-size: 15px;
-}
-
-.search-group4{
-	height: 40px;
-	padding: 18px 0px 40px;
-	font-size: 15px;
-	background-color:rgba(195,195,195,0.4)
-}
-
-#planSearchModal{
-	overflow: hidden;
-	right: 400px;
-}
-</style>
 <!-- 일정검색 Modal  -->
 <div class="container">
     <!-- Modal -->
@@ -1961,7 +1998,7 @@ function searchCheck(){
 
          <div class="col-md-6 half" id ='cardList' >
                 <!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
-		        <form role="form">
+		        <form role="form" id="searchForm">
 		            <div class="form-group has-success has-feedback">
 		                <div  id="planSearch">
 		                    <label class="col-lg-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;color:#fff;">
@@ -1974,7 +2011,7 @@ function searchCheck(){
 		                        <button type="button" class="btn btn-success" id="btnSearch">검색</button>
 		                            &nbsp;&nbsp;&nbsp;
 		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;">
-		                            <input type="radio" name="searchRadio" id="radioMyPlan" value="1">내 일정
+		                            <input type="radio" name="searchRadio" id="radioMyPlan" value="1" checked="checked">내 일정
 		                        </label> 
 		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;"> 
 		                            <input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정

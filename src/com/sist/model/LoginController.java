@@ -31,8 +31,6 @@ public class LoginController {
         session.setAttribute("logNickname", d.getNickname());
         session.setAttribute("logEmail", d.getEmail());
         session.setAttribute("logUserno", d.getNo());
-        session.setAttribute("logSearchInput", "none");
-        session.setAttribute("logSearchType", "none");
         //로그인 성공시 쿠키값을 넘긴다.
         Cookie[] cookies = req.getCookies();
         emailSave = cookies[((int)cookies.length-1)].getValue();

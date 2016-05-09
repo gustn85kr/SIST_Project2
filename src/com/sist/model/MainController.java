@@ -31,7 +31,7 @@ public class MainController {
 			vo.setHtml(HashingHTML.htmlTostr(tmp));
 			// System.out.println(vo.getHtml());
 		}
-
+    
 		List<CardVO> clist = new ArrayList<CardVO>();
 		clist = OnmDAO.loadCard((int) session.getAttribute("logUserno"));
 		req.setAttribute("clist", clist);
@@ -45,9 +45,11 @@ public class MainController {
 		int sno = (int) session.getAttribute("logUserno");
 		String strno = req.getParameter("no");
 		int no = Integer.parseInt(strno.substring(4));
-		String owner;
+		String owner="";
+		System.out.println("no"+no);
 		CardVO vo = OnmDAO.cardInfo(no);
-		if(vo.getUserno()==sno){
+
+		if(vo.getNo()==sno){
 			owner = "show";
 		}else{
 			owner="hide";

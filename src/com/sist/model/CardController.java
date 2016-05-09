@@ -33,37 +33,55 @@ public class CardController {
 		res.getWriter().write(String.valueOf(cnt));
 		return "ajax";
 	}
-
-	// 카드 삭제
-	@RequestMapping("cardDelete.do")
-	public String listDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String id = req.getParameter("id");
-		id = id.substring(4);
-		OnmDAO.cardDelete(Integer.parseInt(id));
-		return "ajax";
-	}
-
-	// 카드 업데이트
-	@RequestMapping("cardUpdate.do")
-	public String dragEvent(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		HttpSession session = req.getSession();
-		req.setCharacterEncoding("UTF-8");
-		String data = req.getParameter("html");
-		String listno = req.getParameter("listno");
-		int no = Integer.parseInt(listno.substring(4));
-		String aData = HashingHTML.strTohtml(data);
-
-		ListVO vo = new ListVO();
-		vo.setHtml(aData);
-		// vo.setTitle(aData);
-		// vo.setUserno((int)session.getAttribute("logUserno"));
-		vo.setNo(no);
-		OnmDAO.cardUpdate(vo);
-		/* OnmDAO.dragEvent(no); */
-		// res.setCharacterEncoding("UTF-8");
-		// res.getWriter().write(tot);
-		return "ajax";
-	}
+	
+  //  카드 삭제
+  @RequestMapping("cardDelete.do")
+  public String cardDelete(HttpServletRequest req, HttpServletResponse res) throws Exception {
+     String id = req.getParameter("id");
+     id = id.substring(4);
+     OnmDAO.cardDelete(Integer.parseInt(id));
+     return "ajax";
+  }
+  
+  // 카드 업데이트
+  @RequestMapping("cardUpdate.do")
+  public String cardUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+     HttpSession session=req.getSession();
+     req.setCharacterEncoding("UTF-8");
+     String data = req.getParameter("html");
+     String listno = req.getParameter("listno");
+     int no = Integer.parseInt(listno.substring(4));
+     String aData = HashingHTML.strTohtml(data);
+     
+     ListVO vo = new ListVO();
+     vo.setHtml(aData);
+     //vo.setTitle(aData);
+     //vo.setUserno((int)session.getAttribute("logUserno"));
+     vo.setNo(no);
+     OnmDAO.cardUpdate(vo);
+     /*OnmDAO.dragEvent(no);*/
+     //res.setCharacterEncoding("UTF-8");
+     //res.getWriter().write(tot);
+     return "ajax";
+  }
+  
+  @RequestMapping("cardListnoUpdate.do")
+  public String cardListnoUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {
+     HttpSession session=req.getSession();
+     req.setCharacterEncoding("UTF-8");
+     String cardno = req.getParameter("cardno");
+     String listno = req.getParameter("listno");
+     int lno = Integer.parseInt(listno.substring(4));
+     int cno = Integer.parseInt(cardno.substring(4));
+     CardVO vo = new CardVO();
+     vo.setNo(cno);
+     vo.setListno(lno);
+     OnmDAO.cardListnoUpdate(vo);
+     System.out.println(cno+","+lno);
+     return "ajax";
+  }
+  
+  
 
 	@RequestMapping("dateUpdate.do")
 	public String dateUpdate(HttpServletRequest req, HttpServletResponse res) throws Exception {

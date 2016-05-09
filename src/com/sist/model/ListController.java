@@ -18,9 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
-import com.sist.dao.ListVO;
-import com.sist.dao.OnmDAO;
-import com.sist.dao.SearchVO;
+import com.sist.dao.*;
 
 @Controller("listController")
 public class ListController {
@@ -49,6 +47,8 @@ public class ListController {
 		String id = req.getParameter("id");
 		id = id.substring(4);
 		OnmDAO.listDelete(Integer.parseInt(id));
+		OnmDAO.listCardDelete(Integer.parseInt(id));
+		
 		
 		return "ajax";
 	}
@@ -87,44 +87,110 @@ public class ListController {
 		return "ajax";
 	}
 	
+	@RequestMapping("dragEvent2.do")
+	public String dragEvent2(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		HttpSession session=req.getSession();
+		req.setCharacterEncoding("UTF-8");
+		String data = req.getParameter("html");
+		String listno = req.getParameter("listno");
+		String cardno = req.getParameter("cardno");
+		int no = Integer.parseInt(listno.substring(4));
+		System.out.println("dragevent userno : "+no);
+		System.out.println(data);
+		System.out.println(cardno);
+		String aData = HashingHTML.strTohtml(data);
+		//System.out.println(aData);
+		
+		ListVO vo = new ListVO();
+		vo.setHtml(aData);
+		vo.setUserno((int)session.getAttribute("logUserno"));
+		vo.setNo(no);
+		OnmDAO.dragEvent(vo);
+		
+		CardVO cvo = new CardVO();
+		cvo.setNo(Integer.parseInt(cardno));
+		cvo.setListno(no);
+		OnmDAO.cardListno(cvo);
+		
+		/*OnmDAO.dragEvent(no);*/
+		//res.setCharacterEncoding("UTF-8");
+		//res.getWriter().write(tot);
+		
+		return "ajax";
+	}
+	
 	//검색기능
 	@RequestMapping("planSearch.do")
 	public String planSearch(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		String inputSearch = req.getParameter("inputSearch");
 		String searchRadios = req.getParameter("searchRadios");
 		HttpSession session=req.getSession();
-		String logNickname=(String)session.getAttribute("logNickname");
-		System.out.println(logNickname);
+		/*String logNickname=(String)session.getAttribute("logNickname");
+		System.out.println(logNickname);*/
+		int logUserNo = (int)session.getAttribute("logUserno");
+		System.out.println(logUserNo);
 		System.out.println(inputSearch);
 		System.out.println(searchRadios);		
 		Map map=new HashMap();
 		map.put("inputSearch", inputSearch);
-		map.put("logNickname", logNickname);
+		map.put("logUserNo", logUserNo);
 		if(searchRadios.equals("1")){ //내 일정
-			System.out.println("라디오스1");
 			 List<SearchVO> list = OnmDAO.searchMyPlan(map);
 			 for(SearchVO vo : list){
-				String data = HashingHTML.htmlToSearch(vo.getContent());
-				System.out.println(vo.getCardno());
+				String data = vo.getContent();
+				if(data!=null){
+					data = HashingHTML.htmlToSearch(data);
+					vo.setContent(data);
+				}else{
+					vo.setCardcomm(null);
+				}
+				String data2= OnmDAO.searchHashTag(vo.getNo());
+				if(data2!=null){
+					data2= data2.substring(0, data2.length()<21?data2.length()-1:20);
+					vo.setCardcomm(data2);
+				} else {
+					vo.setCardcomm(null);
+				}
 				vo.setContent(data);
 			 }
 			 req.setAttribute("list", list);			 
+			 
 		} else if(searchRadios.equals("2")){ //모든 일정
-			System.out.println("라디오스2");
 			 List<SearchVO> list = OnmDAO.searchAllPlan(map);
 			 for(SearchVO vo : list){
-				String data = HashingHTML.htmlToSearch(vo.getContent());
-				vo.setContent(data);
-			 }
-			 req.setAttribute("list", list);		
+					String data = vo.getContent();
+					if(data!=null){
+						data = HashingHTML.htmlToSearch(data);
+						vo.setContent(data);
+					}else{
+						vo.setCardcomm(null);
+					}
+					String data2= OnmDAO.searchHashTag(vo.getNo());
+					if(data2!=null){
+						data2= data2.substring(0, data2.length()<21?data2.length()-1:20);
+						vo.setCardcomm(data2);
+					} else {
+						vo.setCardcomm(null);
+					}
+					vo.setContent(data);
+				 }
+			 req.setAttribute("list", list);	
+			 
 		} else{//해시태그
 			System.out.println("라디오스3");
 			 List<SearchVO> list = OnmDAO.searchHashPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
+				String data2= vo.getCardcomm();
+				if(data2!=null){
+					data2= data2.substring(0, vo.getCardcomm().length()<21?vo.getCardcomm().length()-1:20);
+					vo.setCardcomm(data2);
+				} else {
+					vo.setCardcomm(null);
+				}
 				vo.setContent(data);
 			 }
-			 req.setAttribute("list", list);		
+			 req.setAttribute("list", list);				
 		}
 		return "search";
 	}
