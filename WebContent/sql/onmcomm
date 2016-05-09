@@ -7,7 +7,7 @@ cardno NUMBER,
 function NUMBER,
 commreg DATE DEFAULT SYSDATE,
 cardcomm CLOB,
-CONSTRAINT ocm_cardno_fk FOREIGN KEY (cardno) REFERENCES onmcard(no)
+CONSTRAINT ocm_cardno_fk FOREIGN KEY (cardno) REFERENCES onmcard(no) ON DELETE CASCADE
 );
 
 CREATE SEQUENCE seq_ocm

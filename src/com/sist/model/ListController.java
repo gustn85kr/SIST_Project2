@@ -18,9 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
-import com.sist.dao.ListVO;
-import com.sist.dao.OnmDAO;
-import com.sist.dao.SearchVO;
+import com.sist.dao.*;
 
 @Controller("listController")
 public class ListController {
@@ -49,6 +47,8 @@ public class ListController {
 		String id = req.getParameter("id");
 		id = id.substring(4);
 		OnmDAO.listDelete(Integer.parseInt(id));
+		OnmDAO.listCardDelete(Integer.parseInt(id));
+		
 		
 		return "ajax";
 	}
@@ -79,6 +79,38 @@ public class ListController {
 		vo.setUserno((int)session.getAttribute("logUserno"));
 		vo.setNo(no);
 		OnmDAO.dragEvent(vo);
+		
+		/*OnmDAO.dragEvent(no);*/
+		//res.setCharacterEncoding("UTF-8");
+		//res.getWriter().write(tot);
+		
+		return "ajax";
+	}
+	
+	@RequestMapping("dragEvent2.do")
+	public String dragEvent2(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		HttpSession session=req.getSession();
+		req.setCharacterEncoding("UTF-8");
+		String data = req.getParameter("html");
+		String listno = req.getParameter("listno");
+		String cardno = req.getParameter("cardno");
+		int no = Integer.parseInt(listno.substring(4));
+		System.out.println("dragevent userno : "+no);
+		System.out.println(data);
+		System.out.println(cardno);
+		String aData = HashingHTML.strTohtml(data);
+		//System.out.println(aData);
+		
+		ListVO vo = new ListVO();
+		vo.setHtml(aData);
+		vo.setUserno((int)session.getAttribute("logUserno"));
+		vo.setNo(no);
+		OnmDAO.dragEvent(vo);
+		
+		CardVO cvo = new CardVO();
+		cvo.setNo(Integer.parseInt(cardno));
+		cvo.setListno(no);
+		OnmDAO.cardListno(cvo);
 		
 		/*OnmDAO.dragEvent(no);*/
 		//res.setCharacterEncoding("UTF-8");

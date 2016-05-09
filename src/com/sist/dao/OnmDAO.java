@@ -1,3 +1,4 @@
+
 package com.sist.dao;
 
 import java.util.*;
@@ -19,7 +20,9 @@ public class OnmDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+
 	}
+
 
 	public static int listCreate(int userno) {
 		SqlSession session = ssf.openSession(true);
@@ -319,5 +322,24 @@ public class OnmDAO {
 		session.close();
 		return list;
 	}
+	
+	  public static void cardListno(CardVO vo) {
+		SqlSession session = ssf.openSession(true);
+		session.update("cardListno", vo);
+	    session.close();
+	  }
 
+	  public static void cardListnoUpdate(CardVO vo) {
+		SqlSession session = ssf.openSession(true);
+		session.update("cardListnoUpdate", vo);
+		System.out.println("µé·¶´Ù°¡¿ë~");
+	    session.close();
+	  }
+
+	  public static void listCardDelete(int listno) {
+	    SqlSession session = ssf.openSession(true);
+	    session.delete("listCardDelete", listno);
+	    session.close();
+	  }
+	
 }
