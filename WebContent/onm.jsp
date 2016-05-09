@@ -564,8 +564,8 @@ font-weight: bold;
                 var events=new Array();   
                 event = new Object();       
                 event.title = "${vo.title}"; 
-                event.start = "${vo.startdate}";
-                event.end = "${vo.enddate}";
+                event.start = "${vo.startdate}"+" 00:00:00";
+                event.end = "${vo.enddate}"+" 23:59:00";
                 event.id ="${vo.no}";
                 var labelC =  "${vo.label}";
                 
@@ -1160,8 +1160,8 @@ font-weight: bold;
                   var events=new Array();     
                   event = new Object();       
                   event.title = title; 
-                  event.start = startDate;    // its a date string
-                  event.end = endDate;
+                  event.start = startDate+" 00:00:00";    // its a date string
+                  event.end = endDate+" 23:59:00";
                   event.id =  cardno;
                   event.color = labelColor;
                   
@@ -1316,8 +1316,8 @@ font-weight: bold;
               var events=new Array();     
               event = new Object();       
               event.title = title; 
-              event.start = startDate;    // its a date string
-              event.end = endDate;
+              event.start = startDate+" 00:00:00";    // its a date string
+              event.end = endDate+" 23:59:00";
               event.id =  id;
               if(labelColor==null){
               event.color = "green";
@@ -1374,7 +1374,7 @@ font-weight: bold;
                   dataType:"json",
                   data:{"id":deleteid},
                   success:function(data){
-                      
+                	  location.reload();
                   }
           });
            
