@@ -18,9 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
-import com.sist.dao.ListVO;
-import com.sist.dao.OnmDAO;
-import com.sist.dao.SearchVO;
+import com.sist.dao.*;
 
 @Controller("listController")
 public class ListController {
@@ -49,6 +47,8 @@ public class ListController {
 		String id = req.getParameter("id");
 		id = id.substring(4);
 		OnmDAO.listDelete(Integer.parseInt(id));
+		OnmDAO.listCardDelete(Integer.parseInt(id));
+		
 		
 		return "ajax";
 	}
@@ -87,6 +87,38 @@ public class ListController {
 		return "ajax";
 	}
 	
+	@RequestMapping("dragEvent2.do")
+	public String dragEvent2(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		HttpSession session=req.getSession();
+		req.setCharacterEncoding("UTF-8");
+		String data = req.getParameter("html");
+		String listno = req.getParameter("listno");
+		String cardno = req.getParameter("cardno");
+		int no = Integer.parseInt(listno.substring(4));
+		System.out.println("dragevent userno : "+no);
+		System.out.println(data);
+		System.out.println(cardno);
+		String aData = HashingHTML.strTohtml(data);
+		//System.out.println(aData);
+		
+		ListVO vo = new ListVO();
+		vo.setHtml(aData);
+		vo.setUserno((int)session.getAttribute("logUserno"));
+		vo.setNo(no);
+		OnmDAO.dragEvent(vo);
+		
+		CardVO cvo = new CardVO();
+		cvo.setNo(Integer.parseInt(cardno));
+		cvo.setListno(no);
+		OnmDAO.cardListno(cvo);
+		
+		/*OnmDAO.dragEvent(no);*/
+		//res.setCharacterEncoding("UTF-8");
+		//res.getWriter().write(tot);
+		
+		return "ajax";
+	}
+	
 	//검색기능
 	@RequestMapping("planSearch.do")
 	public String planSearch(HttpServletRequest req, HttpServletResponse res) throws Exception{
@@ -105,23 +137,36 @@ public class ListController {
 			 List<SearchVO> list = OnmDAO.searchMyPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
+				System.out.println("vo.getcard 랭스"+vo.getCardcomm().length());
+				String data2= vo.getCardcomm().substring(0, vo.getCardcomm().length()<12?vo.getCardcomm().length():12);
 				vo.setContent(data);
+				vo.setCardcomm(data2);
 				System.out.println(vo.getCardno());
 			 }
 			 req.setAttribute("list", list);			 
+			 
 		} else if(searchRadios.equals("2")){ //모든 일정
 			System.out.println("라디오스2");
 			 List<SearchVO> list = OnmDAO.searchAllPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
+				String data2= vo.getCardcomm();
+				System.out.println(data2);
+				data2= data2.substring(0, vo.getCardcomm().length()<12?vo.getCardcomm().length():12);
+				vo.setCardcomm(data2);
 				vo.setContent(data);
 			 }
-			 req.setAttribute("list", list);		
+			 req.setAttribute("list", list);	
+			 
 		} else{//해시태그
 			System.out.println("라디오스3");
 			 List<SearchVO> list = OnmDAO.searchHashPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
+				String data2= vo.getCardcomm();
+				System.out.println(data2);
+				data2= data2.substring(0, vo.getCardcomm().length()<12?vo.getCardcomm().length()-1:12);
+				vo.setCardcomm(data2);
 				vo.setContent(data);
 			 }
 			 req.setAttribute("list", list);		

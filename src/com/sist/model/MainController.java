@@ -31,7 +31,7 @@ public class MainController {
 			vo.setHtml(HashingHTML.htmlTostr(tmp));
 			// System.out.println(vo.getHtml());
 		}
-
+    
 		List<CardVO> clist = new ArrayList<CardVO>();
 		clist = OnmDAO.loadCard((int) session.getAttribute("logUserno"));
 		req.setAttribute("clist", clist);

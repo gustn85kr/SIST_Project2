@@ -373,8 +373,8 @@ border: none;
 						 	<textarea id="mytextarea" >
 				
 						 	</textarea>
-		  					<button type="button" class="btn btn-default btn-sm" id="contentInsert">입력</button>
-		  					<button type="button" class="btn btn-default btn-sm" id="contentCancel" >취소</button>
+		  					<button type="button" class="btn btn-default btn-sm" id="contentInsert"> <b>입력</b></button>
+		  					<button type="button" class="btn btn-default btn-sm" id="contentCancel"> <b>취소</b></button>
   					  </div>
   					  <c:if test="${card.content!=null}">
 	  					  <div id="showContent">
@@ -484,7 +484,7 @@ border: none;
                           
                           // count checks
                          function countChecked() {
-                                checked = $("input:checked").length-1;
+                                checked = $("#checkready input:checked").length;
                                 
                                 var percentage = parseInt(((checked / count) * 100),10);
                                 $(".progressbar-bar").progressbar({
@@ -521,7 +521,7 @@ border: none;
                     <div id="modalFile" style="display:none">
                         <form class="fileUpload" action="download.jsp" method="post" enctype="multipart/form-data">
                             <div id="fileUpField" >
-                                <span class="glyphicon glyphicon-paperclip" id="glypfile">파일첨부<br/>
+                                <img src="calendar\images\fileup-icon.png">&nbsp;&nbsp;<b>파일첨부</b><br/>
                                 <span id="fileName"></span>&nbsp;&nbsp;<button type="button" class="btn btn-default btn-sm" id="glydown">
                                     <span class="glyphicon glyphicon-download-alt" ></span> 다운로드</button>
                                 <!-- <button type="button" class="btn btn-default btn-sm" id="glyremove">
@@ -534,7 +534,7 @@ border: none;
                     <div id="modalFile">
                         <form class="fileUpload" action="download.jsp" method="post" enctype="multipart/form-data">
                             <div id="fileUpField" >
-                                <span class="glyphicon glyphicon-paperclip" id="glypfile"> 파일첨부</span> <br/>
+                           		 <img src="calendar\images\fileup-icon.png">&nbsp;&nbsp;<b>파일첨부</b><br/>
                                 <span id="fileName">${file}</span>&nbsp;&nbsp;<button type="button" class="btn btn-default btn-sm" id="glydown">
                                     <span class="glyphicon glyphicon-download-alt" ></span> 다운로드</button>
                                 <!-- <button type="button" class="btn btn-default btn-sm" id="glyremove">
@@ -550,7 +550,7 @@ border: none;
                     <c:forEach var="comm" items="${commList}">
                        <div class='commentArea' id='comm${comm.no}'>
                            <button id='commentDelete' style='float:right; background-color:transparent; border:none;'><img src="calendar\images\msgdelete.png"></button>
-                           <span id='nick${comm.no}''>${comm.user}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='clock'>${comm.time}</span>
+                           <span id='nick${comm.no}''><b>${comm.user}</b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='clock'>${comm.time}</span>
                            <div>${comm.content}</div>
                          </div>
                     </c:forEach>
@@ -567,18 +567,18 @@ border: none;
             <c:if test="${own=='show'}">
                  <button type="button" class="btn btn-default btn-sm" id="lockaddBtn">
                  <c:if test="${card.done==1}">
-                    <div id="lockchange" style="display: inline"><img src="calendar\images\openlock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;공개</div>
-                    <div id="lockchacom" style="display: none"><img src="calendar\images\closelock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;비공개</div>
+                    <div id="lockchange" style="display: inline"><img src="calendar\images\openlock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>공개</b></div>
+                    <div id="lockchacom" style="display: none"><img src="calendar\images\closelock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>비공개</b></div>
                  </c:if>
                  <c:if test="${card.done==2}">
-                    <div id="lockchange" style="display: none"><img src="calendar\images\openlock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;공개</div>
-                    <div id="lockchacom" style="display: inline"><img src="calendar\images\closelock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;비공개</div>
+                    <div id="lockchange" style="display: none"><img src="calendar\images\openlock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>공개</b></div>
+                    <div id="lockchacom" style="display: inline"><img src="calendar\images\closelock-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>비공개</b></div>
                  </c:if>
                 </button>      
                 <br/>
                 <button type="button" class="btn btn-default btn-sm"  id="dateBtn">
                      <img src="calendar\images\calendar-icon.png" style="text-align:left;">
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일정
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>일정</b>
                 </button>
                 <div id="dateDiv" style="display:none">
                     <div>
@@ -603,7 +603,7 @@ border: none;
 
                 
                     <button type="button" class="btn btn-default btn-sm" id="fileUpButton" style="border:0">
-                    <img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파일첨부
+                    <img src="calendar\images\fileadd-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>파일첨부</b>
                     </button>
                     <div id="fileUpDiv" style="display:none">
                         <form class="fileUpload" action="fileInsert.do" method="post" enctype="multipart/form-data" id="fileaddiBtn">
@@ -619,7 +619,7 @@ border: none;
                                       <%-- 뛰어 --%>
                 
                 <button type="button" class="btn btn-default btn-sm" id="mailBtn" style="border:0px;">
-                <img src="calendar\images\email-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 메일
+                <img src="calendar\images\email-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>메일</b>
                </button>      
                <div id ="mailDiv" style="display:none">
                  <div style="margin:10px;"> 받는 사람 :
@@ -633,7 +633,7 @@ border: none;
                <br>                       <%-- 뛰어 --%>
                  
                  <button type="button" class="btn btn-default btn-sm" id="checkBtn">
-                  <img src="calendar\images\checkbox-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;체크리스트
+                  <img src="calendar\images\checkbox-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>체크리스트</b>
                 </button>
                 <div id="checkDiv" style="display:none">
                     <div style="margin:10px;">
@@ -649,7 +649,7 @@ border: none;
                  <br>                        <%-- 뛰어 --%>
                 
                 <button type="button" class="btn btn-default btn-sm" id="btnMap">
-                  <img src="calendar\images\map-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;위치설정
+                  <img src="calendar\images\map-icon.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>위치설정</b>
                   </button>           
                 <!--  <div id="map" style="width:100%;height:350px; display:none;"></div>   -->
                  <div id="mapApp" style="display:none"><br>
@@ -665,7 +665,7 @@ border: none;
                 
                 <br>
                 <button class="btn btn-default btn-sm" type="button" id="priorityBtn" >                 
-                  <img src="calendar\images\star-icon.png">&nbsp;&nbsp;우선순위 설정                        
+                  <img src="calendar\images\star-icon.png">&nbsp;&nbsp;<b>우선순위 설정  </b>                     
                 </button>
                 <div class="container" id ="priorityDiv" style="display:none">
                     <p>중요도</p>
@@ -729,7 +729,7 @@ border: none;
                 </div>
                 <br>
                 <button class="btn btn-default btn-sm" type="button" id="labelBtn" >                 
-                     <img src="calendar\images\label-icon.png"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;라벨
+                     <img src="calendar\images\label-icon.png"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>라벨</b>
                 </button>
                 <div class="container" id ="labelDiv" style="display:none">
                   <div class="btn-group" data-toggle="buttons" >         
@@ -764,7 +764,7 @@ border: none;
             
             <br>
             <button class="btn btn-default btn-sm" type="button" id="carddeleteBtn" >                 
-                <img src="calendar\images\carddelete.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 카드삭제                          
+                <img src="calendar\images\carddelete.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>카드삭제 </b>                  
           </button>
           </c:if>
           <br>
