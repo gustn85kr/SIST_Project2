@@ -133,30 +133,50 @@ public class ListController {
 		map.put("inputSearch", inputSearch);
 		map.put("logNickname", logNickname);
 		if(searchRadios.equals("1")){ //내 일정
-			System.out.println("라디오스1");
 			 List<SearchVO> list = OnmDAO.searchMyPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
-				System.out.println(vo.getCardno());
+				String data2= vo.getCardcomm();
+				if(data2!=null){
+					data2= data2.substring(0, vo.getCardcomm().length()<21?vo.getCardcomm().length()-1:20);
+					vo.setCardcomm(data2);
+				} else {
+					vo.setCardcomm(null);
+				}
 				vo.setContent(data);
 			 }
 			 req.setAttribute("list", list);			 
+			 
 		} else if(searchRadios.equals("2")){ //모든 일정
-			System.out.println("라디오스2");
 			 List<SearchVO> list = OnmDAO.searchAllPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
+				String data2= vo.getCardcomm();
+				if(data2!=null){
+					data2= data2.substring(0, vo.getCardcomm().length()<21?vo.getCardcomm().length()-1:20);
+					vo.setCardcomm(data2);
+				} else {
+					vo.setCardcomm(null);
+				}
 				vo.setContent(data);
 			 }
-			 req.setAttribute("list", list);		
+			 req.setAttribute("list", list);	
+			 
 		} else{//해시태그
 			System.out.println("라디오스3");
 			 List<SearchVO> list = OnmDAO.searchHashPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
+				String data2= vo.getCardcomm();
+				if(data2!=null){
+					data2= data2.substring(0, vo.getCardcomm().length()<21?vo.getCardcomm().length()-1:20);
+					vo.setCardcomm(data2);
+				} else {
+					vo.setCardcomm(null);
+				}
 				vo.setContent(data);
 			 }
-			 req.setAttribute("list", list);		
+			 req.setAttribute("list", list);				
 		}
 		return "search";
 	}
