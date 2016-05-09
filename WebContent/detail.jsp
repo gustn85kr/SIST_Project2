@@ -550,7 +550,7 @@ border: none;
                     <c:forEach var="comm" items="${commList}">
                        <div class='commentArea' id='comm${comm.no}'>
                            <button id='commentDelete' style='float:right; background-color:transparent; border:none;'><img src="calendar\images\msgdelete.png"></button>
-                           <span id='nick${comm.no}''>${comm.user}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='clock'>${comm.time}</span>
+                           <span id='nick${comm.no}''><b>${comm.user}</b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='clock'>${comm.time}</span>
                            <div>${comm.content}</div>
                          </div>
                     </c:forEach>
