@@ -89,6 +89,7 @@ body{
 .items {
     list-style-type: none;
     margin-top: 30px;
+    min-height:10px;
     padding: 0px;
  
     
@@ -626,7 +627,8 @@ font-weight: bold;
 
            });
          $("#timetable .items").sortable({
-             connectWith: "ul", 
+             connectWith: "ul",
+             dropOnEmpty: true,
              update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
            var listno= $(this).parents('.weekday').attr('id');
            var draghtml = $(this).parents('.weekday').html();
@@ -821,6 +823,7 @@ font-weight: bold;
                     
                     $("#timetable .items").sortable({
                         connectWith: "ul", 
+                        dropOnEmpty: true,
                         update:function(e,ui){    //드롭이 시작한곳에서 한번 실행된후 발생한곳에서 또한번실행
 	                      var listno= $(this).parents('.weekday').attr('id');
 	                      var draghtml = $(this).parents('.weekday').html();
