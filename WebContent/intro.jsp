@@ -65,12 +65,12 @@
 }
 
 #bgSignUpBtn,#bgLoginBtn{
-	width: 200px;
-	background-color: rgba(92,184,92,0.8);
-	font-family: fantasy;
-	font-size: 18px;
-	width: 100px;
-	z-index: 100;
+    width: 130px;
+    background: none;;
+    font-family: fantasy;
+    font-size: 18px;
+    height:40px;
+    z-index: 100;
 }
 </style>
 	
