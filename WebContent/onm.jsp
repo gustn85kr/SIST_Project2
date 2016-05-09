@@ -1027,7 +1027,7 @@ font-weight: bold;
       });
       $(this).on("click","#checkInsert",function(){
     	 if($("#checklistadd").css("display")=="inline"){
-    		 alert("이미 체크리스타 존재합니다.");
+    		 alert("이미 체크리스트 존재합니다.");
     		 return;
     	 }
     		  
@@ -1376,7 +1376,6 @@ font-weight: bold;
              $('.weekday.col-md-1 #'+cardid).remove();
              var uhtml=$('#'+listno).html();
              var ehtml = "<div class='weekday col-md-1' id="+listno+">"+uhtml+"</div>";
-             $.alert(ehtml);
              $.ajax({
                  url:'cardDelete.do',
                  type:'post',
