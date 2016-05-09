@@ -111,12 +111,9 @@ body{
 
     width: 300px;
     padding: 5px; 
-    border-bottom: 2px solid #EDE1E7;
-    border-top: 2px solid #EDE1E7;
-   /*  background-color: #fff; */
+    border: 2px solid #EDE1E7;
+    border-radius: 10px;
     margin: 20px;
-    
-    /* max-height : 700px; */   
 }
  
 .listTitleCancel{
