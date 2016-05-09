@@ -88,12 +88,12 @@ margin-top:10px;
     padding-right: 30px;
    
 }
-.modal-content{
+/* .modal-content{
    position: relative;
    margin:0 auto;
    width:90%;
    
-}
+} */
 #glypTitle,#listName{
 margin-bottom:10px;
 }
@@ -327,7 +327,7 @@ border: none;
 </script>
 </head>
 <body>
-	<div class="modal-dialog" id="modalBody">
+	<div class="modal-dialog container" id="modalBody">
 		<div class="row">
 			<div id="content" >
 				<button type="button" id="modalBdClose"><img src="calendar\images\closeB-icon.png" ></button>
