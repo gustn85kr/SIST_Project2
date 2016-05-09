@@ -14,6 +14,13 @@ public class CardVO {
    private String priority2;
    private String done;
    private String label;
+   private int listno;
+public int getListno() {
+	return listno;
+}
+public void setListno(int listno) {
+	this.listno = listno;
+}
 public int getNo() {
 	return no;
 }
