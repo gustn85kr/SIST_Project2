@@ -337,8 +337,6 @@ body {
 font-weight: bold;
  }
     </style> 
-<%-- <c:set var="seInput" value="${sessionScope.logSearchInput}"/>
-<c:set var="seType" value="${sessionScope.logSearchType}"/> --%>
 <script type="text/javascript">
     $(document).ready(function(){
 		searchCheck();
@@ -720,8 +718,7 @@ font-weight: bold;
       });
         $(this).on("click",".hashLink",function(){
         	$('#cardDetail').modal('hide');
-        	var inputSearch=$(this).text().substring(1);
-        	alert(inputSearch);
+        	var inputSearch=$(this).text().substring(2);
         	$.session.set('logSearchInput', inputSearch);
             $.session.set('logSearchType', '3');
         });
@@ -753,7 +750,7 @@ font-weight: bold;
 	  			var sdate = $('#sdateDiv').text();
 	  			var edate = $('#edateDiv').text();
 	  			$("#mailDiv").hide();
-	  			alert("일정 전송을 완료했습니다.");
+	  			$.alert("일정 전송을 완료했습니다.");
 	  			$.ajax({
 	  			    url:'sendMail.do',
 	  			    type:'post',
@@ -765,7 +762,7 @@ font-weight: bold;
 	  			    		"planContent":planContent},
 	  			    		success:function(data){
 
-	  			    		 $.alert("일정 전송을 완료했습니다.");
+	  			    		 
 	  			    		$('#toMail').val("");
 	  			    			divHide();
 	  			            }
@@ -932,7 +929,7 @@ font-weight: bold;
             word = splitedArray[word];
             if(word.indexOf('#')==0){
               hasht += (word.trim()+",");    
-              word = '<a href=\'링크\' class=hashLink>'+word+'</a>';
+              word = '<a href=# class=hashLink>'+word+'</a>';
                   
            }
           else{
@@ -998,7 +995,7 @@ font-weight: bold;
                    /* $.alert("Yes"); */
                 }
           });
-            //$('input').prop('checked', false);
+            $('#labelDiv input').prop('checked', false);
             drawChart(op1,op2);
             divHide();
             
@@ -1595,7 +1592,7 @@ font-weight: bold;
                         
                         // count checks
                        function countChecked() {
-                              checked = $("input:checked").length-1;
+                              checked = $("#checkready input:checked").length;
                               
                               var percentage = parseInt(((checked / count) * 100),10);
                               $(".progressbar-bar").progressbar({

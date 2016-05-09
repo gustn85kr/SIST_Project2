@@ -177,29 +177,29 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
 			<img src="assets/img/sliders/revolution/test02.jpg" alt="slidebg1"  data-bgfit="cover" data-bgposition="center center" data-bgrepeat="no-repeat">
 
 			<!-- LAYERS -->
-			<div class="tp-caption rs-caption-1 sft start"
-			data-x="center"
-			data-hoffset="0"
-			data-y="200"
-			data-speed="800"
-			data-start="1500"
-			data-easing="Back.easeInOut"
-			data-endspeed="300">
+          <div class="tp-caption rs-caption-1 sft start"
+              data-x="center"
+              data-hoffset="0"
+              data-y="100"
+              data-speed="800"
+              data-start="2000"
+              data-easing="Back.easeInOut"
+              data-endspeed="300">        
 			Drag & Drop !!
 		</div>
 
 		<!-- LAYER -->
-		<div class="tp-caption rs-caption-2 sft"
-		data-x="center"
-		data-hoffset="0"
-		data-y="200"
-		data-speed="1000"
-		data-start="3000"
-		data-easing="Power4.easeOut"
-		data-endspeed="300"
-		data-endeasing="Power1.easeIn"
-		data-captionhidden="off"
-		style="z-index: 6">
+        <div class="tp-caption rs-caption-2 sft"
+        data-x="center"
+        data-hoffset="0"
+        data-y="200"
+        data-speed="1000"
+        data-start="3000"
+        data-easing="Power4.easeOut"
+        data-endspeed="300"
+        data-endeasing="Power1.easeIn"
+        data-captionhidden="off"
+        style="z-index: 6">             
 		Drag & Drop을 통해 <br>
 		일정을 마음대로 수정하세요!!
 	</div>
@@ -302,20 +302,11 @@ data-endeasing="Power1.easeIn"
 data-captionhidden="off"
 style="z-index: 6">
 
-Remember me. Try your best,, Maybe we can. 
+이해해셨죠? 지금 시작하세요! 
 					<br>
 					<br>
 					<span class="page-scroll bgLoginBtn"><a href="#bgLoginBtn" class="btn-u btn-brd btn-brd-hover btn-u-light" id="bgLoginBtn">로그인</a></span>
-					<span class="page-scroll bgSignUpBtn"><a href="#bgSignUpBtn" class="btn-u btn-brd btn-brd-hover btn-u-light" id="bgSignUpBtn">회원가입</a></span>		                   <!-- 1번 슬라이드 집중 시키고 싶음.
-=======
-이해해셨죠? 지금 시작하세요!                    <!-- 1번 슬라이드 집중 시키고 싶음.
->>>>>>> refs/remotes/origin/master
-                                                                                        2번 슬라이드 우리 기능 소개
-                                                                                        3번 슬라이드 명언
-                                                                                        4번 슬라이드 영어나 뭐 그런 멋있는말
-                                                                                        5번 우리 기능이 쉽다는걸 강조 
-                                                                                        슬라이드를 궁금해서 넘겨보게 싶게 만들고 싶음.
-                                                                                        그러나, 아직은 창조적인 생각이 안나서.. -->
+					<span class="page-scroll bgSignUpBtn"><a href="#bgSignUpBtn" class="btn-u btn-brd btn-brd-hover btn-u-light" id="bgSignUpBtn">회원가입</a></span>		                 
 </div>
 
 </li>
@@ -344,6 +335,7 @@ Remember me. Try your best,, Maybe we can.
 	<script src="assets/plugins/revolution-slider/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 	<script src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
 	<!-- JS Page Level-->
+	<script src="assets/plugins/jquery/jquery-session.js"></script>
 	<script src="assets/js/one.app.js"></script>
 	<script src="assets/js/forms/login.js"></script>
 	<script src="assets/js/forms/contact.js"></script>
@@ -798,6 +790,8 @@ Remember me. Try your best,, Maybe we can.
 									$('#logEmail').val("");
 									$('#logPwd').val("");
 									$('#LoginModal').modal('toggle');
+						             $.session.set("logSearchInput","none");
+						             $.session.set("logSearchType","none"); 
 									location.href = "onm.do";
 								}
 							}

@@ -484,7 +484,7 @@ border: none;
                           
                           // count checks
                          function countChecked() {
-                                checked = $("input:checked").length-1;
+                                checked = $("#checkready input:checked").length;
                                 
                                 var percentage = parseInt(((checked / count) * 100),10);
                                 $(".progressbar-bar").progressbar({
