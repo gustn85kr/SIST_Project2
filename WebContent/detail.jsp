@@ -373,8 +373,8 @@ border: none;
 						 	<textarea id="mytextarea" >
 				
 						 	</textarea>
-		  					<button type="button" class="btn btn-default btn-sm" id="contentInsert">입력</button>
-		  					<button type="button" class="btn btn-default btn-sm" id="contentCancel" >취소</button>
+		  					<button type="button" class="btn btn-default btn-sm" id="contentInsert"> <b>입력</b></button>
+		  					<button type="button" class="btn btn-default btn-sm" id="contentCancel"> <b>취소</b></button>
   					  </div>
   					  <c:if test="${card.content!=null}">
 	  					  <div id="showContent" style="display: inline">
