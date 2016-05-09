@@ -32,7 +32,7 @@
 
 <script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
 <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=ddcf4460013008172d4b85dea4263c64&libraries=services"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=a41bbfd5db3d2e44b63d4711d5c8d15f&libraries=services"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
@@ -40,7 +40,6 @@
    @media screen and (min-width: 768px) {
 	
 	#cardDetail .modal-dialog  {width:1000px;}
-
 }
 body{
    font-family:'Malgun Gothic';
@@ -112,12 +111,9 @@ body{
 
     width: 300px;
     padding: 5px; 
-    border-bottom: 2px solid #EDE1E7;
-    border-top: 2px solid #EDE1E7;
-   /*  background-color: #fff; */
+    border: 2px solid #EDE1E7;
+    border-radius: 10px;
     margin: 20px;
-    
-    /* max-height : 700px; */   
 }
  
 .listTitleCancel{
@@ -1029,7 +1025,7 @@ font-weight: bold;
       });
       $(this).on("click","#checkInsert",function(){
     	 if($("#checklistadd").css("display")=="inline"){
-    		 alert("이미 체크리스타 존재합니다.");
+    		 alert("이미 체크리스트 존재합니다.");
     		 return;
     	 }
     		  
@@ -1378,7 +1374,6 @@ font-weight: bold;
              $('.weekday.col-md-1 #'+cardid).remove();
              var uhtml=$('#'+listno).html();
              var ehtml = "<div class='weekday col-md-1' id="+listno+">"+uhtml+"</div>";
-             $.alert(ehtml);
              $.ajax({
                  url:'cardDelete.do',
                  type:'post',
