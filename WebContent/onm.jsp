@@ -40,7 +40,7 @@
    @media screen and (min-width: 768px) {
 	
 	#cardDetail .modal-dialog  {width:1000px;}
-
+	#planSearchModal .modal-dialog {width:1200px;}
 }
 body{
    font-family:'Malgun Gothic';
@@ -287,6 +287,10 @@ padding: 0px;
 text-align: center;
 }
 
+#planSearchModal{
+	overflow: hidden;
+}
+
 /* #calendarunder{
     height: 30px;
     background:#D3F1B9;
@@ -355,8 +359,16 @@ font-weight: bold;
         
  
       //일정 검색 기능          
+	  $("#searchForm").keypress(function (e) {
+		  if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+		      $('#btnSearch').click();
+		      return false;
+		  } else {
+		      return true;
+		  }
+      });
+      
       $("#btnSearch").click(function(){
-        	
         	var target = "planSearch.do?searchRadios=";
         	var searchRadios = document.querySelector('input[name="searchRadio"]:checked').value;
         	
@@ -375,6 +387,7 @@ font-weight: bold;
 	        	});
             }
         }); 
+      
         $(this).on("click",".searchDiv",function(){
         	var cno= $(this).children(".cno").val();
         	 var target = "detail.do?no=card";
@@ -1842,54 +1855,6 @@ function searchCheck(){
 		</div>
 	</div>
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-<style>
-.modal-header2, h4, .close {
-	   background-color: #5cb85c;
-	   color:white !important;
-	   text-align: center;
-	   font-size: 30px;
-}
-
-.modal-header2{
-	width: 1000px;
-	min-width: 200px;
-}
-
-.modal-body2{
-	background-color: #ffffff;
-	width:1000px;
-	min-width: 200px;
-	height: auto;
-	min-height: 400px;
-}
-
-.search-group2{
-	height: 40px;
-	padding: 8px 0px 35px;
-	font-size: 17px;
-	background-color: rgba(255,242,0,0.4);
-	text-align: center;
-
-}
-
-.search-group3{
-	height: 40px;
-	padding: 18px 0px 40px;
-	font-size: 15px;
-}
-
-.search-group4{
-	height: 40px;
-	padding: 18px 0px 40px;
-	font-size: 15px;
-	background-color:rgba(195,195,195,0.4)
-}
-
-#planSearchModal{
-	overflow: hidden;
-	right: 400px;
-}
-</style>
 <!-- 일정검색 Modal  -->
 <div class="container">
     <!-- Modal -->
@@ -1961,7 +1926,7 @@ function searchCheck(){
 
          <div class="col-md-6 half" id ='cardList' >
                 <!-------- 일정 검색 위치 ------------------------------------------------------------------------------------------------------------------>
-		        <form role="form">
+		        <form role="form" id="searchForm">
 		            <div class="form-group has-success has-feedback">
 		                <div  id="planSearch">
 		                    <label class="col-lg-0 control-label" for="inputSuccess" style="float: left; text-align: center; height: auto; padding-top: 6px;color:#fff;">
@@ -1974,7 +1939,7 @@ function searchCheck(){
 		                        <button type="button" class="btn btn-success" id="btnSearch">검색</button>
 		                            &nbsp;&nbsp;&nbsp;
 		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;">
-		                            <input type="radio" name="searchRadio" id="radioMyPlan" value="1">내 일정
+		                            <input type="radio" name="searchRadio" id="radioMyPlan" value="1" checked="checked">내 일정
 		                        </label> 
 		                        <label class="radio-inline" style="padding-top: 3px;color:#fff;"> 
 		                            <input type="radio" name="searchRadio" id="radioAllPlan" value="2">모든 일정

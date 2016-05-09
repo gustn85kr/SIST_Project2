@@ -105,8 +105,8 @@ public class ListController {
 			 List<SearchVO> list = OnmDAO.searchMyPlan(map);
 			 for(SearchVO vo : list){
 				String data = HashingHTML.htmlToSearch(vo.getContent());
-				System.out.println(vo.getCardno());
 				vo.setContent(data);
+				System.out.println(vo.getCardno());
 			 }
 			 req.setAttribute("list", list);			 
 		} else if(searchRadios.equals("2")){ //모든 일정
